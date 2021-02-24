@@ -1,5 +1,5 @@
 .terraform
-*.tfvars
+# *.tfvars
 !sample-inventory\/cluster.tfvars
 *.tfstate
 *.tfstate.backup

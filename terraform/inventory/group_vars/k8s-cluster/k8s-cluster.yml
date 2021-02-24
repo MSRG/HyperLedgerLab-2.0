@@ -39,7 +39,6 @@ credentials_dir: "{{ inventory_dir }}/credentials"
 # kube_oidc_auth: false
 # kube_token_auth: false
 
-
 ## Variables for OpenID Connect Configuration https://kubernetes.io/docs/admin/authentication/
 ## To use OpenID you have to deploy additional an OpenID Provider (e.g Dex, Keycloak, ...)
 
@@ -64,7 +63,7 @@ credentials_dir: "{{ inventory_dir }}/credentials"
 
 # Choose network plugin (cilium, calico, weave or flannel. Use cni for generic cni plugin)
 # Can also be set to 'cloud', which lets the cloud provider setup appropriate routing
-kube_network_plugin: calico
+kube_network_plugin: flannel
 
 # Setting multi_networking to true will install Multus: https://github.com/intel/multus-cni
 kube_network_plugin_multus: false
@@ -115,10 +114,10 @@ kube_network_node_prefix_ipv6: 120
 
 # The port the API Server will be listening on.
 kube_apiserver_ip: "{{ kube_service_addresses|ipaddr('net')|ipaddr(1)|ipaddr('address') }}"
-kube_apiserver_port: 6443  # (https)
+kube_apiserver_port: 6443 # (https)
 # kube_apiserver_insecure_port: 8080  # (http)
 # Set to 0 to disable insecure port - Requires RBAC in authorization_modes and kube_api_anonymous_auth: true
-kube_apiserver_insecure_port: 0  # (disabled)
+kube_apiserver_insecure_port: 0 # (disabled)
 
 # Kube-proxy proxyMode configuration.
 # Can be ipvs, iptables
@@ -182,7 +181,7 @@ coredns_k8s_external_zone: k8s_external.local
 enable_coredns_k8s_endpoint_pod_names: false
 
 # Can be docker_dns, host_resolvconf or none
-resolvconf_mode: docker_dns
+resolvconf_mode: host_resolvconf
 # Deploy netchecker app to verify DNS resolve as an HTTP service
 deploy_netchecker: false
 # Ip address of the kubernetes skydns service
