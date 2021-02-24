@@ -1,0 +1,26 @@
+# OS params
+os_username: "'{{ lookup('env', 'OS_USERNAME') }}'"
+os_password: "'{{ lookup('env', 'OS_PASSWORD') }}'"
+os_base_url: "https://openstack.cluster.msrg.in.tum.de"
+os_project_name: "'{{ lookup('env', 'OS_PROJECT_NAME') }}'"
+os_user_domain_name: "default"
+os_project_domain_name: "default"
+
+# Cluster instances 3 control nodes, 3 worker nodes, 1 lb/dns node and 1 nfs
+k8s_ctl_instances: ["k8sctl1", "k8sctl2", "k8sctl3"]
+k8s_wrk_instances: ["k8swrk1", "k8swrk2", "k8swrk3"]
+k8s_lb_instance: "k8slb"
+k8s_nfs_instance: "k8snfs"
+k8s_instance_flavour: "m1.medium"
+k8s_ctl_instance_flavour: "m1.large"                  # Size of k8s control nodes
+k8s_wrk_instance_flavour: "m1.large"                  # Size of k8s worker nodes
+k8s_instance_image: "kvm-ubuntu-xenial"
+k8s_instance_availability_zone: "kvm-ssd"
+k8s_instance_security_groups: ["kube-cluster"]        # Security groups to assign to k8s worker and control nodes
+k8s_instance_dns_security_groups: ["kube-cluster", "dns", "load-balancer"]    # Security groups to assign to DNS node
+k8s_instance_nfs_security_groups: ["default"]         # Security Groups to assign to NFS node. default allows everything
+k8s_instance_image_key: "default-image-key"           # Key to use when creating an instance. Name should match the key in "Key-pairs" in openstack account
+
+# Cluster Inventory location
+k8s_cluster_inventory_file: "{{ lookup('env', 'INVENTORY_DIR_PATH') }}/cluster/hosts.ini"
+k8s_blockchain_inventory_file: "{{ lookup('env', 'INVENTORY_DIR_PATH') }}/blockchain/hosts.ini"

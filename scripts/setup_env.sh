@@ -35,7 +35,7 @@ else
     sudo apt-get install --yes python3-pip
     sudo apt-get install python3-venv
     python3 -m venv venv
-    source venv/bin/activate
+    source ./venv/bin/activate
     # python3 -m pip install -r requirements.txt
     # python3 -m pip install -r kubespray/requirements.txt
     set +x
@@ -50,6 +50,12 @@ sudo apt install ansible
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install terraform
+
+# Install Kubectl 
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 # Create ansible.log file if not present
 if [[ ! -f ansible.log ]]

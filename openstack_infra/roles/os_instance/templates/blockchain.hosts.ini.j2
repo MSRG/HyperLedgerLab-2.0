@@ -1,0 +1,18 @@
+##################################
+######### Blockchain hosts #######
+##################################
+
+[blockchain-setup]
+localhost ansible_connection=local
+
+[kube-nfs]
+# NFS server Node: To be added dynamically
+{% for ip in groups['kube-nfs'] %}
+{{ ip }}
+{% endfor %}
+
+[kube-node]
+# Worker Nodes: To be added dynamically
+{% for ip in groups['kube-node'] %}
+{{ ip }}
+{% endfor %}

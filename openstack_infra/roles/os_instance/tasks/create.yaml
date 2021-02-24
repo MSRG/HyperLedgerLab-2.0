@@ -1,0 +1,11 @@
+---
+# Run a script using a executable in a system path
+
+- name: Install python on all instances
+  shell: >
+    echo {{ hostvars[item].ansible_host }};
+    sudo apt install software-properties-common
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt install ansible
+
+- debug: msg="{{ k8sctl_nodes }}"
