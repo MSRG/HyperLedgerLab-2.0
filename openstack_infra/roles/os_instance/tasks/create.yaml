@@ -3,7 +3,6 @@
 
 - name: Install ansible
   shell: >
-    echo {{ hostvars[item].ansible_host }};
     sudo apt install software-properties-common
     sudo apt-add-repository --yes --update ppa:ansible/ansible
     sudo apt install ansible
