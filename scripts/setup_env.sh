@@ -4,6 +4,7 @@ set -e
 
 # cd to project root
 cd `dirname $0`/..
+echo $PWD
 
 # Update the submodule code
 set -x
@@ -15,7 +16,7 @@ set +x
 if [[ -f terraform/cloud.yaml ]]
 then
     echo "export OS_CLOUD=mycloud"
-    export OS_CLOUD=mycloud
+    export OS_CLOUD=terraform/cloud.yaml
 else
     echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
     exit 1
@@ -32,9 +33,9 @@ else
     mkdir venv
     sudo apt update
     sudo apt-get install --yes python3-pip
-    python3 -m pip install virtualenv
-    virtualenv --python=python3 venv
-    source ./venv/bin/activate
+    sudo apt-get install python3-venv
+    python3 -m venv venv
+    source venv/bin/activate
     # python3 -m pip install -r requirements.txt
     # python3 -m pip install -r kubespray/requirements.txt
     set +x
