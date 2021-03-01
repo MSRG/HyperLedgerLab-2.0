@@ -2,7 +2,7 @@
 # Run a script using a executable in a system path
 
 - name: Install python
-  shell: >
+  shell: |
     mkdir venv
     apt update
     apt-get install --yes python3-pip
