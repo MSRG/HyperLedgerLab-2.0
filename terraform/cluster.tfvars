@@ -49,3 +49,4 @@ subnet_cidr = "172.24.32.0/19"
 #router_internal_port_id ="dd0e99f0-4112-458f-a30f-328b517ed627"
 external_net = ""
 #bastion_allowed_remote_ips = ["0.0.0.0/0"]
+k8s_allowed_remote_ips = ["0.0.0.0/0"]

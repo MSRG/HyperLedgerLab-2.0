@@ -77,16 +77,6 @@ resource "openstack_networking_secgroup_rule_v2" "k8s" {
   security_group_id = openstack_networking_secgroup_v2.k8s.id
 }
 
-resource "openstack_networking_secgroup_rule_v2" "k8s_ssh" {
-  direction         = "ingress"
-  ethertype         = "IPv4"
-  protocol          = "tcp"
-  port_range_min    = "22"
-  port_range_max    = "22"
-  remote_group_id   = ""
-  security_group_id = openstack_networking_secgroup_v2.k8s.id
-}
-
 resource "openstack_networking_secgroup_rule_v2" "k8s_allowed_remote_ips" {
   count             = length(var.k8s_allowed_remote_ips)
   direction         = "ingress"
