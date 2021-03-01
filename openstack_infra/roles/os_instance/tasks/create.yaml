@@ -5,6 +5,5 @@
   shell: >
     'sudo apt-get update -y;'
     'sudo apt-get install python-minimal -y;'
-    'echo jjsjs;'
 
 # - debug: msg="{{ k8sctl_nodes }}"
