@@ -21,6 +21,12 @@ resource "openstack_networking_secgroup_v2" "k8s_master_extra" {
   count                = "%{if var.extra_sec_groups}1%{else}0%{endif}"
   name                 = "${var.cluster_name}-k8s-master-${var.extra_sec_groups_name}"
   description          = "${var.cluster_name} - Kubernetes Master nodes - rules not managed by terraform"
+  direction            = "ingress"
+  ethertype            = "IPv4"
+  protocol             = "tcp"
+  port_range_min       = "22"
+  port_range_max       = "22"
+  remote_ip_prefix     = openstack_networking_secgroup_v2.k8s_master_extra.id
   delete_default_rules = true
 }
 
@@ -73,7 +79,7 @@ resource "openstack_networking_secgroup_v2" "k8s" {
 resource "openstack_networking_secgroup_rule_v2" "k8s" {
   direction         = "ingress"
   ethertype         = "IPv4"
-  remote_group_id   = openstack_networking_secgroup_v2.k8s.id
+  remote_group_id   = openstack_networGIking_secgroup_v2.k8s.id
   security_group_id = openstack_networking_secgroup_v2.k8s.id
 }
 
@@ -143,14 +149,12 @@ locals {
   master_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s_master.name,
     openstack_networking_secgroup_v2.k8s.name,
-    openstack_networking_secgroup_v2.bastion.name,
     var.extra_sec_groups ? openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
   # worker groups
   worker_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s.name,
     openstack_networking_secgroup_v2.worker.name,
-    openstack_networking_secgroup_v2.bastion.name,
     var.extra_sec_groups ? openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
 }
