@@ -13,10 +13,11 @@ git submodule update --init --recursive
 set +x
 
 # Set environment variables required for Openstack and k8s cluster setup
-if [[ -f terraform/cloud.yaml ]]
+if [[ -f scripts/cloud.sh ]]
 then
     echo "export OS_CLOUD=mycloud"
-    export OS_CLOUD=terraform/cloud.yaml
+    source cloud.sh
+    # export OS_CLOUD=terraform/cloud.yaml
 else
     echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
     exit 1
