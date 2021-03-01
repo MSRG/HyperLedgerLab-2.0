@@ -12,16 +12,16 @@ git submodule sync
 git submodule update --init --recursive
 set +x
 
-# Set environment variables required for Openstack and k8s cluster setup
-if [[ -f scripts/cloud.sh ]]
-then
-    echo "export OS_CLOUD=mycloud"
-    source scripts/cloud.sh
-    # export OS_CLOUD=terraform/cloud.yaml
-else
-    echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
-    exit 1
-fi
+# # Set environment variables required for Openstack and k8s cluster setup
+# if [[ -f scripts/cloud.sh ]]
+# then
+#     echo "export OS_CLOUD=mycloud"
+#     source scripts/cloud.sh
+#     # export OS_CLOUD=terraform/cloud.yaml
+# else
+#     echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
+#     exit 1
+# fi
 
 
 # Setup python environment
@@ -36,7 +36,7 @@ else
     sudo apt-get install --yes python3-pip
     sudo apt-get install python3-venv
     python3 -m venv venv
-    source ./venv/bin/activate
+    source /venv/bin/activate
     # python3 -m pip install -r requirements.txt
     # python3 -m pip install -r kubespray/requirements.txt
     set +x

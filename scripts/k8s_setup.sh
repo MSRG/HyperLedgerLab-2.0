@@ -2,7 +2,7 @@
 
 source `dirname $0`/setup_env.sh
 
-ansible-playbook --become -i inventory/infra/hosts.ini playbooks/create_instances.yaml
+# ansible-playbook --become -i inventory/infra/hosts.ini playbooks/create_instances.yaml
 
 set -x
 # Setup Openstack instances for k8s nodes using Terraform
@@ -18,7 +18,7 @@ sleep 30
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa 
 #Check if all instances are reachable
-ansible -i hosts -m ping all 
+# ansible -i hosts -m ping all 
 
 # Setup k8s cluster
 ansible-playbook --become -i hosts ../kubespray/cluster.yml
