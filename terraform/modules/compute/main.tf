@@ -67,7 +67,7 @@ resource "openstack_networking_secgroup_rule_v2" "bastion" {
 resource "openstack_networking_secgroup_v2" "k8s" {
   name                 = "${var.cluster_name}-k8s"
   description          = "${var.cluster_name} - Kubernetes"
-  delete_default_rules = false
+  delete_default_rules = true
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s" {
