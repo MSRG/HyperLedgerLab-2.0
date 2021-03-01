@@ -1,8 +1,13 @@
 ---
 # Run a script using a executable in a system path
 
-- name: Install ksksksk
+- name: Install python
   shell: >
-    apt install software-properties-common
+    mkdir venv
+    apt update
+    apt-get install --yes python3-pip
+    apt-get install python3-venv
+    python3 -m venv venv
+    source ./venv/bin/activate
 
 # - debug: msg="{{ k8sctl_nodes }}"
