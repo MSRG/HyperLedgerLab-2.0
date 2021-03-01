@@ -14,7 +14,7 @@ image = "kvm-ubuntu-focal"
 ssh_user = "ubuntu"
 
 # 0|1 bastion nodes
-number_of_bastions = ""
+number_of_bastions = 1
 
 # standalone etcds
 number_of_etcd = 0
