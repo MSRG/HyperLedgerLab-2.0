@@ -71,15 +71,6 @@ resource "openstack_networking_secgroup_v2" "k8s" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s" {
-  direction       = "ingress"
-  ethertype       = "IPv4"
-  protocol        = "tcp"
-  port_range_min  = "22"
-  port_range_max  = "22"
-  remote_group_id = openstack_networking_secgroup_v2.k8s.id
-}
-
-resource "openstack_networking_secgroup_rule_v2" "k8s" {
   direction         = "ingress"
   ethertype         = "IPv4"
   remote_group_id   = openstack_networking_secgroup_v2.k8s.id
@@ -152,12 +143,14 @@ locals {
   master_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s_master.name,
     openstack_networking_secgroup_v2.k8s.name,
+    openstack_networking_secgroup_v2.bastion.name,
     var.extra_sec_groups ? openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
   # worker groups
   worker_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s.name,
     openstack_networking_secgroup_v2.worker.name,
+    openstack_networking_secgroup_v2.bastion.name,
     var.extra_sec_groups ? openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
 }
