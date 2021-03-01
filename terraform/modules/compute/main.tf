@@ -67,7 +67,7 @@ resource "openstack_networking_secgroup_rule_v2" "bastion" {
 resource "openstack_networking_secgroup_v2" "k8s" {
   name                 = "${var.cluster_name}-k8s"
   description          = "${var.cluster_name} - Kubernetes"
-  delete_default_rules = true
+  delete_default_rules = false
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s" {
@@ -139,13 +139,13 @@ resource "openstack_compute_servergroup_v2" "k8s_etcd" {
 }
 
 locals {
-# master groups
+  # master groups
   master_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s_master.name,
     openstack_networking_secgroup_v2.k8s.name,
-    var.extra_sec_groups ?openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
+    var.extra_sec_groups ? openstack_networking_secgroup_v2.k8s_master_extra[0].name : "",
   ])
-# worker groups
+  # worker groups
   worker_sec_groups = compact([
     openstack_networking_secgroup_v2.k8s.name,
     openstack_networking_secgroup_v2.worker.name,
