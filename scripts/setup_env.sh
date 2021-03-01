@@ -16,7 +16,7 @@ set +x
 if [[ -f scripts/cloud.sh ]]
 then
     echo "export OS_CLOUD=mycloud"
-    source cloud.sh
+    source scripts/cloud.sh
     # export OS_CLOUD=terraform/cloud.yaml
 else
     echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
