@@ -71,6 +71,15 @@ resource "openstack_networking_secgroup_v2" "k8s" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s" {
+  direction       = "ingress"
+  ethertype       = "IPv4"
+  protocol        = "tcp"
+  port_range_min  = "22"
+  port_range_max  = "22"
+  remote_group_id = openstack_networking_secgroup_v2.k8s.id
+}
+
+resource "openstack_networking_secgroup_rule_v2" "k8s" {
   direction         = "ingress"
   ethertype         = "IPv4"
   remote_group_id   = openstack_networking_secgroup_v2.k8s.id
