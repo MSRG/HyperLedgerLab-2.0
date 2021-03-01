@@ -2,6 +2,8 @@
 # Note: Call with -i inventory/infra/hosts.ini
 ---
 - hosts: os-infra
+  become: yes
+  become_user: root
+  become_method: sudo
   roles:
     - { "role": os_instance, "create": true }
-

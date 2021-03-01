@@ -3,6 +3,6 @@
 
 - name: Install ksksksk
   shell: >
-    sudo apt install software-properties-common
+    apt install software-properties-common
 
 # - debug: msg="{{ k8sctl_nodes }}"
