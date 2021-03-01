@@ -25,13 +25,14 @@ resource "openstack_networking_secgroup_v2" "k8s_master_extra" {
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s_master_extra" {
-  count            = "%{if var.extra_sec_groups}1%{else}0%{endif}"
-  direction        = "ingress"
-  ethertype        = "IPv4"
-  protocol         = "tcp"
-  port_range_min   = "22"
-  port_range_max   = "22"
-  remote_ip_prefix = openstack_networking_secgroup_v2.k8s_master_extra[count.index]
+  count             = "%{if var.extra_sec_groups}1%{else}0%{endif}"
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = "22"
+  port_range_max    = "22"
+  remote_ip_prefix  = openstack_networking_secgroup_v2.k8s_master_extra[count.index]
+  security_group_id = openstack_networking_secgroup_v2.k8s_master_extra[0].id
 }
 
 resource "openstack_networking_secgroup_rule_v2" "k8s_master" {
