@@ -12,8 +12,8 @@
 #         update_cache: yes
 ---
 - hosts: kube-master
-gather_facts: False
-any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-environment: "{{ proxy_disable_env }}"
-debug:
-  msg: "{{ kube-master }}"
+  gather_facts: False
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  environment: "{{ proxy_disable_env }}"
+  debug:
+    msg: "{{ kube-master }}"
