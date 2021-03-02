@@ -23,7 +23,6 @@ set +x
 #     exit 1
 # fi
 
-
 # Setup python environment
 if [[ -d venv ]]
 then
@@ -61,7 +60,6 @@ if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null;
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install terraform
 fi
-
 
 # Install Kubectl 
 if dpkg --get-selections | grep -q "^kubectl[[:space:]]*install$" >/dev/null; 

@@ -5,3 +5,17 @@
 2021-03-01 16:39:32,438 p=12458 u=mohamedkarimabbes n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 2021-03-01 16:39:32,456 p=12458 u=mohamedkarimabbes n=ansible | ERROR! No argument passed to command module
+2021-03-02 11:57:09,578 p=16213 u=mohamedkarimabbes n=ansible | [WARNING]: Unable to parse /Users/mohamedkarimabbes/hyperledgerlab2/hosts as an inventory source
+
+2021-03-02 11:57:09,579 p=16213 u=mohamedkarimabbes n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2021-03-02 11:57:09,632 p=16213 u=mohamedkarimabbes n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2021-03-02 11:57:09,651 p=16213 u=mohamedkarimabbes n=ansible | ERROR! No argument passed to command module
+2021-03-02 12:20:48,574 p=16401 u=mohamedkarimabbes n=ansible | [WARNING]: Unable to parse /Users/mohamedkarimabbes/hyperledgerlab2/hosts as an inventory source
+
+2021-03-02 12:20:48,574 p=16401 u=mohamedkarimabbes n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2021-03-02 12:20:48,606 p=16401 u=mohamedkarimabbes n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2021-03-02 12:20:48,611 p=16401 u=mohamedkarimabbes n=ansible | ERROR! No argument passed to command module
