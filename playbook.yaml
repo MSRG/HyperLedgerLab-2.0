@@ -13,8 +13,6 @@
 ---
 - hosts: kube-master
   gather_facts: False
-  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-  environment: "{{ proxy_disable_env }}"
   tasks:
     - debug: var=ansible_all_ipv4_addresses
     - debug: var=ansible_default_ipv4.address
