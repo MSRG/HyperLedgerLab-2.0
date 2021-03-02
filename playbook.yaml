@@ -12,7 +12,7 @@
 #         update_cache: yes
 ---
 - hosts: kube-master
-  gather_facts: False
+  gather_facts: True
   tasks:
-    - debug: var=ansible_all_ipv4_addresses
-    - debug: var=ansible_default_ipv4.address
+    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv6']['address']
