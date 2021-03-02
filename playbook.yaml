@@ -14,5 +14,9 @@
 - hosts: kube-master
   gather_facts: True
   tasks:
+    - name: "loop through list"
+      debug:
+        msg: "An item: {{item}}"
+      with_items:
+        - var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
     - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
-    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv6']['address']
