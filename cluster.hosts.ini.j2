@@ -5,8 +5,7 @@
 [kube-master]
 # Kube Master Node: To be added dynamically
 {% for ip in groups['kube-master'] %}
-{{ip}}
-{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} instance_name={{ hostvars[inventory_hostname] }}
+{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} 
 {% endfor %}
 
 [cluster-setup]
