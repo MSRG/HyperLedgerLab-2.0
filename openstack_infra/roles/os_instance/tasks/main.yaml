@@ -1,6 +1,0 @@
----
-- include: tasks/create.yaml
-  when: create|default(false)
-
-- include: tasks/delete.yaml
-  when: delete|default(false)
