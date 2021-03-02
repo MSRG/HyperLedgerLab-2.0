@@ -14,14 +14,17 @@
 - hosts: kube-master
   gather_facts: True
   tasks:
-    - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
-      ansible.builtin.fetch:
-        src: /etc/kubernetes/kubelet.conf
-        dest: ~/.kube/config/
-    # - name: "Configure kubectl after setting up k8s cluster"
-    #   cmd: |
-    #     "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config"
-    #   with_items:
-    #     - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    - name: Create cluster setup inventory
+      template: src=cluster.hosts.ini.j2 dest={{ k8s_cluster_inventory_file }} mode=0644
 
-    # - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+      # - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
+      #   ansible.builtin.fetch:
+      #     src: /etc/kubernetes/kubelet.conf
+      #     dest: ~/.kube/config/
+      # - name: "Configure kubectl after setting up k8s cluster"
+      #   cmd: |
+      #     "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config"
+      #   with_items:
+      #     - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+      # - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']

@@ -1,0 +1,19 @@
+###############################################
+######### KUBESPRAY HOSTS ######################
+###############################################
+
+# ## configure a bastion host if your nodes are not directly reachable
+# bastion ansible_host=x.x.x.x ansible_user=some_user
+{% for ip in (groups['kube-master']+groups['kube-node']+groups['etcd']+groups['kube-lb']+groups['kube-dns']+groups['kube-nfs']) | unique  %}
+{{ hostvars[ip].instance_name }} ansible_host={{ ip }}
+{% endfor %}
+
+[kube-master]
+# Kube Master Node: To be added dynamically
+{% for ip in groups['kube-master'] %}
+{{ hostvars[ip].instance_name }} instance_name={{ hostvars[ip].instance_name }}
+{% endfor %}
+
+[cluster-setup]
+# node running ansible commands
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
