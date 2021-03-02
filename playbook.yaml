@@ -16,6 +16,7 @@
   tasks:
     - name: Create cluster setup inventory
       template: src=cluster.hosts.ini.j2 dest=hosts.ini mode=0644
+      delegate_to: localhost
 
       # - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
       #   ansible.builtin.fetch:
