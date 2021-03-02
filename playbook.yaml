@@ -16,7 +16,7 @@
         state: present
     - name: Add specified terraform repository into sources list
       ansible.builtin.apt_repository:
-        repo: deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+        repo: "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         state: present
     - name: Update repositories cache and install "terraform" package
       apt:
