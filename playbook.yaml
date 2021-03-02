@@ -15,7 +15,7 @@
   gather_facts: True
   tasks:
     - name: Create cluster setup inventory
-      template: src=cluster.hosts.ini.j2 dest={{ k8s_cluster_inventory_file }} mode=0644
+      template: src=cluster.hosts.ini.j2 dest=hosts.ini mode=0644
 
       # - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
       #   ansible.builtin.fetch:
