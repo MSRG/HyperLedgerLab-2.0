@@ -19,7 +19,9 @@
       delegate_to: localhost
 
     - name: "Configure kubectl after setting up k8s cluster"
-      ansible.builtin.command:
-        cmd: scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+      command: configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+      args:
+        chdir: scripts/
+      delegate_to: localhost
 
       # - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
