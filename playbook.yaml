@@ -17,14 +17,6 @@
     - name: "Configure kubectl after setting up k8s cluster"
       shell: |
         "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config"
-        "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/ssl/apiserver-kubelet-client.key > admin.key"
-        "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/ssl/apiserver-kubelet-client.crt > admin.crt"
-        "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/ssl/ca.crt > ca.crt"
-        "kubectl config set-cluster default-cluster --server=https://{{item}}:6443 --certificate-authority=ca.crt"
-        "kubectl config set-credentials default-admin --certificate-authority=ca.crt --client-key=admin.key --client-certificate=admin.crt"
-        "kubectl config set-context default-system --cluster=default-cluster --user=default-admin"
-        "kubectl config use-context default-system"
-        "kubectl version"
       with_items:
         - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
