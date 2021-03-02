@@ -23,4 +23,7 @@ ssh-add ~/.ssh/id_rsa
 # Setup k8s cluster
 ansible-playbook --become -i hosts ../kubespray/cluster.yml
 
+# fill hosts.ini with the actual values
+ansible-playbook -i hosts ../playbook.yml
+
 set +x

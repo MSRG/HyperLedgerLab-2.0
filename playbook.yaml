@@ -18,14 +18,7 @@
       template: src=cluster.hosts.ini.j2 dest=hosts.ini mode=0644
       delegate_to: localhost
 
-      # - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
-      #   ansible.builtin.fetch:
-      #     src: /etc/kubernetes/kubelet.conf
-      #     dest: ~/.kube/config/
-      # - name: "Configure kubectl after setting up k8s cluster"
-      #   cmd: |
-      #     "ssh ubuntu@{{item}} sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config"
-      #   with_items:
-      #     - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    - name: "Configure kubectl after setting up k8s cluster"
+      ansible.builtin.command: /scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
 
       # - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
