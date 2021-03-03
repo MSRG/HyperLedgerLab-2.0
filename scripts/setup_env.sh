@@ -72,6 +72,16 @@ if dpkg --get-selections | grep -q "^kubectl[[:space:]]*install$" >/dev/null;
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 fi
 
+# Install Helm
+if dpkg --get-selections | grep -q "^helm[[:space:]]*install$" >/dev/null; 
+    then
+        echo -e "helm already installed"
+    else
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+fi
+
 # Create ansible.log file if not present
 if [[ ! -f ansible.log ]]
 then
