@@ -24,6 +24,6 @@ ssh-add ~/.ssh/id_rsa
 ansible-playbook --become -i hosts ../kubespray/cluster.yml
 
 # fill hosts.ini with the actual values and configure kubectl
-ansible-playbook -i hosts ../playbook.yml
+ansible-playbook -i hosts ../playbook.yaml
 
 set +x
