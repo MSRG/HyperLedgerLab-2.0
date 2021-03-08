@@ -12,6 +12,8 @@
 #         update_cache: yes
 ---
 - hosts: kube-master
+  become: yes
+  become_method: sudo
   gather_facts: True
   tasks:
     - name: Create cluster setup inventory
@@ -20,7 +22,6 @@
 
     - name: Configure kubectl after setting up k8s cluster
       command: scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
-      become: yes
       args:
       delegate_to: localhost
 
