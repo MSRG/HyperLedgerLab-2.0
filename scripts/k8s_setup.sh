@@ -8,7 +8,7 @@ set -x
 # Setup Openstack instances for k8s nodes using Terraform
 cd `dirname $0`/terraform
 terraform init . #Install the required plugins
-terraform apply -var-file=cluster.tfvars . #Provisioning cluster
+ #Provisioning cluster
 
 echo "Waiting 60 seconds for Openstack instances to boot ....."
 sleep 60
