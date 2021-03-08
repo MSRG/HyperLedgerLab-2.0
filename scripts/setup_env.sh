@@ -2,6 +2,13 @@
 
 set -e
 
+# override StrictHostKeyChecking in ssh config
+touch ~/.ssh/config
+cat << EOF > ~/.ssh/config
+Host *
+    StrictHostKeyChecking accept-new
+EOF
+
 # cd to project root
 cd `dirname $0`/..
 echo $PWD
