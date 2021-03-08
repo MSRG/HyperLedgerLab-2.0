@@ -36,7 +36,7 @@ set +x
 if [[ -d venv ]]
 then
     echo "source venv/bin/activate"
-    source venv/bin/activate
+    # source venv/bin/activate
 else
     set -x
     mkdir venv
