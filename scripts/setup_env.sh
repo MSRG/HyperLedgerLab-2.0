@@ -42,9 +42,9 @@ else
     mkdir venv
     sudo apt update
     sudo apt-get install --yes python3-pip
-    sudo apt-get install python3-venv
-    python3 -m venv venv
-    source /venv/bin/activate
+    # sudo apt-get install python3-venv
+    # python3 -m venv venv
+    # source /venv/bin/activate
     # python3 -m pip install -r requirements.txt
     # python3 -m pip install -r kubespray/requirements.txt
     set +x
