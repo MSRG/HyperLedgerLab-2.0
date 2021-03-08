@@ -10,8 +10,8 @@ cd `dirname $0`/../terraform
 terraform init . #Install the required plugins
 terraform apply -var-file=cluster.tfvars . #Provisioning cluster
 
-echo "Waiting 30 seconds for Openstack instances to boot ....."
-sleep 30
+echo "Waiting 60 seconds for Openstack instances to boot ....."
+sleep 60
 
 #Ensure your local ssh-agent is running and your ssh key has been added. 
 #This step is required by the terraform provisioner.
