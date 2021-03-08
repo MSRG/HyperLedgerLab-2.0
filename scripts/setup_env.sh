@@ -9,6 +9,8 @@ Host *
     StrictHostKeyChecking accept-new
 EOF
 
+chmod +x configure_kubectl.sh 
+
 # cd to project root
 cd `dirname $0`/..
 echo $PWD
