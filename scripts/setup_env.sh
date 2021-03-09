@@ -9,11 +9,10 @@ Host *
     StrictHostKeyChecking accept-new
 EOF
 
-chmod +x configure_kubectl.sh 
+chmod 755 ./
 
 # cd to project root
 cd `dirname $0`/..
-echo $PWD
 
 # Update the submodule code
 set -x

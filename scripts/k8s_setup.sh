@@ -2,6 +2,7 @@
 
 source `dirname $0`/setup_env.sh
 
+
 # ansible-playbook --become -i inventory/infra/hosts.ini playbooks/create_instances.yaml
 
 set -x
