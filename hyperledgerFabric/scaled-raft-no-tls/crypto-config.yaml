@@ -5,14 +5,14 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: Groeifabriek
-    Domain: groeifabriek.nl
+  - Name: Org1
+    Domain: org1
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
       - Hostname: orderer1
-  - Name: Pivt
-    Domain: pivt.nl
+  - Name: Org2
+    Domain: org2
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
@@ -21,24 +21,24 @@ OrdererOrgs:
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
 PeerOrgs:
-  - Name: Karga
-    Domain: aptalkarga.tr
+  - Name: Org3
+    Domain: aptalorg3
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
       Count: 1
   
-  - Name: Nevergreen
-    Domain: nevergreen.nl
+  - Name: Org4
+    Domain: org4
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
       Count: 1
 
-  - Name: Atlantis
-    Domain: atlantis.com
+  - Name: Org5
+    Domain: org5
     EnableNodeOUs: true
     Template:
       Count: 2

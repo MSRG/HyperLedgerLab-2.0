@@ -10,14 +10,14 @@
 ################################################################################
 Organizations:
 
-    - &Groeifabriek
-        Name: GroeifabriekMSP
+    - &Org1
+        Name: Org1MSP
 
         # ID to load the MSP definition as
-        ID: GroeifabriekMSP
+        ID: Org1MSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/groeifabriek.nl/msp
+        MSPDir: crypto-config/ordererOrganizations/org1/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -25,21 +25,21 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('GroeifabriekMSP.member')"
+                Rule: "OR('Org1MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('GroeifabriekMSP.member')"
+                Rule: "OR('Org1MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('GroeifabriekMSP.admin')"
+                Rule: "OR('Org1MSP.admin')"
 
-    - &Pivt
-        Name: PivtMSP
+    - &Org2
+        Name: Org2MSP
 
         # ID to load the MSP definition as
-        ID: PivtMSP
+        ID: Org2MSP
 
-        MSPDir: crypto-config/ordererOrganizations/pivt.nl/msp
+        MSPDir: crypto-config/ordererOrganizations/org2/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -47,21 +47,21 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('PivtMSP.member')"
+                Rule: "OR('Org2MSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('PivtMSP.member')"
+                Rule: "OR('Org2MSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('PivtMSP.admin')"
+                Rule: "OR('Org2MSP.admin')"
 
-    - &Karga
-        Name: KargaMSP
+    - &Org3
+        Name: Org3MSP
 
         # ID to load the MSP definition as
-        ID: KargaMSP
+        ID: Org3MSP
 
-        MSPDir: crypto-config/peerOrganizations/aptalkarga.tr/msp
+        MSPDir: crypto-config/peerOrganizations/aptalorg3/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -69,30 +69,30 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('KargaMSP.admin', 'KargaMSP.peer', 'KargaMSP.client')"
+                Rule: "OR('Org3MSP.admin', 'Org3MSP.peer', 'Org3MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('KargaMSP.admin', 'KargaMSP.client')"
+                Rule: "OR('Org3MSP.admin', 'Org3MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('KargaMSP.admin')"
+                Rule: "OR('Org3MSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.aptalkarga.tr
+            - Host: peer0.aptalorg3
               Port: 7051
 
-    - &Nevergreen
+    - &Org4
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: NevergreenMSP
+        Name: Org4MSP
 
         # ID to load the MSP definition as
-        ID: NevergreenMSP
+        ID: Org4MSP
 
-        MSPDir: crypto-config/peerOrganizations/nevergreen.nl/msp
+        MSPDir: crypto-config/peerOrganizations/org4/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -100,30 +100,30 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('NevergreenMSP.admin', 'NevergreenMSP.peer', 'NevergreenMSP.client')"
+                Rule: "OR('Org4MSP.admin', 'Org4MSP.peer', 'Org4MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('NevergreenMSP.admin', 'NevergreenMSP.client')"
+                Rule: "OR('Org4MSP.admin', 'Org4MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('NevergreenMSP.admin')"
+                Rule: "OR('Org4MSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.nevergreen.nl
+            - Host: peer0.org4
               Port: 7051
 
-    - &Atlantis
+    - &Org5
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: AtlantisMSP
+        Name: Org5MSP
 
         # ID to load the MSP definition as
-        ID: AtlantisMSP
+        ID: Org5MSP
 
-        MSPDir: crypto-config/peerOrganizations/atlantis.com/msp
+        MSPDir: crypto-config/peerOrganizations/org5/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -131,19 +131,19 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('AtlantisMSP.admin', 'AtlantisMSP.peer', 'AtlantisMSP.client')"
+                Rule: "OR('Org5MSP.admin', 'Org5MSP.peer', 'Org5MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('AtlantisMSP.admin', 'AtlantisMSP.client')"
+                Rule: "OR('Org5MSP.admin', 'Org5MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('AtlantisMSP.admin')"
+                Rule: "OR('Org5MSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.atlantis.com
+            - Host: peer0.org5
               Port: 7051
 
 ################################################################################
@@ -246,7 +246,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - orderer0.groeifabriek.nl:7050
+        - orderer0.org1:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 1s
@@ -268,18 +268,18 @@ Orderer: &OrdererDefaults
 
     EtcdRaft:
         Consenters:
-        - Host: orderer0.groeifabriek.nl
+        - Host: orderer0.org1
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer0.groeifabriek.nl/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer0.groeifabriek.nl/tls/server.crt
-        - Host: orderer1.groeifabriek.nl
+          ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
+        - Host: orderer1.org1
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer1.groeifabriek.nl/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer1.groeifabriek.nl/tls/server.crt
-        - Host: orderer0.pivt.nl
+          ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
+        - Host: orderer0.org2
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/pivt.nl/orderers/orderer0.pivt.nl/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/pivt.nl/orderers/orderer0.pivt.nl/tls/server.crt
+          ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
         # Options to be specified for all the etcd/raft nodes. The values here
         # are the defaults for all new channels and can be modified on a
@@ -383,19 +383,19 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *Groeifabriek
-                - *Pivt
+                - *Org1
+                - *Org2
                           
         Consortiums:
             TheConsortium:
                 Organizations:
-                    - *Karga
-                    - *Nevergreen
-                    - *Atlantis
+                    - *Org3
+                    - *Org4
+                    - *Org5
                     
             SecondConsortium:
                 Organizations:
-                    - *Karga
+                    - *Org3
 
     common:
         Consortium: TheConsortium
@@ -403,15 +403,15 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Karga
-                - *Nevergreen
-                - *Atlantis
+                - *Org3
+                - *Org4
+                - *Org5
 
-    private-karga-atlantis:
+    private-org3-org5:
         Consortium: TheConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Karga
-                - *Atlantis
+                - *Org3
+                - *Org5
