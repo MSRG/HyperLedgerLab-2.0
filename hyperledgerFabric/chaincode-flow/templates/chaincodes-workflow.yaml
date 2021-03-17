@@ -18,7 +18,7 @@
 # ordererOrgName: {{ $vars.ordererOrgName }}
 # ordererUrl: {{ $vars.ordererUrl }}
 # ordererHost: {{ $vars.ordererHost }}
-# ordererTlsSecreValues.ExternalPeerOrgst: {{ $vars.ordererTlsSecret }}
+# ordererTlsSecret: {{ $vars.ordererTlsSecret }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
@@ -234,8 +234,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: hyperledger/fabric-tools:2.2.0
+      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
           if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
@@ -331,8 +331,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: raft/hl-fabric-tools:1.4.3
+      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
           if peer chaincode checkinstantiated --name {{ $chaincode.name }} --version {{ $version }} --channelID {{ $channel.name }}; then  
@@ -436,7 +436,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: hyperledger/fabric-tools:1.4.9
       command: [sh]
       source: |
           peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
