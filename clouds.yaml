@@ -1,0 +1,12 @@
+clouds:
+  mycloud:
+    auth:
+      auth_url: http://172.24.18.142:5000/v3
+      username: "karim_abbes"
+      project_name: "pn-hyperledgerlab2"
+      project_id: cd5c0003a71c49d589eb227f55b4742f
+      user_domain_name: "default"
+      password: "9bqTMr6ASV4unHk6"
+    region_name: "RegionOne"
+    interface: "public"
+    identity_api_version: 3

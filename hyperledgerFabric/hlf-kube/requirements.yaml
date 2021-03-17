@@ -1,0 +1,6 @@
+dependencies:
+  - name: kafka
+    alias: hlf-kafka
+    repository: https://charts.helm.sh/incubator
+    version: 0.20.8
+    condition: hlf-kafka.enabled

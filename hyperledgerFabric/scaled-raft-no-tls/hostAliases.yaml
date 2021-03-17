@@ -1,0 +1,19 @@
+hostAliases:
+- ip: 10.233.5.48
+  hostnames: [orderer0.groeifabriek.nl]
+- ip: 10.233.17.29
+  hostnames: [orderer1.groeifabriek.nl]
+- ip: 10.233.50.17
+  hostnames: [orderer0.pivt.nl]
+- ip: 10.233.56.216
+  hostnames: [peer0.atlantis.com]
+- ip: 10.233.24.80
+  hostnames: [peer1.atlantis.com]
+- ip: 10.233.44.189
+  hostnames: [peer0.aptalkarga.tr]
+- ip: 10.233.47.201
+  hostnames: [peer1.aptalkarga.tr]
+- ip: 10.233.9.214
+  hostnames: [peer0.nevergreen.nl]
+- ip: 10.233.28.108
+  hostnames: [peer1.nevergreen.nl]
