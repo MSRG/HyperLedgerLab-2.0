@@ -61,7 +61,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: Org3MSP
 
-        MSPDir: crypto-config/peerOrganizations/aptalorg3/msp
+        MSPDir: crypto-config/peerOrganizations/org3/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -81,7 +81,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.aptalorg3
+            - Host: peer0.org3
               Port: 7051
 
     - &Org4

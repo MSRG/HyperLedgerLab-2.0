@@ -22,7 +22,7 @@ OrdererOrgs:
 # ---------------------------------------------------------------------------
 PeerOrgs:
   - Name: Org3
-    Domain: aptalorg3
+    Domain: org3
     EnableNodeOUs: true
     Template:
       Count: 2
