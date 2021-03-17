@@ -10,14 +10,58 @@
 ################################################################################
 Organizations:
 
+    - &OrdererOrg1
+        Name: OrdererOrg1MSP
+
+        # ID to load the MSP definition as
+        ID: OrdererOrg1MSP
+
+        # MSPDir is the filesystem path which contains the MSP configuration
+        MSPDir: crypto-config/ordererOrganizations/ordererOrg1/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererOrg1MSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererOrg1MSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererOrg1MSP.admin')"
+
+    - &OrdererOrg2
+        Name: OrdererOrg2MSP
+
+        # ID to load the MSP definition as
+        ID: OrdererOrg2MSP
+
+        MSPDir: crypto-config/ordererOrganizations/ordererOrg2/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererOrg2MSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererOrg2MSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererOrg2MSP.admin')"
+
     - &Org1
         Name: Org1MSP
 
         # ID to load the MSP definition as
         ID: Org1MSP
 
-        # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/org1/msp
+        MSPDir: crypto-config/peerOrganizations/org1/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -25,21 +69,30 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org1MSP.member')"
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org1MSP.member')"
+                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
             Admins:
                 Type: Signature
                 Rule: "OR('Org1MSP.admin')"
 
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.org1
+              Port: 7051
+
     - &Org2
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
         Name: Org2MSP
 
         # ID to load the MSP definition as
         ID: Org2MSP
 
-        MSPDir: crypto-config/ordererOrganizations/org2/msp
+        MSPDir: crypto-config/peerOrganizations/org2/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -47,21 +100,30 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org2MSP.member')"
+                Rule: "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org2MSP.member')"
+                Rule: "OR('Org2MSP.admin', 'Org2MSP.client')"
             Admins:
                 Type: Signature
                 Rule: "OR('Org2MSP.admin')"
 
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.org2
+              Port: 7051
+
     - &Org3
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
         Name: Org3MSP
 
         # ID to load the MSP definition as
         ID: Org3MSP
 
-        MSPDir: crypto-config/peerOrganizations/aptalorg3/msp
+        MSPDir: crypto-config/peerOrganizations/org3/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -81,69 +143,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.aptalorg3
-              Port: 7051
-
-    - &Org4
-        # DefaultOrg defines the organization which is used in the sampleconfig
-        # of the fabric.git development environment
-        Name: Org4MSP
-
-        # ID to load the MSP definition as
-        ID: Org4MSP
-
-        MSPDir: crypto-config/peerOrganizations/org4/msp
-
-        # Policies defines the set of policies at this level of the config tree
-        # For organization policies, their canonical path is usually
-        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('Org4MSP.admin', 'Org4MSP.peer', 'Org4MSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('Org4MSP.admin', 'Org4MSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('Org4MSP.admin')"
-
-        AnchorPeers:
-            # AnchorPeers defines the location of peers which can be used
-            # for cross org gossip communication.  Note, this value is only
-            # encoded in the genesis block in the Application section context
-            - Host: peer0.org4
-              Port: 7051
-
-    - &Org5
-        # DefaultOrg defines the organization which is used in the sampleconfig
-        # of the fabric.git development environment
-        Name: Org5MSP
-
-        # ID to load the MSP definition as
-        ID: Org5MSP
-
-        MSPDir: crypto-config/peerOrganizations/org5/msp
-
-        # Policies defines the set of policies at this level of the config tree
-        # For organization policies, their canonical path is usually
-        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('Org5MSP.admin', 'Org5MSP.peer', 'Org5MSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('Org5MSP.admin', 'Org5MSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('Org5MSP.admin')"
-
-        AnchorPeers:
-            # AnchorPeers defines the location of peers which can be used
-            # for cross org gossip communication.  Note, this value is only
-            # encoded in the genesis block in the Application section context
-            - Host: peer0.org5
+            - Host: peer0.org3
               Port: 7051
 
 ################################################################################
@@ -246,7 +246,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - orderer0.org1:7050
+        - orderer0.ordererOrg1:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 1s
@@ -268,18 +268,18 @@ Orderer: &OrdererDefaults
 
     EtcdRaft:
         Consenters:
-        - Host: orderer0.org1
+        - Host: orderer0.ordererOrg1
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-        - Host: orderer1.org1
+          ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer0.ordererOrg1/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer0.ordererOrg1/tls/server.crt
+        - Host: orderer1.ordererOrg1
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-        - Host: orderer0.org2
+          ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
+        - Host: orderer0.ordererOrg2
           Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+          ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg2/orderers/orderer0.ordererOrg2/tls/server.crt
+          ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg2/orderers/orderer0.ordererOrg2/tls/server.crt
 
         # Options to be specified for all the etcd/raft nodes. The values here
         # are the defaults for all new channels and can be modified on a
@@ -383,19 +383,19 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *Org1
-                - *Org2
+                - *OrdererOrg1
+                - *OrdererOrg2
                           
         Consortiums:
             TheConsortium:
                 Organizations:
+                    - *Org1
+                    - *Org2
                     - *Org3
-                    - *Org4
-                    - *Org5
                     
             SecondConsortium:
                 Organizations:
-                    - *Org3
+                    - *Org1
 
     common:
         Consortium: TheConsortium
@@ -403,15 +403,15 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
+                - *Org1
+                - *Org2
                 - *Org3
-                - *Org4
-                - *Org5
 
-    private-org3-org5:
+    private-org1-org3:
         Consortium: TheConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
+                - *Org1
                 - *Org3
-                - *Org5

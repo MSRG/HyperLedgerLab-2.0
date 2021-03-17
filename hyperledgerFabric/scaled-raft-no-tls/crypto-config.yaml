@@ -5,14 +5,14 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1
+  - Name: OrdererOrg1
+    Domain: ordererOrg1
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
       - Hostname: orderer1
-  - Name: Org2
-    Domain: org2
+  - Name: OrdererOrg2
+    Domain: ordererOrg2
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
@@ -21,24 +21,24 @@ OrdererOrgs:
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
 PeerOrgs:
-  - Name: Org3
-    Domain: aptalorg3
+  - Name: Org1
+    Domain: org1
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
       Count: 1
   
-  - Name: Org4
-    Domain: org4
+  - Name: Org2
+    Domain: org2
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
       Count: 1
 
-  - Name: Org5
-    Domain: org5
+  - Name: Org3
+    Domain: org3
     EnableNodeOUs: true
     Template:
       Count: 2
