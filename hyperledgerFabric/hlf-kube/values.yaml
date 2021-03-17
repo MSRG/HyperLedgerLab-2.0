@@ -8,7 +8,7 @@ caVersion: 1.5.0
 # see the Raft sample in the README for how to enable TLS
 tlsEnabled: false
 
-# use actual domain names like peer0.org3 instead of internal service names
+# use actual domain names like peer0.org5 instead of internal service names
 # this should be set to true for TLS
 useActualDomains: false
 
