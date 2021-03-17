@@ -272,10 +272,10 @@ Orderer: &OrdererDefaults
           Port: 7059
           ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer0.ordererOrg1/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer0.ordererOrg1/tls/server.crt
-        - Host: orderer1.ordererOrg1
-          Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
+        # - Host: orderer1.ordererOrg1
+        #   Port: 7059
+        #   ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
+        #   ServerTLSCert: crypto-config/ordererOrganizations/ordererOrg1/orderers/orderer1.ordererOrg1/tls/server.crt
         - Host: orderer0.ordererOrg2
           Port: 7059
           ClientTLSCert: crypto-config/ordererOrganizations/ordererOrg2/orderers/orderer0.ordererOrg2/tls/server.crt
