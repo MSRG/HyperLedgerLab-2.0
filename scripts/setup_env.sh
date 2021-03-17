@@ -90,6 +90,8 @@ if dpkg --get-selections | grep -q "^helm[[:space:]]*install$" >/dev/null;
         ./get_helm.sh
 fi
 
+sudo apt-get install jq
+
 # Create ansible.log file if not present
 if [[ ! -f ansible.log ]]
 then
