@@ -261,7 +261,7 @@ spec:
               --version {{ $version }} --lang {{ $language }}
 
           {{- else }}
-
+          echo '{{ $language }}'
           # chaincode is packed with tar, first extract it 
           mkdir -p /chaincode && 
           tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C /chaincode && 
