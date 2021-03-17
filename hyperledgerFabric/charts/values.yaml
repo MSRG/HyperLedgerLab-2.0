@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-hyperledgerVersion: 1.4.9
+hyperledgerVersion: 2.2.0
 caVersion: 1.5.0
 
 # see the Raft sample in the README for how to enable TLS
@@ -10,7 +10,7 @@ tlsEnabled: false
 
 # use actual domain names like peer0.atlantis.com instead of internal service names
 # this should be set to true for TLS
-useActualDomains: true
+useActualDomains: false
 
 # adds additional DNS entries to /etc/hosts files
 # see https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/#adding-additional-entries-with-hostaliases
