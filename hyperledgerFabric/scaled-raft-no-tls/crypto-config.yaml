@@ -10,6 +10,7 @@ OrdererOrgs:
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
+      - Hostname: orderer1
   - Name: OrdererOrg2
     Domain: ordererOrg2
     EnableNodeOUs: true
@@ -24,7 +25,7 @@ PeerOrgs:
     Domain: org1
     EnableNodeOUs: true
     Template:
-      Count: 1
+      Count: 2
     Users:
       Count: 1
   
@@ -32,7 +33,7 @@ PeerOrgs:
     Domain: org2
     EnableNodeOUs: true
     Template:
-      Count: 1
+      Count: 2
     Users:
       Count: 1
 
@@ -40,6 +41,6 @@ PeerOrgs:
     Domain: org3
     EnableNodeOUs: true
     Template:
-      Count: 1
+      Count: 2
     Users:
       Count: 1
