@@ -1,0 +1,256 @@
+{{- if .Values.orderer.launchPods }}
+{{- range $i, $org := $.Values.OrdererOrgs }}
+{{- range $i, $host := $org.Specs }}
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}
+spec:
+  replicas: {{ $.Values.orderer.replicas }}
+  podManagementPolicy: Parallel
+  serviceName: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}
+  selector:
+    matchLabels:
+      app: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}
+  volumeClaimTemplates:
+  {{- if $.Values.orderer.persistence.enabled }}
+  - metadata:
+      name: orderer-disk
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ $.Values.persistence.storageClass }}
+      resources:
+        requests:
+          storage: {{ $.Values.orderer.persistence.size }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        name: hlf-orderer
+        org: hlf-orderer--{{ $org.Name | lower }}
+        app: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}
+    spec:
+      volumes:
+        {{- if not $.Values.orderer.persistence.enabled }}
+      - name: orderer-disk
+        emptyDir: {}
+        {{- end }}
+      - name: rsync-disk
+        emptyDir: {}
+      - name: orderer-tls
+        secret:
+          secretName: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}-tls
+      - name: orderer-msp
+        secret:
+          secretName: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}-msp
+          items:
+          - key: config.yaml
+            path: config.yaml
+          - key: cert.pem
+            path: signcerts/cert.pem
+          - key: key.pem
+            path: keystore/key.pem
+          - key: cacert.pem
+            path: cacerts/ca.{{ $org.Domain }}-cert.pem
+          - key: admincert.pem
+            path: admincerts/cert.pem
+      - name: genesis
+        secret:
+          secretName: hlf-genesis.block
+
+      {{- if $.Values.hostAliases }}
+      hostAliases:
+      {{- range $i, $alias := $.Values.hostAliases }}
+      - ip: {{ $alias.ip }}
+        hostnames: {{ $alias.hostnames }}
+      {{- end }}
+      {{- end }}{{""}}
+
+
+      {{- if $.Values.backup.enabled }}
+
+      containers:
+
+      # rsync-server container
+      - name: rsync
+        image: axiom/rsync-server:latest
+        command: ["sh", "-c", "mkdir -p /data && sleep 30 && \
+          {{- if $.Values.orderer.backup.enabled }}
+                               tar -czf /data/orderer.tar -C /var/hyperledger/production/orderer/ --exclude='lost+found' .  && \
+                               echo 'prepared orderer data for backup' && \
+          {{- end }}
+                               touch /ready && \
+                               /entrypoint.sh rsync_server"]
+                               
+        readinessProbe:
+          exec:
+            command: ["ls", "/ready"]
+
+        volumeMounts:
+        - mountPath: /var/hyperledger/production/orderer/
+          name: orderer-disk
+
+        env:
+        - name: ALLOW
+          value: 0.0.0.0/0
+
+      {{- else if $.Values.restore.enabled }}
+
+      containers:
+
+      # rsync-server container
+      - name: rsync
+        image: axiom/rsync-server:latest
+        command: ["sh", "-c", "/entrypoint.sh rsync_server"]
+                               
+        volumeMounts:
+        - mountPath: /data/
+          name: rsync-disk
+
+        env:
+        - name: ALLOW
+          value: 0.0.0.0/0
+
+      - name: shell
+        image: debian:jessie
+        command: ["sh", "-c", "echo 'waiting for file /data/ready..' && \
+                               while [ ! -f /data/ready ]; do sleep 5; done && \
+                               echo 'data is ready, proceeding..' && \
+          {{- if $.Values.orderer.restore.enabled }}
+                               rm -rf /var/hyperledger/production/orderer/* && \
+                               tar -xf /data/orderer.tar -C /var/hyperledger/production/orderer/ && \
+                               echo 'restored orderer data from backup' && \
+          {{- end }}
+                               echo 'ready to continue..' && \
+                               while true; do sleep 60; done"]
+          
+        volumeMounts:
+        - mountPath: /var/hyperledger/production/orderer/
+          name: orderer-disk
+        - mountPath: /data/
+          name: rsync-disk
+
+      {{- else }}
+      
+      {{- if $.Values.orderer.antiAffinity.enabled }}
+      {{- if gt (len $org.Specs) 1 }}
+      affinity:
+        podAntiAffinity:
+      {{- if $.Values.orderer.antiAffinity.strict }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                {{- range $i, $hostInner := $org.Specs }}
+                {{- if not (eq $host.Hostname $hostInner.Hostname) }}
+                - hlf-orderer--{{ $org.Name | lower }}--{{ $hostInner.Hostname | lower }}
+                {{- end }} {{- /* if not same host */ -}}
+                {{- end }} {{- /* org.Specs */ -}}{{""}}
+      {{- else }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  {{- range $i, $hostInner := $org.Specs }}
+                  {{- if not (eq $host.Hostname $hostInner.Hostname) }}
+                  - hlf-orderer--{{ $org.Name | lower }}--{{ $hostInner.Hostname | lower }}
+                  {{- end }} {{- /* if not same host */ -}}
+                  {{- end }} {{- /* org.Specs */ -}}{{""}}
+      {{- end }}{{- /* if-else antiAffinity.strict */ -}}
+      {{- end }}{{- /* if peer count > 1 */ -}}
+      {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
+
+      containers:
+
+      # Orderer container
+      - name: orderer
+        image: hyperledger/fabric-orderer:{{ $.Values.hyperledgerVersion }}
+        command: ["sh", "-c", "orderer"]
+
+        volumeMounts:
+        - mountPath: /var/hyperledger/production/orderer/
+          name: orderer-disk
+        - mountPath: /var/hyperledger/orderer/tls/
+          name: orderer-tls
+        - mountPath: /var/hyperledger/orderer/msp/
+          name: orderer-msp
+        - mountPath: /var/hyperledger/orderer/
+          name: genesis
+        
+        env:
+        # TODO move configurable ones to configmaps
+        - name: FABRIC_LOGGING_SPEC
+          value: {{ $.Values.orderer.logLevel }}
+        - name: ORDERER_GENERAL_LISTENADDRESS
+          value: 0.0.0.0
+        - name: ORDERER_GENERAL_GENESISMETHOD
+          value: file
+        - name: ORDERER_GENERAL_GENESISFILE
+          value: /var/hyperledger/orderer/genesis.block
+        - name: ORDERER_GENERAL_LOCALMSPID
+          value: {{ $org.Name }}MSP
+        - name: ORDERER_GENERAL_LOCALMSPDIR
+          value: /var/hyperledger/orderer/msp
+        - name: ORDERER_GENERAL_TLS_ENABLED
+          value: {{ $.Values.tlsEnabled | quote }}
+        - name: ORDERER_GENERAL_TLS_PRIVATEKEY
+          value: /var/hyperledger/orderer/tls/server.key
+        - name: ORDERER_GENERAL_TLS_CERTIFICATE
+          value: /var/hyperledger/orderer/tls/server.crt
+        - name: ORDERER_GENERAL_TLS_ROOTCAS
+          value: /var/hyperledger/orderer/tls/ca.crt
+
+        - name: ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY
+          value: /var/hyperledger/orderer/tls/server.key
+        - name: ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE
+          value: /var/hyperledger/orderer/tls/server.crt
+
+        # Raft cluster configuration 
+        {{- if $.Values.orderer.cluster.enabled }}
+        - name: ORDERER_GENERAL_CLUSTER_SERVERPRIVATEKEY
+          value: /var/hyperledger/orderer/tls/server.key
+        - name: ORDERER_GENERAL_CLUSTER_SERVERCERTIFICATE
+          value: /var/hyperledger/orderer/tls/server.crt
+        - name: ORDERER_GENERAL_CLUSTER_LISTENPORT
+          value: {{ $.Values.orderer.cluster.port | quote }}
+        - name: ORDERER_GENERAL_CLUSTER_LISTENADDRESS
+          value: 0.0.0.0
+        {{- end }}
+
+        # Operations configuration 
+        {{- if $.Values.orderer.operations.enabled }}
+        - name: ORDERER_OPERATIONS_LISTENADDRESS
+          value: {{ $.Values.orderer.operations.listenAddress }}
+        - name: ORDERER_OPERATIONS_TLS_ENABLED
+          value: {{ $.Values.orderer.operations.tls.enabled | quote }}
+        {{- end }}
+
+        # Metrics configuration with Prometheus
+        {{-  if $.Values.orderer.metrics.enabled }}
+        - name: ORDERER_METRICS_PROVIDER
+          value: {{ $.Values.orderer.metrics.provider }}
+        {{ end }}  
+
+        - name: HFC_LOGGING
+          value: '{"info":"console"}'
+        - name: GRPC_VERBOSITY
+          value: ERROR
+        - name: GRPC_TRACE
+          value:  all
+        # - name: GODEBUG
+        #   value: http2debug=2
+      {{- end }} {{- /* if/else backup/restore enabled */ -}}{{""}}
+---
+{{- end }} {{- /* org.Specs */ -}}
+{{- end }} {{- /* Orgs */ -}}
+{{- end }} {{- /* if launchPods */ -}}

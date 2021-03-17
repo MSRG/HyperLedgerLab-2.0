@@ -1,0 +1,24 @@
+{{- if .Values.orderer.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hlf-orderer--ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    {{- range $key, $value := .Values.orderer.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+{{- range $i, $org := .Values.OrdererOrgs }}
+{{- range $i, $host := $org.Specs }}
+  - host: {{ $host.Hostname }}.{{ $org.Domain }}
+    http:
+      paths:
+      - path: /
+        backend: 
+          serviceName: hlf-orderer--{{ $org.Name | lower }}--{{ $host.Hostname | lower }}
+          servicePort: 7050
+{{- end }} {{- /* org.Specs */ -}}
+{{- end }} {{- /* OrdererOrgs */ -}}{{""}}
+{{- end }} {{- /* if ingress.enabled */ -}}

@@ -1,0 +1,25 @@
+{{- if .Values.peer.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hlf-peer--ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    {{- range $key, $value := .Values.peer.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+{{- range $i, $org := .Values.PeerOrgs }}
+{{- range $peerIndex := until ($org.Template.Count | int) }}
+{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+  - host: {{ $peer }}.{{ $org.Domain }}
+    http:
+      paths:
+      - path: /
+        backend: 
+          serviceName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+          servicePort: 7051
+{{- end }} {{- /* Peers */ -}}
+{{- end }} {{- /* Orgs */ -}}{{""}}
+{{- end }} {{- /* if ingress.enabled */ -}}

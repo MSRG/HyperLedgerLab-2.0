@@ -1,0 +1,32 @@
+{{- if .Values.peer.externalService.enabled }}
+{{- range $i, $org := .Values.PeerOrgs }}
+{{- range $peerIndex := until ($org.Template.Count | int) }}
+{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hlf-peer-external--{{ $org.Name | lower }}--{{ $peer | lower }}
+  labels:
+    name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+    component: hlf-peer
+    fqdn: {{ $peer }}.{{ $org.Domain }}
+    addToExternalHostAliases: "true"
+  annotations:
+    {{- range $key, $value := $.Values.peer.externalService.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+    
+spec:
+  type: LoadBalancer
+  selector:
+    name: hlf-peer
+    app: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+  ports:
+  - protocol: TCP
+    port: 7051
+    name: grpc
+---
+{{- end }} {{- /* Peers */ -}}
+{{- end }} {{- /* Orgs */ -}}
+{{- end }} {{- /* If externalService.enabled */ -}}
