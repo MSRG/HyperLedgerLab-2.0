@@ -33,14 +33,14 @@ PeerOrgs:
     Domain: org2
     EnableNodeOUs: true
     Template:
-      Count: 2
+      Count: 1
     Users:
       Count: 1
 
-  - Name: Org3
-    Domain: org3
-    EnableNodeOUs: true
-    Template:
-      Count: 2
-    Users:
-      Count: 1
+  # - Name: Org3
+  #   Domain: org3
+  #   EnableNodeOUs: true
+  #   Template:
+  #     Count: 2
+  #   Users:
+  #     Count: 1

@@ -387,10 +387,10 @@ Profiles:
                 # - *OrdOrg2
                           
         Consortiums:
-            # TheConsortium:
-            #     Organizations:
-            #         - *Org1
-            #         - *Org2
+            TheConsortium:
+                Organizations:
+                    - *Org1
+                    - *Org2
             #         - *Org3
                     
             SecondConsortium:
@@ -398,14 +398,13 @@ Profiles:
                     - *Org1
 
     common:
-        # Consortium: TheConsortium
-        Consortium: SecondConsortium
+        Consortium: TheConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
                 - *Org1
-                # - *Org2
+                - *Org2
                 # - *Org3
 
     # private-org1-org3:

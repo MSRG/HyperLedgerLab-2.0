@@ -256,9 +256,9 @@ spec:
 
             osnadmin channel join --channelID {{ $channel.name }} --config-block ./channel-artifacts/{{ $channel.name }}.block \ 
                 -o {{ $vars.ordererUrl }} \ 
-                --ca-file /hlf-kube/crypto-config/organizations/ordererOrganizations/{{ $org.Name }}/orderers/{{ $vars.ordererUrl }}/msp/tlscacerts/tlsca.{{ $org.Name }}-cert.pem \ 
-                --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" \
-                --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" 
+                # --ca-file /hlf-kube/crypto-config/organizations/ordererOrganizations/{{ $org.Name }}/orderers/{{ $vars.ordererUrl }}/msp/tlscacerts/tlsca.{{ $org.Name }}-cert.pem \ 
+                # --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" \
+                # --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" 
                 # {{- if $.Values.tlsEnabled }}
                 #   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
                 # {{- end }}
