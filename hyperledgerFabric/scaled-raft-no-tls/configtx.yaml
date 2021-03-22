@@ -397,7 +397,7 @@ Profiles:
                 Organizations:
                     - *Org1
 
-    common:
+    myChannel:
         Consortium: TheConsortium
         <<: *ChannelDefaults
         Application:
