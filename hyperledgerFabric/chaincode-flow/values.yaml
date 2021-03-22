@@ -39,24 +39,18 @@ flow:
     include: []
   install:
     # should we run install step?
-    enabled: true  
+    enabled: true
     parallel: true
   instantiate:
     # should we run instantiate/upgrade step?
-    enabled: true  
+    enabled: true
     parallel: true
   invoke:
-    # should we run invoke step? 
+    # should we run invoke step?
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
-    enabled: true 
+    enabled: true
     parallel: true
     function: '{"function":"initLedger","Args":[""]}'
-  invoke:
-    # should we run invoke step? 
-    # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
-    enabled: true 
-    parallel: true
-    function: '{"function":"queryAllCars","Args":[""]}'
 
 chaincode:
   version: "1.0"

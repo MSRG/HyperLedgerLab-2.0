@@ -212,37 +212,57 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      image: raft/hl-fabric-tools:1.4.3
+      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-          if peer channel checkexists --channelID {{ $channel.name }} -o {{ $vars.ordererUrl }} \
-                {{- if $.Values.tlsEnabled }}
-                    --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-                {{- end }}
-            ; then 
-              echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
-              exit 0 
-            else 
-              result=$? 
-              echo "-- result is: $result" 
-              if test $result -ne 99; then 
-                echo "-- result is not 99, exiting with $result" 
-                exit $result 
-              fi 
-            fi 
+          # if peer channel checkexists --channelID {{ $channel.name }} -o {{ $vars.ordererUrl }} \
+          #       {{- if $.Values.tlsEnabled }}
+          #           --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
+          #       {{- end }}
+          #   ; then 
+          #     echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
+          #     exit 0 
+          #   else 
+          #     result=$? 
+          #     echo "-- result is: $result" 
+          #     if test $result -ne 99; then 
+          #       echo "-- result is not 99, exiting with $result" 
+          #       exit $result 
+          #     fi 
+          #   fi 
 
             echo '-- Channel {{ $channel.name }} does not exists, will create..' 
 
-            mkdir -p /work && 
-            configtxgen -profile {{ $channel.name }} -channelID {{ $channel.name }} -configPath /hlf_config \
-                  -outputCreateChannelTx /work/{{ $channel.name }}.tx && 
+            # mkdir -p /work && 
+            # configtxgen -profile {{ $channel.name }} -channelID {{ $channel.name }} -configPath /hlf_config \
+            #       -outputCreateChannelTx /work/{{ $channel.name }}.tx && 
             
-            peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} -f /work/{{ $channel.name }}.tx \
-                {{- if $.Values.tlsEnabled }}
-                    --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-                {{- end }}
+            # peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} -f /work/{{ $channel.name }}.tx \
+            #     {{- if $.Values.tlsEnabled }}
+            #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
+            #     {{- end }}
+            echo vars.ordererUrl: {{ $vars.ordererUrl }}
+            echo org.Name : {{ $org.Name }}
+            which configtxgen
+            if [ "$?" -ne 0 ]; then
+              fatalln "configtxgen tool not found."
+            fi
+            set -x
+            configtxgen -profile {{ $channel.name }} -outputBlock ./channel-artifacts/{{ $channel.name }}.block -channelID {{ $channel.name }}
+            res=$?
+            { set +x; } 2>/dev/null
+            verifyResult $res "Failed to generate channel configuration transaction..."
 
+            osnadmin channel join --channelID {{ $channel.name }} --config-block ./channel-artifacts/{{ $channel.name }}.block \ 
+                -o {{ $vars.ordererUrl }} \ 
+                --ca-file /hlf-kube/crypto-config/organizations/ordererOrganizations/{{ $org.Name }}/orderers/{{ $vars.ordererUrl }}/msp/tlscacerts/tlsca.{{ $org.Name }}-cert.pem \ 
+                --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" \
+                --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" 
+                # {{- if $.Values.tlsEnabled }}
+                #   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
+                # {{- end }}
+ 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca

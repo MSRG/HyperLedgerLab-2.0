@@ -8,7 +8,7 @@ caVersion: 1.5.0
 # see the Raft sample in the README for how to enable TLS
 tlsEnabled: false
 
-# use actual domain names like peer0.org5 instead of internal service names
+# use actual domain names like peer0.org3 instead of internal service names
 # this should be set to true for TLS
 useActualDomains: false
 
@@ -46,13 +46,13 @@ peer:
     # attach chaincode's stdout to peer?
     attachStdout: true
     logging:
-      level:  info
-      shim:   info
+      level: info
+      shim: info
   persistence:
     enabled: false
     size: 16Gi
   docker:
-    dind: 
+    dind:
       # use a side car docker in docker container?
       enabled: false
       # dind docker image
@@ -75,10 +75,10 @@ peer:
     enabled: true
     # is antiAffinity preferred or required?
     strict: false
-  backup: 
+  backup:
     # take backup of peers during backup procedure?
     enabled: true
-  restore: 
+  restore:
     # restore peers data from backup during restore procedure?
     enabled: true
   operations:
@@ -90,24 +90,23 @@ peer:
   metrics:
     enabled: false
     provider: prometheus
-    
+
 # CouchDB settings. applies to all CouchDB's
 couchdb:
   version: 0.4.15
-  userName: 
+  userName:
   password:
   persistence:
     enabled: false
     size: 16Gi
   ingress:
     enabled: false
-  backup: 
+  backup:
     # take backup of CouchDB's during backup procedure?
     enabled: true
-  restore: 
+  restore:
     # restore CouchDB's data from backup during restore procedure?
     enabled: true
-
 
 # Orderer settings. applies to all Orderer pods
 orderer:
@@ -141,21 +140,21 @@ orderer:
     enabled: true
     # is antiAffinity preferred or required?
     strict: false
-  backup: 
+  backup:
     # take backup of orderers during backup procedure?
     enabled: true
-  restore: 
+  restore:
     # restore orderers data from backup during restore procedure?
     enabled: true
   operations:
     enabled: false
     listenAddress: 0.0.0.0:8443
     servicePort: 8443
-    tls: 
+    tls:
       enabled: false
   metrics:
     enabled: false
-    provider: prometheus    
+    provider: prometheus
 
 # CA (Certificate Authority) settings. applies to all CA's
 ca:
@@ -169,7 +168,6 @@ ca:
 chaincode:
   # fill in this array with chaincode names to limit the chaincode ConfigMap only to these ones
   include: []
-
 
 # kafka settings
 hlf-kafka:
@@ -187,13 +185,13 @@ hlf-kafka:
     storageClass: default
     size: 16Gi
 
-  configurationOverrides: 
-    "default.replication.factor": 4  # given a 4 node Kafka cluster
+  configurationOverrides:
+    "default.replication.factor": 4 # given a 4 node Kafka cluster
     "unclean.leader.election.enable": false
-    "min.insync.replicas": 3  # to permit one Kafka replica to go offline
-    "message.max.bytes": "103809024"  # 99 * 1024 * 1024 B
-    "replica.fetch.max.bytes": "103809024"  # 99 * 1024 * 1024 B
-    "log.retention.ms": -1  # Since we need to keep logs indefinitely for the HL Fabric Orderer
+    "min.insync.replicas": 3 # to permit one Kafka replica to go offline
+    "message.max.bytes": "103809024" # 99 * 1024 * 1024 B
+    "replica.fetch.max.bytes": "103809024" # 99 * 1024 * 1024 B
+    "log.retention.ms": -1 # Since we need to keep logs indefinitely for the HL Fabric Orderer
 
   zookeeper:
     # should be 3, 5, or 7
@@ -203,7 +201,3 @@ hlf-kafka:
       enabled: false
       storageClass: default
       size: 16Gi
-    
-    
-      
-
