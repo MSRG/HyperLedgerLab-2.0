@@ -9,7 +9,7 @@ network:
 
   # defines which organizations will join to which channels
   channels:
-    - name: common
+    - name: myChannel
       # all peers in these organizations will join the channel
       # orgs: [Org1, Org2, Org3]
       orgs: [Org1]
@@ -47,7 +47,7 @@ network:
       # orgs: [Org1, Org3]
       orgs: [Org1]
       channels:
-        - name: common
+        - name: myChannel
           orgs: [Org1]
           policy: OR('Org1MSP.member')
           # policy: OR('Org1MSP.member','Org3MSP.member')
