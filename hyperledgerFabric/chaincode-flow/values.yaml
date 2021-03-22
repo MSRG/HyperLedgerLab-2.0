@@ -50,7 +50,13 @@ flow:
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
     enabled: true 
     parallel: true
-    function: '{"function":"ping","Args":[""]}'
+    function: '{"function":"initLedger","Args":[""]}'
+  invoke:
+    # should we run invoke step? 
+    # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
+    enabled: true 
+    parallel: true
+    function: '{"function":"queryAllCars","Args":[""]}'
 
 chaincode:
   version: "1.0"
