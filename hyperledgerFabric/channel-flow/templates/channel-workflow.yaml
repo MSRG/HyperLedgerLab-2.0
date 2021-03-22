@@ -320,13 +320,13 @@ spec:
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
-          peer channel fetch oldest /var/hyperledger/genesis.pb -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
+          peer channel fetch oldest /var/hyperledger/genesis.block -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
               {{- if $.Values.tlsEnabled }}
                   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
               {{- end }}
           && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
           
-          peer channel join -b /var/hyperledger/genesis.pb
+          peer channel join -b /var/hyperledger/genesis.block
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
