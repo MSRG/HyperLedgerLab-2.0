@@ -324,7 +324,7 @@ spec:
               {{- end }}
           && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
           
-          sudo cat /var/hyperledger/genesis.pb &&
+          cat /var/hyperledger/genesis.pb &&
           
           peer channel join -b /var/hyperledger/genesis.pb
 
