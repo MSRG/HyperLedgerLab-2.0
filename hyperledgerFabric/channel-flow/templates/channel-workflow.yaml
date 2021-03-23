@@ -238,6 +238,7 @@ spec:
             configtxgen -profile {{ $channel.name }} -channelID {{ $channel.name }} -configPath /hlf_config \
                   -outputCreateChannelTx /work/{{ $channel.name }}.tx && 
             
+            mkdir -p /work && 
             peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} \ 
               -f /work/{{ $channel.name }}.tx \
               --outputBlock /work/{{ $channel.name }}.block \
@@ -245,9 +246,7 @@ spec:
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
                 {{- end }}
 
-            echo vars.ordererUrl: {{ $vars.ordererUrl }}
-            echo org.Name :{{ $org.Name }}
-            which configtxgen
+            echo channelname: {{ $channel.name }}
    
  
       volumeMounts:
