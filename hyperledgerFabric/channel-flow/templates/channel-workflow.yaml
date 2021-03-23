@@ -381,8 +381,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: raft/hl-fabric-tools-extended:1.4.3
+      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: raft/hl-fabric-tools-extended:1.4.3
       command: [sh]
       source: |
           # if peer channel checkanchors --channelID {{ $channel.name }} --orgID {{ $org.Name }}MSP -o {{ $vars.ordererUrl }} \
