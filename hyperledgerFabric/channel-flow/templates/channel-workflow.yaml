@@ -328,8 +328,7 @@ spec:
                   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
               {{- end }}
           && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
-          
-          echo $(ls /work)
+          sudo cat /work/{{ $channel.name }}.block &&
           peer channel join -b /work/{{ $channel.name }}.block
 
       volumeMounts:
