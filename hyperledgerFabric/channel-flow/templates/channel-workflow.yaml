@@ -216,6 +216,7 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
+
           peer channel getinfo --channelID {{ $channel.name }} \
                 {{- if $.Values.tlsEnabled }}
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
@@ -250,6 +251,8 @@ spec:
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/
           name: hlf-configtx
+        - mountPath: /etc/hyperledger/fabric/tls/
+          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
 
         # peer org msp's required for configtxgen
         {{- range $i, $org := $.Values.PeerOrgs }}
@@ -263,6 +266,15 @@ spec:
         {{- end }}
       
       env:
+        - name: CORE_PEER_ADDRESS
+          value: |- 
+              {{- if $.Values.useActualDomains }}
+                {{ $peer }}.{{ $org.Domain }}:7051
+              {{- else }}
+                hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051
+              {{- end }}
+        - name: CORE_PEER_TLS_ENABLED
+          value: {{ $.Values.tlsEnabled | quote }}
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.logLevel }}
         - name: CORE_PEER_LOCALMSPID
