@@ -402,7 +402,7 @@ spec:
           # fi 
 
           echo '-- AnchorPeers are not configured for organization {{ $org.Name }}, will configure..' 
-          
+
           mkdir -p /work && 
           peer channel fetch config /work/config_block.pb -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
               {{- if $.Values.tlsEnabled }}
