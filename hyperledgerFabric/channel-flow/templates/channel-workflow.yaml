@@ -250,6 +250,9 @@ spec:
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/
           name: hlf-configtx
+        - mountPath: /etc/hyperledger/fabric/tls/
+          name: peer-{{ $org.Name | lower }}-{{ lower }}-tls
+
 
         # peer org msp's required for configtxgen
         {{- range $i, $org := $.Values.PeerOrgs }}
