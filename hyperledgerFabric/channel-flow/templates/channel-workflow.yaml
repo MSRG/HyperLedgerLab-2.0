@@ -245,8 +245,7 @@ spec:
                 {{- if $.Values.tlsEnabled }}
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
                 {{- end }}
-
-            echo channelname: {{ $channel.name }}
+            && cat /work/{{ $channel.name }}.block
    
  
       volumeMounts:
