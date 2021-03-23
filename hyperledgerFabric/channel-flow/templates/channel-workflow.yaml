@@ -329,7 +329,7 @@ spec:
           # && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
           
           # ls /var/hyperledger/
-
+          echo ls investig: {{ls /work}}
           peer channel join -b /work/{{ $channel.name }}.block
 
       volumeMounts:
