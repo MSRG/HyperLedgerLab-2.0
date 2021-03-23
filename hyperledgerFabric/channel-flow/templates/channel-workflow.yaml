@@ -216,17 +216,16 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-
           peer channel getinfo --channelID {{ $channel.name }} \
                 {{- if $.Values.tlsEnabled }}
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
                 {{- end }}
           result=$? 
-          if test $result -e 0 ; then  
+          if test $result -e 0; then  
             echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
             exit 0 
           else 
-            if test $result -ne 99 ; then 
+            if test $result -ne 99; then 
               echo "-- result is not 99, exiting with $result" 
               exit $result 
             fi 
