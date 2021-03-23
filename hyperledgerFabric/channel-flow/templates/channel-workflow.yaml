@@ -202,7 +202,7 @@ spec:
 {{- if or (not $.Values.flow.channel.include) (has $channel.name $.Values.flow.channel.include) }}
 {{- $orgName := index $channel.orgs 0 }}
 {{- range $i, $org := $.Values.PeerOrgs }}
-{{- $peer := peer0}}
+{{- $peer := (printf "peer0" ) }}
 {{- if eq $orgName $org.Name }}
 
   - name: maybe-create-channel--{{ $channel.name }}--{{ $org.Name }}
