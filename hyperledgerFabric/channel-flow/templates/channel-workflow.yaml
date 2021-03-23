@@ -238,8 +238,7 @@ spec:
             configtxgen -profile {{ $channel.name }} -channelID {{ $channel.name }} -configPath /hlf_config \
                   -outputCreateChannelTx /work/{{ $channel.name }}.tx && 
             
-            peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} \ 
-              -f /work/{{ $channel.name }}.tx \
+            peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} -f /work/{{ $channel.name }}.tx \
                 {{- if $.Values.tlsEnabled }}
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
                 {{- end }}
