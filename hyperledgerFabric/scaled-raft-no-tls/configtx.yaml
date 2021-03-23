@@ -393,9 +393,9 @@ Profiles:
                     - *Org2
             #         - *Org3
                     
-            SecondConsortium:
-                Organizations:
-                    - *Org1
+            # SecondConsortium:
+            #     Organizations:
+            #         - *Org1
 
     mychannel:
         Consortium: TheConsortium
