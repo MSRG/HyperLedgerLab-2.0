@@ -401,6 +401,10 @@ spec:
           #   fi 
           # fi 
           
+          curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+          python get-pip.py && \
+          pip install yq
+
           echo '-- AnchorPeers are not configured for organization {{ $org.Name }}, will configure..' 
           
           mkdir -p /work && 
