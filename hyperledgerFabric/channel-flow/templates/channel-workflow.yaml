@@ -216,7 +216,6 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-      echo endorser: {{ $vars.ordererUrl }}
           peer channel getinfo --channelID {{ $channel.name }} \
                 {{- if $.Values.tlsEnabled }}
                     --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
