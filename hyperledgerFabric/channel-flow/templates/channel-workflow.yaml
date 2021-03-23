@@ -216,21 +216,21 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-          # if peer channel checkexists --channelID {{ $channel.name }} -o {{ $vars.ordererUrl }} \
-          #       {{- if $.Values.tlsEnabled }}
-          #           --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-          #       {{- end }}
-          #   ; then 
-          #     echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
-          #     exit 0 
-          #   else 
-          #     result=$? 
-          #     echo "-- result is: $result" 
-          #     if test $result -ne 99; then 
-          #       echo "-- result is not 99, exiting with $result" 
-          #       exit $result 
-          #     fi 
-          #   fi 
+          if peer channel getinfo --channelID {{ $channel.name }} -o {{ $vars.ordererUrl }} \
+                {{- if $.Values.tlsEnabled }}
+                    --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
+                {{- end }}
+            ; then 
+              echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
+              exit 0 
+            else 
+              result=$? 
+              echo "-- result is: $result" 
+              if test $result -ne 99; then 
+                echo "-- result is not 99, exiting with $result" 
+                exit $result 
+              fi 
+            fi 
 
             echo '-- Channel {{ $channel.name }} does not exists, will create..' 
 
@@ -318,15 +318,13 @@ spec:
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
           mkdir -p /var/hyperledger &&
-          peer channel fetch oldest /var/hyperledger/genesis.pb -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
+          peer channel fetch oldest /var/hyperledger/genesis.block -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
               {{- if $.Values.tlsEnabled }}
                   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
               {{- end }}
           && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
           
-          cat /var/hyperledger/genesis.pb &&
-          
-          peer channel join -b /var/hyperledger/genesis.pb
+          peer channel join -b /var/hyperledger/genesis.block
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
