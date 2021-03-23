@@ -317,6 +317,7 @@ spec:
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
+          mkdir -p /var/hyperledger &&
           peer channel fetch oldest /var/hyperledger/genesis.pb -c {{ $channel.name }} -o {{ $vars.ordererUrl }} \
               {{- if $.Values.tlsEnabled }}
                   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
