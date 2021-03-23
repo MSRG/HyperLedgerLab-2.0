@@ -324,6 +324,7 @@ spec:
               {{- if $.Values.tlsEnabled }}
                   --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
               {{- end }}
+          ls /var/hyperledger/
           && echo '-- fetched genesis block for channel {{ $channel.name }}' && 
           
           peer channel join -b /var/hyperledger/genesis.pb
