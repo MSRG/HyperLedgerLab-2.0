@@ -30,7 +30,7 @@ echo "-- creating certificates --"
 cryptogen generate --config ./crypto-config.yaml --output crypto-config
 
 # place holder empty folders for external peer orgs
-externalPeerOrgs=$(python3 -m yq '.ExternalPeerOrgs // empty' ./crypto-config.yaml -r -c)
+externalPeerOrgs=$(yq '.ExternalPeerOrgs // empty' ./crypto-config.yaml -r -c)
 if [ "$externalPeerOrgs" ]; then
     echo "-- creating empty folders for external peer orgs --"
     for peerOrgDomain in $(echo "$externalPeerOrgs" | jq -r '.[].Domain'); do
@@ -40,7 +40,7 @@ if [ "$externalPeerOrgs" ]; then
 fi 
 
 # place holder empty folders for external orderer orgs
-externalOrdererOrgs=$(python3 -m yq '.ExternalOrdererOrgs // empty' ./crypto-config.yaml -r -c)
+externalOrdererOrgs=$(yq '.ExternalOrdererOrgs // empty' ./crypto-config.yaml -r -c)
 if [ "$externalOrdererOrgs" ]; then
     echo "-- creating empty folders for external orderer orgs --"
     for ordererOrg in $(echo "$externalOrdererOrgs" | jq -rc '.[]'); do
@@ -59,8 +59,8 @@ fi
 if [ "$create_genesis_block" == true ]; then
     # generate genesis block
     echo "-- creating genesis block --"
-    genesisProfile=$(python3 -m yq '.network.genesisProfile' $config_file -r)
-    systemChannelID=$(python3 -m yq '.network.systemChannelID' $config_file -r)
+    genesisProfile=$(yq '.network.genesisProfile' $config_file -r)
+    systemChannelID=$(yq '.network.systemChannelID' $config_file -r)
     configtxgen -profile $genesisProfile -channelID $systemChannelID -outputBlock ./channel-artifacts/genesis.block
 else
     echo "-- skipping genesis block creation --"

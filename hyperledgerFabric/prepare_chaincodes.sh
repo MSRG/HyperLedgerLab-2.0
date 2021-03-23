@@ -16,7 +16,7 @@ config_file=$project_folder/network.yaml
 rm -rf hlf-kube/chaincode
 mkdir -p hlf-kube/chaincode
 
-chaincodes=$(python3 -m yq ".network.chaincodes[].name" $config_file -c -r)
+chaincodes=$(yq ".network.chaincodes[].name" $config_file -c -r)
 for chaincode in $chaincodes; do
   echo "creating hlf-kube/chaincode/$chaincode.tar"
   
