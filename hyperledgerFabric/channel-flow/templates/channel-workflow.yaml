@@ -326,7 +326,7 @@ spec:
           # done
 
           cnt=0
-          while IFS= read -r line ; do
+          echo "$channel" | while IFS= read -r line ; do
               ((++cnt))
               if [[ $cnt == 1 ]]; then
                   continue
@@ -337,7 +337,7 @@ spec:
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
               fi
-          done <<< "$channel"
+          done 
 
           # if [[ "$STR" == *"$SUB"* ]]; then
           #   echo "It's there."
