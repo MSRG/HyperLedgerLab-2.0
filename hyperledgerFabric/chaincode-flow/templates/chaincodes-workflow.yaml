@@ -369,7 +369,7 @@ spec:
           # ; fi
           
           packageID=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
-          
+          echo "kdkdkdkd"
           echo $packageID
 
           peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} \
@@ -377,7 +377,8 @@ spec:
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \
             --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} \
-            --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} >&log.txt
+            --package-id ${PACKAGE_ID} --sequence ${CC_SEQUENCE} ${INIT_REQUIRED} ${CC_END_POLICY} ${CC_COLL_CONFIG} 
+          echo "ksksksksks"
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
