@@ -334,7 +334,7 @@ spec:
           channelname='{{ $channel.name }}'
           echo $channelname
           echo $result
-          if [[  "result result result" == *"result"* ]]; then
+          if [[  $result =~ $channelname ]]; then
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
             else
