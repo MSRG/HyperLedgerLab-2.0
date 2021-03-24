@@ -316,7 +316,7 @@ spec:
           #   fi 
           # fi 
 
-          channel=$(peer channel list)
+          result=$(peer channel list)
 
           # COUNTER=0
           # echo "$channel" | while IFS= read -r line ; do
@@ -334,7 +334,8 @@ spec:
           channelname='{{ $channel.name }}'
           echo $channelname
           echo $channel
-          if [[  "$channel" == *"$channelname"* ]]; then
+          # if [[  "$result" == *"$channelname"* ]]; then
+          if grep -q "$channelname" <<< "$result"; then
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
           fi
