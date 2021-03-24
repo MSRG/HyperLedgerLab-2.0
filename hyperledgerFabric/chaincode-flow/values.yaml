@@ -39,7 +39,7 @@ flow:
     include: []
   install:
     # should we run install step?
-    enabled: false
+    enabled: true
     parallel: true
   instantiate:
     # should we run instantiate/upgrade step?
