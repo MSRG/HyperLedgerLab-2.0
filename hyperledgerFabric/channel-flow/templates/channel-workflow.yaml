@@ -334,10 +334,11 @@ spec:
           channelname='{{ $channel.name }}'
           echo $channelname
           echo $channel
-          # if [[  "$result" == *"$channelname"* ]]; then
-          if grep -q "$channelname" <<< "$result"; then
+          if [[  "$result" == *"$channelname"* ]]; then
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
+            else
+                echo "noooooooo"
           fi
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
