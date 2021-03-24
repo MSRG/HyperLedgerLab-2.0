@@ -43,15 +43,15 @@ flow:
     parallel: true
   instantiate:
     # should we run instantiate/upgrade step?
-    enabled: true
+    enabled: false
     parallel: true
   invoke:
     # should we run invoke step?
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
-    enabled: true
+    enabled: false
     parallel: true
     function: '{"function":"initLedger","Args":[""]}'
 
 chaincode:
   version: "1.0"
-  language: node
+  language: javascript

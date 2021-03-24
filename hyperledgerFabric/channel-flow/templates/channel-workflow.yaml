@@ -13,18 +13,10 @@
   {{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-tlsca" ($ordererOrg.Name | lower)) }}
 {{- end }}
 
-# useActualDomains: {{ $.Values.useActualDomains }}
-# externalOrderer.enabled: {{ .Values.externalOrderer.enabled }}
-# ordererOrgName: {{ $vars.ordererOrgName }}
-# ordererUrl: {{ $vars.ordererUrl }}
-# ordererHost: {{ $vars.ordererHost }}
-# ordererTlsSecret: {{ $vars.ordererTlsSecret }}
-
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
   generateName: hlf-channels-
-  # name: hlf-channels-0
 spec:
   entrypoint: channels
 

@@ -43,7 +43,7 @@ network:
 
     - name: fabcar
       # if defined, this will override the global chaincode.language value
-      language: node
+      language: javascript
       # orgs: [Org1, Org3]
       orgs: [Org1]
       channels:

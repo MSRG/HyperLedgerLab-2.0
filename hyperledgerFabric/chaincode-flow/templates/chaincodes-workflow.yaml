@@ -13,17 +13,9 @@
   {{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-tlsca" ($ordererOrg.Name | lower)) }}
 {{- end }}
 
-# useActualDomains: {{ $.Values.useActualDomains }}
-# externalOrderer.enabled: {{ .Values.externalOrderer.enabled }}
-# ordererOrgName: {{ $vars.ordererOrgName }}
-# ordererUrl: {{ $vars.ordererUrl }}
-# ordererHost: {{ $vars.ordererHost }}
-# ordererTlsSecret: {{ $vars.ordererTlsSecret }}
-
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  # name: hlf-chaincodes
   generateName: hlf-chaincodes-
 spec:
   entrypoint: chaincodes
@@ -147,7 +139,7 @@ spec:
 {{- end }} {{- /* chaincodes */ -}}
 {{- end }} {{- /* if flow.install.enabled */ -}}{{""}}
 
-# third level: instantiate chaincode templates
+# fourth level: instantiate chaincode templates
 {{- if $.Values.flow.instantiate.enabled }}
 
 {{- range $i, $chaincode := .Values.network.chaincodes }}
@@ -178,7 +170,7 @@ spec:
 {{- end }} {{- /* chaincodes */ -}}
 {{- end }} {{- /* if flow.instantiate.enabled */ -}}{{""}}
 
-# third level: invoke chaincode templates
+# fifth level: invoke chaincode templates
 {{- if $.Values.flow.invoke.enabled }}
 
 {{- range $i, $chaincode := .Values.network.chaincodes }}
@@ -234,8 +226,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      image: raft/hl-fabric-tools:1.4.3
+      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
           if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
