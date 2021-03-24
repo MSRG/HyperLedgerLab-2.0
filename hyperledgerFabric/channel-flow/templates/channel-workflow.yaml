@@ -318,7 +318,7 @@ spec:
 
           channel=$(peer channel list)
           echo "channel res $channel"
-          for var in $(channel -v); do
+          for var in $(channel); do
               echo "$var=${!var}"
           done
 
