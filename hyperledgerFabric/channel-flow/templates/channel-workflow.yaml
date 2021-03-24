@@ -318,9 +318,27 @@ spec:
 
           channel=$(peer channel list)
           echo "channel res $channel"
-          for var in "$channel"; do
-              echo "$var"
-          done
+
+          # for var in "$channel"; do
+          #     [[ $cnt == 0 ]] && continue
+          #     echo "$var"
+          #     ((++cnt))
+          # done
+
+          cnt=0
+          while IFS= read -r line ; do
+              ((++cnt))
+              if [[ $cnt == 1 ]]; then
+                  continue
+              fi
+              echo $line;
+              echo "-------"
+              if [[ $line == {{ $channel.name }} ]]; then
+                echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
+                exit 0 
+              fi
+          done <<< "$channel"
+
           # if [[ "$STR" == *"$SUB"* ]]; then
           #   echo "It's there."
           # fi
