@@ -316,11 +316,14 @@ spec:
           #   fi 
           # fi 
 
-          channel=$(peer channel list)
+          channel=$('peer channel list')
           echo "channel res $channel"
-          for var in $(channel); do
-              echo "$var=${!var}"
+          for var in "$channel"; do
+              echo "$var"
           done
+          # if [[ "$STR" == *"$SUB"* ]]; then
+          #   echo "It's there."
+          # fi
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
