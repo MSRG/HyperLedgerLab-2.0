@@ -332,9 +332,10 @@ spec:
           #     fi
           # done 
           channelname='{{ $channel.name }}'
-          echo $channelname
-          echo $result
-          if [[  $result =~ $channelname ]]; then
+          echo "$channelname"
+          echo "$result"
+          $SHELL --version
+          if [[  "$result" =~ "$channelname" ]]; then
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
             else
