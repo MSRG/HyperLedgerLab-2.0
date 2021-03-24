@@ -379,13 +379,11 @@ spec:
           # ; fi
           
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
-          for value in $result
-          do
-              if [[ $value == "Package" ]]; then
-                  PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
-                  echo $PACKAGE_ID
-              fi
-          done
+
+
+          PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
+          echo $PACKAGE_ID
+
 
           peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} \
             {{- if $.Values.tlsEnabled }} 
