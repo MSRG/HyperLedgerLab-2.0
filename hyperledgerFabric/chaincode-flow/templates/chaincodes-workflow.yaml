@@ -241,6 +241,15 @@ spec:
           #   fi 
           # fi 
 
+          result=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
+          for value in $result
+          do
+              if [[ $value == "Package ID" ]]; then
+                  echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
+                  exit 0 
+              fi
+          done
+
           echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is not installed to peer {{ $peer }}, will install..' 
 
           {{- if eq $language "golang" }}
@@ -368,9 +377,14 @@ spec:
           #   {{- end }}
           # ; fi
           
-          packageID=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
-          echo "kdkdkdkd"
-          echo $packageID
+          peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
+          for value in $result
+          do
+              if [[ $value == "Package ID" ]]; then
+                  PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
+                  echo $PACKAGE_ID
+              fi
+          done
 
           peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} \
             {{- if $.Values.tlsEnabled }} 
