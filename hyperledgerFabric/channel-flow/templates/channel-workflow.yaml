@@ -316,7 +316,7 @@ spec:
           #   fi 
           # fi 
 
-          channel=$('peer channel list')
+          channel=$(peer channel list)
           echo "channel res $channel"
           for var in "$channel"; do
               echo "$var"
