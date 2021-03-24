@@ -368,7 +368,8 @@ spec:
           #   {{- end }}
           # ; fi
           
-          packageID=$(peer lifecycle chaincode queryinstalled)
+          packageID=$(peer lifecycle chaincode queryinstalled {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} )
+          
           echo $packageID
 
           peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} \
@@ -406,6 +407,8 @@ spec:
           value: /etc/hyperledger/fabric/tls/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
+        - name: CORE_PEER_MSPCONFIGPATH
+          value: /etc/hyperledger/fabric/msp/
 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
