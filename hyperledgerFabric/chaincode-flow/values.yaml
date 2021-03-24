@@ -54,4 +54,4 @@ flow:
 
 chaincode:
   version: "1.0"
-  language: javascript
+  language: node
