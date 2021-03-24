@@ -317,23 +317,25 @@ spec:
           # fi 
 
           channel=$(peer channel list)
-          EXIT=1
-          COUNTER=0
-          echo "$channel" | while IFS= read -r line ; do
-              COUNTER=$((COUNTER + 1))
-              if [[ $COUNTER == 1 ]]; then
-                  continue
-              fi
-              if [[ $line == {{ $channel.name }} ]]; then
-                EXIT=0
-                break
-              fi
-          done 
 
-          if [[ $EXIT == 0 ]]; then
-            echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
-            exit 0
-          fi 
+          # COUNTER=0
+          # echo "$channel" | while IFS= read -r line ; do
+          #     COUNTER=$((COUNTER + 1))
+          #     if [[ $COUNTER == 1 ]]; then
+          #         continue
+          #     fi
+          #     echo $line;
+          #     echo "-------"
+          #     if [[ $line == {{ $channel.name }} ]]; then
+          #       echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
+          #       exit 0 
+          #     fi
+          # done 
+          CHANNELNAME={{ $channel.name }}
+          if [[  "$channel" == *"$CHANNELNAME"* ]]; then
+                echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
+                exit 0 
+          fi
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
