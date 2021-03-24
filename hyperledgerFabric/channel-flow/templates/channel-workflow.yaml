@@ -319,7 +319,7 @@ spec:
           result=$(peer channel list)
 
           # COUNTER=0
-          # echo "$channel" | while IFS= read -r line ; do
+          # echo "$result" | while IFS= read -r line ; do
           #     COUNTER=$((COUNTER + 1))
           #     if [[ $COUNTER == 1 ]]; then
           #         continue
@@ -331,16 +331,25 @@ spec:
           #       exit 0 
           #     fi
           # done 
-          channelname='{{ $channel.name }}'
-          echo "$channelname"
-          echo "$result"
-          $SHELL --version
-          if [[  "$result" =~ "$channelname" ]]; then
+
+          for value in $result
+          do
+              if [[ $value == {{ $channel.name }} ]]; then
                 echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
                 exit 0 
-            else
-                echo "noooooooo"
-          fi
+              fi
+          done
+
+          # channelname='{{ $channel.name }}'
+          # echo "$channelname"
+          # echo "$result"
+          # $SHELL --version
+          # if [[  "$result" =~ "$channelname" ]]; then
+          #       echo '-- Peer {{ $peer }} already joined to channel {{ $channel.name }}, exiting with 0' 
+          #       exit 0 
+          #   else
+          #       echo "noooooooo"
+          # fi
 
           echo '-- Peer {{ $peer }} did not join to channel {{ $channel.name }}, will join..' 
 
