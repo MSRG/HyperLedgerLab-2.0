@@ -39,11 +39,11 @@ flow:
     include: []
   install:
     # should we run install step?
-    enabled: true
+    enabled: false
     parallel: true
   instantiate:
     # should we run instantiate/upgrade step?
-    enabled: false
+    enabled: true
     parallel: true
   invoke:
     # should we run invoke step?
@@ -53,5 +53,5 @@ flow:
     function: '{"function":"initLedger","Args":[""]}'
 
 chaincode:
-  version: "1.0"
+  version: "1.1"
   language: node
