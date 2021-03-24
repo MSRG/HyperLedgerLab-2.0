@@ -230,17 +230,17 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-          if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
-            echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
-            exit 0 
-          else 
-            result=$? 
-            echo "-- result is: $result" 
-            if test $result -ne 99; then 
-              echo "-- result is not 99, exiting with $result" 
-              exit $result 
-            fi 
-          fi 
+          # if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
+          #   echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
+          #   exit 0 
+          # else 
+          #   result=$? 
+          #   echo "-- result is: $result" 
+          #   if test $result -ne 99; then 
+          #     echo "-- result is not 99, exiting with $result" 
+          #     exit $result 
+          #   fi 
+          # fi 
 
           echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is not installed to peer {{ $peer }}, will install..' 
 
@@ -257,9 +257,8 @@ spec:
           # chaincode is packed with tar, first extract it 
           mkdir -p /chaincode && 
           tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C /chaincode && 
-          peer chaincode install --path /chaincode/{{ $chaincode.name }} --name {{ $chaincode.name }} \
-              --version {{ $version }} --lang {{ $language }}
-
+          peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
+          peer lifecycle chaincode install /chaincode/{{ $chaincode.name }}.tar.gz
           {{- end }}
 
       volumeMounts:
