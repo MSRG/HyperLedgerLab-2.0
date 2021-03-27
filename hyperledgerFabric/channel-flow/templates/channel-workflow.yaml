@@ -388,7 +388,7 @@ spec:
           # fi 
           
           # install yq if it does not exist
-          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v2.12.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
+          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
 
           echo '-- AnchorPeers are not configured for organization {{ $org.Name }}, will configure..' 
 
@@ -404,7 +404,7 @@ spec:
           
           echo $(yq --version)
           echo "00000000"
-          anchor_peers=$(yq -c  '.Organizations[] | select (.Name == "'$(echo {{ $org.Name }}MSP)'") | .AnchorPeers' "/hlf_config/configtx.yaml")
+          anchor_peers=$(yq eval -j  '.Organizations[] | select (.Name == "'$(echo {{ $org.Name }}MSP)'") | .AnchorPeers' "/hlf_config/configtx.yaml")
           echo "00000000"
           echo $anchor_peers
           echo "00000000"
