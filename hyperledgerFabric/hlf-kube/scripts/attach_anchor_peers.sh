@@ -23,9 +23,7 @@ workdir="/tmp"
 
 # parse AnchorPeers from configtx.yaml
 anchor_peers=$(yq -c  '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
-echo "00000000"
-echo $anchor_peers
-echo "00000000"
+
 if [ -z "$anchor_peers" ]; then
    echo "-- couldn't parse AnchorPeers for organization $orgID from $configtx_yaml" 
    exit 1
