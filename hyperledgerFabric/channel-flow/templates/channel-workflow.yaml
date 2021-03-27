@@ -401,13 +401,6 @@ spec:
           
           configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config > /work/config.json && 
           echo '-- trimmed envelope from config block and converted to json' && 
-          
-          echo $(yq --version)
-          echo "00000000"
-          anchor_peers=$(yq eval -j  '.Organizations[] | select (.Name == "'$(echo {{ $org.Name }}MSP)'") | .AnchorPeers' "/hlf_config/configtx.yaml")
-          echo "00000000"
-          echo $anchor_peers
-          echo "00000000"
 
           /hlf-scripts/attach_anchor_peers.sh {{ $org.Name }}MSP /hlf_config/configtx.yaml /work/config.json /work/updated_config.json && 
           

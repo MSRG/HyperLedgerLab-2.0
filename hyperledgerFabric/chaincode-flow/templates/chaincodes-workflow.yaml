@@ -448,8 +448,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      # image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      image: hyperledger/fabric-tools:1.4.9
+      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      # image: hyperledger/fabric-tools:1.4.9
       command: [sh]
       source: |
           peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
