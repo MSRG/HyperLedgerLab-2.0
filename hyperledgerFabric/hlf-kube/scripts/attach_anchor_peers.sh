@@ -3,7 +3,7 @@
 # parses anchor peers for an organization from configtx.yaml, 
 # attaches it to config.json and writes output to updated_config.json
 
-if test "$#" -ne 4; then
+if test "$#" -ne 5; then
    echo "usage: attach_anchor_peers.sh <orgID> <configtx.yaml> <config.json> <updated_config.json>" 
    exit 2
 fi
