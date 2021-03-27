@@ -388,7 +388,7 @@ spec:
           # fi 
           
           # install yq if it does not exist
-          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
+          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v2.12.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
 
           echo '-- AnchorPeers are not configured for organization {{ $org.Name }}, will configure..' 
 
@@ -402,6 +402,13 @@ spec:
           configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config > /work/config.json && 
           echo '-- trimmed envelope from config block and converted to json' && 
           
+          echo $(yq --version)
+          echo "00000000"
+          anchor_peers=$(yq -c  '.Organizations[] | select (.Name == "'$(echo {{ $org.Name }}MSP)'") | .AnchorPeers' "/hlf_config/configtx.yaml")
+          echo "00000000"
+          echo $anchor_peers
+          echo "00000000"
+
           /hlf-scripts/attach_anchor_peers.sh {{ $org.Name }}MSP /hlf_config/configtx.yaml /work/config.json /work/updated_config.json && 
           
           /hlf-scripts/prepare_config_update_block.sh {{ $channel.name }} /work/config.json /work/updated_config.json /work/update.pb && 
