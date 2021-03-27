@@ -22,7 +22,7 @@ updated_config_json=$4
 workdir="/tmp"
 
 # parse AnchorPeers from configtx.yaml
-anchor_peers=$(yq -c  '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' $configtx_yaml)
+anchor_peers=$(yq -c  '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
 echo "00000000"
 echo $anchor_peers
 echo "00000000"
