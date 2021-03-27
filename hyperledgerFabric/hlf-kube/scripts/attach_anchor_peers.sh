@@ -19,11 +19,12 @@ orgID=$1
 configtx_yaml=$2
 config_json=$3
 updated_config_json=$4
+anchor_peers=$5
 workdir="/tmp"
 
-# parse AnchorPeers from configtx.yaml
-echo $(yq --version)
-anchor_peers=$(yq eval -j '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
+# # parse AnchorPeers from configtx.yaml
+# echo $(yq --version)
+# anchor_peers=$(yq eval -j '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
 
 if [ -z "$anchor_peers" ]; then
    echo "-- couldn't parse AnchorPeers for organization $orgID from $configtx_yaml" 
