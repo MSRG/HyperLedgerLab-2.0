@@ -3,7 +3,7 @@
 # parses anchor peers for an organization from configtx.yaml, 
 # attaches it to config.json and writes output to updated_config.json
 
-if test "$#" -ne 5; then
+if test "$#" -ne 4; then
    echo "usage: attach_anchor_peers.sh <orgID> <configtx.yaml> <config.json> <updated_config.json>" 
    exit 2
 fi
@@ -19,12 +19,11 @@ orgID=$1
 configtx_yaml=$2
 config_json=$3
 updated_config_json=$4
-anchor_peers=$5
 workdir="/tmp"
 
-# # parse AnchorPeers from configtx.yaml
-# echo $(yq --version)
-# anchor_peers=$(yq eval -j '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
+# parse AnchorPeers from configtx.yaml
+echo $(yq --version)
+anchor_peers=$(yq eval -j '.Organizations[] | select (.Name == "'$(echo $orgID)'") | .AnchorPeers' "$configtx_yaml")
 
 if [ -z "$anchor_peers" ]; then
    echo "-- couldn't parse AnchorPeers for organization $orgID from $configtx_yaml" 
