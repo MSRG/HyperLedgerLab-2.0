@@ -160,8 +160,8 @@ spec:
 {{- if or $vars.firstStep (not $.Values.flow.approve.parallel) }}
     - 
 {{- end }}
-      - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $orgName }}--{{ $peer }}
-        template: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $orgName }}--{{ $peer }}
+      - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
+        template: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
 
 {{- $_ := set $vars "firstStep" false }}
 {{- end }} {{- /* peerIndex */ -}} 
@@ -232,18 +232,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          # if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
-          #   echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
-          #   exit 0 
-          # else 
-          #   result=$? 
-          #   echo "-- result is: $result" 
-          #   if test $result -ne 99; then 
-          #     echo "-- result is not 99, exiting with $result" 
-          #     exit $result 
-          #   fi 
-          # fi 
-
           # verify if chaincode is already installed to peer
           result=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
           for value in $result
@@ -326,7 +314,7 @@ spec:
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
-  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $orgName }}--{{ $peer }}
+  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
     # version: {{ $version }}
     # channel: {{ $channel.name }}
