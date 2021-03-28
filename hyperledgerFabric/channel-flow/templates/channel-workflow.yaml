@@ -402,11 +402,10 @@ spec:
               {{- end }}
           &&  echo '-- fetched config block' && 
           
-          if configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config | jq -e 'has("channel_group.groups.Application.groups.{{ $org.Name }}MSP.values.AnchorPeers")' > /dev/null; then  
+          if configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config | jq -e '.channel_group | .groups | .Application | .groups | .'$(echo {{ $org.Name }}MSP)'  | .values | .AnchorPeers ' > /dev/null; then  
             echo '-- AnchorPeers are already configured for organization {{ $org.Name }}, exiting with 0' 
             exit 0 
           fi
-
           configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config > /work/config.json && 
           echo '-- trimmed envelope from config block and converted to json' && 
           /hlf-scripts/attach_anchor_peers.sh {{ $org.Name }}MSP /hlf_config/configtx.yaml /work/config.json /work/updated_config.json && 
