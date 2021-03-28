@@ -149,13 +149,14 @@ spec:
   - name: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     steps:
 {{- range $channel := $chaincode.channels }}
+
 {{- range $orgName := $chaincode.orgs }}
-
 {{- range $i, $org := $.Values.PeerOrgs }}
-
 {{- if eq $orgName $org.Name }}
 
-{{- $peer := "peer0" }}
+{{- range $peerIndex := until ($org.Template.Count | int) }}
+{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+
 {{- if or $vars.firstStep (not $.Values.flow.approve.parallel) }}
     - 
 {{- end }}
@@ -163,6 +164,7 @@ spec:
         template: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name  }}--{{ $org.Name }}--{{ $peer }}
 
 {{- $_ := set $vars "firstStep" false }}
+{{- end }} {{- /* peerIndex */ -}} 
 {{- end }} {{- /* if org */ -}} 
 {{- end }} {{- /* peer.Orgs */ -}}
 {{- end }} {{- /* chaincode.orgs */ -}}
