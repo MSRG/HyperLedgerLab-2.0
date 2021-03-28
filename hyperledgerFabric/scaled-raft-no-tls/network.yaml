@@ -49,5 +49,5 @@ network:
       channels:
         - name: mychannel
           orgs: [Org1, Org2]
-          policy: OR('Org1MSP.member')
+          policy: OR('Org1MSP.member','Org2MSP.member' )
           # policy: OR('Org1MSP.member','Org3MSP.member')
