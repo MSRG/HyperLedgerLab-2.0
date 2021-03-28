@@ -319,7 +319,8 @@ spec:
 
 {{- if eq $orgName $org.Name }}
 
-{{- $peer := "peer0" }}
+{{- range $peerIndex := until ($org.Template.Count | int) }}
+{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
   - name: maybe-instantiate-or-upgrade-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
@@ -391,10 +392,10 @@ spec:
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
-            {{- if $.Values.tlsEnabled }} \ 
-                --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
-            {{- end }} \ 
+          # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          #   {{- if $.Values.tlsEnabled }} \ 
+          #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
+          #   {{- end }} \ 
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
@@ -427,6 +428,7 @@ spec:
         - name: CORE_PEER_MSPCONFIGPATH
           value: /etc/hyperledger/fabric/msp/
 
+{{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
 {{ end }} {{- /* chaincode.channels */ -}}
