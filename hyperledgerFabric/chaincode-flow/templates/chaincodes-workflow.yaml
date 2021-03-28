@@ -378,7 +378,7 @@ spec:
           #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
           #   {{- end }}
           # ; fi
-          
+          echo {{ $org.Domain }}
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
 
           PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
