@@ -421,7 +421,7 @@ spec:
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
-{{ end }} {{- /* chaincode.orgs */ -}}
+# {{ end }} {{- /* chaincode.orgs */ -}}
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
