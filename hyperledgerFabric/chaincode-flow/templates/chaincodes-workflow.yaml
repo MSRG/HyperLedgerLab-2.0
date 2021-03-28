@@ -229,7 +229,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-      
           # if peer chaincode checkinstalled --name {{ $chaincode.name }} --version {{ $version }}; then  
           #   echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
           #   exit 0 
@@ -241,12 +240,11 @@ spec:
           #     exit $result 
           #   fi 
           # fi 
-          echo {{ $org.Domain }}
 
+          # verify if chaincode is already installed to peer
           result=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
           for value in $result
           do
-            echo $value
               if [[ $value == "Package" ]]; then
                   echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already installed to peer {{ $peer }}, exiting with 0' 
                   exit 0 
@@ -316,7 +314,7 @@ spec:
 {{- $language := (not $chaincode.language) | ternary $.Values.chaincode.language $chaincode.language }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
-{{- $orgName := index $channel.orgs 0 }}
+{{- range $orgName := $chaincode.orgs }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 
 {{- if eq $orgName $org.Name }}
@@ -433,6 +431,7 @@ spec:
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
+{{ end }} {{- /* chaincode.orgs */ -}}
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
