@@ -98,9 +98,9 @@ spec:
     - - name: install-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
         template: install-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     {{- end }}
-    {{- if $.Values.flow.instantiate.enabled }}
-    - - name: instantiate-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
-        template: instantiate-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
+    {{- if $.Values.flow.approve.enabled }}
+    - - name: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
+        template: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     {{- end }}
     {{- if $.Values.flow.invoke.enabled }}
     - - name: invoke-chaincode--{{ $chaincode.name }}
@@ -139,36 +139,37 @@ spec:
 {{- end }} {{- /* chaincodes */ -}}
 {{- end }} {{- /* if flow.install.enabled */ -}}{{""}}
 
-# fourth level: instantiate chaincode templates
-{{- if $.Values.flow.instantiate.enabled }}
+# fourth level: approve chaincode templates
+{{- if $.Values.flow.approve.enabled }}
 
 {{- range $i, $chaincode := .Values.network.chaincodes }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- $_ := set $vars "firstStep" true }}
-  - name: instantiate-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
+  - name: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     steps:
 {{- range $channel := $chaincode.channels }}
-{{- $orgName := index $channel.orgs 0 }}
+{{- range $orgName := $chaincode.orgs }}
 
 {{- range $i, $org := $.Values.PeerOrgs }}
 
 {{- if eq $orgName $org.Name }}
 
 {{- $peer := "peer0" }}
-{{- if or $vars.firstStep (not $.Values.flow.instantiate.parallel) }}
+{{- if or $vars.firstStep (not $.Values.flow.approve.parallel) }}
     - 
 {{- end }}
-      - name: maybe-instantiate-or-upgrade-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
-        template: maybe-instantiate-or-upgrade-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name  }}--{{ $org.Name }}--{{ $peer }}
+      - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
+        template: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name  }}--{{ $org.Name }}--{{ $peer }}
 
 {{- $_ := set $vars "firstStep" false }}
 {{- end }} {{- /* if org */ -}} 
 {{- end }} {{- /* peer.Orgs */ -}}
+{{- end }} {{- /* chaincode.orgs */ -}}
 {{- end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{- end }} {{- /* chaincodes */ -}}
-{{- end }} {{- /* if flow.instantiate.enabled */ -}}{{""}}
+{{- end }} {{- /* if flow.approve.enabled */ -}}{{""}}
 
 # fifth level: invoke chaincode templates
 {{- if $.Values.flow.invoke.enabled }}
@@ -307,8 +308,8 @@ spec:
 {{ end }} {{- /* chaincodes */ -}}
 {{ end }} {{- /* if flow.install.enabled */ -}}{{""}}
 
-# leaf instantiate templates
-{{- if $.Values.flow.instantiate.enabled }}
+# leaf approve templates
+{{- if $.Values.flow.approve.enabled }}
 {{- range $i, $chaincode := .Values.network.chaincodes }}
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- $language := (not $chaincode.language) | ternary $.Values.chaincode.language $chaincode.language }}
@@ -323,7 +324,7 @@ spec:
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
-  - name: maybe-instantiate-or-upgrade-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
+  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
     # version: {{ $version }}
     # channel: {{ $channel.name }}
@@ -436,7 +437,7 @@ spec:
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
-{{ end }} {{- /* if flow.instantiate.enabled */ -}}{{""}}
+{{ end }} {{- /* if flow.approve.enabled */ -}}{{""}}
 
 # leaf invoke templates
 {{- if $.Values.flow.invoke.enabled }}

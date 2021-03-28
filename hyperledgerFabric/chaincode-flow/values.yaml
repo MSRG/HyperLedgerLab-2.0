@@ -41,8 +41,8 @@ flow:
     # should we run install step?
     enabled: true
     parallel: true
-  instantiate:
-    # should we run instantiate/upgrade step?
+  approve:
+    # should we run approve step?
     enabled: true
     parallel: true
   invoke:
