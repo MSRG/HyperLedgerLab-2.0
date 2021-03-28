@@ -141,7 +141,6 @@ spec:
 
 # fourth level: approve chaincode templates
 {{- if $.Values.flow.approve.enabled }}
-
 {{- range $i, $chaincode := .Values.network.chaincodes }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
@@ -314,7 +313,7 @@ spec:
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
-  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
+  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}--{{$i}}
     # chaincode: {{ $chaincode.name }}
     # version: {{ $version }}
     # channel: {{ $channel.name }}
@@ -325,7 +324,6 @@ spec:
       limit: {{ $.Values.retryCount }}
     script:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
           # if peer chaincode checkinstantiated --name {{ $chaincode.name }} --version {{ $version }} --channelID {{ $channel.name }}; then  
