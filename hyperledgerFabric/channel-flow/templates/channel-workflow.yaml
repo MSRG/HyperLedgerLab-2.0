@@ -193,7 +193,6 @@ spec:
 {{- range $i, $channel := .Values.network.channels }}
 {{- if or (not $.Values.flow.channel.include) (has $channel.name $.Values.flow.channel.include) }}
 {{- $orgName := index $channel.orgs 0 }}
-echo {{ $orgName }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- $peer := (printf "peer0" ) }}
 {{- if eq $orgName $org.Name }}
