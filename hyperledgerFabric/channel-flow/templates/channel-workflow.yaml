@@ -193,6 +193,7 @@ spec:
 {{- range $i, $channel := .Values.network.channels }}
 {{- if or (not $.Values.flow.channel.include) (has $channel.name $.Values.flow.channel.include) }}
 {{- $orgName := index $channel.orgs 0 }}
+echo {{ $orgName }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- $peer := (printf "peer0" ) }}
 {{- if eq $orgName $org.Name }}
@@ -208,7 +209,7 @@ spec:
       # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
-          echo {{ $org.Domain }}
+          echo {{ $orgName }}
           if peer channel getinfo --channelID {{ $channel.name }} -o {{ $vars.ordererUrl }} {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}
           then  
               echo '-- Channel {{ $channel.name }} already exists, exiting with 0' 
