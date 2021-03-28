@@ -12,7 +12,7 @@ network:
     - name: mychannel
       # all peers in these organizations will join the channel
       # orgs: [Org1, Org2, Org3]
-      orgs: [Org1]
+      orgs: [Org1, Org2]
     # - name: private-org1-org3
     #   # all peers in these organizations will join the channel
     #   orgs: [Org1, Org3]
