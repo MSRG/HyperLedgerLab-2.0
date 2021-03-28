@@ -404,7 +404,7 @@ spec:
           
           configtxlator proto_decode --input /work/config_block.pb --type common.Block | jq .data.data[0].payload.data.config > /work/config.json && 
           echo '-- trimmed envelope from config block and converted to json' && 
-
+          cat /work/config.json
           /hlf-scripts/attach_anchor_peers.sh {{ $org.Name }}MSP /hlf_config/configtx.yaml /work/config.json /work/updated_config.json && 
           
           /hlf-scripts/prepare_config_update_block.sh {{ $channel.name }} /work/config.json /work/updated_config.json /work/update.pb && 
