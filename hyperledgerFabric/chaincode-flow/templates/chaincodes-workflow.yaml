@@ -388,14 +388,14 @@ spec:
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \ 
 
-          peer lifecycle chaincode checkcommitreadiness --channelID {{ $chaincode.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $chaincode.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \ 
-            
+
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
