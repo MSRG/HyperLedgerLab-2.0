@@ -43,7 +43,7 @@ flow:
     parallel: true
   approve:
     # should we run approve step?
-    enabled: false
+    enabled: true
     parallel: true
   invoke:
     # should we run invoke step?
