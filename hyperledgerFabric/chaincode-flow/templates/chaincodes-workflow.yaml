@@ -373,7 +373,7 @@ spec:
           PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
           echo $PACKAGE_ID
 
-          peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} --sequence 1 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required \
+          peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} --sequence 1 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required --signature-policy "{{ $channel.policy }}" \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \ 
