@@ -453,7 +453,7 @@ spec:
       command: [sh]
       source: |
           # {{ $channel.policy }} 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --signature-policy "{{ $channel.policy }}" \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --signature-policy "{{ $channel.policy }}" \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \
