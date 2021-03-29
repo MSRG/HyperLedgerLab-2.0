@@ -485,6 +485,10 @@ spec:
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
+        - mountPath: /etc/hyperledger/fabric/tls/
+          name: peer-org1-peer0-tls
+        - mountPath: /etc/hyperledger/fabric/msp/
+          name: peer-org1-admin-msp
       
       env:
         - name: CORE_PEER_ADDRESS
