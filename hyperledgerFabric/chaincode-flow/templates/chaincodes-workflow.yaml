@@ -432,13 +432,17 @@ spec:
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
-{{- range $orgName := $channel.orgs }}
-{{- range $i, $org := $.Values.PeerOrgs }}
 
-{{- if eq $orgName $org.Name }}
+# {{- range $orgName := $channel.orgs }}
+# {{- range $i, $org := $.Values.PeerOrgs }}
+# {{- if eq $orgName $org.Name }}
+# {{- range $peerIndex := until ($org.Template.Count | int) }}
+# {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
-{{- range $peerIndex := until ($org.Template.Count | int) }}
-{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+# {{ end }} {{- /* peerIndex */ -}} 
+# {{ end }} {{- /* if org */ -}} 
+# {{ end }} {{- /* peer.Orgs */ -}}
+# {{ end }} {{- /* channel.orgs */ -}}
 
   - name: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
@@ -454,10 +458,12 @@ spec:
       source: |
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
           cat log.txt
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \
+
           # peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
           #     -n {{ $chaincode.name }} -c {{ $.Values.flow.invoke.function | squote }} \
           #     {{- if $.Values.tlsEnabled }}
@@ -493,10 +499,7 @@ spec:
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
 
-{{ end }} {{- /* peerIndex */ -}} 
-{{ end }} {{- /* if org */ -}} 
-{{ end }} {{- /* peer.Orgs */ -}}
-{{ end }} {{- /* channel.orgs */ -}}
+
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
