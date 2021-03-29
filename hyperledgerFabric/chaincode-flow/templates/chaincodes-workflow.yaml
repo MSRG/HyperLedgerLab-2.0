@@ -310,8 +310,8 @@ spec:
 
 {{- if eq $orgName $org.Name }}
 
-{{- range $peerIndex := until ($org.Template.Count | int) }}
-{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+# {{- range $peerIndex := until ($org.Template.Count | int) }}
+# {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
   - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
@@ -420,7 +420,7 @@ spec:
 
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
-{{ end }} {{- /* peer.Orgs */ -}}
+# {{ end }} {{- /* peer.Orgs */ -}}
 # {{ end }} {{- /* chaincode.orgs */ -}}
 # {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
