@@ -45,7 +45,7 @@ network:
       # if defined, this will override the global chaincode.language value
       language: node
       # orgs: [Org1, Org3]
-      orgs: [Org1, Org2]
+      orgs: [Org1]
       channels:
         - name: mychannel
           orgs: [Org1]
