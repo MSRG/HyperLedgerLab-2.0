@@ -452,11 +452,11 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          echo zambala
-          # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required {{ $channel.policy }} \
-          #   {{- if $.Values.tlsEnabled }} \ 
-          #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
-          #   {{- end }} \
+          # {{ $channel.policy }} 
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+            {{- if $.Values.tlsEnabled }} \ 
+                --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
+            {{- end }} \
           # peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
           #     -n {{ $chaincode.name }} -c {{ $.Values.flow.invoke.function | squote }} \
           #     {{- if $.Values.tlsEnabled }}
