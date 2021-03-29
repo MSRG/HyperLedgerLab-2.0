@@ -313,7 +313,7 @@ spec:
 # {{- range $peerIndex := until ($org.Template.Count | int) }}
 # {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
-  - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
+  - name: mfffaybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     # chaincode: {{ $chaincode.name }}
     # version: {{ $version }}
     # channel: {{ $channel.name }}
