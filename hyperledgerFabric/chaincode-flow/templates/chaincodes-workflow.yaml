@@ -298,17 +298,17 @@ spec:
 {{ end }} {{- /* if flow.install.enabled */ -}}{{""}}
 
 # leaf approve templates
-{{- if $.Values.flow.approve.enabled }}
-{{- range $i, $chaincode := .Values.network.chaincodes }}
-{{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
+# {{- if $.Values.flow.approve.enabled }}
+# {{- range $i, $chaincode := .Values.network.chaincodes }}
+# {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- $language := (not $chaincode.language) | ternary $.Values.chaincode.language $chaincode.language }}
-{{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
+# {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 # {{- range $channel := $chaincode.channels }}
 # {{- range $orgName := $chaincode.orgs }}
 # {{- $orgName := index $channel.orgs 0 }}
-{{- range $i, $org := $.Values.PeerOrgs }}
+# {{- range $i, $org := $.Values.PeerOrgs }}
 
-{{- if eq $orgName $org.Name }}
+# {{- if eq $orgName $org.Name }}
 
 # {{- range $peerIndex := until ($org.Template.Count | int) }}
 # {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
@@ -418,14 +418,14 @@ spec:
         - name: CORE_PEER_MSPCONFIGPATH
           value: /etc/hyperledger/fabric/msp/
 
-{{ end }} {{- /* peerIndex */ -}} 
-{{ end }} {{- /* if org */ -}} 
+# {{ end }} {{- /* peerIndex */ -}} 
+# {{ end }} {{- /* if org */ -}} 
 # {{ end }} {{- /* peer.Orgs */ -}}
 # {{ end }} {{- /* chaincode.orgs */ -}}
 # {{ end }} {{- /* chaincode.channels */ -}}
-{{- end }} {{- /* if chaincode included */ -}}
-{{ end }} {{- /* chaincodes */ -}}
-{{ end }} {{- /* if flow.approve.enabled */ -}}{{""}}
+# {{- end }} {{- /* if chaincode included */ -}}
+# {{ end }} {{- /* chaincodes */ -}}
+# {{ end }} {{- /* if flow.approve.enabled */ -}}{{""}}
 
 # leaf invoke templates
 {{- if $.Values.flow.invoke.enabled }}
