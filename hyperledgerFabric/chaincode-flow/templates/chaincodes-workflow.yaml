@@ -452,7 +452,7 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-      echo zambala
+          echo zambala
           # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required {{ $channel.policy }} \
           #   {{- if $.Values.tlsEnabled }} \ 
           #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
