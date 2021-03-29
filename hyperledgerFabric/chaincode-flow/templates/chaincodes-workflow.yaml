@@ -490,9 +490,9 @@ spec:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
-          name: peer-{{ $orgName | lower }}-{{ $peer | lower }}-tls
+          name: peer-{{ $org.Name  | lower }}-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
-          name: peer-{{ $orgName | lower }}-admin-msp
+          name: peer-{{ $org.Name  | lower }}-admin-msp
       
       env:
         - name: CORE_PEER_ADDRESS
@@ -500,14 +500,14 @@ spec:
               {{- if $.Values.useActualDomains }}
                 {{ $peer }}.{{ $org.Domain }}:7051
               {{- else }}
-                hlf-peer--{{ $orgName | lower }}--{{ $peer | lower }}:7051
+                hlf-peer--{{ $org.Name  | lower }}--{{ $peer | lower }}:7051
               {{- end }}
         - name: CORE_PEER_TLS_ENABLED
           value: {{ $.Values.tlsEnabled | quote }}
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.logLevel }}
         - name: CORE_PEER_LOCALMSPID
-          value: {{ $orgName }}
+          value: {{ $org.Name  }}MSP
         - name: CORE_PEER_TLS_CERT_FILE
           value: /etc/hyperledger/fabric/tls/server.crt
         - name: CORE_PEER_TLS_KEY_FILE
