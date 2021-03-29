@@ -445,10 +445,6 @@ spec:
 # {{ end }} {{- /* channel.orgs */ -}}
 
   - name: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
-    # chaincode: {{ $chaincode.name }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
-    # peer: {{ $peer }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
