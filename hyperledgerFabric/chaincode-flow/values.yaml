@@ -44,7 +44,7 @@ flow:
   approve:
     # should we run approve step?
     enabled: true
-    parallel: false
+    parallel: true
   invoke:
     # should we run invoke step?
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
