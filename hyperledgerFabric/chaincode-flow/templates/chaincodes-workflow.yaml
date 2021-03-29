@@ -147,7 +147,7 @@ spec:
 {{- $_ := set $vars "firstStep" true }}
   - name: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     steps:
-# {{- range $channel := $chaincode.channels }}
+{{- range $channel := $chaincode.channels }}
 
 {{- range $orgName := $chaincode.orgs }}
 {{- range $i, $org := $.Values.PeerOrgs }}
@@ -167,7 +167,7 @@ spec:
 {{- end }} {{- /* if org */ -}} 
 {{- end }} {{- /* peer.Orgs */ -}}
 {{- end }} {{- /* chaincode.orgs */ -}}
-# {{- end }} {{- /* chaincode.channels */ -}}
+{{- end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{- end }} {{- /* chaincodes */ -}}
 {{- end }} {{- /* if flow.approve.enabled */ -}}{{""}}
@@ -305,7 +305,7 @@ spec:
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
 {{- range $orgName := $chaincode.orgs }}
-{{- $orgName := index $channel.orgs 0 }}
+# {{- $orgName := index $channel.orgs 0 }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 
 {{- if eq $orgName $org.Name }}
