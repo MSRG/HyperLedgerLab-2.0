@@ -305,7 +305,6 @@ spec:
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
 {{- range $orgName := $chaincode.orgs }}
-# {{- $orgName := index $channel.orgs 0 }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 
 {{- if eq $orgName $org.Name }}
