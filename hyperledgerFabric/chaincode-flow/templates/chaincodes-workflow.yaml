@@ -394,9 +394,7 @@ spec:
           #   {{- end }}
           # ; fi
 
-          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
-          cat log.txt
-          if cat log.txt | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
+          if peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already approved on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0' 
             exit 0 
           fi
@@ -489,16 +487,22 @@ spec:
           name: orderer-tlsca
       
       env:
+        - name: CORE_PEER_ADDRESS
+          value: peer0.org1:7051
         - name: CORE_PEER_TLS_ENABLED
           value: {{ $.Values.tlsEnabled | quote }}
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.logLevel }}
+        - name: CORE_PEER_LOCALMSPID
+          value: Org1MSP
         - name: CORE_PEER_TLS_CERT_FILE
           value: /etc/hyperledger/fabric/tls/server.crt
         - name: CORE_PEER_TLS_KEY_FILE
           value: /etc/hyperledger/fabric/tls/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
+        - name: CORE_PEER_MSPCONFIGPATH
+          value: /etc/hyperledger/fabric/msp/
 
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
