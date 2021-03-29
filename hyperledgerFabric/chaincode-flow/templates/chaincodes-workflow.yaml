@@ -429,6 +429,7 @@ spec:
 # leaf invoke templates
 {{- if $.Values.flow.invoke.enabled }}
 {{- range $i, $chaincode := .Values.network.chaincodes }}
+{{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
 {{- range $orgName := $channel.orgs }}
