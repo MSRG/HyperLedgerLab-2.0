@@ -304,7 +304,7 @@ spec:
 {{- $language := (not $chaincode.language) | ternary $.Values.chaincode.language $chaincode.language }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 # {{- range $channel := $chaincode.channels }}
-{{- range $orgName := $chaincode.orgs }}
+# {{- range $orgName := $chaincode.orgs }}
 # {{- $orgName := index $channel.orgs 0 }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 
@@ -421,7 +421,7 @@ spec:
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
-{{ end }} {{- /* chaincode.orgs */ -}}
+# {{ end }} {{- /* chaincode.orgs */ -}}
 # {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
