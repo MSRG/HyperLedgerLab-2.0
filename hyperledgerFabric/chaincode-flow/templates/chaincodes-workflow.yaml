@@ -185,13 +185,6 @@ spec:
   - name: commit-chaincode--{{ $chaincode.name }}
     steps:
 {{- range $channel := $chaincode.channels }}
-{{- range $orgName := $channel.orgs }}
-{{- range $i, $org := $.Values.PeerOrgs }}
-
-{{- if eq $orgName $org.Name }}
-
-{{- range $peerIndex := until ($org.Template.Count | int) }}
-{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
 {{- if or $vars.firstStep (not $.Values.flow.commit.parallel) }}
     - 
@@ -200,10 +193,6 @@ spec:
         template: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
 
 {{- $_ := set $vars "firstStep" false }}
-{{- end }} {{- /* peerIndex */ -}} 
-{{- end }} {{- /* if org */ -}} 
-{{- end }} {{- /* peer.Orgs */ -}}
-{{ end }} {{- /* channel.orgs */ -}}
 {{- end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{- end }} {{- /* chaincodes */ -}}
@@ -480,10 +469,10 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }}  --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }}  --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \
@@ -537,10 +526,10 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \
