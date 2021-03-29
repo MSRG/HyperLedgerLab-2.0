@@ -48,7 +48,7 @@ flow:
   invoke:
     # should we run invoke step?
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
-    enabled: false
+    enabled: true
     parallel: true
     function: '{"function":"initLedger","Args":[""]}'
 

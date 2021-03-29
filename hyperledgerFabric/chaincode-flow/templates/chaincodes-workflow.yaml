@@ -381,7 +381,7 @@ spec:
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
           cat log.txt
 
-          # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required {{ $channel.policy }} \
           #   {{- if $.Values.tlsEnabled }} \ 
           #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
           #   {{- end }} \ 
@@ -449,14 +449,17 @@ spec:
       limit: {{ $.Values.retryCount }}
     script:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: hyperledger/fabric-tools:1.4.9
       command: [sh]
       source: |
-          peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
-              -n {{ $chaincode.name }} -c {{ $.Values.flow.invoke.function | squote }} \
-              {{- if $.Values.tlsEnabled }}
-                  --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-              {{- end }}
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required {{ $channel.policy }} \
+            {{- if $.Values.tlsEnabled }} \ 
+                --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
+            {{- end }} \
+          # peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
+          #     -n {{ $chaincode.name }} -c {{ $.Values.flow.invoke.function | squote }} \
+          #     {{- if $.Values.tlsEnabled }}
+          #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
+          #     {{- end }}
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
