@@ -465,6 +465,8 @@ spec:
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
+{{- $orgName := index $channel.orgs 0 }}
+{{- $peer := (printf "peer0" ) }}
 
   - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
     inputs:
@@ -486,19 +488,24 @@ spec:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
-          name: peer-org1-peer0-tls
+          name: peer-{{ $orgName | lower }}-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
-          name: peer-org1-admin-msp
+          name: peer-{{ $orgName | lower }}-admin-msp
       
       env:
         - name: CORE_PEER_ADDRESS
-          value: peer0.org1:7051
+          value: |- 
+              {{- if $.Values.useActualDomains }}
+                {{ $peer }}.{{ $org.Domain }}:7051
+              {{- else }}
+                hlf-peer--{{ $orgName | lower }}--{{ $peer | lower }}:7051
+              {{- end }}
         - name: CORE_PEER_TLS_ENABLED
           value: {{ $.Values.tlsEnabled | quote }}
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.logLevel }}
         - name: CORE_PEER_LOCALMSPID
-          value: Org1MSP
+          value: {{ $orgName }}
         - name: CORE_PEER_TLS_CERT_FILE
           value: /etc/hyperledger/fabric/tls/server.crt
         - name: CORE_PEER_TLS_KEY_FILE
