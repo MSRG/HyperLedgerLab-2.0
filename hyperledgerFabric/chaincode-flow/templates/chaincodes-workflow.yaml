@@ -102,6 +102,10 @@ spec:
     - - name: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
         template: approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}
     {{- end }}
+    {{- if $.Values.flow.commit.enabled }}
+    - - name: commit-chaincode--{{ $chaincode.name }}
+        template: commit-chaincode--{{ $chaincode.name }}
+    {{- end }}
     {{- if $.Values.flow.invoke.enabled }}
     - - name: invoke-chaincode--{{ $chaincode.name }}
         template: invoke-chaincode--{{ $chaincode.name }}
@@ -171,6 +175,28 @@ spec:
 {{- end }} {{- /* if chaincode included */ -}}
 {{- end }} {{- /* chaincodes */ -}}
 {{- end }} {{- /* if flow.approve.enabled */ -}}{{""}}
+
+# fifth level: commit chaincode templates
+{{- if $.Values.flow.commit.enabled }}
+
+{{- range $i, $chaincode := .Values.network.chaincodes }}
+{{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
+{{- $_ := set $vars "firstStep" true }}
+  - name: commit-chaincode--{{ $chaincode.name }}
+    steps:
+{{- range $channel := $chaincode.channels }}
+
+{{- if or $vars.firstStep (not $.Values.flow.commit.parallel) }}
+    - 
+{{- end }}
+      - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
+        template: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
+
+{{- $_ := set $vars "firstStep" false }}
+{{- end }} {{- /* chaincode.channels */ -}}
+{{- end }} {{- /* if chaincode included */ -}}
+{{- end }} {{- /* chaincodes */ -}}
+{{- end }} {{- /* if flow.commit.enabled */ -}}{{""}}
 
 # fifth level: invoke chaincode templates
 {{- if $.Values.flow.invoke.enabled }}
@@ -428,84 +454,49 @@ spec:
 
 
 
-# # leaf commit templates
-# {{- if $.Values.flow.invoke.enabled }}
-# {{- range $i, $chaincode := .Values.network.chaincodes }}
-# {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
-# {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
-# {{- range $channel := $chaincode.channels }}
+# leaf commit templates
+{{- if $.Values.flow.commit.enabled }}
+{{- range $i, $chaincode := .Values.network.chaincodes }}
+{{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
+{{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
+{{- range $channel := $chaincode.channels }}
 
-# {{- range $orgName := $channel.orgs }}
-# {{- range $i, $org := $.Values.PeerOrgs }}
-# {{- if eq $orgName $org.Name }}
-# {{- range $peerIndex := until ($org.Template.Count | int) }}
-# {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+  - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
+    inputs:
+    retryStrategy:
+      limit: {{ $.Values.retryCount }}
+    script:
+      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      command: [sh]
+      source: |
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }}  --init-required --output json >&log.txt
+          cat log.txt
 
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }}  --init-required \
+            {{- if $.Values.tlsEnabled }} \ 
+                --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
+            {{- end }} \
 
-
-#   - name: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
-#     # chaincode: {{ $chaincode.name }}
-#     # channel: {{ $channel.name }}
-#     # org: {{ $org.Name }}
-#     # peer: {{ $peer }}
-#     inputs:
-#     retryStrategy:
-#       limit: {{ $.Values.retryCount }}
-#     script:
-#       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-#       command: [sh]
-#       source: |
-#           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
-#           cat log.txt
-
-#           peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
-#             {{- if $.Values.tlsEnabled }} \ 
-#                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
-#             {{- end }} \
-
-#           # peer chaincode invoke -C {{ $channel.name }} -o {{ $vars.ordererUrl }} \
-#           #     -n {{ $chaincode.name }} -c {{ $.Values.flow.invoke.function | squote }} \
-#           #     {{- if $.Values.tlsEnabled }}
-#           #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-#           #     {{- end }}
-
-#       volumeMounts:
-#         - mountPath: /hlf_config/orderer-tlsca
-#           name: orderer-tlsca
-#         - mountPath: /etc/hyperledger/fabric/tls/
-#           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-#         - mountPath: /etc/hyperledger/fabric/msp/
-#           name: peer-{{ $org.Name | lower }}-admin-msp
+      volumeMounts:
+        - mountPath: /hlf_config/orderer-tlsca
+          name: orderer-tlsca
       
-#       env:
-#         - name: CORE_PEER_ADDRESS
-#           value: |- 
-#               {{- if $.Values.useActualDomains }}
-#                 {{ $peer }}.{{ $org.Domain }}:7051
-#               {{- else }}
-#                 hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051
-#               {{- end }}
-#         - name: CORE_PEER_TLS_ENABLED
-#           value: {{ $.Values.tlsEnabled | quote }}
-#         - name: FABRIC_LOGGING_SPEC
-#           value: {{ $.Values.logLevel }}
-#         - name: CORE_PEER_LOCALMSPID
-#           value: {{ $org.Name }}MSP
-#         - name: CORE_PEER_TLS_CERT_FILE
-#           value: /etc/hyperledger/fabric/tls/server.crt
-#         - name: CORE_PEER_TLS_KEY_FILE
-#           value: /etc/hyperledger/fabric/tls/server.key
-#         - name: CORE_PEER_TLS_ROOTCERT_FILE
-#           value: /etc/hyperledger/fabric/tls/ca.crt
+      env:
+        - name: CORE_PEER_TLS_ENABLED
+          value: {{ $.Values.tlsEnabled | quote }}
+        - name: FABRIC_LOGGING_SPEC
+          value: {{ $.Values.logLevel }}
+        - name: CORE_PEER_TLS_CERT_FILE
+          value: /etc/hyperledger/fabric/tls/server.crt
+        - name: CORE_PEER_TLS_KEY_FILE
+          value: /etc/hyperledger/fabric/tls/server.key
+        - name: CORE_PEER_TLS_ROOTCERT_FILE
+          value: /etc/hyperledger/fabric/tls/ca.crt
 
-# {{ end }} {{- /* peerIndex */ -}} 
-# {{ end }} {{- /* if org */ -}} 
-# {{ end }} {{- /* peer.Orgs */ -}}
-# {{ end }} {{- /* channel.orgs */ -}}
-# {{ end }} {{- /* chaincode.channels */ -}}
-# {{- end }} {{- /* if chaincode included */ -}}
-# {{ end }} {{- /* chaincodes */ -}}
-# {{ end }} {{- /* if flow.invoke.enabled */ -}}{{""}}
+{{ end }} {{- /* chaincode.channels */ -}}
+{{- end }} {{- /* if chaincode included */ -}}
+{{ end }} {{- /* chaincodes */ -}}
+{{ end }} {{- /* if flow.commit.enabled */ -}}{{""}}
 
 
 # leaf invoke templates
@@ -535,10 +526,10 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \

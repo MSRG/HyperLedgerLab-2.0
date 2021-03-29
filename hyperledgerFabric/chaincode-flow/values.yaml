@@ -45,10 +45,14 @@ flow:
     # should we run approve step?
     enabled: true
     parallel: true
+  commit:
+    # should we run approve step?
+    enabled: true
+    parallel: true
   invoke:
     # should we run invoke step?
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
-    enabled: true
+    enabled: false
     parallel: true
     function: '{"function":"initLedger","Args":[""]}'
 
