@@ -395,7 +395,7 @@ spec:
           # ; fi
 
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&checkcommitreadiness.json
-          echo jq --version
+          echo $(jq --version)
           cat checkcommitreadiness.json
           if jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)'' checkcommitreadiness.json > /dev/null; then  
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already approved on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0' 
