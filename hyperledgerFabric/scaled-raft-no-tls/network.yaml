@@ -48,6 +48,6 @@ network:
       orgs: [Org1, Org2]
       channels:
         - name: mychannel
-          orgs: [Org1, Org2]
+          orgs: [Org1]
           policy: OR('Org1MSP.member','Org2MSP.member' )
           # policy: OR('Org1MSP.member','Org3MSP.member')
