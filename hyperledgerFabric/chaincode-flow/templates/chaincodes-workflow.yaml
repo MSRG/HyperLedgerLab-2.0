@@ -394,7 +394,9 @@ spec:
           #   {{- end }}
           # ; fi
 
-          if peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
+          peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json >&log.txt
+          cat log.txt
+          if cat log.txt | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already approved on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0' 
             exit 0 
           fi
