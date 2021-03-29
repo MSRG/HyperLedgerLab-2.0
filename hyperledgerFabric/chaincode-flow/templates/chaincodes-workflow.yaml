@@ -467,6 +467,8 @@ spec:
 {{- range $channel := $chaincode.channels }}
 {{- $orgName := index $channel.orgs 0 }}
 {{- $peer := (printf "peer0" ) }}
+{{- range $i, $org := $.Values.PeerOrgs }}
+{{- if eq $orgName $org.Name }}
 
   - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
     inputs:
@@ -515,6 +517,8 @@ spec:
         - name: CORE_PEER_MSPCONFIGPATH
           value: /etc/hyperledger/fabric/msp/
 
+{{ end }} {{- /* if org */ -}} 
+{{ end }} {{- /* peer.Orgs */ -}}
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
