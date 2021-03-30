@@ -58,4 +58,5 @@ flow:
 
 chaincode:
   version: "1.0"
+  sequence: 2
   language: node
