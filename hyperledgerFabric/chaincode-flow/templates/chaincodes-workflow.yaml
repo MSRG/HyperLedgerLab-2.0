@@ -259,6 +259,7 @@ spec:
       source: |
           # verify if chaincode is already installed to peer
           result=$(peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt)
+          echo $result
           for value in $result
           do
               if [[ $value == "Package" ]]; then
@@ -461,7 +462,7 @@ spec:
           fcn_call='{"function":"initLedger","Args":[""]}'
           peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --isInit -c ${fcn_call} >&log.txt
           cat log.txt
-          
+
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
