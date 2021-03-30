@@ -399,7 +399,7 @@ spec:
           echo 111111
           cat log.txt
           echo 111111
-          if [$res -eq 0 && grep -q -f log.txt -F 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc']; then
+          if [$res -eq 0 && (grep -q -f log.txt -F 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc') -eq 0]; then
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
