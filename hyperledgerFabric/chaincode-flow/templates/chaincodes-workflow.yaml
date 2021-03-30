@@ -396,14 +396,25 @@ spec:
 
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
           res=$?
+
+          test $res -eq 0 && VALUE=$(cat log.txt | grep 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc')
+          
+          echo 0000000
+          echo $VALUE
+          echo 0000000
+          echo 33333
+          echo $EXPECTED_RESULT
+          echo 33333
           echo 111111
           cat log.txt
           echo 111111
-          if $res -eq 0 && (grep -q -f log.txt -F 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc') -eq 0; then
+
+          EXPECTED_RESULT="Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc"
+          if ["$VALUE" = "$EXPECTED_RESULT"]; then 
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
-
+          
           if peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already approved on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0' 
             exit 0 
