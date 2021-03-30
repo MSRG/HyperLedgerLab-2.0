@@ -396,8 +396,8 @@ spec:
 
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
           res=$?
-          echo ($res)
-          echo (grep --version)
+          echo $res
+          echo $(grep --version)
           cat log.txt
           test $res -eq 0 && VALUE=$(cat log.txt | grep -o '^Version: {{ $version }}, Sequence: [0-9]*, Endorsement Plugin: escc, Validation Plugin: vscc')
           EXPECTED_RESULT="Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc"
