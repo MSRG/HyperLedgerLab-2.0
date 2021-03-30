@@ -398,7 +398,8 @@ spec:
           res=$?
           echo ($res)
           echo (grep --version)
-          test $res -eq 0 && VALUE=$(cat log.txt | grep '^Version: {{ $version }}, Sequence: [0-9]*, Endorsement Plugin: escc, Validation Plugin: vscc')
+          cat log.txt
+          test $res -eq 0 && VALUE=$(cat log.txt | grep -o '^Version: {{ $version }}, Sequence: [0-9]*, Endorsement Plugin: escc, Validation Plugin: vscc')
           EXPECTED_RESULT="Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc"
           if ["$VALUE" = "$EXPECTED_RESULT"]; then 
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
