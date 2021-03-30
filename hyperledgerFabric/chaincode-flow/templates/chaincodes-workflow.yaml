@@ -351,67 +351,10 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          # if peer chaincode checkinstantiated --name {{ $chaincode.name }} --version {{ $version }} --channelID {{ $channel.name }}; then  
-          #   echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already instantiated on channel {{ $channel.name }}, exiting with 0' 
-          #   exit 0 
-          # else 
-          #   result=$? 
-          #   echo "-- result is: $result" 
-          #   if test $result -ne 99; then 
-          #     echo "-- result is not 99, exiting with $result" 
-          #     exit $result 
-          #   fi 
-          # fi 
-
-          # echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is not instantiated on channel {{ $channel.name }}, will check another version..' 
-
-          # if peer chaincode checkinstantiated --name {{ $chaincode.name }} --channelID {{ $channel.name }}; then  
-          #   echo '-- Chaincode {{ $chaincode.name }} with another version is already instantiated on channel {{ $channel.name }}, will perform an upgrade chaincode transaction..' 
-          #   doUpgrade=true 
-          # else 
-          #   result=$? 
-          #   echo "-- result is: $result" 
-          #   if test $result -ne 99; then 
-          #     echo "-- result is not 99, exiting with $result" 
-          #     exit $result 
-          #   fi 
-          # fi 
-
-          # if [ -z "$doUpgrade" ]; then 
-          #   echo '-- Chaincode {{ $chaincode.name }} is not instantiated on channel {{ $channel.name }}, will instantiate..' 
-          #   peer chaincode instantiate --name {{ $chaincode.name }} --version {{ $version }} --lang {{ $language }} \
-          #         --channelID {{ $channel.name }} --orderer {{ $vars.ordererUrl }} \
-          #         --policy "{{ $channel.policy }}" --ctor '{"Args":[""]}' \
-          #   {{- if $.Values.tlsEnabled }}
-          #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-          #   {{- end }}
-          # ; else 
-          #   peer chaincode upgrade --name {{ $chaincode.name }} --version {{ $version }} --lang {{ $language }} \
-          #         --channelID {{ $channel.name }} --orderer {{ $vars.ordererUrl }} \
-          #         --policy "{{ $channel.policy }}" --ctor '{"Args":[""]}' \
-          #   {{- if $.Values.tlsEnabled }}
-          #         --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \
-          #   {{- end }}
-          # ; fi
-
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
           res=$?
 
-          test $res -eq 0 && VALUE=$(cat log.txt | grep -o 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc')
-          
-          EXPECTED_RESULT="Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc"
-
-          echo 0000000
-          echo $VALUE
-          echo 0000000
-          echo 33333
-          echo $EXPECTED_RESULT
-          echo 33333
-          echo 111111
-          cat log.txt
-          echo 111111
-
-          if ["$VALUE" = "$EXPECTED_RESULT"]; then 
+          if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc'); then
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
