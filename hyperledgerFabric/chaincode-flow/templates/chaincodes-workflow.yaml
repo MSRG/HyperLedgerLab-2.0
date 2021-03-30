@@ -399,16 +399,11 @@ spec:
           echo 111111
           cat log.txt
           echo 111111
-          test $res -eq 0 && VALUE=$(cat log.txt | grep -o '^Version: {{ $version }}, Sequence: [0-9]*, Endorsement Plugin: escc, Validation Plugin: vscc')
-          echo 0000000
-          echo $VALUE
-          echo 0000000
-          EXPECTED_RESULT="Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc"
-          if ["$VALUE" = "$EXPECTED_RESULT"]; then 
+          if [$res -eq 0 && grep -q -f log.txt -F 'Version: {{ $version }}, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc')]; then
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
-          
+
           if peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence 1 --init-required --output json | jq -e '.approvals | .'$(echo {{ $org.Name }}MSP)''> /dev/null; then  
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already approved on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0' 
             exit 0 
