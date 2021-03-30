@@ -57,6 +57,6 @@ flow:
     function: '{"function":"initLedger","Args":[""]}'
 
 chaincode:
-  version: "1.0"
+  version: "1.1"
   sequence: 2
   language: node
