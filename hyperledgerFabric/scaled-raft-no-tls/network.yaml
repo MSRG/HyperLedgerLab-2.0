@@ -43,7 +43,7 @@ network:
 
     - name: asset-transfer-basic
       # if defined, this will override the global chaincode.language value
-      language: go
+      language: golang
       # orgs: [Org1, Org3]
       orgs: [Org1, Org2]
       channels:
