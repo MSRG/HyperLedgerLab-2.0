@@ -41,9 +41,9 @@ network:
     #     orgs: [Org1, Org3]
     #     policy: OR('Org1MSP.member','Org3MSP.member')
 
-    - name: fabcar
+    - name: asset-transfer-basic
       # if defined, this will override the global chaincode.language value
-      language: node
+      language: go
       # orgs: [Org1, Org3]
       orgs: [Org1, Org2]
       channels:
