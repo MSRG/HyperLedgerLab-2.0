@@ -59,8 +59,8 @@ cryptogen generate --config ./crypto-config.yaml --output crypto-config
 if [ "$create_genesis_block" == true ]; then
     # generate genesis block
     echo "-- creating genesis block --"
-    genesisProfile=$(yq eval '.network.genesisProfile' $config_file -r)
-    systemChannelID=$(yq eval '.network.systemChannelID' $config_file -r)
+    genesisProfile=$(yq eval '.network.genesisProfile' $config_file )
+    systemChannelID=$(yq eval '.network.systemChannelID' $config_file )
     configtxgen -profile $genesisProfile -channelID $systemChannelID -outputBlock ./channel-artifacts/genesis.block
 else
     echo "-- skipping genesis block creation --"
