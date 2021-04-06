@@ -41,9 +41,10 @@ network:
     #     orgs: [Org1, Org3]
     #     policy: OR('Org1MSP.member','Org3MSP.member')
 
-    - name: asset-transfer-basic
+    # - name: asset-transfer-basic
+    - name: fabric
       # if defined, this will override the global chaincode.language value
-      language: golang
+      language: node
       # orgs: [Org1, Org3]
       orgs: [Org1, Org2]
       channels:
