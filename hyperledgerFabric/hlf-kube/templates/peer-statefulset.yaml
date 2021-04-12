@@ -169,7 +169,9 @@ spec:
           value: {{ $peerAddress }}
         - name: CORE_PEER_LOCALMSPID
           value: {{ $org.Name }}MSP
-
+        - name: CORE_PEER_MSPCONFIGPATH
+          value: /etc/hyperledger/fabric/admin-msp/
+          
         - name: CORE_VM_ENDPOINT
           {{- if $.Values.peer.docker.dind.enabled }}
           value: tcp://localhost:2375
@@ -194,7 +196,7 @@ spec:
           value: /etc/hyperledger/fabric/tls/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
-        
+
         - name: CORE_CHAINCODE_BUILDER
           value: hyperledger/fabric-ccenv:{{ $.Values.hyperledgerVersion }}
         - name: CORE_CHAINCODE_LOGGING_LEVEL
