@@ -3,6 +3,7 @@
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 {{- $peerAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+# peerAddress: {{ $peerAddress }}
 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -74,6 +75,10 @@ spec:
       - name: docker-disk
         emptyDir: {}
       {{- end }}
+      {{- if or $.Values.backup.enabled $.Values.restore.enabled }}
+      - name: rsync-disk
+        emptyDir: {}
+      {{- end }}
       - name: peer-tls
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
@@ -124,43 +129,6 @@ spec:
       {{- end }}
       {{- end }}{{""}}
 
-      # {{- if $.Values.peer.antiAffinity.enabled }}
-      # {{- if gt ($org.Template.Count | int) 1 }}
-      # affinity:
-      #   podAntiAffinity:
-      # {{- if $.Values.peer.antiAffinity.strict }}
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #     - topologyKey: kubernetes.io/hostname
-      #       labelSelector:
-      #         matchExpressions:
-      #         - key: app
-      #           operator: In
-      #           values:
-      #           {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-      #           {{- if not (eq $peerIndex $peerIndexInner) }}
-      #           {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
-      #           - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
-      #           {{- end }} {{- /* if not same peer */ -}}
-      #           {{- end }} {{- /* Peers */ -}}{{""}}
-      # {{- else }}
-      #     preferredDuringSchedulingIgnoredDuringExecution:
-      #     - weight: 100
-      #       podAffinityTerm:
-      #         topologyKey: kubernetes.io/hostname
-      #         labelSelector:
-      #           matchExpressions:
-      #           - key: app
-      #             operator: In
-      #             values:
-      #             {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-      #             {{- if not (eq $peerIndex $peerIndexInner) }}
-      #             {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
-      #             - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
-      #             {{- end }} {{- /* if not same peer */ -}}
-      #             {{- end }} {{- /* Peers */ -}}{{""}}
-      # {{- end }}{{- /* if-else antiAffinity.strict */ -}}
-      # {{- end }}{{- /* if peer count > 1 */ -}}
-      # {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
       containers:
       
@@ -313,7 +281,6 @@ spec:
 
       {{- end }} {{- /* if peer.docker.dind.enabled */ -}}{{""}}
 
-      {{- end }} {{- /* if/else backup/restore enabled */ -}}{{""}}
 ---
 {{- end }} {{- /* Peers */ -}}
 {{- end }} {{- /* Orgs */ -}}
