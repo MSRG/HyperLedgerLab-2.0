@@ -194,7 +194,8 @@ spec:
           value: /etc/hyperledger/fabric/tls/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
-        
+        - name: CORE_PEER_MSPCONFIGPATH
+          value: /etc/hyperledger/fabric/admin-msp/
         - name: CORE_CHAINCODE_BUILDER
           value: hyperledger/fabric-ccenv:{{ $.Values.hyperledgerVersion }}
         - name: CORE_CHAINCODE_LOGGING_LEVEL
