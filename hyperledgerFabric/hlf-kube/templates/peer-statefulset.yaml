@@ -96,6 +96,8 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
+          - key: admincert.pem
+            path: admincerts/cert.pem
       - name: peer-admin-msp
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--admin-msp
@@ -110,6 +112,8 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
+          - key: admincert.pem
+            path: admincerts/cert.pem
       # chaincodes
       {{- range $i, $chaincode := $.Values.network.chaincodes }}    
       - name: chaincode-{{ $chaincode.name | lower }}

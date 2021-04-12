@@ -54,6 +54,8 @@ spec:
             path: keystore/key.pem
           - key: cacert.pem
             path: cacerts/ca.{{ $org.Domain }}-cert.pem
+          - key: admincert.pem
+            path: admincerts/cert.pem
       - name: genesis
         secret:
           secretName: hlf-genesis.block

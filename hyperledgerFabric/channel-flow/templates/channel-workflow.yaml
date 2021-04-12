@@ -57,6 +57,8 @@ spec:
         path: cacerts/ca.{{ $org.Domain }}-cert.pem
       - key: tlscacert.pem
         path: tlscacerts/cert.pem
+      - key: admincert.pem
+        path: admincerts/cert.pem
 
   - name: peer-{{ $org.Name | lower }}-msp
     secret:
