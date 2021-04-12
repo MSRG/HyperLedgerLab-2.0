@@ -3,7 +3,6 @@
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 {{- $peerAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
-# peerAddress: {{ $peerAddress }}
 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -75,10 +74,6 @@ spec:
       - name: docker-disk
         emptyDir: {}
       {{- end }}
-      {{- if or $.Values.backup.enabled $.Values.restore.enabled }}
-      - name: rsync-disk
-        emptyDir: {}
-      {{- end }}
       - name: peer-tls
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
@@ -129,125 +124,43 @@ spec:
       {{- end }}
       {{- end }}{{""}}
 
-      {{- if $.Values.backup.enabled }}
-
-      containers:
-
-      # rsync-server container
-      - name: rsync
-        image: axiom/rsync-server:latest
-        command: ["sh", "-c", "mkdir -p /data && sleep 30 && \
-          {{- if $.Values.peer.backup.enabled }}
-                               tar -czf /data/peer.tar -C /var/hyperledger/production ledgersData/ chaincodes/ && \
-                               echo 'prepared peer data for backup' && \
-          {{- end }}
-          {{- if $.Values.couchdb.backup.enabled }}
-                               tar -czf /data/couchdb.tar -C /opt/couchdb/data --exclude='lost+found' .  && \
-                               echo 'prepared CouchDB data for backup' && \
-          {{- end }}
-                               touch /ready && \
-                               /entrypoint.sh rsync_server"]
-                               
-        readinessProbe:
-          exec:
-            command: ["ls", "/ready"]
-
-        volumeMounts:
-        - mountPath: /var/hyperledger/production/
-          name: peer-disk
-        - mountPath: /opt/couchdb/data/
-          name: couchdb-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      {{- else if $.Values.restore.enabled }}
-
-      containers:
-
-      # rsync-server container
-      - name: rsync
-        image: axiom/rsync-server:latest
-        command: ["sh", "-c", "/entrypoint.sh rsync_server"]
-                               
-        volumeMounts:
-        - mountPath: /data/
-          name: rsync-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      - name: shell
-        image: debian:jessie
-        command: ["sh", "-c", "echo 'waiting for file /data/ready..' && \
-                               while [ ! -f /data/ready ]; do sleep 5; done && \
-                               echo 'data is ready, proceeding..' && \
-          {{- if $.Values.peer.restore.enabled }}
-                               rm -rf /var/hyperledger/production/* && \
-                               tar -xf /data/peer.tar -C /var/hyperledger/production/ && \
-                               echo 'restored peer data from backup' && \
-          {{- end }}
-          {{- if $.Values.couchdb.restore.enabled }}
-                               rm -rf /opt/couchdb/data/* && \
-                               tar -xf /data/couchdb.tar -C /opt/couchdb/data/ && \
-                               echo 'restored CouchDB data from backup' && \
-          {{- end }}
-                               echo 'ready to continue..' && \
-                               while true; do sleep 60; done"]
-                               
-        volumeMounts:
-        - mountPath: /var/hyperledger/production/
-          name: peer-disk
-        - mountPath: /opt/couchdb/data/
-          name: couchdb-disk
-        - mountPath: /data/
-          name: rsync-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      {{- else }} {{- /* if backup/restore enabled */ -}}{{""}}
-
-      {{- if $.Values.peer.antiAffinity.enabled }}
-      {{- if gt ($org.Template.Count | int) 1 }}
-      affinity:
-        podAntiAffinity:
-      {{- if $.Values.peer.antiAffinity.strict }}
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-                {{- if not (eq $peerIndex $peerIndexInner) }}
-                {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
-                - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
-                {{- end }} {{- /* if not same peer */ -}}
-                {{- end }} {{- /* Peers */ -}}{{""}}
-      {{- else }}
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-                  {{- if not (eq $peerIndex $peerIndexInner) }}
-                  {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
-                  - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
-                  {{- end }} {{- /* if not same peer */ -}}
-                  {{- end }} {{- /* Peers */ -}}{{""}}
-      {{- end }}{{- /* if-else antiAffinity.strict */ -}}
-      {{- end }}{{- /* if peer count > 1 */ -}}
-      {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
+      # {{- if $.Values.peer.antiAffinity.enabled }}
+      # {{- if gt ($org.Template.Count | int) 1 }}
+      # affinity:
+      #   podAntiAffinity:
+      # {{- if $.Values.peer.antiAffinity.strict }}
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - topologyKey: kubernetes.io/hostname
+      #       labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+      #           {{- if not (eq $peerIndex $peerIndexInner) }}
+      #           {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+      #           - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+      #           {{- end }} {{- /* if not same peer */ -}}
+      #           {{- end }} {{- /* Peers */ -}}{{""}}
+      # {{- else }}
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - weight: 100
+      #       podAffinityTerm:
+      #         topologyKey: kubernetes.io/hostname
+      #         labelSelector:
+      #           matchExpressions:
+      #           - key: app
+      #             operator: In
+      #             values:
+      #             {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+      #             {{- if not (eq $peerIndex $peerIndexInner) }}
+      #             {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+      #             - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+      #             {{- end }} {{- /* if not same peer */ -}}
+      #             {{- end }} {{- /* Peers */ -}}{{""}}
+      # {{- end }}{{- /* if-else antiAffinity.strict */ -}}
+      # {{- end }}{{- /* if peer count > 1 */ -}}
+      # {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
       containers:
       
@@ -287,14 +200,7 @@ spec:
           value: 0.0.0.0:7051
         - name: CORE_PEER_CHAINCODELISTENADDRESS
           value: 0.0.0.0:7052
-        - name: CORE_PEER_GOSSIP_BOOTSTRAP
-          value: >- 
-        {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-        {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
-        {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
-              {{ $peerGossipAddress }}
-        {{- end }} {{- /* Peers */ -}}{{""}}
-
+      
         - name: CORE_PEER_GOSSIP_EXTERNALENDPOINT
           value: {{ $peerAddress }}
         - name: CORE_PEER_LOCALMSPID
@@ -365,6 +271,14 @@ spec:
         - name: CORE_METRICS_PROVIDER
           value: {{ $.Values.peer.metrics.provider }}
         {{- end }}
+        
+        - name: CORE_PEER_GOSSIP_BOOTSTRAP
+          value: >- 
+        {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+        {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
+        {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+              {{ $peerGossipAddress }}
+        {{- end }} {{- /* Peers */ -}}{{""}}
 
       # CouchDB container
       - name: couchdb

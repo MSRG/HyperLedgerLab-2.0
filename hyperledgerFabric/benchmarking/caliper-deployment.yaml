@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: caliper
+  name: caliper
+spec:
+  selector:
+    matchLabels:
+      app: caliper
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: caliper
+    spec:
+      containers:
+        - env:
+            - name: CALIPER_BIND_SUT
+              value: fabric:2.2
+            - name: CALIPER_BENCHCONFIG
+              value: benchmarks/myAssetBenchmark.yaml
+            - name: CALIPER_NETWORKCONFIG
+              value: networks/networkConfig3.yaml
+            - name: CALIPER_FABRIC_GATEWAY_ENABLED
+              value: "true"
+            - name: CALIPER_FLOW_ONLY_TEST
+              value: "true"
+          image: hyperledger/caliper:0.4.2
+          name: caliper
+          command:
+            - caliper
+          args:
+            - launch
+            - manager
+          tty: true
+          volumeMounts:
+            - mountPath: /hyperledger/caliper/workspace
+              name: caliper-workspace
+            - mountPath: /hyperledger/caliper/fabric-samples
+              name: fabric-workspace
+          workingDir: /hyperledger/caliper/workspace
+      restartPolicy: Always
+      volumes:
+        - name: caliper-workspace
+          hostPath:
+            path: /home/vagrant/caliper-workspace
+            type: Directory
+        - name: fabric-workspace
+          hostPath:
+            path: /home/vagrant/fabr          volumeMounts:
+            - mountPath: /hyperledger/caliper/workspace
+              name: caliper-workspace
+            - mountPath: /hyperledger/caliper/fabric-samples
+              name: fabric-workspace
+          workingDir: /hyperledger/caliper/workspace
+      restartPolicy: Always
+      volumes:
+        - name: caliper-workspace
+          hostPath:
+            path: /home/vagrant/caliper-workspace
+            type: Directory
+        - name: fabric-workspace
+          hostPath:
+            path: /home/vagrant/fabric-external-chaincodes/
+            type: Directoryic-external-chaincodes/
+            type: Directory
