@@ -214,7 +214,14 @@ spec:
           value: {{ $.Values.couchdb.userName | quote }}
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
           value: {{ $.Values.couchdb.password | quote }}
-        
+        - name: CORE_PEER_GOSSIP_BOOTSTRAP
+          value: >- 
+          {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+          {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
+          {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+                {{ $peerGossipAddress }}
+          {{- end }} {{- /* Peers */ -}}{{""}}
+
         - name: HFC_LOGGING
           value: '{"info":"console"}'
         - name: GRPC_VERBOSITY
@@ -238,13 +245,7 @@ spec:
           value: {{ $.Values.peer.metrics.provider }}
         {{- end }}
         
-        - name: CORE_PEER_GOSSIP_BOOTSTRAP
-          value: >- 
-        {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-        {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
-        {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
-              {{ $peerGossipAddress }}
-        {{- end }} {{- /* Peers */ -}}{{""}}
+
 
       # CouchDB container
       - name: couchdb
