@@ -50,8 +50,6 @@ spec:
         path: cacerts/ca.{{ $org.Domain }}-cert.pem
       - key: tlscacert.pem
         path: tlscacerts/cert.pem
-      - key: admincert.pem
-        path: admincerts/cert.pem
 
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
