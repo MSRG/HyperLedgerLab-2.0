@@ -96,8 +96,6 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
-          - key: admincert.pem
-            path: admincerts/cert.pem
       - name: peer-admin-msp
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--admin-msp
@@ -112,8 +110,6 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
-          - key: admincert.pem
-            path: admincerts/cert.pem
       # chaincodes
       {{- range $i, $chaincode := $.Values.network.chaincodes }}    
       - name: chaincode-{{ $chaincode.name | lower }}
@@ -324,10 +320,8 @@ spec:
           value: /etc/hyperledger/fabric/tls/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
-
-        - name: CORE_PEER_MSPCONFIGPATH
-          value: /etc/hyperledger/fabric/msp/
-
+        # - name: CORE_PEER_MSPCONFIGPATH
+        #   value: /etc/hyperledger/fabric/admin-msp/
         - name: CORE_CHAINCODE_BUILDER
           value: hyperledger/fabric-ccenv:{{ $.Values.hyperledgerVersion }}
         - name: CORE_CHAINCODE_LOGGING_LEVEL
