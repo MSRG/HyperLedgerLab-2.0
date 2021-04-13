@@ -468,7 +468,7 @@ spec:
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name  | lower }}-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
-          name: peer-{{ $org.Name  | lower }}-admin-msp
+          name: peer-{{ $org.Name | lower }}-admin-msp
       
       env:
         - name: CORE_PEER_ADDRESS
