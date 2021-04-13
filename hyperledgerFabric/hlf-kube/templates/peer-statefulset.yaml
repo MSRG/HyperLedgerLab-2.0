@@ -125,6 +125,43 @@ spec:
       {{- end }}
       {{- end }}{{""}}
 
+      {{- if $.Values.peer.antiAffinity.enabled }}
+      {{- if gt ($org.Template.Count | int) 1 }}
+      affinity:
+        podAntiAffinity:
+      {{- if $.Values.peer.antiAffinity.strict }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+                {{- if not (eq $peerIndex $peerIndexInner) }}
+                {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+                - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+                {{- end }} {{- /* if not same peer */ -}}
+                {{- end }} {{- /* Peers */ -}}{{""}}
+      {{- else }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+                  {{- if not (eq $peerIndex $peerIndexInner) }}
+                  {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+                  - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+                  {{- end }} {{- /* if not same peer */ -}}
+                  {{- end }} {{- /* Peers */ -}}{{""}}
+      {{- end }}{{- /* if-else antiAffinity.strict */ -}}
+      {{- end }}{{- /* if peer count > 1 */ -}}
+      {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
       containers:
       
@@ -164,13 +201,20 @@ spec:
           value: 0.0.0.0:7051
         - name: CORE_PEER_CHAINCODELISTENADDRESS
           value: 0.0.0.0:7052
-      
+        - name: CORE_PEER_GOSSIP_BOOTSTRAP
+          value: >- 
+          {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+          {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
+          {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+                {{ $peerGossipAddress }}
+          {{- end }} {{- /* Peers */ -}}{{""}}
+
         - name: CORE_PEER_GOSSIP_EXTERNALENDPOINT
           value: {{ $peerAddress }}
         - name: CORE_PEER_LOCALMSPID
           value: {{ $org.Name }}MSP
-        # - name: CORE_PEER_MSPCONFIGPATH
-        #   value: /etc/hyperledger/fabric/admin-msp/
+        - name: CORE_PEER_MSPCONFIGPATH
+          value: /etc/hyperledger/fabric/admin-msp/
           
         - name: CORE_VM_ENDPOINT
           {{- if $.Values.peer.docker.dind.enabled }}
@@ -214,13 +258,6 @@ spec:
           value: {{ $.Values.couchdb.userName | quote }}
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
           value: {{ $.Values.couchdb.password | quote }}
-        - name: CORE_PEER_GOSSIP_BOOTSTRAP
-          value: >- 
-          {{- range $peerIndexInner := until ($org.Template.Count | int) }}
-          {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
-          {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
-                {{ $peerGossipAddress }}
-          {{- end }} {{- /* Peers */ -}}{{""}}
 
         - name: HFC_LOGGING
           value: '{"info":"console"}'
