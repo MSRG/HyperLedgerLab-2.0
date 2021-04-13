@@ -410,7 +410,7 @@ spec:
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
         - name: CORE_PEER_MSPCONFIGPATH
-          value: /etc/hyperledger/fabric/msp/
+          value: /etc/hyperledger/fabric/admin-msp/
 
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
@@ -491,7 +491,7 @@ spec:
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/ca.crt
         - name: CORE_PEER_MSPCONFIGPATH
-          value: /etc/hyperledger/fabric/msp/
+          value: /etc/hyperledger/fabric/admin-msp/
 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
