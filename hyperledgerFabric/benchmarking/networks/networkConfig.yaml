@@ -1,0 +1,32 @@
+name: Fabric
+version: "2.2.0"
+mutual-tls: true
+
+caliper:
+  blockchain: fabric
+  sutOptions:
+    mutualTls: true
+
+channels:
+  - channelName: mychannel
+    contracts:
+      - id: fabcar
+
+organizations:
+  - mspid: org1MSP
+    identities:
+      certificates:
+        - name: "Admin"
+          admin: true
+          clientPrivateKey:
+            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/Admin@org1/msp/keystore/priv_sk"
+          clientSignedCert:
+            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/Admin@org1/msp/signcerts/Admin@org1-cert.pem"
+        - name: "User1"
+          clientPrivateKey:
+            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/User1@org1/msp/keystore/priv_sk"
+          clientSignedCert:
+            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/User1@org1/msp/signcerts/User1@org1-cert.pem"
+    connectionProfile:
+      path: "networks/profile-org1.yaml"
+      discover: true

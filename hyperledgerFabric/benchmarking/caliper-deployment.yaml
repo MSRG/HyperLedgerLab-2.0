@@ -23,7 +23,7 @@ spec:
             - name: CALIPER_BENCHCONFIG
               value: benchmarks/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
-              value: networks/networkConfig3.yaml
+              value: networks/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
             - name: CALIPER_FLOW_ONLY_TEST
@@ -50,7 +50,8 @@ spec:
             type: Directory
         - name: fabric-workspace
           hostPath:
-            path: /home/vagrant/fabr          volumeMounts:
+            path: /home/vagrant/fabric        
+          volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
             - mountPath: /hyperledger/caliper/fabric-samples

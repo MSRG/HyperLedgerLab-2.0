@@ -1,0 +1,24 @@
+name: Fabric
+version: "1.0.0"
+
+client:
+  organization: org1
+  connection:
+    timeout:
+      peer:
+        endorser: "300"
+
+organizations:
+  org1:
+    mspid: org1MSP
+    peers:
+      - peer0-org1
+
+peers:
+  peer0-org1:
+    url: grpcs://peer0-org1:7051
+    grpcOptions:
+      ssl-target-name-override: peer0-org1
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../../hlf-kube/crypto-config/peerOrganizations/org1/peers/peer0-org1/msp/tlscacerts/tlsca.org1-cert.pem
