@@ -288,7 +288,7 @@ spec:
       volumeMounts:
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/msp/
+        - mountPath: /etc/hyperledger/fabric/admin-msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/chaincode/
           name: chaincode-{{ $chaincode.name | lower }}
@@ -386,7 +386,7 @@ spec:
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/msp/
+        - mountPath: /etc/hyperledger/fabric/admin-msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
       
       env:
@@ -467,9 +467,9 @@ spec:
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name  | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/msp/
-          name: peer-{{ $org.Name  | lower }}-admin-msp
-      
+        - mountPath: /etc/hyperledger/fabric/admin-msp/
+          name: peer-{{ $org.Name | lower }}-admin-msp
+
       env:
         - name: CORE_PEER_ADDRESS
           value: |- 
@@ -547,7 +547,7 @@ spec:
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/msp/
+        - mountPath: /etc/hyperledger/fabric/admin-msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
       
       env:
