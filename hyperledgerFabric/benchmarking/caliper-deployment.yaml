@@ -16,7 +16,7 @@ spec:
       labels:
         app: caliper
     spec:
-      name: peer-msp
+      - name: peer-msp
         secret:
           secretName: hlf-peer--org1--peer0-msp
           items:
