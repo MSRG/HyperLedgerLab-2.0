@@ -16,7 +16,7 @@ spec:
       labels:
         app: caliper
     spec:
-      - name: peer-msp
+      name: peer-msp
         secret:
           secretName: hlf-peer--org1--peer0-msp
           items:
@@ -30,7 +30,6 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
-
       containers:
         - env:
             - name: CALIPER_BIND_SUT
