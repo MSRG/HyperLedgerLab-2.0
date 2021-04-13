@@ -30,7 +30,7 @@ spec:
             path: cacerts/ca.{{ $org.Domain}}-cert.pem
           - key: tlscacert.pem
             path: tlscacerts/cert.pem
-      containers:
+      - containers:
         - env:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
