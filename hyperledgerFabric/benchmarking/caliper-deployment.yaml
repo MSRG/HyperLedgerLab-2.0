@@ -34,8 +34,8 @@ spec:
         - env:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
-            # - name: CALIPER_BENCHCONFIG
-            #   value: benchmarks/myAssetBenchmark.yaml
+            - name: CALIPER_BENCHCONFIG
+              value: benchmarks/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
               value: networks/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED

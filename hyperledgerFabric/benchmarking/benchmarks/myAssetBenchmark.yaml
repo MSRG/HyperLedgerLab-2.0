@@ -1,0 +1,23 @@
+test:
+  name: marble-benchmark
+  description: test benchmark
+  workers:
+    type: local
+    number: 2
+  rounds:
+    - label: initMarble
+      description: init marbles benchmark
+      txNumber: 100
+      rateControl:
+        type: fixed-load
+        opts:
+          tps: 25
+      workload:
+        module: workload/init.js
+monitor:
+  type:
+    - none
+
+observer:
+  type: local
+  interval: 1
