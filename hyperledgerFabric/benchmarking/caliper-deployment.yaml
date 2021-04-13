@@ -50,35 +50,35 @@ spec:
             - launch
             - manager
           tty: true
-          volumeMounts:
-            - mountPath: /hyperledger/caliper/workspace
-              name: caliper-workspace
-            - mountPath: /hyperledger/caliper/fabric-samples
-              name: fabric-workspace
+          # volumeMounts:
+          #   - mountPath: /hyperledger/caliper/workspace
+          #     name: caliper-workspace
+          #   - mountPath: /hyperledger/caliper/fabric-samples
+          #     name: fabric-workspace
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
-      volumes:
-        - name: caliper-workspace
-          hostPath:
-            path: /home/vagrant/caliper-workspace
-            type: Directory
-        - name: fabric-workspace
-          hostPath:
-            path: /home/vagrant/fabric        
-          volumeMounts:
-            - mountPath: /hyperledger/caliper/workspace
-              name: caliper-workspace
-            - mountPath: /hyperledger/caliper/fabric-samples
-              name: fabric-workspace
-          workingDir: /hyperledger/caliper/workspace
-      restartPolicy: Always
-      volumes:
-        - name: caliper-workspace
-          hostPath:
-            path: /home/vagrant/caliper-workspace
-            type: Directory
-        - name: fabric-workspace
-          hostPath:
-            path: /home/vagrant/fabric-external-chaincodes/
-            type: Directoryic-external-chaincodes/
-            type: Directory
+      # volumes:
+      #   - name: caliper-workspace
+      #     hostPath:
+      #       path: /home/vagrant/caliper-workspace
+      #       type: Directory
+      #   - name: fabric-workspace
+      #     hostPath:
+      #       path: /home/vagrant/fabric
+      #     volumeMounts:
+      #       - mountPath: /hyperledger/caliper/workspace
+      #         name: caliper-workspace
+      #       - mountPath: /hyperledger/caliper/fabric-samples
+      #         name: fabric-workspace
+      #     workingDir: /hyperledger/caliper/workspace
+      # restartPolicy: Always
+      # volumes:
+      #   - name: caliper-workspace
+      #     hostPath:
+      #       path: /home/vagrant/caliper-workspace
+      #       type: Directory
+      #   - name: fabric-workspace
+      #     hostPath:
+      #       path: /home/vagrant/fabric-external-chaincodes/
+      #       type: Directoryic-external-chaincodes/
+      #       type: Directory
