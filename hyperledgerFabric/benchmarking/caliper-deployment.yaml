@@ -53,8 +53,8 @@ spec:
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
-          #   - mountPath: /hyperledger/caliper/fabric-samples
-          #     name: fabric-workspace
+            - mountPath: /hyperledger/caliper/fabric-samples
+              name: fabric-workspace
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       volumes:
@@ -62,16 +62,16 @@ spec:
           hostPath:
             path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric/benchmarking
             type: Directory
-      #   - name: fabric-workspace
-      #     hostPath:
-      #       path: /home/vagrant/fabric
-      #     volumeMounts:
-      #       - mountPath: /hyperledger/caliper/workspace
-      #         name: caliper-workspace
-      #       - mountPath: /hyperledger/caliper/fabric-samples
-      #         name: fabric-workspace
-      #     workingDir: /hyperledger/caliper/workspace
-      # restartPolicy: Always
+        - name: fabric-workspace
+          hostPath:
+            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
+          volumeMounts:
+            - mountPath: /hyperledger/caliper/workspace
+              name: caliper-workspace
+            - mountPath: /hyperledger/caliper/fabric-samples
+              name: fabric-workspace
+          workingDir: /hyperledger/caliper/workspace
+      restartPolicy: Always
       # volumes:
       #   - name: caliper-workspace
       #     hostPath:
