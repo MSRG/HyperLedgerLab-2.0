@@ -65,12 +65,6 @@ spec:
         - name: fabric-workspace
           hostPath:
             path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
-          volumeMounts:
-            - mountPath: /hyperledger/caliper/workspace
-              name: caliper-workspace
-            - mountPath: /hyperledger/caliper/fabric-samples
-              name: fabric-workspace
-          workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       # volumes:
       #   - name: caliper-workspace
