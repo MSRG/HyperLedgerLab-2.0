@@ -30,10 +30,12 @@ spec:
               value: "true"
           image: hyperledger/caliper:0.4.2
           name: caliper
-          command: ["/bin/bash", "-c", "--"]
+          command:
+            - sleep
           args:
-            ["while true; do sleep 30; done;"]
-            # command:
+            - 1000
+            # - manager
+          # command:
           #   - caliper
           # args:
           #   - --version
