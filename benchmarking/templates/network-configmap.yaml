@@ -3,8 +3,4 @@ kind: ConfigMap
 metadata:
   name: network
 data: 
-  {{- $files := .Files }}
-  {{- range tuple "network/networkConfig.yaml" }}
-  {{ . }}: |-
-        {{ $files.Get . }}
-  {{- end }}
+{{ (.Files.Glob "networks/*").AsConfig | indent 2 }}

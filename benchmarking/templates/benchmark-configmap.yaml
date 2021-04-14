@@ -3,8 +3,4 @@ kind: ConfigMap
 metadata:
   name: benchmarks
 data: 
-  {{- $files := .Files }}
-  {{- range tuple "benchmarks/myAssetBenchmark.yaml" }}
-  {{ . }}: |-
-        {{ $files.Get . }}
-  {{- end }}
+{{ (.Files.Glob "benchmarks/*").AsConfig | indent 2 }}
