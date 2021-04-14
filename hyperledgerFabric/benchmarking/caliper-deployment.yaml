@@ -48,12 +48,12 @@ spec:
       volumes:
         - name: caliper-workspace
           hostPath:
-            path: ./benchmarking
-            type: Directory
+            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric/benchmarking
+            type: DirectoryOrCreate
         - name: fabric-workspace
           hostPath:
-            path: ./
-            type: Directory
+            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
+            type: DirectoryOrCreate
         - name: peer-msp
           secret:
             secretName: hlf-peer--org1--peer0-msp
