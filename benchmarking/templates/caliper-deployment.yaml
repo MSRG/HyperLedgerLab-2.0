@@ -22,10 +22,10 @@ spec:
               value: fabric:2.2
             - name: CALIPER_BENCHCONFIG
               # value: benchmarks/myAssetBenchmark.yaml
-              value: ./caliper-benchmark/myAssetBenchmark.yaml
+              value: /hyperledger/caliper/workspace/caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
               # value: networks/networkConfig.yaml
-              value: ./caliper-network/networkConfig.yaml
+              value: /hyperledger/caliper/workspace/caliper-network/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
             - name: CALIPER_FLOW_ONLY_TEST
@@ -51,9 +51,9 @@ spec:
             - mountPath: /etc/hyperledger/fabric/msp/
               name: peer-msp
             - mountPath: caliper-benchmark
-              name: caliper-benchmark
+              name: /hyperledger/caliper/workspace/caliper-benchmark
             - mountPath: caliper-network
-              name: caliper-network
+              name: /hyperledger/caliper/workspace/caliper-network
 
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
