@@ -32,9 +32,9 @@ spec:
           name: caliper
           command:
             - caliper
-          # args:
-          #   - launch
-          #   - manager
+          args:
+            - launch
+            - manager
           tty: true
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
