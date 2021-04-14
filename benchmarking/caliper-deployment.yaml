@@ -41,8 +41,8 @@ spec:
             - manager
           tty: true
           volumeMounts:
-            - mountPath: /hyperledger/caliper/workspace
-              name: caliper-workspace
+            # - mountPath: /hyperledger/caliper/workspace
+            #   name: caliper-workspace
             # - mountPath: /hyperledger/caliper/fabric
             #   name: fabric-workspace
             - mountPath: /etc/hyperledger/fabric/msp/
