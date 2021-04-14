@@ -30,12 +30,15 @@ spec:
               value: "true"
           image: hyperledger/caliper:0.4.2
           name: caliper
-          # command:
+          command: ["/bin/bash", "-c", "--"]
+          args:
+            ["while true; do sleep 30; done;"]
+            # command:
           #   - caliper
           # args:
           #   - --version
           #   # - manager
-          # tty: true
+          tty: true
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
