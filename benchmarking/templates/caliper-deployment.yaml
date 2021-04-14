@@ -21,9 +21,11 @@ spec:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
             - name: CALIPER_BENCHCONFIG
-              value: benchmarks/myAssetBenchmark.yaml
+              # value: benchmarks/myAssetBenchmark.yaml
+              value: caliper-benchmark
             - name: CALIPER_NETWORKCONFIG
-              value: networks/networkConfig.yaml
+              # value: networks/networkConfig.yaml
+              value: caliper-network
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
             - name: CALIPER_FLOW_ONLY_TEST
@@ -34,7 +36,7 @@ spec:
             - sleep
           args:
             - "1000"
-            # - manager
+          # - manager
           # command:
           #   - caliper
           # args:
@@ -44,21 +46,29 @@ spec:
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
-            - mountPath: /hyperledger/caliper/fabric-samples
-              name: fabric-workspace
+            # - mountPath: /hyperledger/caliper/fabric
+            #   name: fabric-workspace
             - mountPath: /etc/hyperledger/fabric/msp/
               name: peer-msp
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       volumes:
         - name: caliper-workspace
-          hostPath:
-            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric/benchmarking
-            type: DirectoryOrCreate
-        - name: fabric-workspace
-          hostPath:
-            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
-            type: DirectoryOrCreate
+          emptyDir: {}
+        - name: caliper-benchmark
+          configMap:
+            name: benchmarks
+        - name: caliper-network
+          configMap:
+            name: network
+
+        #   hostPath:
+        #     path: /home/ubuntu/hyperledgerlab2/benchmarking
+        #     type: DirectoryOrCreate
+        # - name: fabric-workspace
+        #   hostPath:
+        #     path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
+        #     type: DirectoryOrCreate
         - name: peer-msp
           secret:
             secretName: hlf-peer--org1--peer0-msp
@@ -70,6 +80,6 @@ spec:
               - key: key.pem
                 path: keystore/key.pem
               - key: cacert.pem
-                path: cacerts/ca.{{ $org.Domain}}-cert.pem
+                path: cacerts/ca.org1-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
