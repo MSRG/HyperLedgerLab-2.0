@@ -19,7 +19,7 @@ spec:
       containers:
         - env:
             - name: CALIPER_BIND_SUT
-              value: fabric:2.2
+              value: fabric:2.2.0
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
@@ -53,6 +53,8 @@ spec:
               name: caliper-benchmark
             - mountPath: caliper-network
               name: caliper-network
+            - mountPath: /hyperledger/caliper/workspace/
+              name: caliper-config
 
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
@@ -65,6 +67,9 @@ spec:
         - name: caliper-network
           configMap:
             name: network
+        - name: caliper-config
+          configMap:
+            name: caliper-config
 
         #   hostPath:
         #     path: /home/ubuntu/hyperledgerlab2/benchmarking
