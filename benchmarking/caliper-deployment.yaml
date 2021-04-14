@@ -19,7 +19,7 @@ spec:
       containers:
         - env:
             - name: CALIPER_BIND_SUT
-              value: fabric:1.4
+              value: fabric:2.0
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
