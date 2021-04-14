@@ -30,12 +30,12 @@ spec:
               value: "true"
           image: hyperledger/caliper:0.4.2
           name: caliper
-          command:
-            - caliper
-          args:
-            - --version
-            # - manager
-          tty: true
+          # command:
+          #   - caliper
+          # args:
+          #   - --version
+          #   # - manager
+          # tty: true
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
