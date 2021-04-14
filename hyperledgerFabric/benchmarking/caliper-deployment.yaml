@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: caliper
-  replicas: 2
+  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -16,20 +16,21 @@ spec:
       labels:
         app: caliper
     spec:
-      # name: peer-msp
-      # - secret:
-      #   secretName: hlf-peer--org1--peer0-msp
-      #   items:
-      #   - key: config.yaml
-      #     path: config.yaml
-      #   - key: cert.pem
-      #     path: signcerts/cert.pem
-      #   - key: key.pem
-      #     path: keystore/key.pem
-      #   - key: cacert.pem
-      #     path: cacerts/ca.{{ $org.Domain}}-cert.pem
-      #   - key: tlscacert.pem
-      #     path: tlscacerts/cert.pem
+      volumes:
+        - name: peer-msp
+          - secret:
+            secretName: hlf-peer--org1--peer0-msp
+            items:
+            - key: config.yaml
+              path: config.yaml
+            - key: cert.pem
+              path: signcerts/cert.pem
+            - key: key.pem
+              path: keystore/key.pem
+            - key: cacert.pem
+              path: cacerts/ca.{{ $org.Domain}}-cert.pem
+            - key: tlscacert.pem
+              path: tlscacerts/cert.pem
       containers:
         - env:
             - name: CALIPER_BIND_SUT
@@ -46,33 +47,25 @@ spec:
           name: caliper
           command:
             - caliper
-          args:
-            - launch
-            - manager
+          # args:
+          #   - launch
+          #   - manager
           tty: true
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
               name: caliper-workspace
             - mountPath: /hyperledger/caliper/fabric-samples
               name: fabric-workspace
+            - mountPath: /etc/hyperledger/fabric/msp/
+              name: peer-msp
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
-      # volumes:
-      #   - name: caliper-workspace
-      #     hostPath:
-      #       path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric/benchmarking
-      #       type: Directory
-      #   - name: fabric-workspace
-      #     hostPath:
-      #       path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
-      # restartPolicy: Always
-      # volumes:
-      #   - name: caliper-workspace
-      #     hostPath:
-      #       path: /home/vagrant/caliper-workspace
-      #       type: Directory
-      #   - name: fabric-workspace
-      #     hostPath:
-      #       path: /home/vagrant/fabric-external-chaincodes/
-      #       type: Directoryic-external-chaincodes/
-      #       type: Directory
+      volumes:
+        - name: caliper-workspace
+          hostPath:
+            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric/benchmarking
+            type: Directory
+        - name: fabric-workspace
+          hostPath:
+            path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
+            type: Directory
