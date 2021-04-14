@@ -39,6 +39,7 @@ spec:
           args:
             - launch
             - manager
+            - --caliper-bind-sut fabric:2.2
           tty: true
           volumeMounts:
             # - mountPath: /hyperledger/caliper/workspace
