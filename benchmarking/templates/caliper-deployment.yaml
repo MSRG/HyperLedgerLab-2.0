@@ -50,6 +50,11 @@ spec:
             #   name: fabric-workspace
             - mountPath: /etc/hyperledger/fabric/msp/
               name: peer-msp
+            - mountPath: /caliper-benchmark
+              name: caliper-benchmark
+            - mountPath: /caliper-network
+              name: caliper-network
+
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       volumes:
