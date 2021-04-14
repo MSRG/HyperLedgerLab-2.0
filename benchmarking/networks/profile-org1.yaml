@@ -1,6 +1,3 @@
-name: Fabric
-version: "2.2.0"
-
 client:
   organization: org1
   connection:
