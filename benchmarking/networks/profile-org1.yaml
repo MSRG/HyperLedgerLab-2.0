@@ -1,5 +1,5 @@
 name: Fabric
-version: "1.0.0"
+version: "2.2.0"
 
 client:
   organization: org1
@@ -21,4 +21,4 @@ peers:
       ssl-target-name-override: peer0-org1
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
-      path: ../../hlf-kube/crypto-config/peerOrganizations/org1/peers/peer0-org1/msp/tlscacerts/tlsca.org1-cert.pem
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem

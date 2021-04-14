@@ -47,6 +47,8 @@ spec:
             #   name: fabric-workspace
             - mountPath: /etc/hyperledger/fabric/msp/
               name: peer-msp
+            - mountPath: /etc/hyperledger/fabric/admin-msp/
+              name: peer-admin-msp
             - mountPath: caliper-benchmark
               name: caliper-benchmark
             - mountPath: caliper-network
@@ -74,6 +76,21 @@ spec:
         - name: peer-msp
           secret:
             secretName: hlf-peer--org1--peer0-msp
+            items:
+              - key: config.yaml
+                path: config.yaml
+              - key: cert.pem
+                path: signcerts/cert.pem
+              - key: key.pem
+                path: keystore/key.pem
+              - key: cacert.pem
+                path: cacerts/ca.org1-cert.pem
+              - key: tlscacert.pem
+                path: tlscacerts/cert.pem
+
+        - name: peer-admin-msp
+          secret:
+            secretName: hlf-peer--org1--admin-msp
             items:
               - key: config.yaml
                 path: config.yaml

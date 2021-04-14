@@ -19,14 +19,14 @@ organizations:
         - name: "Admin"
           admin: true
           clientPrivateKey:
-            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/Admin@org1/msp/keystore/priv_sk"
+            path: "/etc/hyperledger/fabric/admin-msp/keystore/priv_sk"
           clientSignedCert:
-            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/Admin@org1/msp/signcerts/Admin@org1-cert.pem"
+            path: "/etc/hyperledger/fabric/admin-msp/signcerts/cert.pem"
         - name: "User1"
           clientPrivateKey:
-            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/User1@org1/msp/keystore/priv_sk"
+            path: "/etc/hyperledger/fabric/msp/keystore/priv_sk"
           clientSignedCert:
-            path: "../../hlf-kube/crypto-config/peerOrganizations/org1/users/User1@org1/msp/signcerts/User1@org1-cert.pem"
+            path: "/etc/hyperledger/fabric/msp/signcerts/cert.pem"
     connectionProfile:
       path: "networks/profile-org1.yaml"
       discover: true
