@@ -19,7 +19,7 @@ spec:
       containers:
         - env:
             - name: CALIPER_BIND_SUT
-              value: "fabric:2.2"
+              value: fabric:1.4
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
@@ -39,7 +39,6 @@ spec:
           args:
             - launch
             - manager
-            - --caliper-bind-sut fabric:2.2
           tty: true
           volumeMounts:
             # - mountPath: /hyperledger/caliper/workspace
