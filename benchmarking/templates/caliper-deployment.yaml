@@ -21,10 +21,8 @@ spec:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
             - name: CALIPER_BENCHCONFIG
-              # value: benchmarks/myAssetBenchmark.yaml
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
-              # value: networks/networkConfig.yaml
               value: /caliper-network/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
@@ -32,16 +30,15 @@ spec:
               value: "true"
           image: hyperledger/caliper:0.4.2
           name: caliper
-          command:
-            - sleep
-          args:
-            - "1000"
-          # - manager
           # command:
-          #   - caliper
+          #   - sleep
           # args:
-          #   - --version
-          #   # - manager
+          #   - "1000"
+          command:
+            - caliper
+          args:
+            - launch
+            - manager
           tty: true
           volumeMounts:
             - mountPath: /hyperledger/caliper/workspace
