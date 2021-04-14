@@ -16,21 +16,6 @@ spec:
       labels:
         app: caliper
     spec:
-      volumes:
-        - name: peer-msp
-          - secret:
-            secretName: hlf-peer--org1--peer0-msp
-            items:
-            - key: config.yaml
-              path: config.yaml
-            - key: cert.pem
-              path: signcerts/cert.pem
-            - key: key.pem
-              path: keystore/key.pem
-            - key: cacert.pem
-              path: cacerts/ca.{{ $org.Domain}}-cert.pem
-            - key: tlscacert.pem
-              path: tlscacerts/cert.pem
       containers:
         - env:
             - name: CALIPER_BIND_SUT
@@ -69,3 +54,17 @@ spec:
           hostPath:
             path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
             type: Directory
+        - name: peer-msp
+          - secret:
+            secretName: hlf-peer--org1--peer0-msp
+            items:
+            - key: config.yaml
+              path: config.yaml
+            - key: cert.pem
+              path: signcerts/cert.pem
+            - key: key.pem
+              path: keystore/key.pem
+            - key: cacert.pem
+              path: cacerts/ca.{{ $org.Domain}}-cert.pem
+            - key: tlscacert.pem
+              path: tlscacerts/cert.pem
