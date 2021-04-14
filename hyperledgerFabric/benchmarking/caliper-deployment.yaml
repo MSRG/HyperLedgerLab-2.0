@@ -33,7 +33,7 @@ spec:
           command:
             - sleep
           args:
-            - 1000
+            - "1000"
             # - manager
           # command:
           #   - caliper
