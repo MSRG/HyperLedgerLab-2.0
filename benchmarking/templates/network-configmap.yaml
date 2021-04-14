@@ -2,4 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: network
-data: { { .Files.Get "network/networkConfig.yaml" } }
+data: 
+  {{- $files := .Files }}
+  {{- range tuple "network/networkConfig.yaml" }}
+  {{ . }}: |-
+        {{ $files.Get . }}
+  {{- end }}
