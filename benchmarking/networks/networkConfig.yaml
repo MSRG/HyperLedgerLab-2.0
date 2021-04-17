@@ -1,3 +1,7 @@
+name: Fabric
+version: 2.2.0
+mutual-tls: true
+
 caliper:
   blockchain: fabric
   sutOptions:
