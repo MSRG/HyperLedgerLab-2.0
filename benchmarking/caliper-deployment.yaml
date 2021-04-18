@@ -19,10 +19,8 @@ spec:
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
-          command:
-            - npm
-          args:
-            - verify cache
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do echo hello; sleep 10;done"]
           # command:
           #   - caliper
           # args:
