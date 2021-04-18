@@ -3,8 +3,8 @@ version: "2.2.33"
 
 caliper:
   blockchain: fabric
-  sutOptions:
-    mutualTls: true
+  # sutOptions:
+  #   mutualTls: true
 
 channels:
   - channelName: mychannel
