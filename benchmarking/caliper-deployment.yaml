@@ -34,11 +34,11 @@ spec:
           #   - sleep
           # args:
           #   - "1000"
-          # command:
-          #   - caliper
-          # args:
-          #   - launch
-          #   - manager
+          command:
+            - caliper
+          args:
+            - launch
+            - manager
           tty: true
           volumeMounts:
             # - mountPath: /hyperledger/caliper/workspace
