@@ -1,6 +1,5 @@
-name: Fabric
-version: 2.2.0
-mutual-tls: true
+name: Calier test
+version: "2.2.0"
 
 caliper:
   blockchain: fabric
