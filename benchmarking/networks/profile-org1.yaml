@@ -1,5 +1,5 @@
 name: Fabric
-version: "2.2.0"
+version: 2.2.0
 
 client:
   organization: org1
