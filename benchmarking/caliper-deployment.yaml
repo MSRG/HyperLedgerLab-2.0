@@ -21,7 +21,10 @@ spec:
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
           args:
-            ["-c", "sudo caliper launch manager --caliper-bind-sut fabric:2.2"]
+            [
+              "-c",
+              "npm install -g npm && caliper launch manager --caliper-bind-sut fabric:2.2",
+            ]
           # command:
           #   - caliper
           # args:
