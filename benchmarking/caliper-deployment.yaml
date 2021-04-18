@@ -20,12 +20,12 @@ spec:
         - name: caliper
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
-          args: ["-c", "npm cache clean --force"]
-          command:
-            - caliper
-          args:
-            - launch
-            - manager
+          args: ["-c", "npm cache clean --force && caliper launch manager"]
+          # command:
+          #   - caliper
+          # args:
+          #   - launch
+          #   - manager
           tty: true
           env:
             - name: CALIPER_BIND_SUT
