@@ -1,5 +1,5 @@
 name: Calier test
-version: "2.2"
+version: "1.4"
 
 caliper:
   blockchain: fabric
