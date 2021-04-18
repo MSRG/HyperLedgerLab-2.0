@@ -23,7 +23,7 @@ spec:
           args:
             [
               "-c",
-              "chown -R $USER /usr/local/lib/node_modules && npm install fs-extra && caliper launch manager",
+              "echo $USER && chown -R ubuntu /usr/local/lib/node_modules && npm install fs-extra && caliper launch manager",
             ]
           # command:
           #   - caliper
