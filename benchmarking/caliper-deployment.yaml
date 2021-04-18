@@ -18,17 +18,6 @@ spec:
     spec:
       containers:
         - name: caliper
-        env:
-          - name: CALIPER_BIND_SUT
-            value: fabric:2.2
-          - name: CALIPER_BENCHCONFIG
-            value: /caliper-benchmark/myAssetBenchmark.yaml
-          - name: CALIPER_NETWORKCONFIG
-            value: /caliper-network/networkConfig.yaml
-          - name: CALIPER_FABRIC_GATEWAY_ENABLED
-            value: "true"
-          - name: CALIPER_FLOW_ONLY_TEST
-            value: "true"
           image: hyperledger/caliper:0.4.2
           # command:
           #   - sleep
@@ -40,6 +29,17 @@ spec:
           #   - launch
           #   - manager
           tty: true
+          env:
+            - name: CALIPER_BIND_SUT
+              value: fabric:2.2
+            - name: CALIPER_BENCHCONFIG
+              value: /caliper-benchmark/myAssetBenchmark.yaml
+            - name: CALIPER_NETWORKCONFIG
+              value: /caliper-network/networkConfig.yaml
+            - name: CALIPER_FABRIC_GATEWAY_ENABLED
+              value: "true"
+            - name: CALIPER_FLOW_ONLY_TEST
+              value: "true"
           volumeMounts:
             # - mountPath: /hyperledger/caliper/workspace
             #   name: caliper-workspace
