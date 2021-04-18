@@ -20,7 +20,7 @@ spec:
         - name: caliper
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
-          args: ["-c", "npm verify cache"]
+          args: ["-c", "npm cache verify"]
           # command:
           #   - caliper
           # args:
