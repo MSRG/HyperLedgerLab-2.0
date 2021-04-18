@@ -57,7 +57,7 @@ spec:
               name: caliper-config
 
           workingDir: /hyperledger/caliper/workspace
-      restartPolicy: Never
+      restartPolicy: Always
       volumes:
         - name: caliper-workspace
           emptyDir: {}
