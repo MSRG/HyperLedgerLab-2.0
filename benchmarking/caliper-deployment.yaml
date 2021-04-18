@@ -28,17 +28,21 @@ spec:
               value: "true"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
-          image: hyperledger/caliper:0.4.2
-          name: caliper
-          # command:
-          #   - sleep
-          # args:
-          #   - "1000"
-          command:
-            - caliper
-          args:
-            - launch
-            - manager
+          script:
+            image: hyperledger/caliper:0.4.2
+            name: caliper
+            # command:
+            #   - sleep
+            # args:
+            #   - "1000"
+            # command:
+            #   - caliper
+            # args:
+            #   - launch
+            #   - manager
+            command: [sh]
+            source: |
+              npm cache verify
           tty: true
           volumeMounts:
             # - mountPath: /hyperledger/caliper/workspace
