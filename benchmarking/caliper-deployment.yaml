@@ -28,9 +28,9 @@ spec:
               value: "true"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
+          name: caliper
           script:
             image: hyperledger/caliper:0.4.2
-            name: caliper
             # command:
             #   - sleep
             # args:
