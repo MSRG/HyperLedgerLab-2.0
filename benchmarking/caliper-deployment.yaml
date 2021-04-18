@@ -21,10 +21,7 @@ spec:
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
           args:
-            [
-              "-c",
-              "npm cache clean --force &&  npm cache verify && caliper launch manager --caliper-bind-sut fabric:2.2",
-            ]
+            ["-c", "sudo caliper launch manager --caliper-bind-sut fabric:2.2"]
           # command:
           #   - caliper
           # args:
