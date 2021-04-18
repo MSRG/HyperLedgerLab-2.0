@@ -20,7 +20,7 @@ spec:
         - name: caliper
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
-          args: ["-c", "npm install fs-extra && caliper launch manager"]
+          args: ["npm install fs-extra && caliper launch manager"]
           # command:
           #   - caliper
           # args:
@@ -56,7 +56,7 @@ spec:
             - mountPath: /hyperledger/caliper/workspace/
               name: caliper-config
 
-          # workingDir: /hyperledger/caliper/workspace
+          workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       volumes:
         - name: caliper-workspace
