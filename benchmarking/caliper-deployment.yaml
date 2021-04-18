@@ -23,7 +23,7 @@ spec:
           args:
             [
               "-c",
-              "npm install -g npm && caliper launch manager --caliper-bind-sut fabric:2.2",
+              "npm install -g npm && npx caliper bind && caliper launch manager",
             ]
           # command:
           #   - caliper
@@ -33,7 +33,9 @@ spec:
           tty: true
           env:
             - name: CALIPER_BIND_SUT
-              value: fabric:2.2
+              value: fabric
+            - name: CALIPER_BIND_SDK
+              value: 2.2.0
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
