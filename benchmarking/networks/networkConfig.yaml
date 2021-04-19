@@ -82,8 +82,8 @@ certificateAuthorities:
     url: https://10.233.51.220:7054
     httpOptions:
       verify: false
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
