@@ -90,8 +90,8 @@ certificateAuthorities:
 
 channels:
   mychannel:
-    configBinary: networks/fabric/config_solo_raft/mychannel.tx
-    created: false
+    # configBinary: networks/fabric/config_solo_raft/mychannel.tx
+    created: true
     orderers:
       - orderer0.example.com
     peers:
@@ -101,6 +101,6 @@ channels:
     contracts:
       - id: mychannel
         version: v0
-        language: golang
+        language: javascript
         path: fabric/samples/marbles/go
-        metadataPath: src/fabric/samples/marbles/go/metadata
+        # metadataPath: src/fabric/samples/marbles/go/metadata
