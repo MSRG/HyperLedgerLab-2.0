@@ -79,9 +79,9 @@ peers:
 
 certificateAuthorities:
   ca.org1.example.com:
-    url: https://hlf-ca--org1:7054
-    httpOptions:
-      verify: false
+    url: grpcs://hlf-ca--org1:7054
+    # httpOptions:
+    #   verify: false
     tlsCACerts:
       path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
