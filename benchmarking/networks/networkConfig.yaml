@@ -62,6 +62,7 @@ certificateAuthorities:
     url: http://10.233.17.170:7054
     httpOptions:
       verify: false
+    caName: ca.org1
     # tlsCACerts:
     #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
