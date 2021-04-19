@@ -20,7 +20,11 @@ spec:
         - name: caliper
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
-          args: ["-c", "npm install npm@6.9.0 -g  && caliper launch manager "]
+          args:
+            [
+              "-c",
+              "npm install npm@6.9.0 -g && npm install -g node-gyp && caliper launch manager ",
+            ]
           # command:
           #   - caliper
           # args:
