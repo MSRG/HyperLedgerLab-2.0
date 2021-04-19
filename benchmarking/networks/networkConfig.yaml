@@ -99,8 +99,8 @@ channels:
         eventSource: true
 
     contracts:
-      - id: mychannel
-        version: v0
+      - id: fabcar
+        version: "1.0"
         language: node
         path: fabric/samples/marbles/go
         # metadataPath: src/fabric/samples/marbles/go/metadata
