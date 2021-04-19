@@ -101,6 +101,6 @@ channels:
     contracts:
       - id: mychannel
         version: v0
-        language: javascript
+        language: node
         path: fabric/samples/marbles/go
         # metadataPath: src/fabric/samples/marbles/go/metadata
