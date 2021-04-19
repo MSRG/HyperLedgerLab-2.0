@@ -51,18 +51,18 @@ organizations:
     peers:
       - peer0.org1
     certificateAuthorities:
-      - ca.org1
+      - ca-org1
     adminPrivateKey:
       path: /etc/hyperledger/fabric/admin-msp/keystore/priv_sk
     signedCert:
       path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
 
 certificateAuthorities:
-  ca.org1:
+  ca-org1:
     url: http://10.233.17.170:7054
     httpOptions:
       verify: false
-    caName: ca.org1
+    caName: ca-org1
     # tlsCACerts:
     #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
