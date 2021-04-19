@@ -45,7 +45,7 @@ clients:
 
 #       discover: true
 certificateAuthorities:
-  ca.org1.example.com:
+  ca.org1:
     url: http://10.233.17.170:7054
     httpOptions:
       verify: false
@@ -59,16 +59,16 @@ organizations:
   Org1:
     mspid: Org1MSP
     peers:
-      - peer0.org1.example.com
+      - peer0.org1
     certificateAuthorities:
-      - ca.org1.example.com
+      - ca.org1
     adminPrivateKey:
       path: /etc/hyperledger/fabric/admin-msp/keystore/priv_sk
     signedCert:
       path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
 
 orderers:
-  orderer0.example.com:
+  orderer0:
     url: grpc://hlf-orderer--ordorg1--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
@@ -76,7 +76,7 @@ orderers:
     #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 peers:
-  peer0.org1.example.com:
+  peer0.org1:
     url: grpc://peer0-org1:7051
     grpcOptions:
       ssl-target-name-override: peer0.org1
@@ -89,9 +89,9 @@ channels:
     # configBinary: networks/fabric/config_solo_raft/mychannel.tx
     created: true
     orderers:
-      - orderer0.example.com
+      - orderer0
     peers:
-      peer0.org1.example.com:
+      peer0.org1:
         eventSource: true
 
     contracts:
