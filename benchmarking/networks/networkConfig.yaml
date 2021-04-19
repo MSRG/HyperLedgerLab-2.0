@@ -62,7 +62,7 @@ organizations:
 
 orderers:
   orderer0.example.com:
-    url: grpcs://hlf-orderer--ordorg1--orderer0:7050
+    url: grpc://hlf-orderer--ordorg1--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
     tlsCACerts:
@@ -70,7 +70,7 @@ orderers:
 
 peers:
   peer0.org1.example.com:
-    url: grpcs://peer0-org1:7051
+    url: grpc://peer0-org1:7051
     grpcOptions:
       ssl-target-name-override: peer0.org1
       grpc.keepalive_time_ms: 600000
