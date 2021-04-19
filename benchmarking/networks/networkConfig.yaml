@@ -79,7 +79,7 @@ peers:
 
 certificateAuthorities:
   ca.org1.example.com:
-    url: https://10.233.51.220:7054
+    url: https://10.233.17.170:7054
     httpOptions:
       verify: false
     tlsCACerts:
