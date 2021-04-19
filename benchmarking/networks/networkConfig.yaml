@@ -45,7 +45,7 @@ clients:
 
 #       discover: true
 certificateAuthorities:
-  hlf-ca--org1:
+  ca:
     url: http://10.233.17.170:7054
     httpOptions:
       verify: false
@@ -61,7 +61,7 @@ organizations:
     peers:
       - peer0.org1
     certificateAuthorities:
-      - hlf-ca--org1
+      - ca
     adminPrivateKey:
       path: /etc/hyperledger/fabric/admin-msp/keystore/priv_sk
     signedCert:
