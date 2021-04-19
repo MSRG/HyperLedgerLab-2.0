@@ -62,20 +62,20 @@ organizations:
 
 orderers:
   orderer0.example.com:
-    url: grpc://hlf-orderer--ordorg1--orderer0:7050
+    url: grpcs://hlf-orderer--ordorg1--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 peers:
   peer0.org1.example.com:
-    url: grpc://peer0-org1:7051
+    url: grpcs://peer0-org1:7051
     grpcOptions:
       ssl-target-name-override: peer0.org1
       grpc.keepalive_time_ms: 600000
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 certificateAuthorities:
   ca.org1.example.com:
