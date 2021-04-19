@@ -3,6 +3,7 @@ version: "1.0"
 
 caliper:
   blockchain: fabric
+  version: "2.2.0"
   # sutOptions:
   #   mutualTls: true
 
