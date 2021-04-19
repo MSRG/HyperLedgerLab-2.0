@@ -62,11 +62,11 @@ organizations:
 
 orderers:
   orderer0.example.com:
-    url: grpcs://localhost:7050
+    url: grpcs://orderer0.org1:7050
     grpcOptions:
       ssl-target-name-override: orderer0.example.com
     tlsCACerts:
-      path: networks/fabric/config_solo_raft/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 peers:
   peer0.org1.example.com:
@@ -79,7 +79,7 @@ peers:
 
 certificateAuthorities:
   ca.org1.example.com:
-    url: https://localhost:7054
+    url: https://hlf-ca--org1:7054
     httpOptions:
       verify: false
     tlsCACerts:
