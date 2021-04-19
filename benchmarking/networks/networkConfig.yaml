@@ -97,8 +97,6 @@ channels:
     peers:
       peer0.org1.example.com:
         eventSource: true
-      peer0.org2.example.com:
-        eventSource: true
 
     contracts:
       - id: mychannel
