@@ -46,7 +46,7 @@ clients:
 #       discover: true
 certificateAuthorities:
   ca.org1.example.com:
-    url: http://10.23.17.170:7054
+    url: http://10.233.17.170:7054
     httpOptions:
       verify: false
     # tlsCACerts:
