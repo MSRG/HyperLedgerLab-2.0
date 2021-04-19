@@ -20,11 +20,7 @@ spec:
         - name: caliper
           image: hyperledger/caliper:0.4.2
           command: ["/bin/sh"]
-          args:
-            [
-              "-c",
-              "chmod -R 777 /usr/local/lib/node_modules && npm install fs-extra && caliper launch manager",
-            ]
+          args: ["-c", "sleep 100000"]
           # command:
           #   - caliper
           # args:
