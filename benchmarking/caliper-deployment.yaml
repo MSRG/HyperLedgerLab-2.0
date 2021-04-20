@@ -60,15 +60,15 @@ spec:
               name: caliper-benchmark
             - mountPath: /caliper-network
               name: caliper-network
-            - mountPath: /hyperledger/caliper/workspace/
-              name: caliper-workspace
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
+            - name: caliper-workspacesssss
+              mountPath: /hyperledger/caliper/workspace/
 
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
       volumes:
-        - name: caliper-workspace
+        - name: caliper-workspacesssss
           persistentVolumeClaim:
             claimName: caliper-workspace-pvc
         # - name: caliper-workspace
