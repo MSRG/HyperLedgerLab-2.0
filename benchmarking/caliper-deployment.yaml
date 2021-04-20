@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: caliper
-  replicas: 1
+  replicas: 4
   strategy:
     type: RollingUpdate
   template:
@@ -23,10 +23,10 @@ spec:
           args:
             [
               "-c",
-              "npm install -g npm && npm update -g && caliper launch manager --verbose",
+              "npm install -g npm && npm update -g && caliper launch manager",
             ]
           lifecycle:
-            postStart:
+            preStop:
               exec:
                 command: ["/bin/sh", "-c", "echo First container finished"]
 
