@@ -21,7 +21,7 @@ clients:
         cryptoStore:
           path: /tmp/hfc-cvs/org1
       clientPrivateKey:
-        path: /etc/hyperledger/fabric/msp/keystore/priv_sk
+        path: /etc/hyperledger/fabric/msp/keystore/key.pem
       clientSignedCert:
         path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
 
