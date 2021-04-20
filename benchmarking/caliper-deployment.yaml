@@ -1,5 +1,5 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: caliper
@@ -8,9 +8,9 @@ spec:
   selector:
     matchLabels:
       app: caliper
-  # replicas: 1
-  # strategy:
-  #   type: RollingUpdate
+  replicas: 1
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -59,8 +59,7 @@ spec:
               name: caliper-config
 
           workingDir: /hyperledger/caliper/workspace
-      # restartPolicy: Always
-      restartPolicy: Never
+      restartPolicy: Always
       volumes:
         - name: caliper-workspace
           emptyDir: {}
