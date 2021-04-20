@@ -28,7 +28,7 @@ In this case you also need to manually restore Kafka cluster!
 
 {{ else }}
 
-Happy BlockChaining :)
+Happy BlockChaining kdkdkd :)
 
 And don't forget the first rule of BlockChain club:
 

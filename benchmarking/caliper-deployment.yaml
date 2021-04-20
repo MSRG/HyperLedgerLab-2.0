@@ -63,7 +63,7 @@ spec:
             - mountPath: /hyperledger/caliper/workspace/
               name: caliper-config
             - mountPath: caliper-chaincode
-              name: hlf-chaincode--fabcar
+              name: caliper-chaincode
 
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
