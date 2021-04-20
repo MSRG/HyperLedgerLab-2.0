@@ -69,8 +69,11 @@ spec:
       restartPolicy: Always
       volumes:
         - name: caliper-workspace
-          hostPath:
-            path: /home/ubuntu/hyperledgerlab2/benchmarking
+          persistentVolumeClaim:
+            claimName: caliper-workspace-pvc
+        # - name: caliper-workspace
+        #   hostPath:
+        #     path: /home/ubuntu/hyperledgerlab2/benchmarking
         - name: caliper-benchmark
           configMap:
             name: benchmarks
