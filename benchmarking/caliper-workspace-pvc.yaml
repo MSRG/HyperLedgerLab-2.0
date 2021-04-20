@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: caliper-workspace-pvc
+  name: caliper-pvc
 spec:
   accessModes:
     - ReadWriteMany

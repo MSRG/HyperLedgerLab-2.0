@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: caliper-workspace-pv
+  name: caliper-pv
 spec:
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
   volumeMode: Filesystem
-  storageClassName: caliper-workspace-pv
+  storageClassName: caliper-pv
   local:
     path: /home/ubuntu/hyperledgerlab2/benchmarking
   nodeAffinity:
