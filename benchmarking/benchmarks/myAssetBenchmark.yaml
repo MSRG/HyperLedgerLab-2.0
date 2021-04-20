@@ -2,8 +2,7 @@ test:
   name: marble-benchmark
   description: test benchmark
   workers:
-    type: local
-    number: 2
+    number: 1
   rounds:
     - label: initMarble
       description: init marbles benchmark
