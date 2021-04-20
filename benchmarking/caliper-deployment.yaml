@@ -56,13 +56,13 @@ spec:
               name: peer-msp
             - mountPath: /etc/hyperledger/fabric/admin-msp/
               name: peer-admin-msp
-            - mountPath: caliper-benchmark
+            - mountPath: /caliper-benchmark
               name: caliper-benchmark
-            - mountPath: caliper-network
+            - mountPath: /caliper-network
               name: caliper-network
             - mountPath: /hyperledger/caliper/workspace/
               name: caliper-workspace
-            - mountPath: caliper-chaincode
+            - mountPath: /caliper-chaincode
               name: caliper-chaincode
 
           workingDir: /hyperledger/caliper/workspace
