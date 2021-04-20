@@ -67,7 +67,8 @@ spec:
       restartPolicy: Always
       volumes:
         - name: caliper-workspace
-          emptyDir: {}
+            path: /home/ubuntu/hyperledgerlab2/benchmarking
+            type: DirectoryOrCreate
         - name: caliper-benchmark
           configMap:
             name: benchmarks
