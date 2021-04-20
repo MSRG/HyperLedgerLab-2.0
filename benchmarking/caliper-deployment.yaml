@@ -60,8 +60,8 @@ spec:
               name: caliper-benchmark
             - mountPath: caliper-network
               name: caliper-network
-            # - mountPath: /hyperledger/caliper/workspace/
-            #   name: caliper-config
+            - mountPath: /hyperledger/caliper/workspace/
+              name: caliper-config
 
           workingDir: /hyperledger/caliper/workspace
       restartPolicy: Always
