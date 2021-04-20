@@ -12,16 +12,22 @@ spec:
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Delete
   storageClassName: caliper-workspace-pv
-  hostPath:
-    path: "/storage/"
-
-  # local:
-  #   path: /home/ubuntu/hyperledgerlab2/benchmarking
-  # nodeAffinity:
-  #   required:
-  #     nodeSelectorTerms:
-  #       - matchExpressions:
-  #           - key: kubernetes.io/hostname
-  #             operator: In
-  #             values:
-  #               - hlf-k8s-node-nf-1
+  # hostPath:
+  #   path: "/home/ubuntu/hyperledgerlab2/benchmarking"
+  local:
+    path: /home/ubuntu/hyperledgerlab2/benchmarking
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - hlf-k8s-node-nf-1
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: caliper-workspace-pv
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
