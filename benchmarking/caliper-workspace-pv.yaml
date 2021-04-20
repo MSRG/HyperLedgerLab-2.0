@@ -18,4 +18,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - hlf-k8s-node-nf-2
+                - hlf-k8s-node-nf-1
