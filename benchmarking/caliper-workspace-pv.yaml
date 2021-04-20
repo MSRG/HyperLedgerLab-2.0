@@ -6,8 +6,9 @@ spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: caliper-pv
   local:
     path: /home/ubuntu/hyperledgerlab2/benchmarking

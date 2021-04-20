@@ -4,7 +4,7 @@ metadata:
   name: caliper-ws-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: caliper-pv
   resources:
     requests:
