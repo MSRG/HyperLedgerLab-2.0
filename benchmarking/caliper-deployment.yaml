@@ -60,7 +60,7 @@ spec:
               name: caliper-benchmark
             - mountPath: /caliper-network
               name: caliper-network
-            - mountPath: /hyperledger/caliper/workspace/
+            - mountPath: /test
               name: caliper-workspace
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
