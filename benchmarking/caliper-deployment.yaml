@@ -68,7 +68,6 @@ spec:
       volumes:
         - name: caliper-workspace
             path: /home/ubuntu/hyperledgerlab2/benchmarking
-            type: DirectoryOrCreate
         - name: caliper-benchmark
           configMap:
             name: benchmarks
