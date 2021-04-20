@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: caliper-workspace-pv
   hostPath:
-    path: "/home/ubuntu/hyperledgerlab2/benchmarking"
+    path: "/storage/"
 
   # local:
   #   path: /home/ubuntu/hyperledgerlab2/benchmarking
