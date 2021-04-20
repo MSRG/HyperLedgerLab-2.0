@@ -70,7 +70,7 @@ spec:
       volumes:
         - name: caliper-workspace
           persistentVolumeClaim:
-            claimName: caliper-workspace-pvc
+            claimName: caliper-ws-pvc
         # - name: caliper-workspace
         #   hostPath:
         #     path: /home/ubuntu/hyperledgerlab2/benchmarking
