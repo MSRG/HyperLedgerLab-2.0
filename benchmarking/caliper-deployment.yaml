@@ -61,7 +61,7 @@ spec:
             - mountPath: caliper-network
               name: caliper-network
             - mountPath: /hyperledger/caliper/workspace/
-              name: caliper-config
+              name: caliper-workspace
             - mountPath: caliper-chaincode
               name: caliper-chaincode
 
