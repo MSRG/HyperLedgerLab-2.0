@@ -73,16 +73,16 @@ spec:
             path: /home/ubuntu/hyperledgerlab2/benchmarking
         - name: caliper-benchmark
           configMap:
-            name: caliper-benchmark
+            name: benchmarks
         - name: caliper-network
           configMap:
-            name: caliper-network
+            name: network
         - name: caliper-config
           configMap:
             name: caliper-config
-        # - name: caliper-chaincode
-        #   configMap:
-        #     name: hlf-chaincode--fabcar
+        - name: caliper-chaincode
+          configMap:
+            name: hlf-chaincode--fabcar
 
         #   hostPath:
         #     path: /home/ubuntu/hyperledgerlab2/benchmarking
