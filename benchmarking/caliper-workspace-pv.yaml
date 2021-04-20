@@ -12,11 +12,11 @@ spec:
   storageClassName: caliper-workspace-pv
   local:
     path: /home/ubuntu/hyperledgerlab2/benchmarking
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - hlf-k8s-node-nf-1
+  # nodeAffinity:
+  #   required:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #           - key: kubernetes.io/hostname
+  #             operator: In
+  #             values:
+  #               - hlf-k8s-node-nf-1
