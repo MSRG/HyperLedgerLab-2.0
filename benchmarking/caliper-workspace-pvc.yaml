@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: caliper-pv
+  storageClassName: caliper-workspace-pv
   resources:
     requests:
       storage: 1Gi
