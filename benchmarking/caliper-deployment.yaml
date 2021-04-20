@@ -25,6 +25,11 @@ spec:
               "-c",
               "npm install -g npm && npm update -g && caliper launch manager --verbose",
             ]
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "echo First container finished"]
+
           # command:
           #   - caliper
           # args:
