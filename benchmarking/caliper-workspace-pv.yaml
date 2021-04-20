@@ -4,7 +4,7 @@ metadata:
   name: caliper-workspace-pv
 spec:
   capacity:
-    storage: 2Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
   volumeMode: Filesystem
