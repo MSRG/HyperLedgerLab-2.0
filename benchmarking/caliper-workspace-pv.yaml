@@ -9,8 +9,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  volumeMode: Filesystem
-  persistentVolumeReclaimPolicy: Delete
+  # persistentVolumeReclaimPolicy: Delete
   storageClassName: caliper-workspace-pv
   # hostPath:
   #   path: "/home/ubuntu/hyperledgerlab2/benchmarking"
@@ -23,11 +22,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - hlf-k8s-node-nf-1
----
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: caliper-workspace-pv
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
+                - hlf-k8s-master-nf-1
