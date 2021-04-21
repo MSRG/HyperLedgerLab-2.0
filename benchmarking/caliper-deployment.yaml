@@ -61,7 +61,7 @@ spec:
               name: caliper-benchmark
             - mountPath: /caliper-network
               name: caliper-network
-            - mountPath: /caliper-network
+            - mountPath: /caliper-workload
               name: caliper-workload
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
