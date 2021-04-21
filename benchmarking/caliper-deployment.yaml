@@ -67,16 +67,14 @@ spec:
               name: caliper-network
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            - name: caliper-workspacesssss
-              mountPath: /tmp/datasfsdfsdfs
-            # - name: caliper-workspacesssss
-            #   mountPath: /hyperledger/caliper/workspace/
-            # - name: caliper-config
-            #   mountPath: /hyperledger/caliper/workspace/
+            - name: caliper-workspace
+              mountPath: /hyperledger/caliper/
+            - name: caliper-config
+              mountPath: /hyperledger/caliper/workspace/
 
           workingDir: /hyperledger/caliper/workspace
       volumes:
-        - name: caliper-workspacesssss
+        - name: caliper-workspace
           persistentVolumeClaim:
             claimName: caliper-workspace-pvc
         # - name: caliper-workspace
