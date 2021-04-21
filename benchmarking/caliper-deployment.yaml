@@ -5,6 +5,11 @@ metadata:
     app: caliper
   name: caliper
 spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  restartPolicy: Never
   selector:
     matchLabels:
       app: caliper
@@ -66,7 +71,6 @@ spec:
               mountPath: /hyperledger/caliper/workspace/
 
           workingDir: /hyperledger/caliper/workspace
-      restartPolicy: Always
       volumes:
         - name: caliper-workspacesssss
           persistentVolumeClaim:
