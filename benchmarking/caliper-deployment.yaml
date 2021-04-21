@@ -5,11 +5,6 @@ metadata:
     app: caliper
   name: caliper
 spec:
-  # securityContext:
-  #   runAsUser: 1000
-  #   runAsGroup: 3000
-  #   fsGroup: 2000
-  restartPolicy: Never
   selector:
     matchLabels:
       app: caliper
@@ -21,6 +16,11 @@ spec:
       labels:
         app: caliper
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      restartPolicy: Never
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
