@@ -16,10 +16,10 @@ spec:
       labels:
         app: caliper
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 3000
-        fsGroup: 2000
+      # securityContext:
+      #   runAsUser: 1000
+      #   runAsGroup: 3000
+      #   fsGroup: 2000
       restartPolicy: Always
       containers:
         - name: caliper
@@ -67,8 +67,8 @@ spec:
               name: caliper-network
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            # - name: caliper-workspace
-            #   mountPath: /hyperledger/caliper/workspace/
+            - name: caliper-workspace
+              mountPath: /hyperledger/caliper/workspace/
             - name: caliper-config
               mountPath: /hyperledger/caliper/workspace/
 
