@@ -20,7 +20,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 3000
         fsGroup: 2000
-      restartPolicy: Never
+      restartPolicy: Always
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
