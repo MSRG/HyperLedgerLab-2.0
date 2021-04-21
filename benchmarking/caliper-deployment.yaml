@@ -40,7 +40,7 @@ spec:
           # args:
           #   - launch
           #   - manager
-          tty: true
+          # tty: true
           env:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
@@ -53,10 +53,6 @@ spec:
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
           volumeMounts:
-            # - mountPath: /hyperledger/caliper/workspace
-            #   name: caliper-workspace
-            # - mountPath: /hyperledger/caliper/fabric
-            #   name: fabric-workspace
             - mountPath: /etc/hyperledger/fabric/msp/
               name: peer-msp
             - mountPath: /etc/hyperledger/fabric/admin-msp/
@@ -65,27 +61,29 @@ spec:
               name: caliper-benchmark
             - mountPath: /caliper-network
               name: caliper-network
+            - mountPath: /caliper-network
+              name: caliper-workload
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            # - name: caliper-workspace
-            #   mountPath: /hyperledger/caliper/workspace/
-            - name: caliper-config
+            - name: caliper-workspace
               mountPath: /hyperledger/caliper/workspace/
+            # - name: caliper-config
+            #   mountPath: /hyperledger/caliper/workspace/
 
           workingDir: /hyperledger/caliper/workspace
       volumes:
         - name: caliper-workspace
           persistentVolumeClaim:
             claimName: caliper-workspace-pvc
-        # - name: caliper-workspace
-        #   hostPath:
-        #     path: /home/ubuntu/hyperledgerlab2/benchmarking
         - name: caliper-benchmark
           configMap:
             name: benchmarks
         - name: caliper-network
           configMap:
             name: network
+        - name: caliper-workload
+          configMap:
+            name: workload
         - name: caliper-config
           configMap:
             name: caliper-config
@@ -93,13 +91,6 @@ spec:
           configMap:
             name: hlf-chaincode--fabcar
 
-        #   hostPath:
-        #     path: /home/ubuntu/hyperledgerlab2/benchmarking
-        #     type: DirectoryOrCreate
-        # - name: fabric-workspace
-        #   hostPath:
-        #     path: /home/ubuntu/hyperledgerlab2/hyperledgerFabric
-        #     type: DirectoryOrCreate
         - name: peer-msp
           secret:
             secretName: hlf-peer--org1--peer0-msp

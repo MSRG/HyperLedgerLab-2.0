@@ -1,22 +1,42 @@
+# test:
+#   name: marble-benchmark
+#   description: test benchmark
+#   workers:
+#     number: 1
+#   rounds:
+#     - label: initMarble
+#       description: init marbles benchmark
+#       txNumber: 100
+#       rateControl:
+#         type: fixed-load
+#         opts:
+#           tps: 25
+#       workload:
+#         module: workload/init.js
+# monitor:
+#   type:
+#     - none
+
+# observer:
+#   type: local
+#   interval: 1
+
 test:
-  name: marble-benchmark
+  name: basic-contract-benchmark
   description: test benchmark
   workers:
+    # type: local
     number: 1
   rounds:
-    - label: initMarble
-      description: init marbles benchmark
-      txNumber: 100
+    - label: readAsset
+      description: Read asset benchmark
+      txDuration: 5
       rateControl:
         type: fixed-load
         opts:
-          tps: 25
+          tps: 10
       workload:
-        module: workload/init.js
-monitor:
-  type:
-    - none
-
-observer:
-  type: local
-  interval: 1
+        module: /caliper-workload/readAsset.js
+        arguments:
+          assets: 20
+          contractId: fabcar
