@@ -68,7 +68,7 @@ spec:
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
             - name: caliper-workspacesssss
-              mountPath: /tmp/data
+              mountPath: /tmp/datasfsdfsdfs
             # - name: caliper-workspacesssss
             #   mountPath: /hyperledger/caliper/workspace/
             # - name: caliper-config
