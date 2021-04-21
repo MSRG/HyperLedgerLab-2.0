@@ -14,7 +14,7 @@ spec:
   # hostPath:
   #   path: "/home/ubuntu/hyperledgerlab2/benchmarking"
   local:
-    path: /mnt/daaa
+    path: /mnt/data
   nodeAffinity:
     required:
       nodeSelectorTerms:
