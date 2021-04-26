@@ -261,9 +261,9 @@ spec:
         {{- end }}
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-tls
-        - mountPath: /etc/hyperledger/fabric/msp/
+        - mountPath: /etc/hyperledger/fabric/peer-msp/
           name: peer-msp
-        - mountPath: /etc/hyperledger/fabric/admin-msp/
+        - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-admin-msp
         # - mountPath: /hl_config/channel/
         #   name: hlf-channels
