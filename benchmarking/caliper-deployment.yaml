@@ -24,23 +24,23 @@ spec:
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
-          command: ["/bin/sh"]
-          args:
-            [
-              "-c",
-              "npm install -g npm && npm update -g && caliper launch manager",
-            ]
+          # command: ["/bin/sh"]
+          # args:
+          #   [
+          #     "-c",
+          #     "npm install -g npm && npm update -g && caliper launch manager",
+          #   ]
           lifecycle:
             preStop:
               exec:
                 command: ["/bin/sh", "-c", "echo First container finished"]
 
-          # command:
-          #   - caliper
-          # args:
-          #   - launch
-          #   - manager
-          # tty: true
+          command:
+            - caliper
+          args:
+            - launch
+            - manager
+          tty: true
           env:
             - name: CALIPER_BIND_SUT
               value: fabric:2.2
