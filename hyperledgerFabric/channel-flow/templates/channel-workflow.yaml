@@ -228,7 +228,7 @@ spec:
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/admin-msp/
+        - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/
           name: hlf-configtx
@@ -323,7 +323,7 @@ spec:
           name: orderer-tlsca
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/admin-msp/
+        - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
       
       env:
@@ -407,7 +407,7 @@ spec:
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/admin-msp/
+        - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf-scripts
           name: hlf-scripts
