@@ -28,12 +28,6 @@ In this case you also need to manually restore Kafka cluster!
 
 {{ else }}
 
-Happy BlockChaining kdkdkd :)
-
-And don't forget the first rule of BlockChain club:
-
-"Do not use BlockChain unless absolutely necessary!"
-
-                                            r a f t
+Master Thesis - Mohamed Karim Abbes
 
 {{- end }}                                            

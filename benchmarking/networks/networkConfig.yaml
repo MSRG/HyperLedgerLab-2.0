@@ -78,7 +78,7 @@ organizations:
       #   -----END CERTIFICATE-----
 certificateAuthorities:
   ca-Org1:
-    url: http://10.233.19.210:7054
+    url: http://10.233.60.34:7054
     httpOptions:
       verify: false
     caName: ca-Org1
