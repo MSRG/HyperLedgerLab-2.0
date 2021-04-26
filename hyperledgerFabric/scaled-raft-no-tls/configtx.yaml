@@ -78,7 +78,9 @@ Organizations:
                 Rule: "OR('Org1MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org1MSP.peer')"
+                # Rule: "OR('Org1MSP.peer')"
+                Rule: "OR('Org1MSP.admin','Org1MSP.peer')"
+
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
