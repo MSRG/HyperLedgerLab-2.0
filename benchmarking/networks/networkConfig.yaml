@@ -116,7 +116,7 @@ channels:
         eventSource: true
 
     contracts:
-      - id: fabcar
+      - id: asset-transfer-basic
         version: "1.0"
         language: node
         path: fabric/samples/marbles/go

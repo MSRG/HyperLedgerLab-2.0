@@ -39,4 +39,4 @@ test:
         module: /caliper-workload/readAsset.js
         arguments:
           assets: 20
-          contractId: fabcar
+          contractId: asset-transfer-basic
