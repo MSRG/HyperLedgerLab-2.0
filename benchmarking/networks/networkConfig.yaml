@@ -119,5 +119,5 @@ channels:
       - id: asset-transfer-basic
         version: "1.0"
         language: node
-        path: fabric/samples/marbles/go
+        path: /caliper-chaincode
         # metadataPath: src/fabric/samples/marbles/go/metadata
