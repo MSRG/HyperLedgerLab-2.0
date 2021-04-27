@@ -43,7 +43,7 @@ spec:
           tty: true
           env:
             - name: CALIPER_BIND_SUT
-              value: fabric:2.2
+              value: fabric:2.1
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/myAssetBenchmark.yaml
             - name: CALIPER_NETWORKCONFIG
