@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: caliper
-  replicas: 1
+  replicas: 4
   strategy:
     type: RollingUpdate
   template:
