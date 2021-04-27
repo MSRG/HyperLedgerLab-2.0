@@ -80,7 +80,7 @@ organizations:
 
 certificateAuthorities:
   ca-Org1:
-    url: http://10.233.5.229:7054
+    url: http://10.233.28.117:7054
     httpOptions:
       verify: false
     caName: ca-Org1
