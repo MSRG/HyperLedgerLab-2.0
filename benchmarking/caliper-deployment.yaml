@@ -65,10 +65,10 @@ spec:
               name: caliper-workload
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            # - name: caliper-workspace
-            #   mountPath: /hyperledger/caliper/workspace/
-            - name: caliper-config
+            - name: caliper-workspace
               mountPath: /hyperledger/caliper/workspace/
+            # - name: caliper-config
+            #   mountPath: /hyperledger/caliper/workspace/
 
           workingDir: /hyperledger/caliper/workspace
       volumes:
