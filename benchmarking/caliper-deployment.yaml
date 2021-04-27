@@ -50,6 +50,8 @@ spec:
               value: /caliper-network/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
+            - name: CALIPER_FABRIC_GATEWAY_LOCALHOST
+              value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
           volumeMounts:
