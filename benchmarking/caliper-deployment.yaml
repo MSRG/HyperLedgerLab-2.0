@@ -1,16 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
   labels:
     app: caliper
   name: caliper
 spec:
-  selector:
-    matchLabels:
-      app: caliper
-  replicas: 4
-  strategy:
-    type: RollingUpdate
+  # selector:
+  #   matchLabels:
+  #     app: caliper
+  # replicas: 4
+  # strategy:
+  #   type: RollingUpdate
   template:
     metadata:
       labels:
@@ -20,7 +20,7 @@ spec:
       #   runAsUser: 1000
       #   runAsGroup: 3000
       #   fsGroup: 2000
-      restartPolicy: Always
+      restartPolicy: Never
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
