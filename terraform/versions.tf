@@ -7,3 +7,8 @@ terraform {
   }
   required_version = ">= 0.12.26"
 }
+
+# Configure the OpenStack Provider
+provider "openstack" {
+  cloud   = "mycloud"
+}
