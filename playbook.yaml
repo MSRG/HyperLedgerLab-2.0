@@ -22,7 +22,7 @@
 
     - name: Configure kubectl after setting up k8s cluster
       command: scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
-      args:
+      # args:
       delegate_to: localhost
 
-      - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
