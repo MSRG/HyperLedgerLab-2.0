@@ -25,4 +25,4 @@
       args:
       delegate_to: localhost
 
-      # - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+      - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
