@@ -3,6 +3,4 @@ hosts.ini
 venv
 ansible.log
 
-admin.crt
-admin.key
-ca.crt 
+k8s_keys/
