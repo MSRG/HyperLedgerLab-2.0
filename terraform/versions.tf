@@ -10,5 +10,5 @@ terraform {
 
 # Configure the OpenStack Provider
 provider "openstack" {
-  cloud   = "mycloud"
+  cloud = "mycloud" //must match the cloud name in clouds.yaml
 }
