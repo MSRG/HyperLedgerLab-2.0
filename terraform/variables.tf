@@ -14,24 +14,28 @@ variable "az_list_node" {
   default     = ["nova"]
 }
 
+variable "network_id" {
+  default = "dd0e99f0-4112-458f-a30f-328b517ed627"
+}
+
 variable "number_of_bastions" {
-  default = 1
+  default = 0
 }
 
 variable "number_of_k8s_masters" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_k8s_masters_no_etcd" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_etcd" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_k8s_masters_no_floating_ip" {
-  default = 2
+  default = 1
 }
 
 variable "number_of_k8s_masters_no_floating_ip_no_etcd" {
@@ -39,11 +43,11 @@ variable "number_of_k8s_masters_no_floating_ip_no_etcd" {
 }
 
 variable "number_of_k8s_nodes" {
-  default = 1
+  default = 0
 }
 
 variable "number_of_k8s_nodes_no_floating_ip" {
-  default = 1
+  default = 2
 }
 
 variable "number_of_gfs_nodes_no_floating_ip" {

@@ -16,6 +16,7 @@ module "ips" {
 module "compute" {
   source = "./modules/compute"
 
+  network_id                                   = var.network_id
   cluster_name                                 = var.cluster_name
   az_list                                      = var.az_list
   az_list_node                                 = var.az_list_node
@@ -65,30 +66,4 @@ module "compute" {
   use_server_groups                            = var.use_server_groups
   extra_sec_groups                             = var.extra_sec_groups
   extra_sec_groups_name                        = var.extra_sec_groups_name
-
-  network_id = "dd0e99f0-4112-458f-a30f-328b517ed627"
 }
-
-# output "private_subnet_id" {
-#   value = module.network.subnet_id
-# }
-
-# output "floating_network_id" {
-#   value = var.external_net
-# }
-
-# output "router_id" {
-#   value = module.network.router_id
-# }
-
-# output "k8s_master_fips" {
-#   value = concat(module.ips.k8s_master_fips, module.ips.k8s_master_no_etcd_fips)
-# }
-
-# output "k8s_node_fips" {
-#   value = var.number_of_k8s_nodes > 0 ? module.ips.k8s_node_fips : [for key, value in module.ips.k8s_nodes_fips : value.address]
-# }
-
-# output "bastion_fips" {
-#   value = module.ips.bastion_fips
-# }

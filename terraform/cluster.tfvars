@@ -38,7 +38,12 @@ number_of_k8s_nodes_no_floating_ip = 2
 flavor_k8s_node = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
 
 # networking
+network_id = "dd0e99f0-4112-458f-a30f-328b517ed627"
+
 network_name = "cluster-net"
+
 subnet_cidr = "172.24.32.0/19"
+
 external_net = ""
+
 k8s_allowed_remote_ips = ["0.0.0.0/0"]
