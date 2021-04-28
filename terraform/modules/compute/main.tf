@@ -48,7 +48,7 @@ resource "openstack_networking_secgroup_rule_v2" "k8s_master_ports" {
 
 resource "openstack_networking_secgroup_v2" "bastion" {
   name                 = "${var.cluster_name}-bastion"
-  count                = var.number_of_bastions != "" ? 1 : 0
+  count                = 0
   description          = "${var.cluster_name} - Bastion Server"
   delete_default_rules = true
 }

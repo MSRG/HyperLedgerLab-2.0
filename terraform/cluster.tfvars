@@ -1,5 +1,5 @@
 # your Kubernetes cluster name here
-cluster_name = "improvment"
+cluster_name = "hyperledgerLab"
 
 # list of availability zones available in your OpenStack cluster
 az_list = ["kvm-hdd"]
@@ -39,13 +39,6 @@ flavor_k8s_node = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium
 
 # networking
 network_name = "cluster-net"
-#network_id="dd0e99f0-4112-458f-a30f-328b517ed627"
-#external_net = "dd0e99f0-4112-458f-a30f-328b517ed627"
-
 subnet_cidr = "172.24.32.0/19"
-#dns_nameservers=["172.24.32.1"]
-#floatingip_pool = "<pool>"
-#router_internal_port_id ="dd0e99f0-4112-458f-a30f-328b517ed627"
 external_net = ""
-#bastion_allowed_remote_ips = ["0.0.0.0/0"]
 k8s_allowed_remote_ips = ["0.0.0.0/0"]

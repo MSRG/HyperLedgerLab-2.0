@@ -1,18 +1,3 @@
-/*
-module "network" {
-  source = "./modules/network"
-
-  external_net       = var.external_net
-  network_name       = var.network_name
-  subnet_cidr        = var.subnet_cidr
-  cluster_name       = var.cluster_name
-  dns_nameservers    = var.dns_nameservers
-  network_dns_domain = var.network_dns_domain
-  use_neutron        = var.use_neutron
-  router_id          = var.router_id
-}
-*/
-
 module "ips" {
   source = "./modules/ips"
 
@@ -23,10 +8,8 @@ module "ips" {
   number_of_bastions            = var.number_of_bastions
   external_net                  = var.external_net
   network_name                  = var.network_name
-  # router_id                     = module.network.router_id
   k8s_nodes                     = var.k8s_nodes
   k8s_master_fips               = var.k8s_master_fips
-  # router_internal_port_id       = module.network.router_internal_port_id
   router_internal_port_id       = ""
 }
 
@@ -90,22 +73,22 @@ module "compute" {
 #   value = module.network.subnet_id
 # }
 
-output "floating_network_id" {
-  value = var.external_net
-}
+# output "floating_network_id" {
+#   value = var.external_net
+# }
 
 # output "router_id" {
 #   value = module.network.router_id
 # }
 
-output "k8s_master_fips" {
-  value = concat(module.ips.k8s_master_fips, module.ips.k8s_master_no_etcd_fips)
-}
+# output "k8s_master_fips" {
+#   value = concat(module.ips.k8s_master_fips, module.ips.k8s_master_no_etcd_fips)
+# }
 
-output "k8s_node_fips" {
-  value = var.number_of_k8s_nodes > 0 ? module.ips.k8s_node_fips : [for key, value in module.ips.k8s_nodes_fips : value.address]
-}
+# output "k8s_node_fips" {
+#   value = var.number_of_k8s_nodes > 0 ? module.ips.k8s_node_fips : [for key, value in module.ips.k8s_nodes_fips : value.address]
+# }
 
-output "bastion_fips" {
-  value = module.ips.bastion_fips
-}
+# output "bastion_fips" {
+#   value = module.ips.bastion_fips
+# }
