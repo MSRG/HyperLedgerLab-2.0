@@ -24,7 +24,7 @@ number_of_k8s_masters = 0
 
 number_of_k8s_masters_no_etcd = 0
 
-number_of_k8s_masters_no_floating_ip = 1
+number_of_k8s_masters_no_floating_ip = 2
 
 number_of_k8s_masters_no_floating_ip_no_etcd = 0
 
@@ -33,7 +33,7 @@ flavor_k8s_master = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium
 # nodes
 number_of_k8s_nodes = 0
 
-number_of_k8s_nodes_no_floating_ip = 2
+number_of_k8s_nodes_no_floating_ip = 4
 
 flavor_k8s_node = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
 
