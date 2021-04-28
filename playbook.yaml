@@ -1,19 +1,7 @@
-# Ansible Playbook to create Openstack Instances for Kubernetes cluster setup
-# Note: Call with -i inventory/infra/hosts.ini
-# ---
-# - hosts: controle_node
-#   become: yes
-#   become_user: root
-#   become_method: sudo
-#   tasks:
-#     - name: Update repositories cache and install "python3-pip" package
-#       apt:
-#         name: python3-pip
-#         update_cache: yes
+# Ansible Playbook to setup kubectl
+# Note: Call with -i hosts
 ---
 - hosts: kube-master
-  become: yes
-  become_method: sudo
   gather_facts: True
   tasks:
     - name: Create cluster setup inventory

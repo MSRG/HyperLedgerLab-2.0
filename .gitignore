@@ -2,5 +2,4 @@ terraform/clouds.yaml
 hosts.ini
 venv
 ansible.log
-
 k8s_keys/
