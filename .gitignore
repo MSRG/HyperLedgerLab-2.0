@@ -1,4 +1,5 @@
 terraform/clouds.yaml
+hosts.ini
 venv
 ansible.log
 
