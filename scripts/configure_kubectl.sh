@@ -3,7 +3,7 @@
 set -x
 
 if [[ $# -eq 0 ]] ; then
-    echo 'some message'
+    echo 'argument is missing'
     exit 0
 fi
 

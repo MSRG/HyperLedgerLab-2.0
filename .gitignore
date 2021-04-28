@@ -1,2 +1,7 @@
 terraform/clouds.yaml
 venv
+ansible.log
+
+admin.crt
+admin.key
+ca.crt 
