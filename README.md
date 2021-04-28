@@ -12,8 +12,7 @@ Terraform part:
 
 - terraform used version 0.15.0
 - edit cluster.tfvars
-- create clouds.yaml following sample_cloud.yaml.
-- For now, you should do export OS_CLOUD=mycloud (mycloud is the name defined in clouds.yaml)
+- create clouds.yaml following sample_cloud.yaml. (if you choose to change the cloud's name mycloud then change also the cloud name in OpenStack Provider configuration located in terraform/versions.tf)
 - In terraform do
   ` terraform init` then `terraform apply -var-file=./cluster.tfvars`
 - Ensure your local ssh-agent is running and your ssh key has been added.
