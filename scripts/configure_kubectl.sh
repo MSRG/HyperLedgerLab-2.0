@@ -7,9 +7,9 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
-mkdir .kube/
+mkdir ~/.kube/
 mkdir k8s_keys
-ssh ubuntu@$1 sudo cat /etc/kubernetes/kubelet.conf > .kube/config
+ssh ubuntu@$1 sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config
 ssh ubuntu@$1 sudo cat /etc/kubernetes/ssl/apiserver-kubelet-client.key > k8s_keys/admin.key
 ssh ubuntu@$1 sudo cat /etc/kubernetes/ssl/apiserver-kubelet-client.crt > k8s_keys/admin.crt
 ssh ubuntu@$1 sudo cat /etc/kubernetes/ssl/ca.crt > k8s_keys/ca.crt
