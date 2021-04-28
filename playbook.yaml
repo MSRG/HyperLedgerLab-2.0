@@ -20,9 +20,8 @@
       template: src=cluster.hosts.ini.j2 dest=hosts.ini mode=0644
       delegate_to: localhost
 
+    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
     - name: Configure kubectl after setting up k8s cluster
       command: scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
-      # args:
       delegate_to: localhost
-
-    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']

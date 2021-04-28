@@ -6,7 +6,7 @@ if [[ $# -eq 0 ]] ; then
     echo 'some message'
     exit 0
 fi
-echo 'kdkdkdkdk'
+
 mkdir ~/.kube/
 ssh ubuntu@$1 sudo cat /etc/kubernetes/kubelet.conf > ~/.kube/config
 ssh ubuntu@$1 sudo cat /etc/kubernetes/ssl/apiserver-kubelet-client.key > admin.key
