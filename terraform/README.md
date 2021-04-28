@@ -6,234 +6,43 @@ OpenStack.
 ## Status
 
 This will install a Kubernetes cluster on an OpenStack Cloud. It should work on
-most modern installs of OpenStack that support the basic services.
-
-### Known compatible public clouds
-
-- [Auro](https://auro.io/)
-- [Betacloud](https://www.betacloud.io/)
-- [CityCloud](https://www.citycloud.com/)
-- [DreamHost](https://www.dreamhost.com/cloud/computing/)
-- [ELASTX](https://elastx.se/)
-- [EnterCloudSuite](https://www.entercloudsuite.com/)
-- [FugaCloud](https://fuga.cloud/)
-- [Open Telekom Cloud](https://cloud.telekom.de/) : requires to set the variable `wait_for_floatingip = "true"` in your cluster.tfvars
-- [OVH](https://www.ovh.com/)
-- [Rackspace](https://www.rackspace.com/)
-- [Ultimum](https://ultimum.io/)
-- [VexxHost](https://vexxhost.com/)
-- [Zetta](https://www.zetta.io/)
+most modern installs of OpenStack that support the basic services, MSRG openstack cluster among others.
 
 ## Approach
 
 The terraform configuration inspects variables found in
 [variables.tf](variables.tf) to create resources in your OpenStack cluster.
-There is a [python script](../terraform.py) that reads the generated`.tfstate`
+There is a [python script](hosts) that reads the generated`.tfstate`
 file to generate a dynamic inventory that is consumed by the main ansible script
 to actually install kubernetes and stand up the cluster.
 
-### Networking
+## Using an existing network
 
-The configuration includes creating a private subnet with a router to the
-external net. It will allocate floating IPs from a pool and assign them to the
-hosts where that makes sense. You have the option of creating bastion hosts
-inside the private subnet to access the nodes there.  Alternatively, a node with
-a floating IP can be used as a jump host to nodes without.
-
-#### Using an existing router
-
-It is possible to use an existing router instead of creating one. To use an
-existing router set the router\_id variable to the uuid of the router you wish
+It is possible to use an existing network instead of creating one. To use an
+existing network set the network_id variable to the uuid of the network you wish
 to use.
 
 For example:
 
 ```ShellSession
-router_id = "00c542e7-6f46-4535-ae95-984c7f0391a3"
+network_id = "dd0e99f0-4112-458f-a30f-328b517ed627"
 ```
 
-### Kubernetes Nodes
+## Cluster variables
 
-You can create many different kubernetes topologies by setting the number of
-different classes of hosts. For each class there are options for allocating
-floating IP addresses or not.
+The construction of the cluster is driven by values found in
+[variables.tf](variables.tf).
 
-- Master nodes with etcd
-- Master nodes without etcd
-- Standalone etcd hosts
-- Kubernetes worker nodes
+In [cluster.tfvars](cluster.tfvars) different variables can be edited to override to by default variables in [variables.tf](variables.tf).
 
-Note that the Ansible script will report an invalid configuration if you wind up
-with an even number of etcd instances since that is not a valid configuration. This
-restriction includes standalone etcd nodes that are deployed in a cluster along with
-master nodes with etcd replicas. As an example, if you have three master nodes with
-etcd replicas and three standalone etcd nodes, the script will fail since there are
-now six total etcd replicas.
+## OpenStack access and credentials
 
-### GlusterFS shared file system
+No provider variables are hardcoded inside `variables.tf`.
+However, you should create a clouds.yaml file following [sample_clouds.yaml](sample_clouds.yaml).
 
-The Terraform configuration supports provisioning of an optional GlusterFS
-shared file system based on a separate set of VMs. To enable this, you need to
-specify:
+You can get the OpenStack access and credentials in Compute > Access & Security > API Access
 
-- the number of Gluster hosts (minimum 2)
-- Size of the non-ephemeral volumes to be attached to store the GlusterFS bricks
-- Other properties related to provisioning the hosts
-
-Even if you are using Flatcar Container Linux by Kinvolk for your cluster, you will still
-need the GlusterFS VMs to be based on either Debian or RedHat based images.
-Flatcar Container Linux by Kinvolk cannot serve GlusterFS, but can connect to it through
-binaries available on hyperkube v1.4.3_coreos.0 or higher.
-
-## Requirements
-
-- [Install Terraform](https://www.terraform.io/intro/getting-started/install.html) 0.12 or later
-- [Install Ansible](http://docs.ansible.com/ansible/latest/intro_installation.html)
-- you already have a suitable OS image in Glance
-- you already have a floating IP pool created
-- you have security groups enabled
-- you have a pair of keys generated that can be used to secure the new hosts
-
-## Module Architecture
-
-The configuration is divided into three modules:
-
-- Network
-- IPs
-- Compute
-
-The main reason for splitting the configuration up in this way is to easily
-accommodate situations where floating IPs are limited by a quota or if you have
-any external references to the floating IP (e.g. DNS) that would otherwise have
-to be updated.
-
-You can force your existing IPs by modifying the compute variables in
-`kubespray.tf` as follows:
-
-```ini
-k8s_master_fips = ["151.101.129.67"]
-k8s_node_fips = ["151.101.129.68"]
-```
-
-## Terraform
-
-Terraform will be used to provision all of the OpenStack resources with base software as appropriate.
-
-### Configuration
-
-#### Inventory files
-
-Create an inventory directory for your cluster by copying the existing sample and linking the `hosts` script (used to build the inventory based on Terraform state):
-
-```ShellSession
-cp -LRp contrib/terraform/openstack/sample-inventory inventory/$CLUSTER
-cd inventory/$CLUSTER
-ln -s ../../contrib/terraform/openstack/hosts
-ln -s ../../contrib
-```
-
-This will be the base for subsequent Terraform commands.
-
-#### OpenStack access and credentials
-
-No provider variables are hardcoded inside `variables.tf` because Terraform
-supports various authentication methods for OpenStack: the older script and
-environment method (using `openrc`) as well as a newer declarative method, and
-different OpenStack environments may support Identity API version 2 or 3.
-
-These are examples and may vary depending on your OpenStack cloud provider,
-for an exhaustive list on how to authenticate on OpenStack with Terraform
-please read the [OpenStack provider documentation](https://www.terraform.io/docs/providers/openstack/).
-
-##### Declarative method (recommended)
-
-The recommended authentication method is to describe credentials in a YAML file `clouds.yaml` that can be stored in:
-
-- the current directory
-- `~/.config/openstack`
-- `/etc/openstack`
-
-`clouds.yaml`:
-
-```yaml
-clouds:
-  mycloud:
-    auth:
-      auth_url: https://openstack:5000/v3
-      username: "username"
-      project_name: "projectname"
-      project_id: projectid
-      user_domain_name: "Default"
-      password: "password"
-    region_name: "RegionOne"
-    interface: "public"
-    identity_api_version: 3
-```
-
-If you have multiple clouds defined in your `clouds.yaml` file you can choose
-the one you want to use with the environment variable `OS_CLOUD`:
-
-```ShellSession
-export OS_CLOUD=mycloud
-```
-
-##### Openrc method
-
-When using classic environment variables, Terraform uses default `OS_*`
-environment variables.  A script suitable for your environment may be available
-from Horizon under *Project* -> *Compute* -> *Access & Security* -> *API Access*.
-
-With identity v2:
-
-```ShellSession
-source openrc
-
-env | grep OS
-
-OS_AUTH_URL=https://openstack:5000/v2.0
-OS_PROJECT_ID=projectid
-OS_PROJECT_NAME=projectname
-OS_USERNAME=username
-OS_PASSWORD=password
-OS_REGION_NAME=RegionOne
-OS_INTERFACE=public
-OS_IDENTITY_API_VERSION=2
-```
-
-With identity v3:
-
-```ShellSession
-source openrc
-
-env | grep OS
-
-OS_AUTH_URL=https://openstack:5000/v3
-OS_PROJECT_ID=projectid
-OS_PROJECT_NAME=username
-OS_PROJECT_DOMAIN_ID=default
-OS_USERNAME=username
-OS_PASSWORD=password
-OS_REGION_NAME=RegionOne
-OS_INTERFACE=public
-OS_IDENTITY_API_VERSION=3
-OS_USER_DOMAIN_NAME=Default
-```
-
-Terraform does not support a mix of DomainName and DomainID, choose one or the other:
-
-- provider.openstack: You must provide exactly one of DomainID or DomainName to authenticate by Username
-
-```ShellSession
-unset OS_USER_DOMAIN_NAME
-export OS_USER_DOMAIN_ID=default
-```
-
-or
-
-```ShellSession
-unset OS_PROJECT_DOMAIN_ID
-set OS_PROJECT_DOMAIN_NAME=Default
-```
+If you change the cloud name (mycloud) in clouds.yaml, you need to also change the cloud name in OpenStack Provider configuration located in [versions.tf](versions.tf).
 
 #### Cluster variables
 
@@ -242,43 +51,43 @@ The construction of the cluster is driven by values found in
 
 For your cluster, edit `inventory/$CLUSTER/cluster.tfvars`.
 
-|Variable | Description |
-|---------|-------------|
-|`cluster_name` | All OpenStack resources will use the Terraform variable`cluster_name` (default`example`) in their name to make it easier to track. For example the first compute resource will be named`example-kubernetes-1`. |
-|`az_list` | List of Availability Zones available in your OpenStack cluster. |
-|`network_name` | The name to be given to the internal network that will be generated |
-|`network_dns_domain` | (Optional) The dns_domain for the internal network that will be generated |
-|`dns_nameservers`| An array of DNS name server names to be used by hosts in the internal subnet. |
-|`floatingip_pool` | Name of the pool from which floating IPs will be allocated |
-|`k8s_master_fips` | A list of floating IPs that you have already pre-allocated; they will be attached to master nodes instead of creating new random floating IPs. |
-|`external_net` | UUID of the external network that will be routed to |
-|`flavor_k8s_master`,`flavor_k8s_node`,`flavor_etcd`, `flavor_bastion`,`flavor_gfs_node` | Flavor depends on your openstack installation, you can get available flavor IDs through `openstack flavor list` |
-|`image`,`image_gfs` | Name of the image to use in provisioning the compute resources. Should already be loaded into glance. |
-|`ssh_user`,`ssh_user_gfs` | The username to ssh into the image with. This usually depends on the image you have selected |
-|`public_key_path` | Path on your local workstation to the public key file you wish to use in creating the key pairs |
-|`number_of_k8s_masters`, `number_of_k8s_masters_no_floating_ip` | Number of nodes that serve as both master and etcd. These can be provisioned with or without floating IP addresses|
-|`number_of_k8s_masters_no_etcd`, `number_of_k8s_masters_no_floating_ip_no_etcd` |  Number of nodes that serve as just master with no etcd. These can be provisioned with or without floating IP addresses |
-|`number_of_etcd` | Number of pure etcd nodes |
-|`number_of_k8s_nodes`, `number_of_k8s_nodes_no_floating_ip` | Kubernetes worker nodes. These can be provisioned with or without floating ip addresses. |
-|`number_of_bastions` | Number of bastion hosts to create. Scripts assume this is really just zero or one |
-|`number_of_gfs_nodes_no_floating_ip` | Number of gluster servers to provision. |
-| `gfs_volume_size_in_gb` | Size of the non-ephemeral volumes to be attached to store the GlusterFS bricks |
-|`supplementary_master_groups` | To add ansible groups to the masters, such as `kube-node` for tainting them as nodes, empty by default. |
-|`supplementary_node_groups` | To add ansible groups to the nodes, such as `kube-ingress` for running ingress controller pods, empty by default. |
-|`bastion_allowed_remote_ips` | List of CIDR allowed to initiate a SSH connection, `["0.0.0.0/0"]` by default |
-|`master_allowed_remote_ips` | List of CIDR blocks allowed to initiate an API connection, `["0.0.0.0/0"]` by default |
-|`k8s_allowed_remote_ips` | List of CIDR allowed to initiate a SSH connection, empty by default |
-|`worker_allowed_ports` | List of ports to open on worker nodes, `[{ "protocol" = "tcp", "port_range_min" = 30000, "port_range_max" = 32767, "remote_ip_prefix" = "0.0.0.0/0"}]` by default |
-|`master_allowed_ports` | List of ports to open on master nodes, expected format is `[{ "protocol" = "tcp", "port_range_min" = 443, "port_range_max" = 443, "remote_ip_prefix" = "0.0.0.0/0"}]`, empty by default |
-|`wait_for_floatingip` | Let Terraform poll the instance until the floating IP has been associated, `false` by default. |
-|`node_root_volume_size_in_gb` | Size of the root volume for nodes, 0 to use ephemeral storage |
-|`master_root_volume_size_in_gb` | Size of the root volume for masters, 0 to use ephemeral storage |
-|`gfs_root_volume_size_in_gb` | Size of the root volume for gluster, 0 to use ephemeral storage |
-|`etcd_root_volume_size_in_gb` | Size of the root volume for etcd nodes, 0 to use ephemeral storage |
-|`bastion_root_volume_size_in_gb` | Size of the root volume for bastions, 0 to use ephemeral storage |
-|`use_server_group` | Create and use openstack nova servergroups, default: false |
-|`use_access_ip` | If 1, nodes with floating IPs will transmit internal cluster traffic via floating IPs; if 0 private IPs will be used instead. Default value is 1. |
-|`k8s_nodes` | Map containing worker node definition, see explanation below |
+| Variable                                                                                | Description                                                                                                                                                                                                    |
+| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cluster_name`                                                                          | All OpenStack resources will use the Terraform variable`cluster_name` (default`example`) in their name to make it easier to track. For example the first compute resource will be named`example-kubernetes-1`. |
+| `az_list`                                                                               | List of Availability Zones available in your OpenStack cluster.                                                                                                                                                |
+| `network_name`                                                                          | The name to be given to the internal network that will be generated                                                                                                                                            |
+| `network_dns_domain`                                                                    | (Optional) The dns_domain for the internal network that will be generated                                                                                                                                      |
+| `dns_nameservers`                                                                       | An array of DNS name server names to be used by hosts in the internal subnet.                                                                                                                                  |
+| `floatingip_pool`                                                                       | Name of the pool from which floating IPs will be allocated                                                                                                                                                     |
+| `k8s_master_fips`                                                                       | A list of floating IPs that you have already pre-allocated; they will be attached to master nodes instead of creating new random floating IPs.                                                                 |
+| `external_net`                                                                          | UUID of the external network that will be routed to                                                                                                                                                            |
+| `flavor_k8s_master`,`flavor_k8s_node`,`flavor_etcd`, `flavor_bastion`,`flavor_gfs_node` | Flavor depends on your openstack installation, you can get available flavor IDs through `openstack flavor list`                                                                                                |
+| `image`,`image_gfs`                                                                     | Name of the image to use in provisioning the compute resources. Should already be loaded into glance.                                                                                                          |
+| `ssh_user`,`ssh_user_gfs`                                                               | The username to ssh into the image with. This usually depends on the image you have selected                                                                                                                   |
+| `public_key_path`                                                                       | Path on your local workstation to the public key file you wish to use in creating the key pairs                                                                                                                |
+| `number_of_k8s_masters`, `number_of_k8s_masters_no_floating_ip`                         | Number of nodes that serve as both master and etcd. These can be provisioned with or without floating IP addresses                                                                                             |
+| `number_of_k8s_masters_no_etcd`, `number_of_k8s_masters_no_floating_ip_no_etcd`         | Number of nodes that serve as just master with no etcd. These can be provisioned with or without floating IP addresses                                                                                         |
+| `number_of_etcd`                                                                        | Number of pure etcd nodes                                                                                                                                                                                      |
+| `number_of_k8s_nodes`, `number_of_k8s_nodes_no_floating_ip`                             | Kubernetes worker nodes. These can be provisioned with or without floating ip addresses.                                                                                                                       |
+| `number_of_bastions`                                                                    | Number of bastion hosts to create. Scripts assume this is really just zero or one                                                                                                                              |
+| `number_of_gfs_nodes_no_floating_ip`                                                    | Number of gluster servers to provision.                                                                                                                                                                        |
+| `gfs_volume_size_in_gb`                                                                 | Size of the non-ephemeral volumes to be attached to store the GlusterFS bricks                                                                                                                                 |
+| `supplementary_master_groups`                                                           | To add ansible groups to the masters, such as `kube-node` for tainting them as nodes, empty by default.                                                                                                        |
+| `supplementary_node_groups`                                                             | To add ansible groups to the nodes, such as `kube-ingress` for running ingress controller pods, empty by default.                                                                                              |
+| `bastion_allowed_remote_ips`                                                            | List of CIDR allowed to initiate a SSH connection, `["0.0.0.0/0"]` by default                                                                                                                                  |
+| `master_allowed_remote_ips`                                                             | List of CIDR blocks allowed to initiate an API connection, `["0.0.0.0/0"]` by default                                                                                                                          |
+| `k8s_allowed_remote_ips`                                                                | List of CIDR allowed to initiate a SSH connection, empty by default                                                                                                                                            |
+| `worker_allowed_ports`                                                                  | List of ports to open on worker nodes, `[{ "protocol" = "tcp", "port_range_min" = 30000, "port_range_max" = 32767, "remote_ip_prefix" = "0.0.0.0/0"}]` by default                                              |
+| `master_allowed_ports`                                                                  | List of ports to open on master nodes, expected format is `[{ "protocol" = "tcp", "port_range_min" = 443, "port_range_max" = 443, "remote_ip_prefix" = "0.0.0.0/0"}]`, empty by default                        |
+| `wait_for_floatingip`                                                                   | Let Terraform poll the instance until the floating IP has been associated, `false` by default.                                                                                                                 |
+| `node_root_volume_size_in_gb`                                                           | Size of the root volume for nodes, 0 to use ephemeral storage                                                                                                                                                  |
+| `master_root_volume_size_in_gb`                                                         | Size of the root volume for masters, 0 to use ephemeral storage                                                                                                                                                |
+| `gfs_root_volume_size_in_gb`                                                            | Size of the root volume for gluster, 0 to use ephemeral storage                                                                                                                                                |
+| `etcd_root_volume_size_in_gb`                                                           | Size of the root volume for etcd nodes, 0 to use ephemeral storage                                                                                                                                             |
+| `bastion_root_volume_size_in_gb`                                                        | Size of the root volume for bastions, 0 to use ephemeral storage                                                                                                                                               |
+| `use_server_group`                                                                      | Create and use openstack nova servergroups, default: false                                                                                                                                                     |
+| `use_access_ip`                                                                         | If 1, nodes with floating IPs will transmit internal cluster traffic via floating IPs; if 0 private IPs will be used instead. Default value is 1.                                                              |
+| `k8s_nodes`                                                                             | Map containing worker node definition, see explanation below                                                                                                                                                   |
 
 ##### k8s_nodes
 
@@ -506,7 +315,7 @@ So, either a bastion host, or at least master/node with a floating IP are requir
 
 #### Test access
 
-Make sure you can connect to the hosts.  Note that Flatcar Container Linux by Kinvolk will have a state `FAILED` due to Python not being present.  This is okay, because Python will be installed during bootstrapping, so long as the hosts are not `UNREACHABLE`.
+Make sure you can connect to the hosts. Note that Flatcar Container Linux by Kinvolk will have a state `FAILED` due to Python not being present. This is okay, because Python will be installed during bootstrapping, so long as the hosts are not `UNREACHABLE`.
 
 ```ShellSession
 $ ansible -i inventory/$CLUSTER/hosts -m ping all
@@ -524,7 +333,7 @@ example-k8s-master-1 | SUCCESS => {
 }
 ```
 
-If it fails try to connect manually via SSH.  It could be something as simple as a stale host key.
+If it fails try to connect manually via SSH. It could be something as simple as a stale host key.
 
 ### Configure cluster variables
 

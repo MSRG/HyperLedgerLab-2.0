@@ -10,7 +10,7 @@ set -x
 cd `dirname $0`/terraform
 terraform init  #Install the required plugins
  #Provisioning cluster
-terraform apply -var-file=./cluster.tfvars
+terraform apply -var-file=./cluster.tfvars -auto-approve
 
 echo "Waiting 60 seconds for Openstack instances to boot ....."
 sleep 60
