@@ -21,7 +21,7 @@ Terraform part:
   `ssh-add ~/.ssh/id_rsa`
 - Check if all instances are reachable
   `ansible -i hosts -m ping all`
-- Setup k8s cluster
+- Setup k8s cluster (in terraform folder)
   `ansible-playbook --become -i hosts ../kubespray/cluster.yml`
-- fill hosts.ini with the actual values and configure kubectl
+- fill hosts.ini with the actual values and configure kubectl (in terraform folder)
   `ansible-playbook -i hosts ../playbook.yaml`
