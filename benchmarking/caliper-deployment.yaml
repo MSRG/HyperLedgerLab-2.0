@@ -11,6 +11,7 @@ spec:
   # replicas: 4
   # strategy:
   #   type: RollingUpdate
+  backoffLimit: 2
   template:
     metadata:
       labels:
