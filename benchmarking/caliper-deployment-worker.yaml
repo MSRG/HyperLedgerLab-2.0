@@ -98,7 +98,7 @@ spec:
             name: caliper-config
         - name: caliper-chaincode
           configMap:
-            name: hlf-chaincode--asset-transfer-basic
+            name: hlf-chaincode--fabcar
 
         - name: peer-msp
           secret:

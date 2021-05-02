@@ -1,0 +1,45 @@
+test:
+  workers:
+    type: local
+    number: 5
+  rounds:
+    - label: Change car owner.
+      txDuration: 30
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 5
+      workload:
+        module: /caliper-workload/changeCarOwner.js
+        arguments:
+          assets: 1000
+    - label: Query all cars.
+      txDuration: 30
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 5
+      workload:
+        module: /caliper-workload/queryAllCars.js
+        arguments:
+          assets: 1000
+          startKey: "1"
+          endKey: "50"
+    - label: Query a car.
+      txDuration: 30
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 5
+      workload:
+        module: /caliper-workload/queryCar.js
+        arguments:
+          assets: 1000
+    - label: Create a car.
+      txDuration: 30
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 5
+      workload:
+        module: /caliper-workload/createCar.js

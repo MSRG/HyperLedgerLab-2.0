@@ -46,7 +46,7 @@ spec:
             - name: CALIPER_BIND_SUT
               value: fabric:2.1
             - name: CALIPER_BENCHCONFIG
-              value: /caliper-benchmark/myAssetBenchmark.yaml
+              value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
               value: /caliper-network/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
@@ -98,7 +98,7 @@ spec:
             name: caliper-config
         - name: caliper-chaincode
           configMap:
-            name: hlf-chaincode--asset-transfer-basic
+            name: hlf-chaincode--fabcar
 
         - name: peer-msp
           secret:

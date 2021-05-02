@@ -137,7 +137,7 @@ channels:
         eventSource: true
 
     contracts:
-      - id: asset-transfer-basic
+      - id: fabcar
         version: "1.0"
         language: node
         path: /caliper-chaincode
