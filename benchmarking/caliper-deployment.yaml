@@ -54,6 +54,10 @@ spec:
               value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
+            - name: CALIPER_WORKSPACE
+              value: /hyperledger/caliper/workspace
+            - name: CALIPER_BIND_ARGS
+              value: "-g node-gyp"
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/peer-msp/
               name: peer-msp
@@ -72,7 +76,6 @@ spec:
             # - name: caliper-config
             #   mountPath: /hyperledger/caliper/workspace/
 
-          workingDir: /hyperledger/caliper/workspace
       volumes:
         - name: caliper-workspace
           persistentVolumeClaim:
