@@ -72,7 +72,7 @@ spec:
             # - name: caliper-config
             #   mountPath: /hyperledger/caliper/workspace/
 
-          workingDir: /hyperledger/caliper/workspace
+            workingDir: /hyperledger/caliper/workspace
       volumes:
         - name: caliper-workspace
           persistentVolumeClaim:
