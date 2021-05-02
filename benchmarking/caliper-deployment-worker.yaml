@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    app: caliper
-  name: caliper
+    app: caliper-worker
+  name: caliper-worker
 spec:
   # selector:
   #   matchLabels:
@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app: caliper
+        app: caliper-worker
     spec:
       securityContext:
         runAsUser: 1000
@@ -39,7 +39,7 @@ spec:
             - caliper
           args:
             - launch
-            - manager
+            - worker
           tty: true
           env:
             - name: CALIPER_BIND_SUT
