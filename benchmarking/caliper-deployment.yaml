@@ -58,6 +58,9 @@ spec:
               value: /hyperledger/caliper/workspace
             - name: CALIPER_BIND_ARGS
               value: "-g npm node-gyp"
+            - name: CXXFLAGS
+              value: "-Wno-cast-function-type"
+
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/peer-msp/
               name: peer-msp
