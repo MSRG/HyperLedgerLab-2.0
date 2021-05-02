@@ -57,7 +57,7 @@ spec:
             - name: CALIPER_WORKSPACE
               value: /hyperledger/caliper/workspace
             - name: CALIPER_BIND_ARGS
-              value: "-g node-gyp"
+              value: "-g npm node-gyp"
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/peer-msp/
               name: peer-msp
