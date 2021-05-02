@@ -39,7 +39,7 @@ spec:
             - caliper
           args:
             - launch
-            - manager
+            - worker
           tty: true
           env:
             - name: CALIPER_BIND_SUT
@@ -57,7 +57,7 @@ spec:
             - name: CALIPER_WORKSPACE
               value: /hyperledger/caliper/workspace
             - name: CALIPER_BIND_ARGS
-              value: "-g npm node-gyp"
+              value: "-g"
             - name: CXXFLAGS
               value: "-Wno-cast-function-type"
 
