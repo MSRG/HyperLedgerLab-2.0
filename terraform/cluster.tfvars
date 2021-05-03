@@ -18,6 +18,7 @@ number_of_bastions = 0
 
 # standalone etcds
 number_of_etcd = 2
+flavor_etcd = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
 
 # masters
 number_of_k8s_masters = 0
