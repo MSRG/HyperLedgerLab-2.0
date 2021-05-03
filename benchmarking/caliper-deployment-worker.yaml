@@ -61,6 +61,10 @@ spec:
               value: "-g"
             - name: CXXFLAGS
               value: "-Wno-cast-function-type"
+           - name: CALIPER_WORKER_REMOTE
+              value: "true"
+            - name: CALIPER_WORKER_COMMUNICATION_METHOD
+              value: "mqtt"
 
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/peer-msp/
