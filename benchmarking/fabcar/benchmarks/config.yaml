@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 5
+    number: 1
   rounds:
     - label: Change car owner.
       txDuration: 30
