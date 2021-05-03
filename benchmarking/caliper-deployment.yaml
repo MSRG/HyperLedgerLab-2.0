@@ -130,6 +130,6 @@ spec:
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: orderer-tlsca
-          secret:
-            secretName: { { $vars.ordererTlsSecret } }
+        # - name: orderer-tlsca
+        #   secret:
+        #     secretName: { { $vars.ordererTlsSecret } }

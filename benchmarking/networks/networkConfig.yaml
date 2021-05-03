@@ -80,49 +80,49 @@ organizations:
 
 certificateAuthorities:
   ca-Org1:
-    url: https://hlf-ca--org1.default.svc.cluster.local:7054
+    url: http://hlf-ca--org1.default.svc.cluster.local:7054
     httpOptions:
       verify: false
     caName: ca-Org1
-    tlsCACerts:
-      path: /hlf_config/orderer-tlsca/tlscacert.pem
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
   ca-Org2:
-    url: https://hlf-ca--org2.default.svc.cluster.local:7054
+    url: http://hlf-ca--org2.default.svc.cluster.local:7054
     httpOptions:
       verify: false
     caName: ca-Org2
-    tlsCACerts:
-      path: /hlf_config/orderer-tlsca/tlscacert.pem
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
 
 orderers:
   orderer0:
-    url: grpcs://hlf-orderer--ordorg1--orderer0:7050
+    url: grpc://hlf-orderer--ordorg1--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
-    tlsCACerts:
-      path: /hlf_config/orderer-tlsca/tlscacert.pem
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 peers:
   peer0.org1:
-    url: grpcs://hlf-peer--org1--peer0:7051
+    url: grpc://hlf-peer--org1--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.org1
       grpc.keepalive_time_ms: 600000
-    tlsCACerts:
-      path: /hlf_config/orderer-tlsca/tlscacert.pem
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
   peer0.org2:
-    url: grpcs://hlf-peer--org2--peer0:7051
+    url: grpc://hlf-peer--org2--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.org2
       grpc.keepalive_time_ms: 600000
-    tlsCACerts:
-      path: /hlf_config/orderer-tlsca/tlscacert.pem
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
 
 channels:
   mychannel:
