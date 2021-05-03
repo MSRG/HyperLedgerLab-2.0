@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    app: caliper-worker
-  name: caliper-worker
+    app: caliper
+  name: caliper
 spec:
   # selector:
   #   matchLabels:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: caliper-worker
+        app: caliper
     spec:
       securityContext:
         runAsUser: 1000
@@ -46,7 +46,7 @@ spec:
             - name: CALIPER_BIND_SUT
               value: fabric:2.1
             - name: CALIPER_BENCHCONFIG
-              value: /caliper-benchmark/myAssetBenchmark.yaml
+              value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
               value: /caliper-network/networkConfig.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
@@ -61,7 +61,7 @@ spec:
               value: "-g"
             - name: CXXFLAGS
               value: "-Wno-cast-function-type"
-           - name: CALIPER_WORKER_REMOTE
+            - name: CALIPER_WORKER_REMOTE
               value: "true"
             - name: CALIPER_WORKER_COMMUNICATION_METHOD
               value: "mqtt"
@@ -133,3 +133,7 @@ spec:
                 path: cacerts/ca.org1-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
+
+        # - name: orderer-tlsca
+        #   secret:
+        #     secretName: { { $vars.ordererTlsSecret } }
