@@ -10,7 +10,7 @@ const { Contract } = require('fabric-contract-api');
 
 class FabCar extends Contract {
 
-    async initLedger(ctx) {
+    async InitLedger(ctx) {
         console.info('============= START : Initialize Ledger ===========');
         const cars = [
             {
@@ -111,7 +111,7 @@ class FabCar extends Contract {
         const startKey = '';
         const endKey = '';
         const allResults = [];
-        for await (const {key, value} of ctx.stub.getStateByRange(startKey, endKey)) {
+        for await (const { key, value } of ctx.stub.getStateByRange(startKey, endKey)) {
             const strValue = Buffer.from(value).toString('utf8');
             let record;
             try {

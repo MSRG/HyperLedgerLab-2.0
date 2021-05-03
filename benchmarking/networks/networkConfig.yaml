@@ -80,7 +80,7 @@ organizations:
 
 certificateAuthorities:
   ca-Org1:
-    url: http://10.233.31.74:7054 # CHANGE to dynamic ca url
+    url: http://hlf-ca--org1.default.svc.cluster.local:7054 # CHANGE to dynamic ca url
     httpOptions:
       verify: false
     caName: ca-Org1
@@ -90,7 +90,7 @@ certificateAuthorities:
       - enrollId: admin
         enrollSecret: adminpw
   ca-Org2:
-    url: http://10.233.60.180:7054 # CHANGE to dynamic ca url
+    url: http://hlf-ca--org2.default.svc.cluster.local:7054 # CHANGE to dynamic ca url
     httpOptions:
       verify: false
     caName: ca-Org2
