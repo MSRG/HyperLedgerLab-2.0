@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    app: caliper
-  name: caliper
+    app: caliper-worker
+  name: caliper-worker
 spec:
   # selector:
   #   matchLabels:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: caliper
+        app: caliper-worker
     spec:
       securityContext:
         runAsUser: 1000
@@ -23,7 +23,7 @@ spec:
         fsGroup: 2000
       restartPolicy: Never
       containers:
-        - name: caliper
+        - name: caliper-worker
           image: hyperledger/caliper:0.4.2
           # # command: ["/bin/sh"]
           # # args:
