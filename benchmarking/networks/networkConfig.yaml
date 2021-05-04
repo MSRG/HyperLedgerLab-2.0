@@ -21,9 +21,9 @@ clients:
         cryptoStore:
           path: /tmp/hfc-cvs/org1
       clientPrivateKey:
-        path: /etc/hyperledger/fabric/msp/keystore/key.pem
+        path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
       clientSignedCert:
-        path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
+        path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
   client0.org2.example.com:
     client:
       organization: Org2
@@ -32,9 +32,9 @@ clients:
         cryptoStore:
           path: /tmp/hfc-cvs/org2
       clientPrivateKey:
-        path: /etc/hyperledger/fabric/msp/keystore/key.pem
+        path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
       clientSignedCert:
-        path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
+        path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
 
 # organizations:
 #   - mspid: org1MSP
@@ -64,9 +64,9 @@ organizations:
     certificateAuthorities:
       - ca-Org1
     adminPrivateKey:
-      path: /etc/hyperledger/fabric/msp/keystore/key.pem
+      path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
     signedCert:
-      path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
+      path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
   Org2:
     mspid: Org2MSP
     peers:
@@ -74,9 +74,9 @@ organizations:
     certificateAuthorities:
       - ca-Org2
     adminPrivateKey:
-      path: /etc/hyperledger/fabric/msp/keystore/key.pem
+      path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
     signedCert:
-      path: /etc/hyperledger/fabric/msp/signcerts/cert.pem
+      path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
 
 certificateAuthorities:
   ca-Org1:

@@ -53,10 +53,12 @@ spec:
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
 
           volumeMounts:
-            - mountPath: /etc/hyperledger/fabric/peer-msp/
-              name: peer-msp
-            - mountPath: /etc/hyperledger/fabric/msp/
-              name: peer-admin-msp
+            # - mountPath: /etc/hyperledger/fabric/peer-msp/
+            #   name: peer-msp
+            - mountPath: /etc/hyperledger/fabric/org1/msp/
+              name: peer-admin-msp1
+            - mountPath: /etc/hyperledger/fabric/org2/msp/
+              name: peer-admin-msp2
             - mountPath: /caliper-benchmark
               name: caliper-benchmark
             - mountPath: /caliper-network
@@ -105,9 +107,24 @@ spec:
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: peer-admin-msp
+        - name: peer-admin-msp1
           secret:
             secretName: hlf-peer--org1--admin-msp
+            items:
+              - key: config.yaml
+                path: config.yaml
+              - key: cert.pem
+                path: signcerts/cert.pem
+              - key: key.pem
+                path: keystore/key.pem
+              - key: cacert.pem
+                path: cacerts/ca.org1-cert.pem
+              - key: tlscacert.pem
+                path: tlscacerts/cert.pem
+
+        - name: peer-admin-msp2
+          secret:
+            secretName: hlf-peer--org2--admin-msp
             items:
               - key: config.yaml
                 path: config.yaml
