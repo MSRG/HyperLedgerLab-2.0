@@ -39,8 +39,8 @@ spec:
               value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
-            - name: CALIPER_WORKSPACE
-              value: /hyperledger/caliper/workspace
+            - name: CALIPER_LOGGING_TARGETS_CONSOLE_OPTIONS_LEVEL
+              value: "debug"
             - name: CALIPER_BIND_ARGS
               value: "-g"
             - name: CXXFLAGS
