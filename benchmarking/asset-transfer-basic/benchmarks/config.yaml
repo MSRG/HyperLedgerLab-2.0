@@ -24,13 +24,13 @@
 test:
   name: basic-contract-benchmark
   description: test benchmark
-  workers:
-    # type: local
-    number: 5
+  # workers:
+  #   # type: local
+  #   number: 1
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      # txDuration: 10
+      txNumber: 20000
       rateControl:
         type: fixed-load
         opts:
