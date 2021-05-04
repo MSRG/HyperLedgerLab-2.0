@@ -38,5 +38,5 @@ test:
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
-          assets: 3000
+          assets: 20000
           contractId: asset-transfer-basic
