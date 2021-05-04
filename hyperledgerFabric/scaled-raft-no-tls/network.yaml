@@ -42,7 +42,7 @@ network:
     #     policy: OR('Org1MSP.member','Org3MSP.member')
 
     # - name: asset-transfer-basic
-    - name: fabcar
+    - name: asset-transfer-basic
       # if defined, this will override the global chaincode.language value
       language: node
       # orgs: [Org1, Org3]
