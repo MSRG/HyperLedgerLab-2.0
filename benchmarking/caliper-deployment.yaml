@@ -87,9 +87,9 @@ spec:
             #   mountPath: /hyperledger/caliper/workspace/
 
       volumes:
-        - name: caliper-workspace
-          persistentVolumeClaim:
-            claimName: caliper-workspace-pvc
+        # - name: caliper-workspace
+        #   persistentVolumeClaim:
+        #     claimName: caliper-workspace-pvc
         - name: caliper-benchmark
           configMap:
             name: benchmarks
