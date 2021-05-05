@@ -34,7 +34,7 @@ flavor_k8s_master = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium
 # nodes
 number_of_k8s_nodes = 0
 
-number_of_k8s_nodes_no_floating_ip = 4
+number_of_k8s_nodes_no_floating_ip = 5
 
 flavor_k8s_node = "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
 
