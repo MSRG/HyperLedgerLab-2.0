@@ -33,27 +33,27 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdOrg1MSP.admin')"
 
-    - &OrdOrg2
-        Name: OrdOrg2MSP
+    # - &OrdOrg2
+    #     Name: OrdOrg2MSP
 
-        # ID to load the MSP definition as
-        ID: OrdOrg2MSP
+    #     # ID to load the MSP definition as
+    #     ID: OrdOrg2MSP
 
-        MSPDir: crypto-config/ordererOrganizations/org2/msp
+    #     MSPDir: crypto-config/ordererOrganizations/org2/msp
 
-        # Policies defines the set of policies at this level of the config tree
-        # For organization policies, their canonical path is usually
-        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('OrdOrg2MSP.member')"
-            Writers:
-                Type: Signature
-                Rule: "OR('OrdOrg2MSP.member')"
-            Admins:
-                Type: Signature
-                Rule: "OR('OrdOrg2MSP.admin')"
+    #     # Policies defines the set of policies at this level of the config tree
+    #     # For organization policies, their canonical path is usually
+    #     #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+    #     Policies:
+    #         Readers:
+    #             Type: Signature
+    #             Rule: "OR('OrdOrg2MSP.member')"
+    #         Writers:
+    #             Type: Signature
+    #             Rule: "OR('OrdOrg2MSP.member')"
+    #         Admins:
+    #             Type: Signature
+    #             Rule: "OR('OrdOrg2MSP.admin')"
 
     - &Org1
         Name: Org1MSP
@@ -270,7 +270,7 @@ Orderer: &OrdererDefaults
 
     Addresses:
         - orderer0.org1:7059
-        - orderer0.org2:7059
+        # - orderer0.org2:7059
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 1s
@@ -300,10 +300,10 @@ Orderer: &OrdererDefaults
         #   Port: 7059
         #   ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
         #   ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-        - Host: orderer0.org2
-          Port: 7059
-          ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
-          ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+        # - Host: orderer0.org2
+        #   Port: 7059
+        #   ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+        #   ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
         # Options to be specified for all the etcd/raft nodes. The values here
         # are the defaults for all new channels and can be modified on a
