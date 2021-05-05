@@ -23,8 +23,8 @@ output_block=$4
 workdir="/tmp"
 
 # convert config.json and updated_config.json to protobuf
-echo "config_json $(cat config_json)"
-echo "updated_config_json $(cat updated_config_json)"
+echo "config_json $(cat $config_json)"
+echo "updated_config_json $(cat $updated_config_json)"
 
 configtxlator proto_encode --input "$config_json" --type common.Config --output $workdir/config.pb
 echo "-- converted $config_json to protobuf"
