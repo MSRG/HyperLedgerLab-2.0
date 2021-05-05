@@ -15,7 +15,7 @@ OrdererOrgs:
     Domain: org2
     EnableNodeOUs: true
     Specs:
-      - Hostname: orderer1
+      - Hostname: orderer0
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
