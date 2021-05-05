@@ -293,7 +293,7 @@ Orderer: &OrdererDefaults
     EtcdRaft:
         Consenters:
         - Host: orderer0.org1
-          Port: 7059
+          Port: 7050
           ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
         # - Host: orderer1.org1
@@ -301,7 +301,7 @@ Orderer: &OrdererDefaults
         #   ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
         #   ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
         - Host: orderer0.org2
-          Port: 7059
+          Port: 7050
           ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
