@@ -24,9 +24,9 @@
 test:
   name: basic-contract-benchmark
   description: test benchmark
-  # workers:
-  #   # type: local
-  #   number: 1
+  workers:
+    # type: local
+    number: 5
   rounds:
     - label: readAsset
       description: Read asset benchmark
@@ -38,5 +38,5 @@ test:
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
-          assets: 20000
+          assets: 20
           contractId: asset-transfer-basic
