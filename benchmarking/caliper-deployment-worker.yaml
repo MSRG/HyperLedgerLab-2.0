@@ -53,8 +53,10 @@ spec:
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
 
           volumeMounts:
-            # - mountPath: /etc/hyperledger/fabric/peer-msp/
-            #   name: peer-msp
+            - mountPath: /etc/hyperledger/fabric/org1/peer-msp/
+              name: peer-msp1
+            - mountPath: /etc/hyperledger/fabric/org2/peer-msp/
+              name: peer-msp2
             - mountPath: /etc/hyperledger/fabric/org1/msp/
               name: peer-admin-msp1
             - mountPath: /etc/hyperledger/fabric/org2/msp/
@@ -92,9 +94,24 @@ spec:
           configMap:
             name: hlf-chaincode--asset-transfer-basic
 
-        - name: peer-msp
+        - name: peer-msp1
           secret:
             secretName: hlf-peer--org1--peer0-msp
+            items:
+              - key: config.yaml
+                path: config.yaml
+              - key: cert.pem
+                path: signcerts/cert.pem
+              - key: key.pem
+                path: keystore/key.pem
+              - key: cacert.pem
+                path: cacerts/ca.org1-cert.pem
+              - key: tlscacert.pem
+                path: tlscacerts/cert.pem
+
+        - name: peer-msp2
+          secret:
+            secretName: hlf-peer--org2--peer0-msp
             items:
               - key: config.yaml
                 path: config.yaml

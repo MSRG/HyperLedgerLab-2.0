@@ -16,10 +16,10 @@ clients:
   client0.org1.example.com:
     client:
       organization: Org1
-      credentialStore:
-        path: /tmp/hfc-kvs/org1
-        cryptoStore:
-          path: /tmp/hfc-cvs/org1
+      # credentialStore:
+      #   path: /tmp/hfc-kvs/org1
+      #   cryptoStore:
+      #     path: /tmp/hfc-cvs/org1
       clientPrivateKey:
         path: /etc/hyperledger/fabric/msp/keystore/key.pem
       clientSignedCert:
@@ -27,10 +27,10 @@ clients:
   client0.org2.example.com:
     client:
       organization: Org2
-      credentialStore:
-        path: /tmp/hfc-kvs/org2
-        cryptoStore:
-          path: /tmp/hfc-cvs/org2
+      # credentialStore:
+      #   path: /tmp/hfc-kvs/org2
+      #   cryptoStore:
+      #     path: /tmp/hfc-cvs/org2
       clientPrivateKey:
         path: /etc/hyperledger/fabric/msp/keystore/key.pem
       clientSignedCert:
