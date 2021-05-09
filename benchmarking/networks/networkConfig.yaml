@@ -16,25 +16,25 @@ clients:
   client0.org1.example.com:
     client:
       organization: Org1
-      # credentialStore:
-      #   path: /tmp/hfc-kvs/org1
-      #   cryptoStore:
-      #     path: /tmp/hfc-cvs/org1
-      # clientPrivateKey:
-      #   path: /etc/hyperledger/fabric/org1/peer-msp/keystore/key.pem
-      # clientSignedCert:
-      #   path: /etc/hyperledger/fabric/org1/peer-msp/signcerts/cert.pem
+      credentialStore:
+        path: /tmp/hfc-kvs/org1
+        cryptoStore:
+          path: /tmp/hfc-cvs/org1
+      clientPrivateKey:
+        path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
+      clientSignedCert:
+        path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
   client0.org2.example.com:
     client:
       organization: Org2
-      # credentialStore:
-      #   path: /tmp/hfc-kvs/org2
-      #   cryptoStore:
-      #     path: /tmp/hfc-cvs/org2
-      # clientPrivateKey:
-      #   path: /etc/hyperledger/fabric/org2/peer-msp/keystore/key.pem
-      # clientSignedCert:
-      #   path: /etc/hyperledger/fabric/org2/peer-msp/signcerts/cert.pem
+      credentialStore:
+        path: /tmp/hfc-kvs/org2
+        cryptoStore:
+          path: /tmp/hfc-cvs/org2
+      clientPrivateKey:
+        path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
+      clientSignedCert:
+        path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
 
 # organizations:
 #   - mspid: org1MSP
