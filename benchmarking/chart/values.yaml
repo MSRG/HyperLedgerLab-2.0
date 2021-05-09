@@ -49,17 +49,17 @@ peer:
       level: info
       shim: info
   persistence:
-    enabled: false
+    enabled: true
     size: 16Gi
   docker:
     dind:
       # use a side car docker in docker container?
-      enabled: false
+      enabled: true
       # dind docker image
       # image: docker:19.03.8-dind
       image: docker:dind
       persistence:
-        enabled: false
+        enabled: true
         size: 16Gi
   ingress:
     enabled: false
@@ -98,7 +98,7 @@ couchdb:
   userName:
   password:
   persistence:
-    enabled: false
+    enabled: true
     size: 16Gi
   ingress:
     enabled: false
