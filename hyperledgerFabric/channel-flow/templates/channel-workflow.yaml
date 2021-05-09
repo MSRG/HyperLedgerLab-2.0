@@ -217,7 +217,7 @@ spec:
 
           mkdir -p /work && 
           configtxgen -profile {{ $channel.name }} -channelID {{ $channel.name }} -configPath /hlf_config \
-                -outputCreateChannelTx /work/{{ $channel.name }}.tx && 
+                -outputCreateChannelTx /work/{{ $channel.name }}.tx  
           
           peer channel create -o {{ $vars.ordererUrl }} -c {{ $channel.name }} -f /work/{{ $channel.name }}.tx \
               {{- if $.Values.tlsEnabled }}
