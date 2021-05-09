@@ -269,7 +269,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - orderer0.org1:7059
+        - orderer0.org1:7050
         # - orderer0.org2:7059
 
     # Batch Timeout: The amount of time to wait before creating a batch
