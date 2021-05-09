@@ -7,7 +7,7 @@ caliper:
     targets:
       console:
         options:
-          level: warn
+          level: info
       file:
         # we disable this
         enabled: false
