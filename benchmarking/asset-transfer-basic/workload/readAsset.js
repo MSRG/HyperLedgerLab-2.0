@@ -7,53 +7,53 @@ class MyWorkload extends WorkloadModuleBase {
         super();
     }
 
-    async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
-        await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
-        console.log(this.roundIndex);
-        console.log(this.roundArguments);
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const assetID = `${this.workerIndex}_${i}`;
-            console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'CreateAsset',
-                invokerIdentity: 'client0.org2.example.com',
-                contractArguments: ["assetID", 'blue', '20', 'penguin', '500'],
-                readOnly: false
-            };
+    // async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
+    //     await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
+    //     console.log(this.roundIndex);
+    //     console.log(this.roundArguments);
+    //     for (let i = 0; i < this.roundArguments.assets; i++) {
+    //         const assetID = `${this.workerIndex}_${i}`;
+    //         console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
+    //         const request = {
+    //             contractId: this.roundArguments.contractId,
+    //             contractFunction: 'CreateAsset',
+    //             invokerIdentity: 'client0.org2.example.com',
+    //             contractArguments: ["assetID", 'blue', '20', 'penguin', '500'],
+    //             readOnly: false
+    //         };
 
-            await this.sutAdapter.sendRequests(request);
-        }
-    }
+    //         await this.sutAdapter.sendRequests(request);
+    //     }
+    // }
 
     async submitTransaction() {
         const randomId = Math.floor(Math.random() * this.roundArguments.assets);
         const myArgs = {
             contractId: this.roundArguments.contractId,
-            contractFunction: 'ReadAsset',
+            contractFunction: 'GetAllAssets',
             invokerIdentity: 'client0.org2.example.com',
             // contractArguments: [`${this.workerIndex}_${randomId}`],
-            contractArguments: [`assetID`],
+            contractArguments: [],
             readOnly: true
         };
         await this.sutAdapter.sendRequests(myArgs);
     }
 
-    async cleanupWorkloadModule() {
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const assetID = `${this.workerIndex}_${i}`;
-            console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'DeleteAsset',
-                invokerIdentity: 'client0.org2.example.com',
-                contractArguments: ["assetID"],
-                readOnly: false
-            };
+    // async cleanupWorkloadModule() {
+    //     for (let i = 0; i < this.roundArguments.assets; i++) {
+    //         const assetID = `${this.workerIndex}_${i}`;
+    //         console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
+    //         const request = {
+    //             contractId: this.roundArguments.contractId,
+    //             contractFunction: 'DeleteAsset',
+    //             invokerIdentity: 'client0.org2.example.com',
+    //             contractArguments: ["assetID"],
+    //             readOnly: false
+    //         };
 
-            await this.sutAdapter.sendRequests(request);
-        }
-    }
+    //         await this.sutAdapter.sendRequests(request);
+    //     }
+    // }
 }
 
 function createWorkloadModule() {
