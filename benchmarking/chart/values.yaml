@@ -49,7 +49,7 @@ peer:
       level: info
       shim: info
   persistence:
-    enabled: true
+    enabled: false
     size: 16Gi
   docker:
     dind:

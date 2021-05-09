@@ -10,7 +10,7 @@ kind: StatefulSet
 metadata:
   name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
 spec:
-  replicas: 2
+  replicas: 1
   serviceName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
   selector:
     matchLabels:
