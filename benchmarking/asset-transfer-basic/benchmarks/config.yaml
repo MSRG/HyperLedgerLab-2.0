@@ -26,7 +26,7 @@ test:
   description: test benchmark
   workers:
     # type: local
-    number: 5
+    number: 6
   rounds:
     - label: readAsset
       description: Read asset benchmark
