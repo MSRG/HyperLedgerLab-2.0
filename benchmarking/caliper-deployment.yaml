@@ -153,21 +153,6 @@ spec:
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: peer-admin-msp2
-          secret:
-            secretName: hlf-peer--org2--admin-msp
-            items:
-              - key: config.yaml
-                path: config.yaml
-              - key: cert.pem
-                path: signcerts/cert.pem
-              - key: key.pem
-                path: keystore/key.pem
-              - key: cacert.pem
-                path: cacerts/ca.org1-cert.pem
-              - key: tlscacert.pem
-                path: tlscacerts/cert.pem
-
         # - name: orderer-tlsca
         #   secret:
         #     secretName: { { $vars.ordererTlsSecret } }
