@@ -31,8 +31,9 @@ class MyWorkload extends WorkloadModuleBase {
         const myArgs = {
             contractId: this.roundArguments.contractId,
             contractFunction: 'GetAllAssets',
-            invokerIdentity: 'client0.org2.example.com',
+            // invokerIdentity: 'client0.org2.example.com',
             // contractArguments: [`${this.workerIndex}_${randomId}`],
+            targetOrganizations: ["Org1", "Org2"],
             contractArguments: [],
             readOnly: true
         };
