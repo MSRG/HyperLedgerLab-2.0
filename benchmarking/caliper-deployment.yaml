@@ -50,7 +50,7 @@ spec:
               value: "mqtt"
             - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
-            - name: caliper-fabric-timeout-invokeorquery
+            # - name: caliper-fabric-timeout-invokeorquery
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/org1/peer-msp/
               name: peer-msp1
