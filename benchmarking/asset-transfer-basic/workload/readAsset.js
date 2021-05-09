@@ -31,7 +31,7 @@ class MyWorkload extends WorkloadModuleBase {
         const myArgs = {
             contractId: this.roundArguments.contractId,
             contractFunction: 'ReadAsset',
-            // invokerIdentity: 'client0.org1.example.com',
+            invokerIdentity: 'client0.org2.example.com',
             // contractArguments: [`${this.workerIndex}_${randomId}`],
             contractArguments: [`assetID`],
             readOnly: true
@@ -46,7 +46,7 @@ class MyWorkload extends WorkloadModuleBase {
             const request = {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'DeleteAsset',
-                // invokerIdentity: 'client0.org1.example.com',
+                invokerIdentity: 'client0.org2.example.com',
                 contractArguments: ["assetID"],
                 readOnly: false
             };
