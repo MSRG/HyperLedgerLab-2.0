@@ -9,7 +9,7 @@ fi
 # Go to benchmarking folder
 cd `dirname $0`/../benchmarking
 
-kubectl apply -f benchmarking/mosquitto/
+kubectl apply -f mosquitto/
 
 kubectl create configmap benchmarks --from-file=./$1/benchmarks/
 
