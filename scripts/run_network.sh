@@ -2,7 +2,7 @@
 
 set -x
 # Go to hyperledgerFabric folder
-cd `dirname $0`/hyperledgerFabric
+cd `dirname $0`/../hyperledgerFabric
 
  ./init.sh ./scaled-raft-no-tls/ ./chaincode/
 
