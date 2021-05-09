@@ -356,6 +356,9 @@ spec:
       command: [sh]
       source: |
           set -x
+          result=$(peer channel list)
+          cat $result
+
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
  
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence }}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
@@ -449,6 +452,10 @@ spec:
       command: [sh]
       source: |
           set -x
+
+          result=$(peer channel list)
+          cat $result
+
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
 
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence}}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
@@ -536,6 +543,10 @@ spec:
       command: [sh]
       source: |
           set -x
+
+          result=$(peer channel list)
+          cat $result
+          
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required --output json >&log.txt
           cat log.txt
           set +x
