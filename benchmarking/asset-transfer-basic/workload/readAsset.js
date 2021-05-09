@@ -18,7 +18,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'CreateAsset',
                 // invokerIdentity: 'client0.org1.example.com',
-                contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+                contractArguments: ["assetID", 'blue', '20', 'penguin', '500'],
                 readOnly: false
             };
 
@@ -32,7 +32,8 @@ class MyWorkload extends WorkloadModuleBase {
             contractId: this.roundArguments.contractId,
             contractFunction: 'ReadAsset',
             // invokerIdentity: 'client0.org1.example.com',
-            contractArguments: [`${this.workerIndex}_${randomId}`],
+            // contractArguments: [`${this.workerIndex}_${randomId}`],
+            contractArguments: [`assetID`],
             readOnly: true
         };
         await this.sutAdapter.sendRequests(myArgs);
@@ -46,7 +47,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'DeleteAsset',
                 // invokerIdentity: 'client0.org1.example.com',
-                contractArguments: [assetID],
+                contractArguments: ["assetID"],
                 readOnly: false
             };
 
