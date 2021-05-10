@@ -84,8 +84,8 @@ certificateAuthorities:
     httpOptions:
       verify: false
     caName: ca-Org1
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
@@ -94,8 +94,8 @@ certificateAuthorities:
     httpOptions:
       verify: false
     caName: ca-Org2
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org2-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
@@ -105,10 +105,14 @@ orderers:
     url: grpc://hlf-orderer--ordorg1--orderer0-0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
   orderer1:
     url: grpc://hlf-orderer--ordorg1--orderer1-0:7050
     grpcOptions:
       ssl-target-name-override: orderer1.org1
+    # tlsCACerts:
+    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
   orderer2:
     url: grpc://hlf-orderer--ordorg2--orderer0-0:7050
     grpcOptions:
@@ -122,15 +126,15 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org1
       grpc.keepalive_time_ms: 600000
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
   peer0.org2:
     url: grpc://hlf-peer--org2--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.org2
       grpc.keepalive_time_ms: 600000
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org1-cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/msp/tlscacerts/tlsca.org2-cert.pem
 
 channels:
   mychannel:
