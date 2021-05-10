@@ -1,0 +1,8 @@
+---
+- hosts: controle_node
+
+  tasks:
+    - name: delete caliper
+      command: ../scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+
+    - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
