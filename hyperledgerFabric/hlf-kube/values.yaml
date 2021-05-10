@@ -123,7 +123,7 @@ orderer:
   # useful when you dont want to enable TLS globally (i.e for transparent load balancing)
   # has no effect if orderer type is not etcdraft
   cluster:
-    enabled: false
+    enabled: true
     # raft cluster communication port. should be in synch with consenters in configtx.yaml
     port: 7059
   ingress:
