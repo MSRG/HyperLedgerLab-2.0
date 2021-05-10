@@ -3,7 +3,7 @@
 set -x
 
 if [[ $# -eq 0 ]] ; then
-    echo 'argument is missing'
+    echo 'Master ip address is missing'
     exit 0
 fi
 

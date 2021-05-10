@@ -2,7 +2,7 @@
 set -x
 
 if [[ $# -eq 0 ]] ; then
-    echo 'chaincode name is missing'
+    echo 'Chaincode name is missing'
     exit 0
 fi
 

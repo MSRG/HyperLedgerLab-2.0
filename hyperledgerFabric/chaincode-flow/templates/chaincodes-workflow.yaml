@@ -255,7 +255,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          set -x
           # verify if chaincode is already installed to peer
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
           echo $result
@@ -285,7 +284,6 @@ spec:
             peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
             peer lifecycle chaincode install /chaincode/{{ $chaincode.name }}.tar.gz
           {{- end }}
-          set +x
 
       volumeMounts:
         - mountPath: /etc/hyperledger/fabric/tls/
@@ -355,10 +353,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          set -x
-          result=$(peer channel list)
-          cat $result
-
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
  
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence }}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
@@ -388,7 +382,6 @@ spec:
           #   {{- if $.Values.tlsEnabled }} \ 
           #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
           #   {{- end }} \
-          set +x
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
@@ -451,11 +444,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          set -x
-
-          result=$(peer channel list)
-          cat $result
-
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
 
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence}}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
@@ -474,7 +462,6 @@ spec:
           fcn_call='{"function":"InitLedger","Args":[]}'
           peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --isInit -c '{"function":"InitLedger","Args":[]}' >&log.txt
           cat log.txt
-          set +x
 
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
@@ -542,14 +529,8 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          set -x
-
-          result=$(peer channel list)
-          cat $result
-          
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required --output json >&log.txt
           cat log.txt
-          set +x
           # peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --init-required \
           #   {{- if $.Values.tlsEnabled }} \ 
           #       --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
