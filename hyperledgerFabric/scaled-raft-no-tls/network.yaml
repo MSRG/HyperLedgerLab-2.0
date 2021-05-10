@@ -1,4 +1,4 @@
-tlsEnabled: false
+tlsEnabled: true
 useActualDomains: true
 
 network:
