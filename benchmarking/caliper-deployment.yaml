@@ -62,12 +62,10 @@ spec:
             - mountPath: /etc/hyperledger/fabric/org2/msp/
               name: peer-admin-msp2
 
-            - mountPath: /etc/hyperledger/fabric/orderer0
-              name: orderer0-tlsca
-            - mountPath: /etc/hyperledger/fabric/orderer1
-              name: orderer1-tlsca
-            - mountPath: /etc/hyperledger/fabric/orderer2
-              name: orderer2-tlsca
+            - mountPath: /etc/hyperledger/fabric/ordorg1-tlsca
+              name: ordorg1-tlsca
+            - mountPath: /etc/hyperledger/fabric/ordorg2-tlsca
+              name: ordorg2-tlsca
 
             - mountPath: /caliper-benchmark
               name: caliper-benchmark
@@ -162,12 +160,9 @@ spec:
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: orderer0-tlsca
+        - name: ordorg1-tlsca
           secret:
-            secretName: hlf-orderer--org1--orderer0-tls
-        - name: orderer1-tlsca
+            secretName: hlf-orderer--ordorg1-tlsca
+        - name: ordorg2-tlsca
           secret:
-            secretName: hlf-orderer--org1--orderer1-tls
-        - name: orderer2-tlsca
-          secret:
-            secretName: hlf-orderer--org2--orderer0-tls
+            secretName: hlf-orderer--ordorg2-tlsca

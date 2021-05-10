@@ -106,19 +106,19 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer0.org1
     tlsCACerts:
-      path: /etc/hyperledger/fabric/orderer0/tlscacert.pem
+      path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer1:
     url: grpcs://hlf-orderer--ordorg1--orderer1-0:7050
     grpcOptions:
       ssl-target-name-override: orderer1.org1
     tlsCACerts:
-      path: /etc/hyperledger/fabric/orderer1/tlscacert.pem
+      path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer2:
     url: grpcs://hlf-orderer--ordorg2--orderer0-0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org2
     tlsCACerts:
-      path: /etc/hyperledger/fabric/orderer2/tlscacert.pem
+      path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
 
 peers:
   peer0.org1:
