@@ -24,8 +24,8 @@ externalOrderer:
   # if enabled, this orderer will be used for channel operations
   enabled: false
   # name of external orderer org. used for mounting TLS CA secret
-  orgName: # Pivt
-  domain: # pivt.nl
+  orgName: # example
+  domain: # example.com
   host: # orderer0
   port: "7050"
 
@@ -33,15 +33,14 @@ logLevel: info
 
 flow:
   channel:
-    # should we run top level channel flows in parallel? 
+    # should we run top level channel flows in parallel?
     # dont set to true if you are using Kafka orderer (as of HL 1.4.0)
     parallel: false
     # fill in this array with channel names to limit the channel flow only to these ones
     include: []
-  join: 
-    # run channel join flows in parallel? 
+  join:
+    # run channel join flows in parallel?
     parallel: true
-  update: 
-    # run channel update flows in parallel? 
+  update:
+    # run channel update flows in parallel?
     parallel: true
-

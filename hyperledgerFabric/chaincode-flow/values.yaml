@@ -25,8 +25,8 @@ externalOrderer:
   # if enabled, this orderer will be used for channel operations
   enabled: false
   # name of external orderer org. used for mounting TLS CA secret
-  orgName: # Pivt
-  host: # orderer0.pivt.nl
+  orgName: # example
+  host: # orderer0.example.com
   port: "7050"
 
 logLevel: info
