@@ -168,6 +168,6 @@ spec:
         - name: orderer1-tlsca
           secret:
             secretName: hlf-orderer--org1--orderer1-tls
-        - name: orderer3-tlsca
+        - name: orderer2-tlsca
           secret:
             secretName: hlf-orderer--org2--orderer0-tls
