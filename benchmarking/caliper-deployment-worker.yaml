@@ -63,10 +63,10 @@ spec:
             - mountPath: /etc/hyperledger/fabric/org2/msp/
               name: peer-admin-msp2
 
-            - mountPath: /etc/hyperledger/fabric/org1/msp/
-              name: peer-admin-msp1
-            - mountPath: /etc/hyperledger/fabric/org2/msp/
-              name: peer-admin-msp2
+            - mountPath: /etc/hyperledger/fabric/ordorg1-tlsca
+              name: ordorg1-tlsca
+            - mountPath: /etc/hyperledger/fabric/ordorg2-tlsca
+              name: ordorg2-tlsca
 
             - mountPath: /caliper-benchmark
               name: caliper-benchmark
