@@ -6,10 +6,6 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 FOLDER_NAME="$1"
-RUN_CHANNEL_FLOW="$2"
-RUN_CHAINCODE_FLOW="$3"
-: ${RUN_CHANNEL_FLOW:="true"}
-: ${RUN_CHAINCODE_FLOW:="true"}
 
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
@@ -30,14 +26,12 @@ while [[ $(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?
 
 # we don't check for CA because if peers and orderers are running then CA pods are also running. 
 
-if [[ $RUN_CHANNEL_FLOW -eq "true" ]] ; then
-    echo "Run channel flow..."
-    helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
-fi
+echo "Run channel flow..."
+helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+
 
 sleep 5 
 
-if [[ $RUN_CHAINCODE_FLOW -eq "true" ]] ; then
-    echo "Run chaincode flow..."
-    helm template chaincode-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml  -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
-fi
+echo "Run chaincode flow..."
+helm template chaincode-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml  -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+
