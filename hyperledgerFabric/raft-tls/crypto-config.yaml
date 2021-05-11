@@ -6,13 +6,14 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: OrdOrg1
-    Domain: org1
+    Domain: org1.com
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
       - Hostname: orderer1
+
   - Name: OrdOrg2
-    Domain: org2
+    Domain: org2.com
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
