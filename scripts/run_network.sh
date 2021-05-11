@@ -30,10 +30,14 @@ while [[ $(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?
 
 # we don't check for CA because if peers and orderers are running then CA pods are also running. 
 
-echo "Run channel flow..."
-helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+if [[ $RUN_CHANNEL_FLOW -eq "true" ]] ; then
+    echo "Run channel flow..."
+    helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+fi
 
 sleep 5 
 
-echo "Run chaincode flow..."
-helm template chaincode-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml  -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+if [[ $RUN_CHAINCODE_FLOW -eq "true" ]] ; then
+    echo "Run chaincode flow..."
+    helm template chaincode-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml  -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
+fi
