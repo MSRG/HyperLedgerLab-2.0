@@ -5,17 +5,22 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
+FOLDER_NAME="$1"
+RUN_CHANNEL_FLOW="$2"
+RUN_CHAINCODE_FLOW="$3"
+: ${RUN_CHANNEL_FLOW:="true"}
+: ${RUN_CHAINCODE_FLOW:="true"}
 
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
 
-./init.sh ./$1/ ./chaincode/
+./init.sh ./$FOLDER_NAME/ ./chaincode/
 
-helm install hlf-kube ./hlf-kube/ -f $1/network.yaml -f $1/crypto-config.yaml --set orderer.cluster.enabled=true --set peer.launchPods=false --set orderer.launchPods=false 
+helm install hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml --set orderer.cluster.enabled=true --set peer.launchPods=false --set orderer.launchPods=false 
 
-./collect_host_aliases.sh ./$1/
+./collect_host_aliases.sh ./$FOLDER_NAME/
 
-helm upgrade hlf-kube ./hlf-kube/ -f $1/network.yaml -f $1/crypto-config.yaml -f $1/hostAliases.yaml --set orderer.cluster.enabled=true
+helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml --set orderer.cluster.enabled=true
 
 echo "Wait until orderer pods are all running..."
 while [[ $(kubectl get pods -l name=hlf-orderer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]]; do echo "waiting for orderer pods" && sleep 1; done
@@ -26,9 +31,9 @@ while [[ $(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?
 # we don't check for CA because if peers and orderers are running then CA pods are also running. 
 
 echo "Run channel flow..."
-helm template channel-flow/ -f $1/network.yaml -f $1/crypto-config.yaml -f $1/hostAliases.yaml | argo submit - --watch
+helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
 
 sleep 5 
 
 echo "Run chaincode flow..."
-helm template chaincode-flow/ -f $1/network.yaml -f $1/crypto-config.yaml  -f $1/hostAliases.yaml | argo submit - --watch
+helm template chaincode-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml  -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
