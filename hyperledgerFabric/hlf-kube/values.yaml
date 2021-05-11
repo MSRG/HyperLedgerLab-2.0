@@ -1,3 +1,6 @@
+# !! IMPORTANT THESE ARE THE DEFAULT VALUES. TO OVERRIDE THESE VALUE PLEASE CHANGE THEM IN NETWORK YAML FILE IN THE RESPECTIVE FOLDER.
+# EXAMPLE: to change tlsEnabled to true then in network.yaml in raft-tls folder change tlsEnabled: true then to run the network pass the network.yaml; e.g helm install hlf-kube ./hlf-kube/ -f raft-tls/network.yaml. Values of the file on the right will be considered.
+
 # Default values for hlf-kube.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -123,7 +126,7 @@ orderer:
   # useful when you dont want to enable TLS globally (i.e for transparent load balancing)
   # has no effect if orderer type is not etcdraft
   cluster:
-    enabled: false
+    v: false
     # raft cluster communication port. should be in synch with consenters in configtx.yaml
     port: 7059
   ingress:
