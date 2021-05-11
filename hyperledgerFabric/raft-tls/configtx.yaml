@@ -408,7 +408,7 @@ Profiles:
             <<: *OrdererDefaults
             Organizations:
                 - *OrdOrg1
-                # - *OrdOrg2
+                - *OrdOrg2
                           
         Consortiums:
             TheConsortium:
