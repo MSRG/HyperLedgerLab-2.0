@@ -6,14 +6,14 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: OrdOrg1
-    Domain: org1.com
+    Domain: org1
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
       - Hostname: orderer1
 
   - Name: OrdOrg2
-    Domain: org2.com
+    Domain: org2
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer0
@@ -23,7 +23,7 @@ OrdererOrgs:
 # ---------------------------------------------------------------------------
 PeerOrgs:
   - Name: Org1
-    Domain: org1
+    Domain: org1.com
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -31,7 +31,7 @@ PeerOrgs:
       Count: 1
 
   - Name: Org2
-    Domain: org2
+    Domain: org2.com
     EnableNodeOUs: true
     Template:
       Count: 1

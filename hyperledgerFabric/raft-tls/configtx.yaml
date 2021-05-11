@@ -17,7 +17,7 @@ Organizations:
         ID: OrdOrg1MSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/org1.com/msp
+        MSPDir: crypto-config/ordererOrganizations/org1/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -86,7 +86,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org1
+            - Host: peer0.org1.com
               Port: 7051
 
     - &Org2
@@ -121,7 +121,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org2
+            - Host: peer0.org2.com
               Port: 7051
 
     # - &Org3
@@ -269,7 +269,7 @@ Orderer: &OrdererDefaults
     OrdererType: etcdraft
 
     Addresses:
-        - orderer0.org1.com:7050
+        - orderer0.org1:7050
         # - orderer0.org2:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
@@ -292,15 +292,15 @@ Orderer: &OrdererDefaults
 
     EtcdRaft:
         Consenters:
-        - Host: orderer0.org1.com
+        - Host: orderer0.org1
           Port: 7050
           ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-        - Host: orderer1.org1.com
+        - Host: orderer1.org1
           Port: 7050
           ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-        - Host: orderer0.org2.com
+        - Host: orderer0.org2
           Port: 7050
           ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
           ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
