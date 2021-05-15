@@ -130,16 +130,16 @@ channels:
   mychannel:
     # configBinary: networks/fabric/config_solo_raft/mychannel.tx
     created: true
-    # orderers:
-    #   - orderer0
-    #   - orderer1
-    #   - orderer2
+    orderers:
+      - orderer0
+      - orderer1
+      - orderer2
 
-    # peers:
-    #   peer0.org1:
-    #     eventSource: true
-    #   peer0.org2:
-    #     eventSource: true
+    peers:
+      peer0.org1:
+        # eventSource: true
+      peer0.org2:
+        # eventSource: true
 
     contracts:
       - id: asset-transfer-basic
