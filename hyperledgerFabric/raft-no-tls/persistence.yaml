@@ -5,8 +5,8 @@ peer:
 orderer:
   persistence:
     enabled: true
-  cluster:
-    enabled: false
+  # cluster:
+  #   enabled: true
 
 couchdb:
   persistence:
