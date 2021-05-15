@@ -12,11 +12,6 @@
   {{- $_ := set $vars "ordererHost" (index $ordererOrg.Specs 0).Hostname }}
   {{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-tlsca" ($ordererOrg.Name | lower)) }}
 
-  {{- $_ := set $vars "peerAddresses" (printf "fef")}}
-  {{- range $i, $org := $.Values.PeerOrgs }}
-  {{- $vars.peerAddresses := printf "%s %s" $peerAddresses --peerAddresses }}
-  {{ end }} {{- /* peer.Orgs */ -}}
-
 {{- end }}
 
 apiVersion: argoproj.io/v1alpha1
@@ -442,6 +437,10 @@ spec:
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- if eq $orgName $org.Name }}
 
+{{- define "pathtoexclude" -}}
+{{- join "--peerAddresses peer0.org1:7051 " .Values.PeerOrgs.Domain }}
+{{- end -}}
+
   - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
     inputs:
     retryStrategy:
@@ -450,7 +449,7 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          echo $vars.peerAddresses
+          echo $pathtoexclude
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
 
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence}}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
