@@ -124,14 +124,14 @@ peers:
   peer0.org1:
     url: grpcs://hlf-peer--org1--peer0:7051
     grpcOptions:
-      ssl-target-name-override: peer0.org1
+      ssl-target-name-override: peer0.peer1
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
   peer0.org2:
     url: grpcs://hlf-peer--org2--peer0:7051
     grpcOptions:
-      ssl-target-name-override: peer0.org2
+      ssl-target-name-override: peer0.peer2
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
