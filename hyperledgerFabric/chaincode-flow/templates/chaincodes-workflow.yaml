@@ -439,7 +439,7 @@ spec:
 {{- $peerAddresses := (printf "")}}
 {{- range $i, $org := $.Values.PeerOrgs }}
 # {{- $peerAddresses := "{{$peerAddresses}} {{(printf "--peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }}" )}}" }}
-{{- $peerAddresses := " {{$peerAddresses}} --peerAddresses {{ $peer }}.{{ $org.Domain }}:7051 " }}
+{{- $peerAddresses := " {{$peerAddresses}} --meerAddresses {{ $peer }}.{{ $org.Domain }}:7051 " }}
 {{ end }} {{- /* peer.Orgs */ -}}
 
 
