@@ -288,15 +288,15 @@ Orderer: &OrdererDefaults
     Consenters:
       - Host: orderer0.org1
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/msp/tlscacerts/tlsca.org1-cert.pem
+        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
       - Host: orderer1.org1
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/msp/tlscacerts/tlsca.org1-cert.pem
+        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
       - Host: orderer0.org2
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/msp/tlscacerts/tlsca.org2-cert.pem
+        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
     # Options to be specified for all the etcd/raft nodes. The values here
@@ -304,7 +304,7 @@ Orderer: &OrdererDefaults
     # per-channel basis via configuration updates.
     Options:
       # TickInterval is the time interval between two Node.Tick invocations.
-      TickInterval: 500ms
+      TickInterval: 5s
 
       # ElectionTick is the number of Node.Tick invocations that must pass
       # between elections. That is, if a follower does not receive any
