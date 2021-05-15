@@ -436,10 +436,8 @@ spec:
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- if eq $orgName $org.Name }}
 
-{{- $peerAddresses := (printf "")}}
-{{- range $i, $org := $.Values.PeerOrgs }}
-{{- $peerAddresses :=  {{$peerAddresses}} {{ $peer }}  }}
-{{ end }} {{- /* peer.Orgs */ -}}
+{{- $peerAddresses := (printf "dd")}}
+
 
 
   - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
