@@ -436,11 +436,11 @@ spec:
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- if eq $orgName $org.Name }}
 
-{{- $peerAddresses := (printf "")}}
-{{- range $i, $org := $.Values.PeerOrgs }}
-# {{- $peerAddresses := "{{$peerAddresses}} {{(printf "--peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }}" )}}" }}
-{{- $peerAddresses := " {{$peerAddresses}} --meerAddresses {{ $peer }}.{{ $org.Domain }}:7051 " }}
-{{ end }} {{- /* peer.Orgs */ -}}
+# {{- $peerAddresses := (printf "")}}
+# {{- range $i, $org := $.Values.PeerOrgs }}
+# # {{- $peerAddresses := "{{$peerAddresses}} {{(printf "--peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }}" )}}" }}
+# {{- $peerAddresses := " {{$peerAddresses}} --meerAddresses {{ $peer }}.{{ $org.Domain }}:7051 " }}
+# {{ end }} {{- /* peer.Orgs */ -}}
 
 
   - name: commit-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
