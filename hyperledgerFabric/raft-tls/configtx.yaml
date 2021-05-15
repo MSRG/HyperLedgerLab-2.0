@@ -265,7 +265,8 @@ Orderer: &OrdererDefaults
 
   Addresses:
     - orderer0.org1:7050
-    # - orderer0.org2:7050
+    - orderer1.org1:7050
+    - orderer0.org2:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 1s
@@ -304,7 +305,7 @@ Orderer: &OrdererDefaults
     # per-channel basis via configuration updates.
     Options:
       # TickInterval is the time interval between two Node.Tick invocations.
-      TickInterval: 2s
+      TickInterval: 500ms
 
       # ElectionTick is the number of Node.Tick invocations that must pass
       # between elections. That is, if a follower does not receive any
