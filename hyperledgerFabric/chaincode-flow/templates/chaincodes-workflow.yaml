@@ -438,7 +438,7 @@ spec:
 
 {{- $peerAddresses := (printf "")}}
 {{- range $i, $org := $.Values.PeerOrgs }}
-{{- $peerAddresses := " {{$peerAddresses}} --meerAddresses {{ $peer }}.{{ $org.Domain }}:7051 " }}
+{{- $peerAddresses :=  {{$peerAddresses}} {{ $peer }}  }}
 {{ end }} {{- /* peer.Orgs */ -}}
 
 
