@@ -122,12 +122,12 @@ orderers:
 
 peers:
   peer0.org1:
-    url: grpc://hlf-peer--org1--peer0:7051
+    url: grpcs://hlf-peer--org1--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.org1
       grpc.keepalive_time_ms: 600000
-    # tlsCACerts:
-    #   path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
   peer0.org2:
     url: grpcs://hlf-peer--org2--peer0:7051
     grpcOptions:
