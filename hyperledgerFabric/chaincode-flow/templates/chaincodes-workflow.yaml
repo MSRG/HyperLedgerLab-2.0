@@ -14,7 +14,6 @@
 
   {{- $_ := set $vars "peerAddresses" (printf "fef")}}
   {{- range $i, $org := $.Values.PeerOrgs }}
-  # {{- $peerAddresses := "{{$peerAddresses}} {{(printf "--peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }}" )}}" }}
   {{- $vars.peerAddresses := printf "%s %s" $peerAddresses --peerAddresses }}
   {{ end }} {{- /* peer.Orgs */ -}}
 
