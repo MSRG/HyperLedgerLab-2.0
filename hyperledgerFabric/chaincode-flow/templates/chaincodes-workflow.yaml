@@ -456,7 +456,7 @@ spec:
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
 
-          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --peerAddresses peer0.org2:7051 --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required \
+          peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required \
             {{- if $.Values.tlsEnabled }} \ 
                 --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} 
@@ -467,8 +467,10 @@ spec:
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/tls/
+        - mountPath: /etc/hyperledger/fabric/tls/org2
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
+       - mountPath: /etc/hyperledger/fabric/tls/org1
+          name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
       
