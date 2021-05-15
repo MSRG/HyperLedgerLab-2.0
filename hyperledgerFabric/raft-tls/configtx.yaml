@@ -288,15 +288,15 @@ Orderer: &OrdererDefaults
     Consenters:
       - Host: orderer0.org1
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
+        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/ca.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
       - Host: orderer1.org1
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
+        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/ca.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
       - Host: orderer0.org2
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/ca.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
     # Options to be specified for all the etcd/raft nodes. The values here
