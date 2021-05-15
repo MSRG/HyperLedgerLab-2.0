@@ -137,7 +137,10 @@ channels:
 
     peers:
       peer0.org1:
-        # eventSource: true
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
       peer0.org2:
         # eventSource: true
 
