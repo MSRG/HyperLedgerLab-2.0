@@ -60,7 +60,7 @@ organizations:
   Org1:
     mspid: Org1MSP
     peers:
-      - peer0.org1
+      - peer0.peer1
     certificateAuthorities:
       - ca-Org1
     adminPrivateKey:
@@ -70,7 +70,7 @@ organizations:
   Org2:
     mspid: Org2MSP
     peers:
-      - peer0.org2
+      - peer0.peer2
     certificateAuthorities:
       - ca-Org2
     adminPrivateKey:
@@ -121,14 +121,14 @@ orderers:
       path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
 
 peers:
-  peer0.org1:
+  peer0.peer1:
     url: grpcs://hlf-peer--org1--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.peer1
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
-  peer0.org2:
+  peer0.peer2:
     url: grpcs://hlf-peer--org2--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.peer2
@@ -146,9 +146,9 @@ channels:
       - orderer2
 
     peers:
-      peer0.org1:
+      peer0.peer1:
         eventSource: true
-      peer0.org2:
+      peer0.peer2:
         eventSource: true
 
     contracts:
