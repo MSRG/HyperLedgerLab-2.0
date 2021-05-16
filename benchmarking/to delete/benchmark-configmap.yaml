@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: benchmarks
-data: 
-{{ (.Files.Glob "benchmarks/*").AsConfig | indent 2 }}
