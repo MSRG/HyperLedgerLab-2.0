@@ -445,7 +445,6 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          echo $pathtoexclude
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
 
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence}}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
