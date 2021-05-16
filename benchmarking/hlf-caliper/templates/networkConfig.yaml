@@ -68,13 +68,13 @@ organizations:
 
 certificateAuthorities:
   ca-Org1:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: https://hlf-ca--org1.default.svc.cluster.local:7054
     tlsCACerts:
       path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
-    {{- else }}
+    {{ else }}
     url: http://hlf-ca--org1.default.svc.cluster.local:7054
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     httpOptions:
       verify: false
     caName: ca-Org1
@@ -82,7 +82,7 @@ certificateAuthorities:
       - enrollId: admin
         enrollSecret: adminpw
   ca-Org2:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: https://hlf-ca--org2.default.svc.cluster.local:7054
     tlsCACerts:
       path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
