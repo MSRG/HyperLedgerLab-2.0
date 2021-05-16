@@ -107,17 +107,16 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org1
       hostnameOverride: peer0.org1
-      # grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 600000
   peer0.org2:
     url: grpc://hlf-peer--org2--peer0:7051
     grpcOptions:
       ssl-target-name-override: peer0.org2
       hostnameOverride: peer0.org2
-      # grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 600000
 
 channels:
   mychannel:
-    # configBinary: networks/fabric/config_solo_raft/mychannel.tx
     created: true
     orderers:
       - orderer0
@@ -141,4 +140,3 @@ channels:
         version: "1.0"
         language: node
         path: /caliper-chaincode
-        # metadataPath: src/fabric/samples/marbles/go/metadata
