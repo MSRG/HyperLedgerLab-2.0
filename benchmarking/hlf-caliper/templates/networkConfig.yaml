@@ -86,9 +86,9 @@ certificateAuthorities:
     url: https://hlf-ca--org2.default.svc.cluster.local:7054
     tlsCACerts:
       path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
-    {{- else }}
+    {{ else }}
     url: http://hlf-ca--org2.default.svc.cluster.local:7054
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     httpOptions:
       verify: false
     caName: ca-Org2
@@ -98,58 +98,58 @@ certificateAuthorities:
 
 orderers:
   orderer0:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: grpcs://hlf-orderer--ordorg1--orderer0-0:7050
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
-    {{- else }}
+    {{ else }}
     url: grpc://hlf-orderer--ordorg1--orderer0-0:7050
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     grpcOptions:
       ssl-target-name-override: orderer0.org1
   orderer1:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: grpcs://hlf-orderer--ordorg1--orderer1-0:7050
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
-    {{- else }}
+    {{ else }}
     url: grpc://hlf-orderer--ordorg1--orderer1-0:7050
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     grpcOptions:
       ssl-target-name-override: orderer1.org1
   orderer2:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: grpcs://hlf-orderer--ordorg2--orderer0-0:7050
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
-    {{- else }}
+    {{ else }}
     url: grpc://hlf-orderer--ordorg2--orderer0-0:7050
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     grpcOptions:
       ssl-target-name-override: orderer0.org2
 
 peers:
   peer0.org1:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: grpcs://hlf-peer--org1--peer0:7051
     tlsCACerts:
       path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
-    {{- else }}
+    {{ else }}
     url: grpc://hlf-peer--org1--peer0:7051
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     grpcOptions:
       ssl-target-name-override: peer0.org1
       hostnameOverride: peer0.org1
       # grpc.keepalive_time_ms: 600000
 
   peer0.org2:
-    {{- if $.Values.tlsEnabled }}
+    {{ if $.Values.tlsEnabled }}
     url: grpcs://hlf-peer--org2--peer0:7051
     tlsCACerts:
       path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
-    {{- else }}
+    {{ else }}
     url: grpc://hlf-peer--org2--peer0:7051
-    {{- end }}{{- /* if-else Values.tlsEnabled  */ -}}
+    {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
     grpcOptions:
       ssl-target-name-override: peer0.org2
       hostnameOverride: peer0.org2
