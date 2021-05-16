@@ -1,6 +1,6 @@
 name: Calier test
 version: "1.0"
-mutual-tls: true
+mutual-tls: false
 
 caliper:
   blockchain: fabric
@@ -86,17 +86,17 @@ certificateAuthorities:
 
 orderers:
   orderer0:
-    url: grpc://hlf-orderer--ordorg1--orderer0-0:7050
+    url: grpc://hlf-orderer--ordorg1--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
       hostnameOverride: orderer0.org1
   orderer1:
-    url: grpc://hlf-orderer--ordorg1--orderer1-0:7050
+    url: grpc://hlf-orderer--ordorg1--orderer1:7050
     grpcOptions:
       ssl-target-name-override: orderer1.org1
       hostnameOverride: orderer1.org1
   orderer2:
-    url: grpc://hlf-orderer--ordorg2--orderer0-0:7050
+    url: grpc://hlf-orderer--ordorg2--orderer0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org2
       hostnameOverride: orderer0.org2
