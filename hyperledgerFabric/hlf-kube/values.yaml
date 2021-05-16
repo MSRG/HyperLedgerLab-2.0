@@ -128,7 +128,7 @@ orderer:
   cluster:
     enabled: false
     # raft cluster communication port. should be in synch with consenters in configtx.yaml
-    port: 7050
+    port: 7059
   ingress:
     enabled: false
     annotations:
