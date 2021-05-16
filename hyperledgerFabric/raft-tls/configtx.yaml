@@ -264,7 +264,7 @@ Orderer: &OrdererDefaults
   OrdererType: etcdraft
 
   Addresses:
-    - orderer0.org1:7059
+    - orderer0.org1:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 1s
@@ -286,15 +286,15 @@ Orderer: &OrdererDefaults
   EtcdRaft:
     Consenters:
       - Host: orderer0.org1
-        Port: 7059
+        Port: 7050
         ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
       - Host: orderer1.org1
-        Port: 7059
+        Port: 7050
         ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
       - Host: orderer0.org2
-        Port: 7059
+        Port: 7050
         ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
 
