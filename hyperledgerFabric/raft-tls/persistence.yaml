@@ -6,7 +6,7 @@ orderer:
   persistence:
     enabled: true
   cluster:
-    enabled: true
+    enabled: false
 
 couchdb:
   persistence:
