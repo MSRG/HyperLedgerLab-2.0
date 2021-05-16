@@ -457,7 +457,7 @@ spec:
 
           peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
           fcn_call='{"function":"InitLedger","Args":[]}'
-          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }}  --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --isInit -c '{"function":"InitLedger","Args":[]}' >&log.txt
+          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }}  --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --isInit -c '{"function":"InitLedger","Args":[]}' {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
           cat log.txt
           set +x
       volumeMounts:
