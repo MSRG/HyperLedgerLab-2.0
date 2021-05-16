@@ -372,10 +372,9 @@ spec:
           PACKAGE_ID=$(sed -n "/{{ $chaincode.name }}_{{ $version }}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
           echo $PACKAGE_ID
 
-          peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} --sequence {{ $sequence }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required \
-            --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt  \ 
-          {{- if $.Values.tlsEnabled }} \ 
-                -- /hlf_config/orderer-tlsca/tlscacert.pem \ 
+          peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} --sequence {{ $sequence }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt \
+            {{- if $.Values.tlsEnabled }} \ 
+                --tls /hlf_config/orderer-tlsca/tlscacert.pem \ 
             {{- end }} \ 
 
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
