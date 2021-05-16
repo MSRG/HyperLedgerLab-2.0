@@ -1,5 +1,8 @@
 tlsEnabled: false
 useActualDomains: true
+orderer:
+  cluster:
+    enabled: true
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
