@@ -29,7 +29,7 @@ externalOrderer:
   host: # orderer0.example.com
   port: "7050"
 
-logLevel: info
+logLevel: grpc=debug:info
 
 flow:
   chaincode:

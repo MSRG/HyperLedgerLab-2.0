@@ -42,7 +42,7 @@ ingress:
 
 # peer settings. applies to all peers
 peer:
-  logLevel: info
+  logLevel: grpc=debug:info
   # launch peer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true
   chaincode:
@@ -116,7 +116,7 @@ couchdb:
 orderer:
   # should be greater than 1 only if kafka orderer is used
   replicas: 1
-  logLevel: info
+  logLevel: grpc=debug:info
   # launch orderer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true
   persistence:
@@ -164,7 +164,7 @@ orderer:
 ca:
   userName: admin
   password: adminpw
-  logLevel: info
+  logLevel: grpc=debug:info
   ingress:
     enabled: false
 

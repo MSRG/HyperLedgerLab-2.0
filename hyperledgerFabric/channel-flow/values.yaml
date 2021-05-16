@@ -29,7 +29,7 @@ externalOrderer:
   host: # orderer0
   port: "7050"
 
-logLevel: info
+logLevel: grpc=debug:info
 
 flow:
   channel:
