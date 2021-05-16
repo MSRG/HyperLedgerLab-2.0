@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: caliper-config
+  name: hlf-scripts
   labels:
-data: 
+data:
   {{- (.Files.Glob "caliper-config/*").AsConfig | nindent 2 }}
