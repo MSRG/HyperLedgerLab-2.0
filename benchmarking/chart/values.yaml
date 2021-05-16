@@ -4,3 +4,4 @@
 
 worker:
   number: 6
+tlsEnabled: false
