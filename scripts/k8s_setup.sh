@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source `dirname $0`/setup_env.sh
+source `dirname $0`/env_setup.sh
 
 
 # ansible-playbook --become -i inventory/infra/hosts.ini playbooks/create_instances.yaml
