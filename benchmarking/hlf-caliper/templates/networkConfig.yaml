@@ -3,186 +3,186 @@ kind: ConfigMap
 metadata:
   name: network
 data:
-  name: Calier test
-  version: "1.0"
-  mutual-tls: false
+    name: Calier test
+    version: "1.0"
+    mutual-tls: false
 
-  caliper:
-    blockchain: fabric
+    caliper:
+      blockchain: fabric
 
-  info:
-    Version: 2.2.0
-    Size: 2 Orgs with 1 Peer
-    Orderer: Raft
-    Distribution: Single Host
-    StateDB: CouchDB
+    info:
+      Version: 2.2.0
+      Size: 2 Orgs with 1 Peer
+      Orderer: Raft
+      Distribution: Single Host
+      StateDB: CouchDB
 
-  clients:
-    client0.org1.example.com:
-      client:
-        organization: Org1
-        credentialStore:
-          path: /tmp/hfc-kvs/org1
-          cryptoStore:
-            path: /tmp/hfc-cvs/org1
-        clientPrivateKey:
+    clients:
+      client0.org1.example.com:
+        client:
+          organization: Org1
+          credentialStore:
+            path: /tmp/hfc-kvs/org1
+            cryptoStore:
+              path: /tmp/hfc-cvs/org1
+          clientPrivateKey:
+            path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
+          clientSignedCert:
+            path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
+          connection:
+            timeout:
+              peer:
+                endorser: 300
+      client0.org2.example.com:
+        client:
+          organization: Org2
+          credentialStore:
+            path: /tmp/hfc-kvs/org2
+            cryptoStore:
+              path: /tmp/hfc-cvs/org2
+          clientPrivateKey:
+            path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
+          clientSignedCert:
+            path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
+          connection:
+            timeout:
+              peer:
+                endorser: 300
+
+    organizations:
+      Org1:
+        mspid: Org1MSP
+        peers:
+          - peer0.org1
+        certificateAuthorities:
+          - ca-Org1
+        adminPrivateKey:
           path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
-        clientSignedCert:
+        signedCert:
           path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
-        connection:
-          timeout:
-            peer:
-              endorser: 300
-    client0.org2.example.com:
-      client:
-        organization: Org2
-        credentialStore:
-          path: /tmp/hfc-kvs/org2
-          cryptoStore:
-            path: /tmp/hfc-cvs/org2
-        clientPrivateKey:
+      Org2:
+        mspid: Org2MSP
+        peers:
+          - peer0.org2
+        certificateAuthorities:
+          - ca-Org2
+        adminPrivateKey:
           path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
-        clientSignedCert:
+        signedCert:
           path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
-        connection:
-          timeout:
-            peer:
-              endorser: 300
 
-  organizations:
-    Org1:
-      mspid: Org1MSP
-      peers:
-        - peer0.org1
-      certificateAuthorities:
-        - ca-Org1
-      adminPrivateKey:
-        path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
-      signedCert:
-        path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
-    Org2:
-      mspid: Org2MSP
-      peers:
-        - peer0.org2
-      certificateAuthorities:
-        - ca-Org2
-      adminPrivateKey:
-        path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
-      signedCert:
-        path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
+    certificateAuthorities:
+      ca-Org1:
+        {{ if $.Values.tlsEnabled }}
+        url: https://hlf-ca--org1.default.svc.cluster.local:7054
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
+        {{ else }}
+        url: http://hlf-ca--org1.default.svc.cluster.local:7054
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        httpOptions:
+          verify: false
+        caName: ca-Org1
+        registrar:
+          - enrollId: admin
+            enrollSecret: adminpw
+      ca-Org2:
+        {{ if $.Values.tlsEnabled }}
+        url: https://hlf-ca--org2.default.svc.cluster.local:7054
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
+        {{ else }}
+        url: http://hlf-ca--org2.default.svc.cluster.local:7054
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        httpOptions:
+          verify: false
+        caName: ca-Org2
+        registrar:
+          - enrollId: admin
+            enrollSecret: adminpw
 
-  certificateAuthorities:
-    ca-Org1:
-      {{ if $.Values.tlsEnabled }}
-      url: https://hlf-ca--org1.default.svc.cluster.local:7054
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
-      {{ else }}
-      url: http://hlf-ca--org1.default.svc.cluster.local:7054
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      httpOptions:
-        verify: false
-      caName: ca-Org1
-      registrar:
-        - enrollId: admin
-          enrollSecret: adminpw
-    ca-Org2:
-      {{ if $.Values.tlsEnabled }}
-      url: https://hlf-ca--org2.default.svc.cluster.local:7054
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
-      {{ else }}
-      url: http://hlf-ca--org2.default.svc.cluster.local:7054
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      httpOptions:
-        verify: false
-      caName: ca-Org2
-      registrar:
-        - enrollId: admin
-          enrollSecret: adminpw
+    orderers:
+      orderer0:
+        {{ if $.Values.tlsEnabled }}
+        url: grpcs://hlf-orderer--ordorg1--orderer0-0:7050
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
+        {{ else }}
+        url: grpc://hlf-orderer--ordorg1--orderer0-0:7050
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        grpcOptions:
+          ssl-target-name-override: orderer0.org1
+      orderer1:
+        {{ if $.Values.tlsEnabled }}
+        url: grpcs://hlf-orderer--ordorg1--orderer1-0:7050
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
+        {{ else }}
+        url: grpc://hlf-orderer--ordorg1--orderer1-0:7050
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        grpcOptions:
+          ssl-target-name-override: orderer1.org1
+      orderer2:
+        {{ if $.Values.tlsEnabled }}
+        url: grpcs://hlf-orderer--ordorg2--orderer0-0:7050
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
+        {{ else }}
+        url: grpc://hlf-orderer--ordorg2--orderer0-0:7050
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        grpcOptions:
+          ssl-target-name-override: orderer0.org2
 
-  orderers:
-    orderer0:
-      {{ if $.Values.tlsEnabled }}
-      url: grpcs://hlf-orderer--ordorg1--orderer0-0:7050
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
-      {{ else }}
-      url: grpc://hlf-orderer--ordorg1--orderer0-0:7050
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      grpcOptions:
-        ssl-target-name-override: orderer0.org1
-    orderer1:
-      {{ if $.Values.tlsEnabled }}
-      url: grpcs://hlf-orderer--ordorg1--orderer1-0:7050
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
-      {{ else }}
-      url: grpc://hlf-orderer--ordorg1--orderer1-0:7050
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      grpcOptions:
-        ssl-target-name-override: orderer1.org1
-    orderer2:
-      {{ if $.Values.tlsEnabled }}
-      url: grpcs://hlf-orderer--ordorg2--orderer0-0:7050
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
-      {{ else }}
-      url: grpc://hlf-orderer--ordorg2--orderer0-0:7050
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      grpcOptions:
-        ssl-target-name-override: orderer0.org2
+    peers:
+      peer0.org1:
+        {{ if $.Values.tlsEnabled }}
+        url: grpcs://hlf-peer--org1--peer0:7051
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
+        {{ else }}
+        url: grpc://hlf-peer--org1--peer0:7051
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        grpcOptions:
+          ssl-target-name-override: peer0.org1
+          hostnameOverride: peer0.org1
+          # grpc.keepalive_time_ms: 600000
 
-  peers:
-    peer0.org1:
-      {{ if $.Values.tlsEnabled }}
-      url: grpcs://hlf-peer--org1--peer0:7051
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
-      {{ else }}
-      url: grpc://hlf-peer--org1--peer0:7051
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      grpcOptions:
-        ssl-target-name-override: peer0.org1
-        hostnameOverride: peer0.org1
-        # grpc.keepalive_time_ms: 600000
+      peer0.org2:
+        {{ if $.Values.tlsEnabled }}
+        url: grpcs://hlf-peer--org2--peer0:7051
+        tlsCACerts:
+          path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
+        {{ else }}
+        url: grpc://hlf-peer--org2--peer0:7051
+        {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
+        grpcOptions:
+          ssl-target-name-override: peer0.org2
+          hostnameOverride: peer0.org2
+          # grpc.keepalive_time_ms: 600000
+    channels:
+      mychannel:
+        # configBinary: networks/fabric/config_solo_raft/mychannel.tx
+        created: true
+        orderers:
+          - orderer0
+          - orderer1
+          - orderer2
 
-    peer0.org2:
-      {{ if $.Values.tlsEnabled }}
-      url: grpcs://hlf-peer--org2--peer0:7051
-      tlsCACerts:
-        path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
-      {{ else }}
-      url: grpc://hlf-peer--org2--peer0:7051
-      {{ end }}{{- /* if-else Values.tlsEnabled  */ -}}
-      grpcOptions:
-        ssl-target-name-override: peer0.org2
-        hostnameOverride: peer0.org2
-        # grpc.keepalive_time_ms: 600000
-  channels:
-    mychannel:
-      # configBinary: networks/fabric/config_solo_raft/mychannel.tx
-      created: true
-      orderers:
-        - orderer0
-        - orderer1
-        - orderer2
+        peers:
+          peer0.org1:
+            endorsingPeer: true
+            chaincodeQuery: true
+            ledgerQuery: true
+            eventSource: true
+          peer0.org2:
+            endorsingPeer: true
+            chaincodeQuery: true
+            ledgerQuery: true
+            eventSource: true
 
-      peers:
-        peer0.org1:
-          endorsingPeer: true
-          chaincodeQuery: true
-          ledgerQuery: true
-          eventSource: true
-        peer0.org2:
-          endorsingPeer: true
-          chaincodeQuery: true
-          ledgerQuery: true
-          eventSource: true
-
-      contracts:
-        - id: asset-transfer-basic
-          version: "1.0"
-          language: node
-          path: /caliper-chaincode
-          # metadataPath: src/fabric/samples/marbles/go/metadata
+        contracts:
+          - id: asset-transfer-basic
+            version: "1.0"
+            language: node
+            path: /caliper-chaincode
+            # metadataPath: src/fabric/samples/marbles/go/metadata
