@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
 set -x
 
-if [ $# -eq 0 ] ; then
-    echo 'No arguments supplied'
+if [ $# -ne 2 ] ; then
+    echo "Illegal number of parameters"
     exit 0
 fi
 
 CHAINCODE_NAME="$1"
 NETWORK_FOLDER_NAME="$2"
+
+if [[ -d $CHAINCODE_NAME ]] ; then
+    echo "Invalid chaincode folder name"
+    exit 0
+fi
+
+if [[ -d networks/$NETWORK_FOLDER_NAME ]] ; then
+    echo "Invalid networkConfig folder name"
+    exit 0
+fi
 
 # Go to benchmarking folder
 cd `dirname $0`/../benchmarking
