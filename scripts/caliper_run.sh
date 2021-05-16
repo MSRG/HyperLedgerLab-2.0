@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
-if [[ $# -l 3 ]] ; then
-    echo '2 arguments are expected'
+if [ $# -eq 0 ] ; then
+    echo 'No arguments supplied'
     exit 0
 fi
 
