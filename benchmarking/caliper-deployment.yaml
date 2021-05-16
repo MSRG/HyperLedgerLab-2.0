@@ -31,7 +31,7 @@ spec:
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
-              value: /caliper-network/networkConfig.yaml
+              value: /caliper-network/networkConfig-no-tls.yaml
             - name: CALIPER_FABRIC_GATEWAY_ENABLED
               value: "true"
             - name: CALIPER_FABRIC_GATEWAY_LOCALHOST
