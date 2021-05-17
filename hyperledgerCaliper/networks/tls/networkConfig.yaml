@@ -1,6 +1,6 @@
 name: Calier test
 version: "1.0"
-mutual-tls: false
+mutual-tls: true
 
 caliper:
   blockchain: fabric
@@ -128,7 +128,6 @@ peers:
 
 channels:
   mychannel:
-    # configBinary: networks/fabric/config_solo_raft/mychannel.tx
     created: true
     orderers:
       - orderer0
@@ -152,4 +151,3 @@ channels:
         version: "1.0"
         language: node
         path: /caliper-chaincode
-        # metadataPath: src/fabric/samples/marbles/go/metadata

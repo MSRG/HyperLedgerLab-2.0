@@ -7,6 +7,11 @@ fi
 
 FOLDER_NAME="$1"
 
+if [ ! -d  $FOLDER_NAME ] ; then
+    echo "Invalid network folder name"
+    exit 0
+fi
+
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
 
