@@ -119,7 +119,7 @@ peers:
       hostnameOverride: peer0.org1
       # grpc.keepalive_time_ms: 600000
     tlsCACerts:
-      path: /etc/hyperledger/fabric/org1/peer-msp/tlscacerts/cert.pem
+      path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
   peer0.org2:
     url: grpcs://hlf-peer--org2--peer0:7051
     grpcOptions:
@@ -127,7 +127,7 @@ peers:
       hostnameOverride: peer0.org2
       # grpc.keepalive_time_ms: 600000
     tlsCACerts:
-      path: /etc/hyperledger/fabric/org2/peer-msp/tlscacerts/cert.pem
+      path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
 
 channels:
   mychannel:
