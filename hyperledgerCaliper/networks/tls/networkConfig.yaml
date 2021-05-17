@@ -94,6 +94,7 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer0.org1
       hostnameOverride: orderer0.org1
+      grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer1:
@@ -101,6 +102,7 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer1.org1
       hostnameOverride: orderer1.org1
+      grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer2:
@@ -108,6 +110,7 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer0.org2
       hostnameOverride: orderer0.org2
+      grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg2-tlsca/tlscacert.pem
 
@@ -117,7 +120,7 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org1
       hostnameOverride: peer0.org1
-      # grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/org1/msp/tlscacerts/cert.pem
   peer0.org2:
@@ -125,7 +128,7 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org2
       hostnameOverride: peer0.org2
-      # grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 600000
     tlsCACerts:
       path: /etc/hyperledger/fabric/org2/msp/tlscacerts/cert.pem
 
