@@ -90,7 +90,7 @@ certificateAuthorities:
 
 orderers:
   orderer0:
-    url: grpcs://hlf-orderer--ordorg1--orderer0:7050
+    url: grpcs://hlf-orderer--ordorg1--orderer0-0:7050
     grpcOptions:
       ssl-target-name-override: orderer0.org1
       hostnameOverride: orderer0.org1
