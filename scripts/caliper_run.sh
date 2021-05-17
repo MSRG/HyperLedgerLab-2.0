@@ -19,8 +19,8 @@ if [[ -d networks/$NETWORK_FOLDER_NAME ]] ; then
     exit 0
 fi
 
-# Go to benchmarking folder
-cd `dirname $0`/../benchmarking
+# Go to hyperledgerCaliper folder
+cd `dirname $0`/../hyperledgerCaliper
 
 kubectl apply -f mosquitto/
 
