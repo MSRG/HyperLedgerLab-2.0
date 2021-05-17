@@ -30,8 +30,9 @@ class MyWorkload extends WorkloadModuleBase {
         const randomId = Math.floor(Math.random() * this.roundArguments.assets);
         const myArgs = {
             contractId: this.roundArguments.contractId,
-            contractFunction: 'GetAllAssets',
+            contractFunction: 'ReadAsset',
             invokerIdentity: 'client0.org1.example.com',
+            contractArguments: ['asset1'],
             // contractArguments: [`${this.workerIndex}_${randomId}`],
             // targetOrganizations: ["Org1", "Org2"],
             contractArguments: [],
