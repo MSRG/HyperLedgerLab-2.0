@@ -9,12 +9,12 @@ fi
 CHAINCODE_NAME="$1"
 NETWORK_FOLDER_NAME="$2"
 
-if [[ -d $CHAINCODE_NAME ]] ; then
+if [ ! -d  $CHAINCODE_NAME ] ; then
     echo "Invalid chaincode folder name"
     exit 0
 fi
 
-if [[ -d networks/$NETWORK_FOLDER_NAME ]] ; then
+if [ ! -d networks/$NETWORK_FOLDER_NAME ] ; then
     echo "Invalid networkConfig folder name"
     exit 0
 fi
