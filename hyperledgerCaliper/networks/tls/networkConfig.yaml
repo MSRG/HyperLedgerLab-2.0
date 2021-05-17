@@ -22,8 +22,8 @@ clients:
           path: /tmp/hfc-cvs/org1
       # clientPrivateKey:
       #   path: /etc/hyperledger/fabric/org1/msp/keystore/key.pem
-      # clientSignedCert:
-      #   path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
+      clientSignedCert:
+        path: /etc/hyperledger/fabric/org1/msp/signcerts/cert.pem
       # connection:
       #   timeout:
       #     peer:
@@ -37,8 +37,8 @@ clients:
           path: /tmp/hfc-cvs/org2
       # clientPrivateKey:
       #   path: /etc/hyperledger/fabric/org2/msp/keystore/key.pem
-      # clientSignedCert:
-      #   path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
+      clientSignedCert:
+        path: /etc/hyperledger/fabric/org2/msp/signcerts/cert.pem
       # connection:
       #   timeout:
       #     peer:
