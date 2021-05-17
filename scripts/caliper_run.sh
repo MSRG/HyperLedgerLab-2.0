@@ -9,6 +9,9 @@ fi
 CHAINCODE_NAME="$1"
 NETWORK_FOLDER_NAME="$2"
 
+# Go to hyperledgerCaliper folder
+cd `dirname $0`/../hyperledgerCaliper
+
 if [ ! -d  $CHAINCODE_NAME ] ; then
     echo "Invalid chaincode folder name"
     exit 0
@@ -18,9 +21,6 @@ if [ ! -d networks/$NETWORK_FOLDER_NAME ] ; then
     echo "Invalid networkConfig folder name"
     exit 0
 fi
-
-# Go to hyperledgerCaliper folder
-cd `dirname $0`/../hyperledgerCaliper
 
 kubectl apply -f mosquitto/
 
