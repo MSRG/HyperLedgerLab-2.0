@@ -36,6 +36,4 @@ kubectl apply -f caliper-deployment.yaml
 
 kubectl apply -f caliper-deployment-worker.yaml 
 
-kubectl get pods --output=wide -w
-
 set +x
