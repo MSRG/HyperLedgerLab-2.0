@@ -91,21 +91,21 @@ certificateAuthorities:
 orderers:
   orderer0:
     url: grpcs://hlf-orderer--ordorg1--orderer0:7050
-    grpcOptions:
+    # grpcOptions:
       # ssl-target-name-override: orderer0.org1
       # hostnameOverride: orderer0.org1
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer1:
     url: grpcs://hlf-orderer--ordorg1--orderer1:7050
-    grpcOptions:
+    # grpcOptions:
       # ssl-target-name-override: orderer1.org1
       # hostnameOverride: orderer1.org1
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
   orderer2:
     url: grpcs://hlf-orderer--ordorg2--orderer0:7050
-    grpcOptions:
+    # grpcOptions:
       # ssl-target-name-override: orderer0.org2
       # hostnameOverride: orderer0.org2
     tlsCACerts:
@@ -114,7 +114,7 @@ orderers:
 peers:
   peer0.org1:
     url: grpcs://hlf-peer--org1--peer0:7051
-    grpcOptions:
+    # grpcOptions:
       # ssl-target-name-override: peer0.org1
       # hostnameOverride: peer0.org1
       # grpc.keepalive_time_ms: 600000
@@ -122,7 +122,7 @@ peers:
       path: /etc/hyperledger/fabric/org1/peer-msp/tlscacerts/cert.pem
   peer0.org2:
     url: grpcs://hlf-peer--org2--peer0:7051
-    grpcOptions:
+    # grpcOptions:
       # ssl-target-name-override: peer0.org2
       # hostnameOverride: peer0.org2
       # grpc.keepalive_time_ms: 600000
