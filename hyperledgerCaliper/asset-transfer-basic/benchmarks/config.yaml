@@ -34,7 +34,7 @@ test:
       rateControl:
         type: fixed-load
         opts:
-          tps: 3000
+          tps: 800
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
