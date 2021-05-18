@@ -9,7 +9,7 @@ caliper:
     targets:
       console:
         options:
-          level: info # debug
+          level: debug  # info
       file:
         # we disable this
         enabled: false
