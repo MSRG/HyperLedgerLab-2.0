@@ -40,6 +40,20 @@ class MyWorkload extends WorkloadModuleBase {
     //     await this.sutAdapter.sendRequests(myArgs);
     // }
 
+    async submitTransaction() {
+        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
+        const myArgs = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: '',
+            invokerIdentity: 'client0.org1.example.com',
+            contractArguments: [],
+            // contractArguments: [`${this.workerIndex}_${randomId}`],
+            // targetOrganizations: ["Org1", "Org2"],
+            readOnly: true
+        };
+        await this.sutAdapter.sendRequests(myArgs);
+    }
+
     // async cleanupWorkloadModule() {
     //     for (let i = 0; i < this.roundArguments.assets; i++) {
     //         const assetID = `${this.workerIndex}_${i}`;
