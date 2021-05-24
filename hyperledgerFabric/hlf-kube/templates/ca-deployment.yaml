@@ -40,7 +40,7 @@ spec:
         - name: FABRIC_CA_SERVER_CA_NAME
           value: ca-{{ $org.Name }}
         - name: FABRIC_CA_SERVER_TLS_ENABLED
-          value: "false" # it's always false as we use Ingress for TLS termination. # {{ $.Values.tlsEnabled | quote }}
+          value: {{ $.Values.tlsEnabled }}
         - name: FABRIC_CA_SERVER_TLS_CERTFILE
           value: /etc/hyperledger/fabric-ca-server-config/cert.pem
         - name: FABRIC_CA_SERVER_TLS_KEYFILE
