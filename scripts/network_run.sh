@@ -25,9 +25,16 @@ helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/c
 
 echo "Wait until orderer pods are all running..."
 while [[ $(kubectl get pods -l name=hlf-orderer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]]; do echo "waiting for orderer pods" && sleep 1; done
-string= $(kubectl get  pods -l name=hlf-orderer)
+OUTPUT=$(kubectl get  pods -l name=hlf-orderer)
 echo "====="
-echo "${string}"
+echo "${OUTPUT}"
+echo "====="
+
+MULTILINE=$(ls \
+   -1)
+   echo "====="
+
+echo "${MULTILINE}"
 echo "====="
 
 if [[ $(kubectl get  pods -l name=hlf-orderer) == *"No resources found in"* ]] ; then 
