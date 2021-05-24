@@ -28,14 +28,6 @@ restore:
   # initiate restore procedure?
   enabled: false
 
-# common settings for CouchDB and CA ingresses
-ingress:
-  # all ingress subdomains will be created under this domain
-  parentDomain:
-  annotations:
-    kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-
 # peer settings. applies to all peers
 peer:
   logLevel: grpc=debug:info
@@ -60,11 +52,6 @@ peer:
       persistence:
         enabled: false
         size: 16Gi
-  ingress:
-    enabled: false
-    annotations:
-      # this should match the ingressClass when peer ingress controller is created
-      kubernetes.io/ingress.class: "hlf-peer"
   externalService:
     # expose peers to outer world with LoadBalancer service type?
     enabled: false
@@ -96,8 +83,6 @@ couchdb:
   persistence:
     enabled: false
     size: 16Gi
-  ingress:
-    enabled: false
   backup:
     # take backup of CouchDB's during backup procedure?
     enabled: true
@@ -122,11 +107,6 @@ orderer:
     enabled: false
     # raft cluster communication port. should be in synch with consenters in configtx.yaml
     port: 7059
-  ingress:
-    enabled: false
-    annotations:
-      # this should match the ingressClass when orderer ingress controller is created
-      kubernetes.io/ingress.class: "hlf-orderer"
   externalService:
     # expose orderers to outer world with LoadBalancer service type?
     enabled: false
@@ -155,8 +135,6 @@ ca:
   userName: admin
   password: adminpw
   logLevel: grpc=debug:info
-  ingress:
-    enabled: false
 
 # chaincode settings
 chaincode:
