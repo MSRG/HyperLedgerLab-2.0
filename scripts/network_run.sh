@@ -37,7 +37,7 @@ MULTILINE=$(ls \
 echo "${MULTILINE}"
 echo "====="
 
-if ! kubectl get  pods -l name=hlf-orderer ; then 
+if [ -z $(kubectl get  pods -l name=hlf-orderer) ] ; then 
     echo 'Orderer pods does not exist. Please check the error.'
     exit 0
 fi 
