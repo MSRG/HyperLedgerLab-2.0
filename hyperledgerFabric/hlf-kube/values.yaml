@@ -21,13 +21,6 @@ hostAliases: []
 persistence:
   storageClass: # default
 
-backup:
-  # initiate backup procedure?
-  enabled: false
-restore:
-  # initiate restore procedure?
-  enabled: false
-
 # peer settings. applies to all peers
 peer:
   logLevel: grpc=debug:info
@@ -58,12 +51,6 @@ peer:
     enabled: true
     # is antiAffinity preferred or required?
     strict: false
-  backup:
-    # take backup of peers during backup procedure?
-    enabled: true
-  restore:
-    # restore peers data from backup during restore procedure?
-    enabled: true
   operations:
     enabled: false
     listenAddress: 0.0.0.0:9443
@@ -79,12 +66,6 @@ couchdb:
   persistence:
     enabled: false
     size: 16Gi
-  backup:
-    # take backup of CouchDB's during backup procedure?
-    enabled: true
-  restore:
-    # restore CouchDB's data from backup during restore procedure?
-    enabled: true
 
 # Orderer settings. applies to all Orderer pods
 orderer:
@@ -109,12 +90,6 @@ orderer:
     enabled: true
     # is antiAffinity preferred or required?
     strict: false
-  backup:
-    # take backup of orderers during backup procedure?
-    enabled: true
-  restore:
-    # restore orderers data from backup during restore procedure?
-    enabled: true
   operations:
     enabled: false
     listenAddress: 0.0.0.0:8443
