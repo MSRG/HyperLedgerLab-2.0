@@ -270,13 +270,7 @@ spec:
         - name: CORE_OPERATIONS_TLS_ENABLED
           value: {{ $.Values.peer.operations.tls.enabled | quote }}
         {{- end }}
-
-        # metrics with Prometheus
-        {{- if $.Values.peer.metrics.enabled }}
-        - name: CORE_METRICS_PROVIDER
-          value: {{ $.Values.peer.metrics.provider }}
-        {{- end }}
-
+        
       # CouchDB container
       - name: couchdb
         image: hyperledger/fabric-couchdb:{{ $.Values.couchdb.version }}

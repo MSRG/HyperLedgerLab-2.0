@@ -87,9 +87,6 @@ peer:
     servicePort: 9443
     tls:
       enabled: false
-  metrics:
-    enabled: false
-    provider: prometheus
 
 # CouchDB settings. applies to all CouchDB's
 couchdb:
@@ -152,9 +149,6 @@ orderer:
     servicePort: 8443
     tls:
       enabled: false
-  metrics:
-    enabled: false
-    provider: prometheus
 
 # CA (Certificate Authority) settings. applies to all CA's
 ca:
