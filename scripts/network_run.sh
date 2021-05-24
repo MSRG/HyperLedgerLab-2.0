@@ -29,6 +29,7 @@ echo "Wait until orderer pods are all running..."
 while [[ $(kubectl get pods -l name=hlf-orderer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]]; do echo "waiting for orderer pods" && sleep 1; done
 
 ORDERER=$(kubectl get  pods -l name=hlf-orderer)
+echo $ORDERER
 if [ -z "${ORDERER}" ] ; then 
     echo 'Orderer pods does not exist. Please check the error.'
     exit 0
@@ -38,6 +39,7 @@ echo "Wait until peer pods are all running..."
 while [[ $(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]]; do echo "waiting for peer pods" && sleep 1; done
 
 PEER=$(kubectl get  pods -l name=hlf-peer)
+echo $PEER
 if [ -z "${PEER}" ] ; then 
     echo 'Peer pods does not exist. Please check the error.'
     exit 0
