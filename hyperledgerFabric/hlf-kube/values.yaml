@@ -1,6 +1,3 @@
-# !! IMPORTANT THESE ARE THE DEFAULT VALUES. TO OVERRIDE THESE VALUE PLEASE CHANGE THEM IN NETWORK YAML FILE IN THE RESPECTIVE FOLDER.
-# EXAMPLE: to change tlsEnabled to true then in network.yaml in raft-tls folder change tlsEnabled: true then to run the network pass the network.yaml; e.g helm install hlf-kube ./hlf-kube/ -f raft-tls/network.yaml. Values of the file on the right will be considered.
-
 # Default values for hlf-kube.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -8,17 +5,16 @@
 hyperledgerVersion: 2.2.0
 caVersion: 1.5.0
 
-# see the Raft sample in the README for how to enable TLS
+# By default, tls is disabled. To enabled it please incluce `tlsEnabled: true` in the respective folder configuation e.g raft-tls
 tlsEnabled: false
 
-# use actual domain names like peer0.org3 instead of internal service names
+# use actual domain names like peer0.org1 instead of internal service names
 # this should be set to true for TLS
 useActualDomains: false
 
 # adds additional DNS entries to /etc/hosts files
 # see https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/#adding-additional-entries-with-hostaliases
 # this value should be provided if either tlsEnabled or useActualDomains is set to true
-# see the Raft sample in the README for how to use this
 hostAliases: []
 
 # common persistence settings
@@ -179,11 +175,10 @@ hlf-kafka:
   enabled: false
 
   # number of Kafka brokers, should be at least 4
-  # https://hyperledger-fabric.readthedocs.io/en/release-1.4/kafka.html
+  # https://hyperledger-fabric.readthedocs.io/en/release-2.2/kafka.html
   replicas: 4
   podManagementPolicy: Parallel
 
-  # TODO storage classs?
   persistence:
     enabled: false
     storageClass: default
