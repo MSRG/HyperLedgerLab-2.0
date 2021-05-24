@@ -75,10 +75,6 @@ spec:
       - name: docker-disk
         emptyDir: {}
       {{- end }}
-      {{- if or $.Values.backup.enabled $.Values.restore.enabled }}
-      - name: rsync-disk
-        emptyDir: {}
-      {{- end }}
       - name: peer-tls
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
@@ -124,88 +120,6 @@ spec:
         hostnames: {{ $alias.hostnames }}
       {{- end }}
       {{- end }}{{""}}
-
-      {{- if $.Values.backup.enabled }}
-
-      containers:
-
-      # rsync-server container
-      - name: rsync
-        image: axiom/rsync-server:latest
-        command: ["sh", "-c", "mkdir -p /data && sleep 30 && \
-          {{- if $.Values.peer.backup.enabled }}
-                               tar -czf /data/peer.tar -C /var/hyperledger/production ledgersData/ chaincodes/ && \
-                               echo 'prepared peer data for backup' && \
-          {{- end }}
-          {{- if $.Values.couchdb.backup.enabled }}
-                               tar -czf /data/couchdb.tar -C /opt/couchdb/data --exclude='lost+found' .  && \
-                               echo 'prepared CouchDB data for backup' && \
-          {{- end }}
-                               touch /ready && \
-                               /entrypoint.sh rsync_server"]
-                               
-        readinessProbe:
-          exec:
-            command: ["ls", "/ready"]
-
-        volumeMounts:
-        - mountPath: /var/hyperledger/production/
-          name: peer-disk
-        - mountPath: /opt/couchdb/data/
-          name: couchdb-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      {{- else if $.Values.restore.enabled }}
-
-      containers:
-
-      # rsync-server container
-      - name: rsync
-        image: axiom/rsync-server:latest
-        command: ["sh", "-c", "/entrypoint.sh rsync_server"]
-                               
-        volumeMounts:
-        - mountPath: /data/
-          name: rsync-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      - name: shell
-        image: debian:jessie
-        command: ["sh", "-c", "echo 'waiting for file /data/ready..' && \
-                               while [ ! -f /data/ready ]; do sleep 5; done && \
-                               echo 'data is ready, proceeding..' && \
-          {{- if $.Values.peer.restore.enabled }}
-                               rm -rf /var/hyperledger/production/* && \
-                               tar -xf /data/peer.tar -C /var/hyperledger/production/ && \
-                               echo 'restored peer data from backup' && \
-          {{- end }}
-          {{- if $.Values.couchdb.restore.enabled }}
-                               rm -rf /opt/couchdb/data/* && \
-                               tar -xf /data/couchdb.tar -C /opt/couchdb/data/ && \
-                               echo 'restored CouchDB data from backup' && \
-          {{- end }}
-                               echo 'ready to continue..' && \
-                               while true; do sleep 60; done"]
-                               
-        volumeMounts:
-        - mountPath: /var/hyperledger/production/
-          name: peer-disk
-        - mountPath: /opt/couchdb/data/
-          name: couchdb-disk
-        - mountPath: /data/
-          name: rsync-disk
-
-        env:
-        - name: ALLOW
-          value: 0.0.0.0/0
-
-      {{- else }} {{- /* if backup/restore enabled */ -}}{{""}}
 
       {{- if $.Values.peer.antiAffinity.enabled }}
       {{- if gt ($org.Template.Count | int) 1 }}
