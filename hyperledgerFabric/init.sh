@@ -29,33 +29,6 @@ mkdir -p channel-artifacts
 echo "-- creating certificates --"
 cryptogen generate --config ./crypto-config.yaml --output crypto-config
 
-# # place holder empty folders for external peer orgs
-# externalPeerOrgs=$(yq '.ExternalPeerOrgs // empty' ./crypto-config.yaml -r -c)
-# if [ "$externalPeerOrgs" ]; then
-#     echo "-- creating empty folders for external peer orgs --"
-#     for peerOrgDomain in $(echo "$externalPeerOrgs" | jq -r '.[].Domain'); do
-#         echo "$peerOrgDomain"
-#         mkdir -p "./crypto-config/peerOrganizations/$peerOrgDomain/msp"
-#     done
-# fi 
-
-# # place holder empty folders for external orderer orgs
-# externalOrdererOrgs=$(yq '.ExternalOrdererOrgs // empty' ./crypto-config.yaml -r -c)
-# if [ "$externalOrdererOrgs" ]; then
-#     echo "-- creating empty folders for external orderer orgs --"
-#     for ordererOrg in $(echo "$externalOrdererOrgs" | jq -rc '.[]'); do
-#         # echo "$ordererOrg"
-#         ordererOrgDomain=$(echo "$ordererOrg" | jq -r '.Domain')
-#         echo "$ordererOrgDomain"
-#         mkdir -p "./crypto-config/ordererOrganizations/$ordererOrgDomain/msp/tlscacerts"
-#         for ordererHostname in $(echo "$ordererOrg" | jq -r '.Specs[].Hostname'); do
-#             # echo "ordererHostname: $ordererHostname"
-#             mkdir -p "./crypto-config/ordererOrganizations/$ordererOrgDomain/orderers/$ordererHostname.$ordererOrgDomain/tls"
-#         done
-#     done
-# fi 
-
-
 if [ "$create_genesis_block" == true ]; then
     # generate genesis block
     echo "-- creating genesis block --"

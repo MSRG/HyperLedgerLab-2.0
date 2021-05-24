@@ -67,16 +67,6 @@ spec:
 {{ end }} {{- /* Peers */ -}}
 {{ end }} {{- /* PeerOrgs */ -}}{{""}}
 
-
-{{- range $i, $org := .Values.ExternalPeerOrgs }}
-  - name: peer-{{ $org.Name | lower }}-external-msp
-    secret:
-      secretName: hlf-peer--{{ $org.Name | lower }}--external-msp
-      items:
-      - key: cacert.pem
-        path: cacerts/ca.{{ $org.Domain}}-cert.pem
-{{- end }} {{- /* ExternalPeerOrgs */ -}}{{""}}
-
   templates:
   - name: channels
     steps:
@@ -235,12 +225,7 @@ spec:
         - mountPath: /hlf_config/crypto-config/peerOrganizations/{{ $org.Domain }}/msp/
           name: peer-{{ $org.Name | lower }}-msp
         {{- end }}
-        # external peer org msp's required for configtxgen
-        {{- range $i, $org := $.Values.ExternalPeerOrgs }}
-        - mountPath: /hlf_config/crypto-config/peerOrganizations/{{ $org.Domain }}/msp/
-          name: peer-{{ $org.Name | lower }}-external-msp
-        {{- end }}
-      
+
       env:
         - name: CORE_PEER_TLS_ENABLED
           value: {{ $.Values.tlsEnabled | quote }}
