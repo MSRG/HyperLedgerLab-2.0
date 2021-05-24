@@ -1,18 +1,11 @@
 {{- $vars:= dict}}
-{{- if .Values.externalOrderer.enabled }}
-  {{- $_ := set $vars "ordererOrgName" $.Values.externalOrderer.orgName }}
-  {{- $_ := set $vars "ordererUrl" (printf "%s.%s:%s" $.Values.externalOrderer.host $.Values.externalOrderer.domain $.Values.externalOrderer.port)  }}
-  {{- $_ := set $vars "ordererHost" $.Values.externalOrderer.host }}
-  {{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-external-tlsca" ($vars.ordererOrgName | lower)) }}
-{{- else }}
-  {{- $ordererOrg := index .Values.OrdererOrgs 0 }}
-  {{- $ordererAddress := $.Values.useActualDomains | ternary (printf "%s.%s" (index $ordererOrg.Specs 0).Hostname $ordererOrg.Domain) (printf "hlf-orderer--%s--%s" ($ordererOrg.Name | lower) ((index $ordererOrg.Specs 0).Hostname | lower)) }} 
-  {{- $_ := set $vars "ordererOrgName" $ordererOrg.Name }}
-  {{- $_ := set $vars "ordererUrl" (printf "%s:7050" $ordererAddress ) }}
-  {{- $_ := set $vars "ordererHost" (index $ordererOrg.Specs 0).Hostname }}
-  {{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-tlsca" ($ordererOrg.Name | lower)) }}
 
-{{- end }}
+{{- $ordererOrg := index .Values.OrdererOrgs 0 }}
+{{- $ordererAddress := $.Values.useActualDomains | ternary (printf "%s.%s" (index $ordererOrg.Specs 0).Hostname $ordererOrg.Domain) (printf "hlf-orderer--%s--%s" ($ordererOrg.Name | lower) ((index $ordererOrg.Specs 0).Hostname | lower)) }} 
+{{- $_ := set $vars "ordererOrgName" $ordererOrg.Name }}
+{{- $_ := set $vars "ordererUrl" (printf "%s:7050" $ordererAddress ) }}
+{{- $_ := set $vars "ordererHost" (index $ordererOrg.Specs 0).Hostname }}
+{{- $_ := set $vars "ordererTlsSecret"  (printf "hlf-orderer--%s-tlsca" ($ordererOrg.Name | lower)) }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow

@@ -52,10 +52,6 @@ peer:
       persistence:
         enabled: false
         size: 16Gi
-  externalService:
-    # expose peers to outer world with LoadBalancer service type?
-    enabled: false
-    annotations:
   # if enabled, podAntiAffinity is used to spread the peer pods in the same organization among nodes
   # normally no need to disable this
   antiAffinity:
@@ -107,10 +103,6 @@ orderer:
     enabled: false
     # raft cluster communication port. should be in synch with consenters in configtx.yaml
     port: 7059
-  externalService:
-    # expose orderers to outer world with LoadBalancer service type?
-    enabled: false
-    annotations:
   # if enabled, podAntiAffinity is used to spread the orderer pods in the same organization among nodes
   # normally no need to disable this
   antiAffinity:

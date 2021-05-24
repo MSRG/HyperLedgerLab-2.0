@@ -20,15 +20,6 @@ useActualDomains: false
 # see the Raft sample in the README for how to use this
 hostAliases: []
 
-externalOrderer:
-  # if enabled, this orderer will be used for channel operations
-  enabled: false
-  # name of external orderer org. used for mounting TLS CA secret
-  orgName: # example
-  domain: # example.com
-  host: # orderer0
-  port: "7050"
-
 logLevel: grpc=debug:info
 
 flow:
