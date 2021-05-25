@@ -48,8 +48,6 @@ network_name = "cluster-net"
 
 subnet_cidr = "172.24.32.0/19"
 
-# external_net = "" // can be set by default ?
-
 k8s_allowed_remote_ips = ["0.0.0.0/0"]
 
 # # GlusterFS variables
