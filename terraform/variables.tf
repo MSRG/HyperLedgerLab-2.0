@@ -178,6 +178,7 @@ variable "wait_for_floatingip" {
 
 variable "external_net" {
   description = "uuid of the external/public network"
+  default     = ""
 }
 
 variable "supplementary_master_groups" {
