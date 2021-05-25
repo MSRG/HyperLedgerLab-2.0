@@ -503,10 +503,6 @@ spec:
 
 
   - name: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
-    # chaincode: {{ $chaincode.name }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
-    # peer: {{ $peer }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
@@ -521,8 +517,10 @@ spec:
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/tls/
+        - mountPath: /etc/hyperledger/fabric/tls/org1
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
+        - mountPath: /etc/hyperledger/fabric/tls/org2
+          name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
       
@@ -543,11 +541,11 @@ spec:
         - name: CORE_PEER_MSPCONFIGPATH 
           value: /etc/hyperledger/fabric/msp/
         - name: CORE_PEER_TLS_CERT_FILE
-          value: /etc/hyperledger/fabric/tls/server.crt
+          value: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}/server.crt
         - name: CORE_PEER_TLS_KEY_FILE
-          value: /etc/hyperledger/fabric/tls/server.key
+          value: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}/server.key
         - name: CORE_PEER_TLS_ROOTCERT_FILE
-          value: /etc/hyperledger/fabric/tls/ca.crt
+          value: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}/ca.crt
 
 {{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
