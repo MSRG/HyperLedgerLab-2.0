@@ -618,14 +618,14 @@ resource "openstack_compute_floatingip_associate_v2" "k8s_nodes" {
   wait_until_associated = var.wait_for_floatingip
 }
 
-resource "openstack_blockstorage_volume_v2" "glusterfs_volume" {
+resource "openstack_blockstorage_volume_v3" "glusterfs_volume" {
   name        = "${var.cluster_name}-glusterfs_volume-${count.index + 1}"
   count       = var.gfs_root_volume_size_in_gb == 0 ? var.number_of_gfs_nodes_no_floating_ip : 0
   description = "Non-ephemeral volume for GlusterFS"
   size        = var.gfs_volume_size_in_gb
 }
 
-resource "openstack_compute_volume_attach_v2" "glusterfs_volume" {
+resource "openstack_compute_volume_attach_v3" "glusterfs_volume" {
   count       = var.gfs_root_volume_size_in_gb == 0 ? var.number_of_gfs_nodes_no_floating_ip : 0
   instance_id = element(openstack_compute_instance_v2.glusterfs_node_no_floating_ip.*.id, count.index)
   volume_id   = element(openstack_blockstorage_volume_v2.glusterfs_volume.*.id, count.index)
