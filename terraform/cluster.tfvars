@@ -52,5 +52,9 @@ external_net = "" // can be set by default ?
 
 k8s_allowed_remote_ips = ["0.0.0.0/0"]
 
-number_of_gfs_nodes_no_floating_ip = 2
-gfs_volume_size_in_gb = 16
+# GlusterFS variables
+flavor_gfs_node = "4ae184b5-0a64-4c2b-8132-220910200a55"
+image_gfs = "kvm-ubuntu-focal"
+number_of_gfs_nodes_no_floating_ip = "3"
+gfs_volume_size_in_gb = "50"
+ssh_user_gfs = "ubuntu"
