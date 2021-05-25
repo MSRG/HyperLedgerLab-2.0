@@ -27,6 +27,7 @@ helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/c
 # we don't check for CA because if peers and orderers are running then CA pods are also running. 
 echo "Wait until orderer pods are all running..."
 ORDERER_STATUS=$(kubectl get pods -l name=hlf-orderer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}')
+echo $ORDERER_STATUS
 while ([ "${ORDERER_STATUS}" == *"False"* ] || [ -z "${ORDERER_STATUS}" ]) ; do echo "waiting for orderer pods..." && sleep 2; done
 #TODO add timeout 
 # ORDERER=$(kubectl get  pods -l name=hlf-orderer)
@@ -37,6 +38,7 @@ while ([ "${ORDERER_STATUS}" == *"False"* ] || [ -z "${ORDERER_STATUS}" ]) ; do 
 
 echo "Wait until peer pods are all running..."
 PEER_STATUS=$(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}')
+echo $PEER_STATUS
 while ([ "${PEER_STATUS}" == *"False"* ] || [ -z "${PEER_STATUS}" ]) ; do echo "waiting for peer pods..." && sleep 2; done
 
 # PEER=$(kubectl get  pods -l name=hlf-peer)
