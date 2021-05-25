@@ -19,7 +19,7 @@ hostAliases: []
 
 # common persistence settings
 persistence:
-  storageClass: # default
+  storageClass: caliper-workspace-pv # default
 
 # peer settings. applies to all peers
 peer:
