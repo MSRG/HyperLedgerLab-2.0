@@ -22,7 +22,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - hlf-k8s-node-nf-1
+                - hyperledgerlab-k8s-node-nf-1
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
