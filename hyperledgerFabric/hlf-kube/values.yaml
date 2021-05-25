@@ -33,7 +33,7 @@ peer:
       level: info
       shim: info
   persistence:
-    enabled: true
+    enabled: false
     size: 16Gi
   docker:
     dind:
@@ -64,7 +64,7 @@ couchdb:
   userName:
   password:
   persistence:
-    enabled: true
+    enabled: false
     size: 16Gi
 
 # Orderer settings. applies to all Orderer pods
@@ -75,7 +75,7 @@ orderer:
   # launch orderer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true
   persistence:
-    enabled: true
+    enabled: false
     size: 16Gi
   # when enabled, internal communication among Raft orderers are done at a different port
   # useful when you dont want to enable TLS globally (i.e for transparent load balancing)
