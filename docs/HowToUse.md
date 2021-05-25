@@ -41,10 +41,17 @@ This quickstart will guide you ....
    ```
 
 5. Installing Hyperledger Fabric on the running Kubernetes cluster:
-   The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
-   helm install hlf-kube ./hlf-kube/ -f raft-no-tls/network.yaml -f raft-no-tls/crypto-config.yaml --set peer.launchPods=false --set orderer.launchPods=false --set orderer.cluster.enabled=true
 
-   or change values in values.yaml
-   helm upgrade hlf-kube ./hlf-kube/ -f raft-no-tls/network.yaml -f raft-no-tls/crypto-config.yaml --set peer.launchPods=false --set orderer.launchPods=false --set orderer.cluster.enabled=true
+   - The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
+   - The by default values of the HLF network configuration are in [./hyperledgerFabric/hlf-kube/values.yaml](../hyperledgerFabric/hlf-kube/values.yaml)
+   - In order to have seperate test network configutations, the by default values can be overriden. For example a confirguation with raft as orderer and with tls enabled can be found in [./hyperledgerFabric/raft-tls](../hyperledgerFabric/raft-tls).
+     The folder typically contains the following configuration files:
 
-   -
+     - [./hyperledgerFabric/raft-tls/configtx.yaml](../hyperledgerFabric/raft-tls/configtx.yaml) that contains the information that is required to build the channel configuration.
+       Other information about this configuration file can be found in the official documentation of Hyperledger Fabric https://hyperledger-fabric.readthedocs.io/en/release-2.2/create_channel/create_channel_config.html
+     - [./hyperledgerFabric/raft-tls/crypto-config.yaml](../hyperledgerFabric/raft-tls/crypto-config.yaml) that contains the definition of organizations managing orderer nodes and the definition of organizations managing peer nodes.
+
+     - Two different ways of passing variable values when installing helm charts.
+
+     1. yaml files can be passed as arguements. The varialble value in the file on the most right will be used.
+        e.g. helm install hlf-kube ./hlf-kube/ -f raft-no-tls/network.yaml -f raft-no-tls/crypto-config.yaml
