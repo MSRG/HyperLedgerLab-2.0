@@ -28,4 +28,6 @@ ansible-playbook --become -i hosts ../kubespray/cluster.yml
 # fill hosts.ini with the actual values and configure kubectl
 ansible-playbook -i hosts ../playbook.yaml
 
+# ansible-playbook --become -i hosts ../kubespray/contrib/network-storage/glusterfs/glusterfs.yml
+
 set +x
