@@ -210,8 +210,6 @@ spec:
     steps:
 {{- range $channel := $chaincode.channels }}
 
-{{- if eq $orgName $org.Name }}
-
 {{- if or $vars.firstStep (not $.Values.flow.invoke.parallel) }}
     - 
 {{- end }}
