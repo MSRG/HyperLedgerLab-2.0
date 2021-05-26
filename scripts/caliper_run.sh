@@ -3,7 +3,7 @@ set -x
 
 if [ $# -ne 2 ] ; then
     echo "Illegal number of parameters"
-    exit 0
+    exit 2
 fi
 
 CHAINCODE_NAME="$1"

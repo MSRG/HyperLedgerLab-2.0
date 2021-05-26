@@ -2,7 +2,7 @@
 
 if [[ $# -eq 0 ]] ; then
     echo 'Network folder name is missing'
-    exit 0
+    exit 2
 fi
 
 FOLDER_NAME="$1"
@@ -28,24 +28,11 @@ helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/c
 echo "Wait until orderer pods are all running..."
 while [[  $(kubectl get pods -l name=hlf-orderer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]] || [[ -z $(kubectl get  pods -l name=hlf-orderer) ]] ; do echo "waiting for orderer pods..." && sleep 2; done
 
-# ORDERER=$(kubectl get  pods -l name=hlf-orderer)
-# if [ -z "${ORDERER}" ] ; then 
-#     echo 'Orderer pods does not exist. Please check the error.'
-#     exit 0
-# fi 
-
 echo "Wait until peer pods are all running..."
 while [[ $(kubectl get pods -l name=hlf-peer -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]] || [[ -z $(kubectl get  pods -l name=hlf-peer) ]] ; do echo "waiting for peer pods..." && sleep 2; done
 
-# PEER=$(kubectl get  pods -l name=hlf-peer)
-# if [  v "${PEER}" ] ; then 
-#     echo 'Peer pods does not exist. Please check the error.'
-#     exit 0
-# fi 
-
 echo "Run channel flow..."
 helm template channel-flow/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml | argo submit - --watch
-
 
 sleep 5 
 
