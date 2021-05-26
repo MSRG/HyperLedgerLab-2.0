@@ -481,11 +481,6 @@ spec:
           name: hlf-network
         - mountPath: /hlf_config/crypto-config
           name: hlf-crypto-config
-        # {{- range $i, $org := $.Values.PeerOrgs }}
-        # - mountPath: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}
-        #   name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
-        # {{ end }} {{- /* range $i, $org := $.Values.PeerOrgs */ -}}
-
       env:
         - name: CORE_PEER_ADDRESS
           value: |- 
