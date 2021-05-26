@@ -438,6 +438,9 @@ spec:
       command: [sh]
       source: |
           set -x
+          /hlf-scripts/collect_peer_addresses.sh {{ $chaincode.channels }} {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
+          cat peer_addresses.txt
+
           # install yq if it does not exist
           [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
 
@@ -447,9 +450,7 @@ spec:
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
-          
-          /hlf-scripts/collect_peer_addresses.sh {{ $chaincode.channels }} {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
-          cat peer_addresses.txt
+
 
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
