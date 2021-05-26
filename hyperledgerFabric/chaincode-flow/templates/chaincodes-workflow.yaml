@@ -463,15 +463,16 @@ spec:
           peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} $(cat peer_addresses.txt) --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
 
           peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} $(cat peer_addresses.txt) --isInit -c '{"function":"InitLedger","Args":[]}' {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
+          cat log.txt
 
           set +x
       volumeMounts:
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/tls/org1
-          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/tls/org2
-          name: peer-org2-{{ $peer | lower }}-tls
+        # - mountPath: /etc/hyperledger/fabric/tls/org1
+        #   name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
+        # - mountPath: /etc/hyperledger/fabric/tls/org2
+        #   name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf-scripts
@@ -480,6 +481,11 @@ spec:
           name: hlf-network
         - mountPath: /hlf_config/crypto-config
           name: hlf-crypto-config
+        {{- range $i, $org := $.Values.PeerOrgs }}
+        - mountPath: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}
+          name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
+        {{ end }} {{- /* range $i, $org := $.Values.PeerOrgs */ -}}
+
       env:
         - name: CORE_PEER_ADDRESS
           value: |- 
