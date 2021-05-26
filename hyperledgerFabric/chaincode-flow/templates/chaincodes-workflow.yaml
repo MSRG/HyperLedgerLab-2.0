@@ -469,14 +469,10 @@ spec:
       volumeMounts:
         {{- range $i, $org := $.Values.PeerOrgs }}
         - mountPath: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}
-          name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
+          name: peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
         {{ end }} {{- /* range $i, $org := $.Values.PeerOrgs */ -}}
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/tls/org1
-          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/tls/org2
-          name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf-scripts
