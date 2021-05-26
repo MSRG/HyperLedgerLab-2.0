@@ -46,7 +46,7 @@ flow:
     # we invoke chaincode after instantiate/upgrade to force the peers to actually create the chaincode containers
     enabled: true
     parallel: true
-    function: '{"function":"initLedger","Args":[""]}'
+    function: '{""function""":""InitLedger"",""Args"":[]}'
 
 chaincode:
   version: "1.0"
