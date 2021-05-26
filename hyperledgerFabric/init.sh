@@ -50,6 +50,8 @@ cp -r $project_folder/crypto-config hlf-kube/
 cp -r $project_folder/channel-artifacts hlf-kube/
 
 cp -r $project_folder/configtx.yaml hlf-kube/
+cp -r $project_folder/network.yaml hlf-kube/
+cp -r $project_folder/crypto-config.yaml hlf-kube/
 
 # prepare chaincodes
 ./prepare_chaincodes.sh $project_folder $chaincode_folder
