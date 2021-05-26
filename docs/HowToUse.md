@@ -39,7 +39,7 @@ This quickstart will guide you ....
       Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
       ```
 
-5.  Installing Hyperledger Fabric on the running Kubernetes cluster:
+5.  Install Hyperledger Fabric on the running Kubernetes cluster:
 
     - The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
     - The by default values of the HLF network configuration are in [./hyperledgerFabric/hlf-kube/values.yaml](../hyperledgerFabric/hlf-kube/values.yaml)
@@ -62,3 +62,10 @@ This quickstart will guide you ....
         - Installs channel
         - Insalls chaincode
         - more details ?
+
+6.  Run Hyperledger Caliper:
+    - Hyperledger Caliper folder contains the following configuration:
+      - workload Module
+      - Benchmark configuration
+      - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](.../hyperledgerCaliper/networks/). Two network configuation samples can be found for network with TLS and without TLS enabled.
+    -
