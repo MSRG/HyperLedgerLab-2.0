@@ -12,7 +12,7 @@ network:
     - name: mychannel
       # all peers in these organizations will join the channel
       # orgs: [Org1, Org2, Org3]
-      orgs: [Org1, Org2]
+      orgs: [Org1, Org2, Org3]
     # - name: private-org1-org3
     #   # all peers in these organizations will join the channel
     #   orgs: [Org1, Org3]
@@ -46,9 +46,9 @@ network:
       # if defined, this will override the global chaincode.language value
       language: node
       # orgs: [Org1, Org3]
-      orgs: [Org1, Org2]
+      orgs: [Org1, Org2, Org3]
       channels:
         - name: mychannel
-          orgs: [Org1, Org2]
+          orgs: [Org1, Org2, Org3]
           policy: OR ('Org1MSP.member','Org2MSP.member')
           # policy: OR('Org1MSP.member','Org3MSP.member')
