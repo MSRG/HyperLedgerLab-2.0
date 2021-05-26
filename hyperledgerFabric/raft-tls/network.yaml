@@ -11,44 +11,15 @@ network:
   channels:
     - name: mychannel
       # all peers in these organizations will join the channel
-      # orgs: [Org1, Org2, Org3]
-      orgs: [Org1, Org2, Org3]
-    # - name: private-org1-org3
-    #   # all peers in these organizations will join the channel
-    #   orgs: [Org1, Org3]
+      orgs: [Org1, Org2]
 
   # defines which chaincodes will be installed to which organizations
   chaincodes:
-    # - name: very-simple
-    #   # if defined, this will override the global chaincode.version value
-    #   version: # "2.0"
-    #   # chaincode will be installed to all peers in these organizations
-    #   orgs: [Org1, Org2, Org3]
-    #   # at which channels are we instantiating/upgrading chaincode?
-    #   channels:
-    #   - name: common
-    #     # chaincode will be instantiated/upgraded using the first peer in the first organization
-    #     # chaincode will be invoked on all peers in these organizations
-    #     orgs: [Org1, Org2, Org3]
-    #     policy: OR('Org1MSP.member','Org2MSP.member','Org3MSP.member')
-
-    # - name: even-simpler
-    #   # if defined, this will override the global chaincode.language value
-    #   language: golang
-    #   orgs: [Org1, Org3]
-    #   channels:
-    #   - name: private-org1-org3
-    #     orgs: [Org1, Org3]
-    #     policy: OR('Org1MSP.member','Org3MSP.member')
-
-    # - name: asset-transfer-basic
     - name: asset-transfer-basic
       # if defined, this will override the global chaincode.language value
       language: node
-      # orgs: [Org1, Org3]
-      orgs: [Org1, Org2, Org3]
+      orgs: [Org1, Org2]
       channels:
         - name: mychannel
-          orgs: [Org1, Org2, Org3]
+          orgs: [Org1, Org2]
           policy: OR ('Org1MSP.member','Org2MSP.member')
-          # policy: OR('Org1MSP.member','Org3MSP.member')
