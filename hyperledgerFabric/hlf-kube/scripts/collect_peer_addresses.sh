@@ -18,16 +18,16 @@ echo $peer
 
 echo "==================="
 
-output=""
-orgIDs=$(yq eval '.network | .chaincodes[] | select (.name == "'$(echo $chaincode)'") | .orgs[]' "$network_yaml")
-array=($orgIDs)
+# output=""
+# orgIDs=$(yq eval '.network | .chaincodes[] | select (.name == "'$(echo $chaincode)'") | .orgs[]' "$network_yaml")
+# array=($orgIDs)
 
-for orgID in "${array[@]}"
-do
-domain=$(yq eval '.PeerOrgs[] | select (.Name == "'$(echo $orgID)'") | .Domain' "$crypto_config_yaml")
-output="$output --peerAddresses $peer.$domain:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/$domain/ca.crt"
-done
+# for orgID in "${array[@]}"
+# do
+# domain=$(yq eval '.PeerOrgs[] | select (.Name == "'$(echo $orgID)'") | .Domain' "$crypto_config_yaml")
+# output="$output --peerAddresses $peer.$domain:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/$domain/ca.crt"
+# done
  
-echo $output
+# echo $output
 set +x
 
