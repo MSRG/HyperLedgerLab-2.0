@@ -462,9 +462,6 @@ spec:
 
           peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} $(cat peer_addresses.txt) --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
 
-          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} $(cat peer_addresses.txt) --isInit -c '{"function":"InitLedger","Args":[]}' {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
-          cat log.txt
-
           set +x
       volumeMounts:
         {{- range $i, $org := $.Values.PeerOrgs }}
@@ -514,19 +511,16 @@ spec:
 
 
 # leaf invoke templates
-{{- if $.Values.flow.invoke.enabled }}
+{{- if $.Values.flow.commit.enabled }}
 {{- range $i, $chaincode := .Values.network.chaincodes }}
 {{- $version := (not $chaincode.version) | ternary $.Values.chaincode.version $chaincode.version }}
+{{- $sequence := (not $chaincode.sequence) | ternary $.Values.chaincode.sequence $chaincode.sequence }}
 {{- if or (not $.Values.flow.chaincode.include) (has $chaincode.name $.Values.flow.chaincode.include) }}
 {{- range $channel := $chaincode.channels }}
-
-{{- range $orgName := $channel.orgs }}
+{{- $orgName := index $channel.orgs 0 }}
+{{- $peer := (printf "peer0" ) }}
 {{- range $i, $org := $.Values.PeerOrgs }}
 {{- if eq $orgName $org.Name }}
-{{- range $peerIndex := until ($org.Template.Count | int) }}
-{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
-
-
 
   - name: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
     inputs:
@@ -540,21 +534,30 @@ spec:
           # install yq if it does not exist
           [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
    
-          fcn_call='{"function":"InitLedger","Args":[]}'
-          ## {{$.Values.flow.invoke.function }}
-          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }}  --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --isInit -c '{"function":"InitLedger","Args":[]}' {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
+          /hlf-scripts/collect_peer_addresses.sh /hlf_config/network/network.yaml /hlf_config/crypto-config/crypto-config.yaml {{ $chaincode.name }} {{ $peer }} >&peer_addresses.txt
+          cat peer_addresses.txt
+          
+          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} $(cat peer_addresses.txt) --isInit -c {{$.Values.flow.invoke.function }} {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
           cat log.txt
+
           set +x
+
       volumeMounts:
+        {{- range $i, $org := $.Values.PeerOrgs }}
+        - mountPath: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}
+          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
+        {{ end }} {{- /* range $i, $org := $.Values.PeerOrgs */ -}}
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
-        - mountPath: /etc/hyperledger/fabric/tls/org1
-          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
-        - mountPath: /etc/hyperledger/fabric/tls/org2
-          name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
-      
+        - mountPath: /hlf-scripts
+          name: hlf-scripts
+        - mountPath: /hlf_config/network
+          name: hlf-network
+        - mountPath: /hlf_config/crypto-config
+          name: hlf-crypto-config
+
       env:
         - name: CORE_PEER_ADDRESS
           value: |- 
@@ -578,12 +581,9 @@ spec:
         - name: CORE_PEER_TLS_ROOTCERT_FILE
           value: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}/ca.crt
 
-{{ end }} {{- /* peerIndex */ -}} 
 {{ end }} {{- /* if org */ -}} 
 {{ end }} {{- /* peer.Orgs */ -}}
-{{ end }} {{- /* channel.orgs */ -}}
 {{ end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{ end }} {{- /* chaincodes */ -}}
-{{ end }} {{- /* if flow.invoke.enabled */ -}}{{""}}
-
+{{ end }} {{- /* if flow.commit.enabled */ -}}{{""}}
