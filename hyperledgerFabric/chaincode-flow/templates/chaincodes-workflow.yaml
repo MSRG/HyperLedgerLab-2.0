@@ -449,6 +449,8 @@ spec:
           fi 
           
           /hlf-scripts/collect_peer_addresses.sh {{ $chaincode.channels }} {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
+          cat peer_addresses.txt
+
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
 

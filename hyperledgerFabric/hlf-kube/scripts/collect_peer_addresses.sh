@@ -7,7 +7,7 @@ set -e
 
 network_yaml=$1
 crypto_config_yaml=$2
-peer=$4
+peer=$3
 
 set -x
 echo "==================="
