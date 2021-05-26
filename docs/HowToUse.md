@@ -67,5 +67,5 @@ This quickstart will guide you ....
     - Hyperledger Caliper folder contains the following configuration:
       - workload Module
       - Benchmark configuration
-      - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](.../hyperledgerCaliper/networks/). Two network configuation samples can be found for network with TLS and without TLS enabled.
+      - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](../hyperledgerCaliper/networks/). Two network configuation samples can be found for network with TLS and without TLS enabled.
     -
