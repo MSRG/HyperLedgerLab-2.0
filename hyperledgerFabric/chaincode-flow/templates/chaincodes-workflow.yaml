@@ -438,8 +438,8 @@ spec:
       command: [sh]
       source: |
           set -x
-          # /hlf-scripts/collect_peer_addresses.sh {{ $chaincode.channels }} {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
-          /hlf-scripts/collect_peer_addresses.sh "ff" "kkf" "kkf" >&peer_addresses.txt
+          /hlf-scripts/collect_peer_addresses.sh {{"ff"}}  {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
+          # /hlf-scripts/collect_peer_addresses.sh "ff" "kkf" "kkf" >&peer_addresses.txt
           cat peer_addresses.txt
 
           # install yq if it does not exist
