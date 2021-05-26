@@ -7,25 +7,27 @@ set -e
 
 network_yaml=$1
 crypto_config_yaml=$2
-chaincode=$3
+peer=$4
 
-echo $(cat $network_yaml) 
-echo $(yq --version)
+set -x
+echo "==================="
+
+echo $network_yaml
+echo $crypto_config_yaml
+echo $peer
+
+echo "==================="
+
 output=""
-echo $chaincode
 orgIDs=$(yq eval '.network | .chaincodes[] | select (.name == "'$(echo $chaincode)'") | .orgs[]' "$network_yaml")
-echo $orgIDs    
 array=($orgIDs)
 
-for f in "${array[@]}"
+for orgID in "${array[@]}"
 do
-	echo  "--- $f ---  "
-done
-
-orgID="Org1"
-
 domain=$(yq eval '.PeerOrgs[] | select (.Name == "'$(echo $orgID)'") | .Domain' "$crypto_config_yaml")
-output="$output --peerAddresses $domain --tlsRootCertFiles /etc/hyperledger/fabric/tls/$domain/ca.crt"
-echo $domain    
+output="$output --peerAddresses $peer.$domain:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/$domain/ca.crt"
+done
+ 
 echo $output
-# set +x
+set +x
+

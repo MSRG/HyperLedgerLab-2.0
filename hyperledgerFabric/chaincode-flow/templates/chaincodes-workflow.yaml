@@ -24,6 +24,10 @@ spec:
   {{- end }}{{""}}
   
   volumes:
+  - name: hlf-scripts
+    configMap:
+      name: hlf-scripts
+      defaultMode: 0777 # make scripts executable
   - name: orderer-tlsca
     secret:
       secretName: {{ $vars.ordererTlsSecret }}
@@ -436,11 +440,15 @@ spec:
           set -x
           peer lifecycle chaincode querycommitted --channelID {{ $channel.name }} --name {{ $chaincode.name }} >&log.txt
 
+          # install yq if it does not exist
+          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
+
           if cat log.txt | grep -q -o 'Version: {{ $version }}, Sequence: {{ $sequence}}, Endorsement Plugin: escc, Validation Plugin: vscc'; then
             echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is already commited on channel {{ $channel.name }} by peer {{ $peer }}, exiting with 0. Increment the sequence number for a new chaincode definition.' 
             exit 0 
           fi 
           
+          /hlf-scripts/collect_peer_addresses.sh {{ $chaincode.channels }} {{ $.Values.PeerOrgs }} {{ $peer }} >&peer_addresses.txt
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
 
@@ -455,7 +463,8 @@ spec:
           name: peer-org2-{{ $peer | lower }}-tls
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-{{ $org.Name | lower }}-admin-msp
-      
+        - mountPath: /hlf-scripts
+          name: hlf-scripts
       env:
         - name: CORE_PEER_ADDRESS
           value: |- 
@@ -510,7 +519,10 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
-          set -x          
+          set -x       
+          # install yq if it does not exist
+          [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
+   
           fcn_call='{"function":"InitLedger","Args":[]}'
           ## {{$.Values.flow.invoke.function }}
           peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }}  --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --isInit -c '{"function":"InitLedger","Args":[]}' {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
