@@ -469,7 +469,7 @@ spec:
       volumeMounts:
         {{- range $i, $org := $.Values.PeerOrgs }}
         - mountPath: /etc/hyperledger/fabric/tls/{{ $org.Name | lower }}
-          name: peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
+          name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
         {{ end }} {{- /* range $i, $org := $.Values.PeerOrgs */ -}}
         - mountPath: /hlf_config/orderer-tlsca
           name: orderer-tlsca
