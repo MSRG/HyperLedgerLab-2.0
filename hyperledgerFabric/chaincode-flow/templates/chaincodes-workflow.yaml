@@ -217,7 +217,6 @@ spec:
         template: invoke-chaincode--{{ $chaincode.name }}--{{ $channel.name }}
 
 {{- $_ := set $vars "firstStep" false }}
-{{- end }} {{- /* if org */ -}} 
 {{- end }} {{- /* chaincode.channels */ -}}
 {{- end }} {{- /* if chaincode included */ -}}
 {{- end }} {{- /* chaincodes */ -}}
