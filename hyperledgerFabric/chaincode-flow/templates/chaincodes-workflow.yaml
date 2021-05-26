@@ -444,9 +444,6 @@ spec:
       command: [sh]
       source: |
           set -x
-          /hlf-scripts/collect_peer_addresses.sh /hlf_config/network/network.yaml /hlf_config/crypto-config/crypto-config.yaml {{ $chaincode.name }} {{ $peer }} >&peer_addresses.txt
-          cat peer_addresses.txt
-
           # install yq if it does not exist
           [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
 
@@ -457,9 +454,11 @@ spec:
             exit 0 
           fi 
 
-
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
+          
+          /hlf-scripts/collect_peer_addresses.sh /hlf_config/network/network.yaml /hlf_config/crypto-config/crypto-config.yaml {{ $chaincode.name }} {{ $peer }} >&peer_addresses.txt
+          cat peer_addresses.txt
 
           peer lifecycle chaincode commit -o {{ $vars.ordererUrl }} --peerAddresses peer0.org1:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org1/ca.crt --peerAddresses peer0.org2:7051 --tlsRootCertFiles /etc/hyperledger/fabric/tls/org2/ca.crt --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
           set +x
