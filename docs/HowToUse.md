@@ -39,6 +39,9 @@ This quickstart will guide you ....
       Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
       ```
 
+    - To destroy the infrastructure provisoned, hence the kubernetes cluster:
+      - Run command: `./script/k8s_destroy.sh`
+
 5.  Install Hyperledger Fabric on the running Kubernetes cluster:
 
     - The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
@@ -63,6 +66,9 @@ This quickstart will guide you ....
         - Insalls chaincode
         - more details ?
 
+    - To delete Hyperledger Fabric network:
+      - Run command: `./script/network_delete.sh` to delete all kubernetes components used to run the Hyperledger Fabric network.
+
 6.  Run Hyperledger Caliper:
 
     - Hyperledger Caliper folder contains the following configuration:
@@ -84,5 +90,8 @@ This quickstart will guide you ....
         - Runs Caliper Worker(s)
         - more details ?
 
-      - Log into caliper manager pod to see the benchamrkig report using the command `kubectl logs <caliper_manager_pod_name>`.
+      - Log into caliper manager pod to see the benchamrkig report using the command `kubectl logs -f <caliper_manager_pod_name>`.
         To get the caliper manager pod name you can use the command `kubectl get pods` to get the list of pods.
+
+    - To delete Hyperledger caliper:
+      - Run command: `./script/caliper_delete.sh` to delete all kubernetes components used to run caliper.
