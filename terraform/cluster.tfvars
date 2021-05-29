@@ -50,7 +50,7 @@ subnet_cidr = "172.24.32.0/19"
 
 k8s_allowed_remote_ips = ["0.0.0.0/0"]
 
-# # GlusterFS variables
+# GlusterFS variables
 flavor_gfs_node = "4ae184b5-0a64-4c2b-8132-220910200a55"
 image_gfs = "kvm-ubuntu-focal"
 number_of_gfs_nodes_no_floating_ip = "3"
