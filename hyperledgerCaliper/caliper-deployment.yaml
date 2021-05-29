@@ -2,14 +2,14 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    app: caliper
-  name: caliper
+    app: caliper-manager
+  name: caliper-manager
 spec:
   backoffLimit: 2
   template:
     metadata:
       labels:
-        app: caliper
+        app: caliper-manager
     spec:
       securityContext:
         runAsUser: 1000

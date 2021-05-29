@@ -64,8 +64,25 @@ This quickstart will guide you ....
         - more details ?
 
 6.  Run Hyperledger Caliper:
+
     - Hyperledger Caliper folder contains the following configuration:
+
       - workload Module
       - Benchmark configuration
-      - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](../hyperledgerCaliper/networks/). Two network configuation samples can be found for network with TLS and without TLS enabled.
-    -
+      - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](../hyperledgerCaliper/networks/): one network configruation with TLS and without TLS enabled.
+
+      Workload module and benchmark configuration are chaincode related configuration. Both files can be found in a folder with the respective chaincode name.
+
+    - Run Hyperledger Caliper:
+
+      - Run command: `./script/caliper_run.sh <chaincode_folder> <network_configuration_folder>` e.g `./script/caliper_run.sh asset-transfer-basic tls`
+      - Workflow:
+
+        - Runs mosquitto: a lightweight open source message broker that Implements MQTT protocol to carry out messaging between caliper manager and worker(s).
+        - Adds the workload Module, Benchmark configuration and Network Configuration as configmap.
+        - Runs Caliper Manager
+        - Runs Caliper Worker(s)
+        - more details ?
+
+      - Log into caliper manager pod to see the benchamrkig report using the command `kubectl logs <caliper_manager_pod_name>`.
+        To get the caliper manager pod name you can use the command `kubectl get pods` to get the list of pods.

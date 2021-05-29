@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 0 ]] ; then
-    echo 'Network folder name is missing'
+    echo "usage: network_run.sh <configuration_folder>" 
     exit 2
 fi
 

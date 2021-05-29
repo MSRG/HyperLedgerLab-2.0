@@ -4,7 +4,7 @@ set -x
 
 if [[ $# -eq 0 ]] ; then
     echo 'Master ip address is missing'
-    exit 0
+    exit 2
 fi
 
 mkdir /home/ubuntu/.kube

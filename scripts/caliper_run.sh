@@ -2,7 +2,7 @@
 set -x
 
 if [ $# -ne 2 ] ; then
-    echo "Illegal number of parameters"
+    echo "usage: caliper_run.sh <chaincode_name> <network_folder_name>s" 
     exit 2
 fi
 
