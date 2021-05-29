@@ -17,11 +17,11 @@ export OS_AUTH_URL=http://172.24.18.142:5000/v3
 # as the entity that owns the resources.
 export OS_TENANT_ID=cd5c0003a71c49d589eb227f55b4742f
 export OS_TENANT_NAME="pn-hyperledgerlab2"
+export OS_USER_DOMAIN_NAME="default"
 
 # unsetting v3 items in case set
 unset OS_PROJECT_ID
 unset OS_PROJECT_NAME
-unset OS_USER_DOMAIN_NAME
 
 # In addition to the owning entity (tenant), OpenStack stores the entity
 # performing the action as the **user**.
