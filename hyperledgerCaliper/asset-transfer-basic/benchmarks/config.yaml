@@ -1,36 +1,12 @@
-# test:
-#   name: marble-benchmark
-#   description: test benchmark
-#   workers:
-#     number: 1
-#   rounds:
-#     - label: initMarble
-#       description: init marbles benchmark
-#       txNumber: 100
-#       rateControl:
-#         type: fixed-load
-#         opts:
-#           tps: 25
-#       workload:
-#         module: workload/init.js
-# monitor:
-#   type:
-#     - none
-
-# observer:
-#   type: local
-#   interval: 1
-
 test:
   name: basic-contract-benchmark
   description: test benchmark
   workers:
-    # type: local
     number: 10
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      txNumber: 100
+      txNumber: 1000
       rateControl:
         type: fixed-rate
         opts:
@@ -38,5 +14,5 @@ test:
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
-          assets: 1
+          assets: 20
           contractId: asset-transfer-basic
