@@ -59,7 +59,7 @@ if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null;
 fi
 
 # Install Kubectl 
-if dpkg --get-selections | grep -q "^kubectl[[:space:]]*install$" >/dev/null; 
+if compgen -c | grep -q "^kubectl[[:space:]]*install$" >/dev/null; 
     then
         echo -e "kubectl already installed"
     else
@@ -70,7 +70,7 @@ if dpkg --get-selections | grep -q "^kubectl[[:space:]]*install$" >/dev/null;
 fi
 
 # Install Helm
-if dpkg --get-selections | grep -q "^helm[[:space:]]*install$" >/dev/null; 
+if compgen -c | grep -q "^helm[[:space:]]*install$" >/dev/null; 
     then
         echo -e "helm already installed"
     else
@@ -88,7 +88,7 @@ if dpkg --get-selections | grep -q "^jq[[:space:]]*install$" >/dev/null;
 fi
 
 # Install argo cli
-if dpkg --get-selections | grep -q "^argo[[:space:]]*install$" >/dev/null; 
+if compgen -c | grep -q "^argo[[:space:]]*install$" >/dev/null; 
     then
         echo -e "argo already installed"
     else
