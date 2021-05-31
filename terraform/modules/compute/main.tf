@@ -630,8 +630,3 @@ resource "openstack_compute_volume_attach_v2" "glusterfs_volume" {
   instance_id = element(openstack_compute_instance_v2.glusterfs_node_no_floating_ip.*.id, count.index)
   volume_id   = element(openstack_blockstorage_volume_v2.glusterfs_volume.*.id, count.index)
 }
-resource "openstack_blockstorage_volume_v3" "volume_1" {
-  name        = "volume_1"
-  description = "first test volume"
-  size        = 3
-}

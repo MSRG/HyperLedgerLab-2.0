@@ -2,10 +2,15 @@
 
 source `dirname $0`/env_setup.sh
 
-
-# ansible-playbook --become -i inventory/infra/hosts.ini playbooks/create_instances.yaml
-
 set -x
+
+# if [ ! -d  terraform ] ; then
+#     echo "Invalid chaincode folder name"
+#     exit 0
+# fi
+
+printf '%s\n' "${PWD##*/}"
+
 # Setup Openstack instances for k8s nodes using Terraform
 cd `dirname $0`/terraform
 terraform init  #Install the required plugins

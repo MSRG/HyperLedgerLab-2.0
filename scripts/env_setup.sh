@@ -20,17 +20,6 @@ git submodule sync
 git submodule update --init --recursive
 set +x
 
-# # Set environment variables required for Openstack and k8s cluster setup
-# if [[ -f scripts/cloud.sh ]]
-# then
-#     echo "export OS_CLOUD=mycloud"
-#     source scripts/cloud.sh
-#     # export OS_CLOUD=terraform/cloud.yaml
-# else
-#     echo "Create a cloud.yaml file. Take cloud_sample.yaml as example"
-#     exit 1
-# fi
-
 # Setup python environment
 if [[ -d venv ]]
 then
@@ -54,9 +43,9 @@ if dpkg --get-selections | grep -q "^ansible[[:space:]]*install$" >/dev/null;
     then
         echo -e "ansible already installed"
     else
-        sudo apt install software-properties-common
+        sudo apt install --yes software-properties-common
         sudo apt-add-repository --yes --update ppa:ansible/ansible
-        sudo apt install ansible
+        sudo apt install --yes ansible
 fi
 
 # Install Terraform
@@ -66,7 +55,7 @@ if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null;
     else
         curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-        sudo apt-get update && sudo apt-get install terraform=0.15.0
+        sudo apt-get update && sudo apt-get install --yes terraform=0.15.0
 fi
 
 # Install Kubectl 
@@ -90,7 +79,30 @@ if dpkg --get-selections | grep -q "^helm[[:space:]]*install$" >/dev/null;
         ./get_helm.sh
 fi
 
-sudo apt-get install jq
+# Install jq
+if dpkg --get-selections | grep -q "^jq[[:space:]]*install$" >/dev/null; 
+    then
+        echo -e "jq already installed"
+    else
+        sudo apt-get install --yes jq
+fi
+
+# Install argo cli
+if dpkg --get-selections | grep -q "^argo[[:space:]]*install$" >/dev/null; 
+    then
+        echo -e "argo already installed"
+    else
+        # Download the binary
+        curl -sLO https://github.com/argoproj/argo/releases/download/v3.0.0-rc5/argo-linux-amd64.gz
+        # Unzip
+        gunzip argo-linux-amd64.gz
+        # Make binary executable
+        chmod +x argo-linux-amd64
+        # Move binary to path
+        sudo mv ./argo-linux-amd64 /usr/local/bin/argo
+        # Test installation
+        argo version
+fi
 
 # Create ansible.log file if not present
 if [[ ! -f ansible.log ]]
