@@ -5,7 +5,7 @@ set -e
 TERRAFORM_VERSION=0.15.0
 KUBECTL_VERSION=v1.21.0
 HELM_VERSION=v3.0.0
-JQ_VERSION=1.5+dfsg-2
+JQ_VERSION=1.6-1ubuntu0.20.04.1
 ARGO_VERSION=v3.0.0-rc5
 
 # override StrictHostKeyChecking in ssh config
