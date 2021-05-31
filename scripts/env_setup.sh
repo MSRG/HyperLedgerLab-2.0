@@ -34,7 +34,7 @@ set +x
 set -x
 sudo apt update
 sudo apt-get install --yes python3-pip
-python3 -m pip install -r kubespray/requirements.txt
+sudo pip3 install -r kubespray/requirements.txt
 set +x
 
 #Install Ansible
