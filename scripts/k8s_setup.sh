@@ -12,7 +12,7 @@ set -x
 printf '%s\n' "${PWD##*/}"
 
 # Setup Openstack instances for k8s nodes using Terraform
-cd `dirname $0`/terraform
+cd terraform/
 terraform init  #Install the required plugins
  #Provisioning cluster
 terraform apply -var-file=./cluster.tfvars -auto-approve
