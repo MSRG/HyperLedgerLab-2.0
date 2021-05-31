@@ -33,16 +33,6 @@ sudo apt-get install --yes python3-pip
 sudo pip3 install -r kubespray/requirements.txt
 set +x
 
-# #Install Ansible
-# if dpkg --get-selections | grep -q "^ansible[[:space:]]*install$" >/dev/null; 
-#     then
-#         echo -e "ansible already installed"
-#     else
-#         sudo apt install --yes software-properties-common
-#         sudo apt-add-repository --yes --update ppa:ansible/ansible
-#         sudo apt install --yes ansible
-# fi
-
 # Install Terraform
 if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null; 
     then

@@ -16,8 +16,11 @@
       register: ps
 
     - debug: var=ps.stdout_lines
-# TODO ADD ARGO CLI AND CONTROLLER INSTALLATIONS. STEPS CAN BE FOUND IN NOTE
-# - name: Install Argo
-#   command: scripts/configure_kubectl.sh {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
-#   delegate_to: localhost
-#   register: ps
+    
+    - name: Install Argo
+      ansible.builtin.shell: |
+        kubectl create namespace argo
+        kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/v3.0.0-rc5/manifests/install.yaml
+        kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=default:default
+      delegate_to: localhost
+      register: ps
