@@ -22,8 +22,8 @@ This quickstart will guide you ....
    - No aditional security group rules is required. The security group creation for the kubernetes cluster will be handled later by Terraform.
 
    - From the host machine, we want to copy the key pair to CLI, the latter will be used later to provision other instances.
-     `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa`
-     `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa.pub ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa.pub`
+     - `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa`
+     - `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa.pub ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa.pub`
    - The rest of this tutorial are executed from CLI: `ssh -i ~/.ssh/id_rsa ubuntu@<instance_ip>`
 
 2. Clone the repository:

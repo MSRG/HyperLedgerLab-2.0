@@ -21,22 +21,21 @@ git submodule update --init --recursive
 set +x
 
 # Setup python environment
-if [[ -d venv ]]
-then
-    echo "source venv/bin/activate"
-    # source venv/bin/activate
-else
-    set -x
-    mkdir venv
-    sudo apt update
-    sudo apt-get install --yes python3-pip
-    # sudo apt-get install python3-venv
-    # python3 -m venv venv
-    # source /venv/bin/activate
-    # python3 -m pip install -r requirements.txt
-    # python3 -m pip install -r kubespray/requirements.txt
-    set +x
-fi
+# if [[ -d venv ]]
+# then
+#     echo "source venv/bin/activate"
+# else
+#     set -x
+#     sudo apt update
+#     sudo apt-get install --yes python3-pip
+#     python3 -m pip install -r kubespray/requirements.txt
+#     set +x
+# fi
+set -x
+sudo apt update
+sudo apt-get install --yes python3-pip
+python3 -m pip install -r kubespray/requirements.txt
+set +x
 
 #Install Ansible
 if dpkg --get-selections | grep -q "^ansible[[:space:]]*install$" >/dev/null; 
