@@ -21,31 +21,11 @@ git submodule update --init --recursive
 set +x
 
 # Setup python environment
-# if [[ -d venv ]]
-# then
-#     echo "source venv/bin/activate"
-# else
-#     set -x
-#     sudo apt update
-#     sudo apt-get install --yes python3-pip
-#     python3 -m pip install -r kubespray/requirements.txt
-#     set +x
-# fi
 set -x
 sudo apt update
 sudo apt-get install --yes python3-pip
 sudo pip3 install -r kubespray/requirements.txt
 set +x
-
-if compgen -c | grep -q "^pip3" >/dev/null; 
-    then
-        echo -e "##################################################################"
-#     else
-#         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-#         curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-#         echo "$(<kubectl.sha256) kubectl" | sha256sum --check
-#         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-fi
 
 #Install Ansible
 if dpkg --get-selections | grep -q "^ansible[[:space:]]*install$" >/dev/null; 
@@ -79,13 +59,13 @@ if compgen -c | grep -q "^kubectl[[:space:]]*install$" >/dev/null;
 fi
 
 # Install Helm
-if compgen -c | grep -q "^helm[[:space:]]*install$" >/dev/null; 
+if compgen -c | grep -q "^helm" >/dev/null; 
     then
         echo -e "helm already installed"
     else
         curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-        chmod 700 get_helm.sh
-        ./get_helm.sh
+        chmod 700 get_helm.sh 
+        ./get_helm.sh -v v3.0.0
 fi
 
 # Install jq

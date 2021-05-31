@@ -1,6 +1,7 @@
 ## **Quickstart Guide**
 
-This quickstart will guide you ....
+This quickstart will guide you through the compelete running of HyperledgerLab II.
+After going thought this tutorial, you should expect to have a highly configurable Heyperledger Fabric network running on a Kubernetes cluster and a running bechmarking tool: Hyperledger Caliper to evaluate the Heyperledger Fabric network.
 
 0. Create a a key pair
 
