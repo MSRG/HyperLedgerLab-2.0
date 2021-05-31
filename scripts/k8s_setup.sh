@@ -26,6 +26,9 @@ ansible-playbook --become -i hosts ../kubespray/cluster.yml
 # fill hosts.ini with the actual values and configure kubectl
 ansible-playbook -i hosts ../playbook.yaml
 
-# ansible-playbook --become -i hosts ../kubespray/contrib/network-storage/glusterfs/glusterfs.yml
+# Install agro controller with the configured kubectl
+kubectl create namespace argo
+kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/v3.0.0-rc5/manifests/install.yaml
+kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=default:default
 
 set +x
