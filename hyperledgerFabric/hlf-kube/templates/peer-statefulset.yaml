@@ -188,7 +188,6 @@ spec:
         {{- end }}
 
         env:
-        # TODO move configurable ones to configmaps
         - name: CORE_PEER_ID
           value: {{ $peer }}.{{ $org.Domain }}
         - name: CORE_PEER_ADDRESS
@@ -227,7 +226,7 @@ spec:
         - name: CORE_PEER_PROFILE_ENABLED
           value: "true"
         - name: CORE_PEER_ADDRESSAUTODETECT
-          value: "true" # looks like absolutely necessary, o/w chaincode instantiate fails, no clue why
+          value: "true"
         - name: CORE_PEER_TLS_CERT_FILE
           value: /etc/hyperledger/fabric/tls/server.crt
         - name: CORE_PEER_TLS_KEY_FILE

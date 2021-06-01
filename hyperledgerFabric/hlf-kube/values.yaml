@@ -9,11 +9,10 @@ caVersion: 1.5.0
 tlsEnabled: false
 
 # use actual domain names like peer0.org1 instead of internal service names
-# this should be set to true for TLS
+# this should be set to true for TLS 
 useActualDomains: false
 
 # adds additional DNS entries to /etc/hosts files
-# see https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/#adding-additional-entries-with-hostaliases
 # this value should be provided if either tlsEnabled or useActualDomains is set to true
 hostAliases: []
 
@@ -40,7 +39,6 @@ peer:
       # use a side car docker in docker container?
       enabled: false
       # dind docker image
-      # image: docker:19.03.8-dind
       image: docker:dind
       persistence:
         enabled: false

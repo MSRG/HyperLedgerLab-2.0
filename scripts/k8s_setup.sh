@@ -17,6 +17,7 @@ sleep 60
 #This step is required by the terraform provisioner.
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa 
+
 #Check if all instances are reachable
 # ansible -i hosts -m ping all 
 
