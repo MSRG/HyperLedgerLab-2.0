@@ -39,8 +39,8 @@ spec:
               value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
-            - name: CALIPER_BIND_FILE 	
-              value: /caliper-config/caliper.yaml
+            # - name: CALIPER_BIND_FILE 	
+            #   value: /caliper-config/caliper.yaml
             - name: CALIPER_BIND_ARGS
               value: "-g"
             - name: CXXFLAGS
