@@ -20,15 +20,6 @@ For a quick setup of this software, please see: [HowToUse](docs/HowToUse.md).
 - Hyerledger Caliper: v0.4.2
 - Operating system: Software has been developed on Ubuntu 20.04 LTS
 
-## Installation Process
-
-This is a 4 steps process as follows:
-
-1.
-2.
-3.
-4.
-
 ## Project Structure
 
 A breakdown of the code structure: [DirectoryStructure](docs/DirectoryStructure.md)
