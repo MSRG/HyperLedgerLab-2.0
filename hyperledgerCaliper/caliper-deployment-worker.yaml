@@ -84,7 +84,7 @@ spec:
         - name: caliper-workspace
           hostPath:
             path: /home/caliper-workspace
-            type: Directory
+            type: DirectoryOrCreate
         - name: caliper-benchmark
           configMap:
             name: benchmarks
