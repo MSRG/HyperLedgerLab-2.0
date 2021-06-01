@@ -1,10 +1,11 @@
-# HyperledgerLab II
+# **HyperledgerLab II**
 
 Hyperledger Testbed on Kubernetes Cluster: Automated Deployment of a Distributed Enterprise Blockchain Network for Analysis and Testing
 
 ## Summary
 
-This repository contains scripts we are developing to deploy a Hyperledger Testbed on a Kubernetes cluster, itself running on cloud resources. For the latter, we assume, resources provisioned via an OpenStack environment.
+This repository contains scripts and helm charts we are developing to deploy a Hyperledger Testbed on a Kubernetes cluster, itself running on cloud resources. For the latter, we assume, resources provisioned via an OpenStack environment.
+A benchmarking tool: Hyperledger Caliper is configured to evaluate and collect metrics of the deployed network.
 
 **CONTRIBUTOR**: Mohamed Karim Abbes (karim.abbes@outlook.com)
 
@@ -15,8 +16,9 @@ For a quick setup of this software, please see: [HowToUse](docs/HowToUse.md).
 ## Supported Versions
 
 - Kubernetes v1.21.1
-- Hyperledger Fabric: v1.2.1 and v1.4.0
-- Develpment was done on Ubuntu 20.04
+- Hyperledger Fabric: v2.x
+- Hyerledger Caliper: v0.4.2
+- Operating system: Software has been developed on Ubuntu 20.04 LTS
 
 ## Installation Process
 
@@ -30,6 +32,10 @@ This is a 4 steps process as follows:
 ## Project Structure
 
 A breakdown of the code structure: [DirectoryStructure](docs/DirectoryStructure.md)
+
+## Comparison between HyperledgerLab I and II
+
+A comparative table of the main features of HyperledgerLab I and II: [Version 1 and 2 Comparison](./docs/ComparativeTable.md).
 
 ## References
 
