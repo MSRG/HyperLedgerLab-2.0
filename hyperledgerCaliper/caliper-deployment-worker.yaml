@@ -39,10 +39,10 @@ spec:
               value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
-            - name: CALIPER_BIND_FILE 	
-              value: /caliper-config/caliper.yaml
             - name: CALIPER_BIND_ARGS
               value: "-g"
+            - name: CALIPER_REPORT_PATH 
+              value: /hyperledger/caliper/workspace/report/
             - name: CXXFLAGS
               value: "-Wno-cast-function-type"
             - name: CALIPER_WORKER_REMOTE
@@ -76,10 +76,10 @@ spec:
               name: caliper-workload
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            - name: caliper-workspace
-              mountPath: /hyperledger/caliper/workspace/
-            - name: caliper-config
-              mountPath: /caliper-config
+            - mountPath: /hyperledger/caliper/workspace/report/
+              name: caliper-workspace
+            - mountPath: /hyperledger/caliper/workspace/
+              name: caliper-config
       volumes:
         - name: caliper-workspace
           hostPath:
