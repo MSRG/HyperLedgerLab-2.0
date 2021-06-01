@@ -50,7 +50,6 @@ spec:
               value: "mqtt"
             - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
-            # - name: caliper-fabric-timeout-invokeorquery
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/org1/peer-msp/
               name: peer-msp1
@@ -75,15 +74,19 @@ spec:
               name: caliper-workload
             - mountPath: /caliper-chaincode
               name: caliper-chaincode
-            # - name: caliper-workspace
-            #   mountPath: /hyperledger/caliper/workspace/
-            - name: caliper-config
+            - name: caliper-workspace
               mountPath: /hyperledger/caliper/workspace/
+            - name: caliper-config
+              mountPath: /caliper-config
 
       volumes:
         # - name: caliper-workspace
         #   persistentVolumeClaim:
         #     claimName: caliper-workspace-pvc
+        - name: caliper-workspace
+          hostPath:
+            path: /home/caliper-workspace
+            type: Directory
         - name: caliper-benchmark
           configMap:
             name: benchmarks
