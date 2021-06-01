@@ -120,7 +120,6 @@ spec:
           name: genesis
         
         env:
-        # TODO move configurable ones to configmaps
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.orderer.logLevel }}
         - name: ORDERER_GENERAL_LISTENADDRESS
