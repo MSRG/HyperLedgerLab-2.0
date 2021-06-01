@@ -260,7 +260,7 @@ Application: &ApplicationDefaults
 ################################################################################
 Orderer: &OrdererDefaults
   # Orderer Type: The orderer implementation to start
-  # Available types are "solo", "kafka" and "etcdraft"
+  # Available types are "solo" and "etcdraft"
   OrdererType: etcdraft
 
   Addresses:

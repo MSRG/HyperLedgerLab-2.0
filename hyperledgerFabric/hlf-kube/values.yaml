@@ -67,7 +67,7 @@ couchdb:
 
 # Orderer settings. applies to all Orderer pods
 orderer:
-  # should be greater than 1 only if kafka orderer is used
+  # normally it shouldn't be greater than 1 
   replicas: 1
   logLevel: grpc=debug:info
   # launch orderer pods? setting to false is useful for collecting host aliases and fast restart afterwards
@@ -105,35 +105,3 @@ ca:
 chaincode:
   # fill in this array with chaincode names to limit the chaincode ConfigMap only to these ones
   include: []
-
-# kafka settings
-hlf-kafka:
-  # install kafka?
-  enabled: false
-
-  # number of Kafka brokers, should be at least 4
-  # https://hyperledger-fabric.readthedocs.io/en/release-2.2/kafka.html
-  replicas: 4
-  podManagementPolicy: Parallel
-
-  persistence:
-    enabled: false
-    storageClass: default
-    size: 16Gi
-
-  configurationOverrides:
-    "default.replication.factor": 4 # given a 4 node Kafka cluster
-    "unclean.leader.election.enable": false
-    "min.insync.replicas": 3 # to permit one Kafka replica to go offline
-    "message.max.bytes": "103809024" # 99 * 1024 * 1024 B
-    "replica.fetch.max.bytes": "103809024" # 99 * 1024 * 1024 B
-    "log.retention.ms": -1 # Since we need to keep logs indefinitely for the HL Fabric Orderer
-
-  zookeeper:
-    # should be 3, 5, or 7
-    replicaCount: 3
-
-    persistence:
-      enabled: false
-      storageClass: default
-      size: 16Gi
