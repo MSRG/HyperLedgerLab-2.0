@@ -38,17 +38,6 @@ spec:
         requests:
           storage: {{ $.Values.couchdb.persistence.size }}
   {{- end }}
-  {{- if and $.Values.peer.docker.dind.enabled $.Values.peer.docker.dind.persistence.enabled }}
-  - metadata:
-      name: docker-disk
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: {{ $.Values.persistence.storageClass }}
-      resources:
-        requests:
-          storage: {{ $.Values.peer.docker.dind.persistence.size }}
-  {{- end }}
   template:
     metadata:
       labels:
@@ -65,16 +54,10 @@ spec:
       - name: couchdb-disk
         emptyDir: {}
       {{- end }}
-      {{- if not $.Values.peer.docker.dind.enabled }}
       - name: dockersocket
         hostPath:
           path: /var/run/docker.sock
           type: Socket
-      {{- end }}
-      {{- if and $.Values.peer.docker.dind.enabled (not $.Values.peer.docker.dind.persistence.enabled) }}
-      - name: docker-disk
-        emptyDir: {}
-      {{- end }}
       - name: peer-tls
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
@@ -169,10 +152,8 @@ spec:
         volumeMounts:
         - mountPath: /var/hyperledger/production/
           name: peer-disk
-        {{- if not $.Values.peer.docker.dind.enabled }}
         - mountPath: /host/var/run/docker.sock
           name: dockersocket
-        {{- end }}
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-tls
         - mountPath: /etc/hyperledger/fabric/peer-msp/
@@ -208,11 +189,7 @@ spec:
           value: {{ $org.Name }}MSP
 
         - name: CORE_VM_ENDPOINT
-          {{- if $.Values.peer.docker.dind.enabled }}
-          value: tcp://localhost:2375
-          {{- else }}
           value: unix:///host/var/run/docker.sock
-          {{- end }}
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.peer.logLevel }}
         - name: CORE_PEER_TLS_ENABLED
@@ -281,25 +258,6 @@ spec:
           value: {{ $.Values.couchdb.userName | quote }}
         - name: COUCHDB_PASSWORD
           value: {{ $.Values.couchdb.password | quote }}
-
-      {{- if $.Values.peer.docker.dind.enabled }}
-
-      # Docker dind container
-      - name: docker
-        image: {{ $.Values.peer.docker.dind.image }}
-        securityContext:
-          privileged: true
-      
-        volumeMounts:
-        - mountPath: /var/lib/docker
-          name: docker-disk
-
-        env:
-        - name: DOCKER_TLS_CERTDIR
-          # leave empty to disable TLS
-          value: 
-
-      {{- end }} {{- /* if peer.docker.dind.enabled */ -}}{{""}}
 ---
 {{- end }} {{- /* Peers */ -}}
 {{- end }} {{- /* Orgs */ -}}

@@ -34,15 +34,6 @@ peer:
   persistence:
     enabled: false
     size: 16Gi
-  docker:
-    dind:
-      # use a side car docker in docker container?
-      enabled: true
-      # dind docker image
-      image: docker:dind
-      persistence:
-        enabled: false
-        size: 16Gi
   # if enabled, podAntiAffinity is used to spread the peer pods in the same organization among nodes
   # normally no need to disable this
   antiAffinity:
