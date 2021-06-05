@@ -179,8 +179,6 @@ spec:
           name: peer-msp
         - mountPath: /etc/hyperledger/fabric/msp/
           name: peer-admin-msp
-        # - mountPath: /hl_config/channel/
-        #   name: hlf-channels
         # chaincodes
         {{- range $i, $chaincode := $.Values.network.chaincodes }}    
         - mountPath: /chaincode/{{ $chaincode.name }}
