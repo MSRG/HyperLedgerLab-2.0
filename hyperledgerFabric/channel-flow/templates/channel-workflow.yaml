@@ -265,9 +265,6 @@ spec:
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
   - name: maybe-join-channel--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
-    # peer: {{ $peer }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
@@ -345,8 +342,6 @@ spec:
 {{- if eq $orgName $org.Name }}
 
   - name: maybe-update-channel--{{ $channel.name }}--{{ $org.Name }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
