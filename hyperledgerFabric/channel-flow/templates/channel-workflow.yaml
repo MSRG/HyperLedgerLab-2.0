@@ -186,7 +186,6 @@ spec:
       limit: {{ $.Values.retryCount }}
     script:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: raft/hl-fabric-tools:1.4.3
       command: [sh]
       source: |
           set -x
@@ -353,7 +352,6 @@ spec:
       limit: {{ $.Values.retryCount }}
     script:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
-      # image: raft/hl-fabric-tools-extended:1.4.3
       command: [sh]
       source: |
           set -x
