@@ -10,7 +10,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 2000
+          tps: 2500
           # startingTps: 3000
           # transactionLoad: 10
       workload:
