@@ -11,7 +11,7 @@ test:
         type: fixed-load
         opts:
           # tps: 2000
-          startingTps: 1000
+          startingTps: 3000
           transactionLoad: 5
       workload:
         module: /caliper-workload/readAsset.js
