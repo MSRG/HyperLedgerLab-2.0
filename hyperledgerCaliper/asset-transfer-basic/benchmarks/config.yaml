@@ -12,7 +12,7 @@ test:
         opts:
           tps: 1000
           # startingTps: 3000
-          transactionLoad: 2500
+          transactionLoad: 10
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
