@@ -402,6 +402,11 @@ Profiles:
       Organizations:
         - *OrdOrg1
         - *OrdOrg2
+    # Consortiums: 
+    #     TheConsortium:
+    #         Organizations:
+    #         - *Org1
+    #         - *Org2
 
     Consortiums:
       TheConsortium:
