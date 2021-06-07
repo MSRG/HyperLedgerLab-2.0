@@ -6,7 +6,7 @@ test:
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      txNumber: 2000
+      txNumber: 20000
       rateControl:
         type: fixed-rate
         opts:
