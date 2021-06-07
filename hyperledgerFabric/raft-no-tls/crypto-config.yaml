@@ -28,7 +28,7 @@ PeerOrgs:
     Template:
       Count: 1
     Users:
-      Count: 2
+      Count: 1
 
   - Name: Org2
     Domain: org2
