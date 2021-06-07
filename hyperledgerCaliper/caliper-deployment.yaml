@@ -21,10 +21,10 @@ spec:
           image: hyperledger/caliper:0.4.2
           # command: ["/bin/sh","-c"]
           command: 
-          - sh
+          - /bin/sh
           - "-c"
           - |
-            /bin/bash <<'EOF'
+            /bin/sh <<'EOF'
 
             # Normal script content possible here
             caliper launch manager
