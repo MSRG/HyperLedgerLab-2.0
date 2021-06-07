@@ -155,7 +155,7 @@ spec:
         volumeMounts:
         - mountPath: /var/hyperledger/production/
           name: peer-disk
-        - mountPath: /var/hyperledger/config/
+        - mountPath: /etc/hyperledger/fabric
           name: fabric-config
         - mountPath: /host/var/run/docker.sock
           name: dockersocket
