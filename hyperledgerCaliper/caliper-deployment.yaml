@@ -19,11 +19,13 @@ spec:
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
-          command:
-            - caliper
-          args:
-            - launch
-            - manager
+          command: ["/bin/sh"]
+          args: ["-c", "caliper launch manager & echo "FINISHHHHHHHHHHH" & ls /hyperledger/caliper/workspace/ & sleep 120"]
+          # command:
+          #   - caliper
+          # args:
+          #   - launch
+          #   - manager
           tty: true
           env:
             - name: CALIPER_BIND_SUT
