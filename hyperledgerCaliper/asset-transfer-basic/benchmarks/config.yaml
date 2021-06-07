@@ -8,9 +8,10 @@ test:
       description: Read asset benchmark
       txNumber: 5000
       rateControl:
-        type: fixed-rate
+        type: fixed-feedback-rate
         opts:
           tps: 2000
+          unfinished_per_client: 100
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
