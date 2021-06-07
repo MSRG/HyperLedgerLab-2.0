@@ -38,6 +38,8 @@ spec:
               value: "false"
             - name : CALIPER_FABRIC_GATEWAY_USEGATEWAY 
               value: "true"
+            - name: CALIPER_FABRIC_GATEWAY_DISCOVERY
+              value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
             - name: CALIPER_WORKSPACE

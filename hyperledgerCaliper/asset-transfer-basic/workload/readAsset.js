@@ -33,7 +33,7 @@ class MyWorkload extends WorkloadModuleBase {
             contractFunction: 'ReadAsset',
             invokerIdentity: 'client0.org1.example.com',
             contractArguments: ['asset1'],
-            timeout: 120,
+            timeout: 30,
             // contractArguments: [`${this.workerIndex}_${randomId}`],
             // targetOrganizations: ["Org1", "Org2"],
             readOnly: true
