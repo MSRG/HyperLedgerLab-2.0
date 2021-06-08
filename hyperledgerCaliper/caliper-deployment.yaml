@@ -26,7 +26,7 @@ spec:
             /bin/sh <<'EOF'
 
             caliper launch manager
-            echo "Start pushing the generated report.html to the git repo..."
+            echo "Start pushing the generated report.html to the git repository..."
             ls /hyperledger/caliper/workspace/
             # Modify the git clone URL if needed follwing the structure https://cli:<project_access_token>@<repo_url>
             # Example of Repo URL: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
