@@ -19,7 +19,6 @@ spec:
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2
-          # command: ["/bin/sh","-c"]
           command: 
           - /bin/sh
           - "-c"
@@ -27,7 +26,7 @@ spec:
             /bin/sh <<'EOF'
 
             caliper launch manager
-            echo "FINISHHHHHHHHHHH"
+            echo "Start pushing the generated report.html to the git repo..."
             ls /hyperledger/caliper/workspace/
             # git project access token
             git clone https://cli:jZ4Ncw8p_rmUPCQZmYQc@gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
@@ -42,16 +41,9 @@ spec:
             git add $DIR_NAME
             git commit -m "Report $NOW"
             git push -u origin master
-            sleep 120
+            echo "The generated report.html has been successfully pushed to the git repo..."
             exit 123
-
             EOF
-          # args: ["caliper launch manager; echo "FINISHHHHHHHHHHH"; ls /hyperledger/caliper/workspace/; sleep 120"]
-          # command:
-          #   - caliper
-          # args:
-          #   - launch
-          #   - manager
           tty: true
           workingDir: /hyperledger/caliper/workspace
           env:
