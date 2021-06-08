@@ -30,7 +30,7 @@ spec:
             ls /hyperledger/caliper/workspace/
             # Modify the git clone URL if needed follwing the structure https://cli:<project_access_token>@<repo_url>
             # Example of Repo URL: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
-            if [ -f /caliper-env/.env ]
+            if [ -f /caliper-report-git/.env ]
             then
               export $(cat .env | sed 's/#.*//g' | xargs)
               git clone https://cli:$PROJECT_ACCESS_TOKEN@$REPOSITORY_URL
@@ -113,14 +113,14 @@ spec:
               name: caliper-workspace
             - mountPath: /caliper-config
               name: caliper-config
-            - mountPath: /caliper-env
-              name: caliper-env
+            - mountPath: /caliper-report-git
+              name: caliper-report-git
       volumes:
         - name: caliper-workspace
           emptyDir: {}
-        - name: caliper-env
+        - name: caliper-report-git
           configMap:
-            name: caliper-env
+            name: caliper-report-git
         - name: caliper-benchmark
           configMap:
             name: benchmarks
