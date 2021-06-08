@@ -85,10 +85,12 @@ spec:
             - mountPath: /caliper-config
               name: caliper-config
       volumes:
+        # - name: caliper-workspace
+        #   hostPath:
+        #     path: /home/caliper-workspace
+        #     type: DirectoryOrCreate
         - name: caliper-workspace
-          hostPath:
-            path: /home/caliper-workspace
-            type: DirectoryOrCreate
+          emptyDir: {}
         - name: caliper-benchmark
           configMap:
             name: benchmarks
