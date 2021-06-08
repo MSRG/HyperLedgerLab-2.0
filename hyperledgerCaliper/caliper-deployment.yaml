@@ -26,10 +26,20 @@ spec:
           - |
             /bin/sh <<'EOF'
 
-            # Normal script content possible here
             caliper launch manager
             echo "FINISHHHHHHHHHHH"
             ls /hyperledger/caliper/workspace/
+            # git project access token
+            git clone https://cli:jZ4Ncw8p_rmUPCQZmYQc@gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
+            NOW_TIMESTAMP="$(date +'%s')"
+            NOW="$(date)"
+            DIR_NAME="report_$NOW_TIMESTAMP"
+            mkdir hyperledgerlab2-reports/$DIR_NAME
+            cp report.html hyperledgerlab2-reports/$DIR_NAME/
+            cd hyperledgerlab2-reports/
+            git add $DIR_NAME
+            git commit -m "Report $NOW"
+            git push -u origin master
             sleep 120
             exit 123
 
@@ -102,10 +112,6 @@ spec:
             - mountPath: /caliper-config
               name: caliper-config
       volumes:
-        # - name: caliper-workspace
-        #   hostPath:
-        #     path: /home/caliper-workspace
-        #     type: DirectoryOrCreate
         - name: caliper-workspace
           emptyDir: {}
         - name: caliper-benchmark
