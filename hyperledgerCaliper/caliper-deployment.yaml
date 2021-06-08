@@ -28,26 +28,36 @@ spec:
             caliper launch manager
             echo "Start pushing the generated report.html to the git repository..."
             ls /hyperledger/caliper/workspace/
+
+            # install yq if it does not exist
+            [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
+            
             # Modify the git clone URL if needed follwing the structure https://cli:<project_access_token>@<repo_url>
             # Example of Repo URL: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
-            if [ -f /caliper-report-git/.env ]
-            then
-              export $(cat .env | sed 's/#.*//g' | xargs)
-              git clone https://cli:$PROJECT_ACCESS_TOKEN@$REPOSITORY_URL
-              git config --global user.email "$GIT_USER_EMAIL" 
-              git config --global user.name "$GIT_USER_NAME" 
-              NOW_TIMESTAMP="$(date +'%s')"
-              NOW="$(date)"
-              DIR_NAME="report_$NOW_TIMESTAMP"
-              mkdir hyperledgerlab2-reports/$DIR_NAME
-              cp report.html hyperledgerlab2-reports/$DIR_NAME/
-              cd hyperledgerlab2-reports/
-              git add $DIR_NAME
-              git commit -m "Report $NOW"
-              git push -u origin master
-              echo "The generated report.html has been successfully pushed to the git repo..."
-            else 
-              echo "No git repository is defined to upload the report.html file."
+            
+            report_repo_yaml="/caliper-report-git/report-git-repository.yaml"
+            project_url=$(yq eval '.project | .url' "$report_repo_yaml")
+            project_access_token=$(yq eval '.project | .access_token' "$report_repo_yaml")
+            git_user_email=$(yq eval '.git_user | .email' "$report_repo_yaml")
+            git_user_name=$(yq eval '.git_user | .name' "$report_repo_yaml")
+            
+            if [ $project_access_token != "sample" ] 
+              then
+                git clone https://cli:$project_access_token@$project_url
+                git config --global user.email "$git_user_email" 
+                git config --global user.name "$git_user_name" 
+                NOW_TIMESTAMP="$(date +'%s')"
+                NOW="$(date)"
+                DIR_NAME="report_$NOW_TIMESTAMP"
+                mkdir hyperledgerlab2-reports/$DIR_NAME
+                cp report.html hyperledgerlab2-reports/$DIR_NAME/
+                cd hyperledgerlab2-reports/
+                git add $DIR_NAME
+                git commit -m "Report $NOW"
+                git push -u origin master
+                echo "The generated report.html has been successfully pushed to the git repo..."
+              else 
+                echo "ERROR: Please provide correct data in report-git-repository.yaml, in order to upload the generated report.html to the repository."
             fi
 
             exit 123
