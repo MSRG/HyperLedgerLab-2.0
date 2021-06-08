@@ -97,6 +97,12 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      Workload module and benchmark configuration are chaincode related configurations. Both files can be found in a folder with the respective chaincode name.
 
+   - Before running Hyperledger Caliper:
+
+     - Create a git repository where the generated report.html is kept.
+     - It is highly recommended to create project access token for the project.
+     - Make sure to edit the command
+
    - Run Hyperledger Caliper
 
      - Run command: `./script/caliper_run.sh <chaincode_folder> <network_configuration_folder>` e.g `./script/caliper_run.sh asset-transfer-basic tls`
@@ -109,6 +115,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      - Log into caliper manager pod to see the benchamrkig report using the command `kubectl logs -f <caliper_manager_pod_name>`.
        To get the caliper manager pod name you can use the command `kubectl get pods` to get the list of pods.
+     - Go the reports repo to The report is saved in a timestamped folder.
 
    - To delete Hyperledger caliper:
      - Run command: `./script/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
