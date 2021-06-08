@@ -31,6 +31,8 @@ spec:
             ls /hyperledger/caliper/workspace/
             # git project access token
             git clone https://cli:jZ4Ncw8p_rmUPCQZmYQc@gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
+            git config --global user.email "karim.abbes@tum.de"
+            git config --global user.name "Karim Abbes"
             NOW_TIMESTAMP="$(date +'%s')"
             NOW="$(date)"
             DIR_NAME="report_$NOW_TIMESTAMP"
