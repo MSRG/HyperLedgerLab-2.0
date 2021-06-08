@@ -46,7 +46,7 @@ spec:
             - name: CALIPER_BIND_ARGS
               value: "-g"
             - name: CALIPER_PROJECTCONFIG 
-              value: caliper-config
+              value: /caliper-config/caliper.yaml
             - name: CXXFLAGS
               value: "-Wno-cast-function-type"
             - name: CALIPER_WORKER_REMOTE
