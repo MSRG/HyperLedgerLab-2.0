@@ -32,6 +32,8 @@ kubectl create configmap network --from-file=./networks/$NETWORK_FOLDER_NAME
 
 kubectl create configmap caliper-config --from-file=./caliper.yaml
 
+kubectl create configmap caliper-config --from-file=./.env
+
 kubectl apply -f caliper-deployment.yaml 
 
 kubectl apply -f caliper-deployment-worker.yaml 

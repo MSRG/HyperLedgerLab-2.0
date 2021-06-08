@@ -28,20 +28,28 @@ spec:
             caliper launch manager
             echo "Start pushing the generated report.html to the git repo..."
             ls /hyperledger/caliper/workspace/
-            # git project access token
-            git clone https://cli:jZ4Ncw8p_rmUPCQZmYQc@gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
-            git config --global user.email "karim.abbes@tum.de"
-            git config --global user.name "Karim Abbes"
-            NOW_TIMESTAMP="$(date +'%s')"
-            NOW="$(date)"
-            DIR_NAME="report_$NOW_TIMESTAMP"
-            mkdir hyperledgerlab2-reports/$DIR_NAME
-            cp report.html hyperledgerlab2-reports/$DIR_NAME/
-            cd hyperledgerlab2-reports/
-            git add $DIR_NAME
-            git commit -m "Report $NOW"
-            git push -u origin master
-            echo "The generated report.html has been successfully pushed to the git repo..."
+            # Modify the git clone URL if needed follwing the structure https://cli:<project_access_token>@<repo_url>
+            # Example of Repo URL: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
+            if [ -f /caliper-env/.env ]
+            then
+              export $(cat .env | sed 's/#.*//g' | xargs)
+              git clone https://cli:$PROJECT_ACCESS_TOKEN@$REPOSITORY_URL
+              git config --global user.email "$GIT_USER_EMAIL" 
+              git config --global user.name "$GIT_USER_NAME" 
+              NOW_TIMESTAMP="$(date +'%s')"
+              NOW="$(date)"
+              DIR_NAME="report_$NOW_TIMESTAMP"
+              mkdir hyperledgerlab2-reports/$DIR_NAME
+              cp report.html hyperledgerlab2-reports/$DIR_NAME/
+              cd hyperledgerlab2-reports/
+              git add $DIR_NAME
+              git commit -m "Report $NOW"
+              git push -u origin master
+              echo "The generated report.html has been successfully pushed to the git repo..."
+            else 
+              echo "No git repository is defined to upload the report.html file."
+            fi
+
             exit 123
             EOF
           tty: true
@@ -105,9 +113,14 @@ spec:
               name: caliper-workspace
             - mountPath: /caliper-config
               name: caliper-config
+            - mountPath: /caliper-env
+              name: caliper-env
       volumes:
         - name: caliper-workspace
           emptyDir: {}
+        - name: caliper-env
+          configMap:
+            name: caliper-env
         - name: caliper-benchmark
           configMap:
             name: benchmarks
