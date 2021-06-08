@@ -26,6 +26,7 @@ spec:
             - launch
             - worker
           tty: true
+          workingDir: /hyperledger/caliper/workspace
           env:
             - name: CALIPER_BIND_SUT
               value: fabric:2.1
@@ -83,7 +84,6 @@ spec:
               name: caliper-workspace
             - mountPath: /caliper-config
               name: caliper-config
-      workingDir: /hyperledger/caliper/workspace
       volumes:
         - name: caliper-workspace
           hostPath:
