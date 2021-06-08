@@ -56,11 +56,11 @@ spec:
                 git commit -m "Report $NOW"
                 git push -u origin master
                 echo "The generated report.html has been successfully pushed to the git repo..."
+                exit 0
               else 
                 echo "ERROR: Please provide correct data in git.yaml, in order to upload the generated report.html to the repository."
+                exit 0
             fi
-
-            exit 123
             EOF
           tty: true
           workingDir: /hyperledger/caliper/workspace
