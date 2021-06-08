@@ -55,7 +55,6 @@ spec:
               value: "mqtt"
             - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
-
           volumeMounts:
             - mountPath: /etc/hyperledger/fabric/org1/peer-msp/
               name: peer-msp1
@@ -84,6 +83,7 @@ spec:
               name: caliper-workspace
             - mountPath: /caliper-config
               name: caliper-config
+      workingDir: /hyperledger/caliper/workspace
       volumes:
         - name: caliper-workspace
           hostPath:
