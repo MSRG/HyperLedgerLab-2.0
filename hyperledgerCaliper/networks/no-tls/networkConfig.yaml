@@ -53,7 +53,6 @@ organizations:
     mspid: Org1MSP
     peers:
       - peer0.org1
-      # - peer1.org1
     certificateAuthorities:
       - ca-Org1
     adminPrivateKey:
@@ -112,12 +111,6 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer0.org1
       hostnameOverride: peer0.org1
-      grpc.keepalive_time_ms: 600000
-  peer1.org1:
-    url: grpc://hlf-peer--org1--peer1:7051
-    grpcOptions:
-      ssl-target-name-override: peer1.org1
-      hostnameOverride: peer1.org1
       grpc.keepalive_time_ms: 600000
   peer0.org2:
     url: grpc://hlf-peer--org2--peer0:7051
