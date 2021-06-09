@@ -52,8 +52,8 @@ organizations:
   Org1:
     mspid: Org1MSP
     peers:
-      # - peer0.org1
-      - peer1.org1
+      - peer0.org1
+      # - peer1.org1
     certificateAuthorities:
       - ca-Org1
     adminPrivateKey:
