@@ -21,7 +21,6 @@ class MyWorkload extends WorkloadModuleBase {
                 contractFunction: 'CreateAsset',
                 invokerIdentity: 'client0.org1.example.com',
                 targetPeers: ['peer0.org1', 'peer0.org2'],
-                targetOrganizations: ['Org1', 'Org2'],
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
                 readOnly: false
             };
