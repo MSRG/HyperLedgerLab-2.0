@@ -113,6 +113,36 @@ peers:
       ssl-target-name-override: peer0.org1
       hostnameOverride: peer0.org1
       grpc.keepalive_time_ms: 600000
+  peer1.org1:
+    url: grpc://hlf-peer--org1--peer1:7051
+    grpcOptions:
+      ssl-target-name-override: peer1.org1
+      hostnameOverride: peer1.org1
+      grpc.keepalive_time_ms: 600000
+  peer2.org1:
+    url: grpc://hlf-peer--org1--peer2:7051
+    grpcOptions:
+      ssl-target-name-override: peer2.org1
+      hostnameOverride: peer2.org1
+      grpc.keepalive_time_ms: 600000
+  peer3.org1:
+    url: grpc://hlf-peer--org1--peer3:7051
+    grpcOptions:
+      ssl-target-name-override: peer3.org1
+      hostnameOverride: peer3.org1
+      grpc.keepalive_time_ms: 600000
+  peer4.org1:
+    url: grpc://hlf-peer--org1--peer4:7051
+    grpcOptions:
+      ssl-target-name-override: peer4.org1
+      hostnameOverride: peer4.org1
+      grpc.keepalive_time_ms: 600000
+  peer5.org1:
+    url: grpc://hlf-peer--org1--peer5:7051
+    grpcOptions:
+      ssl-target-name-override: peer5.org1
+      hostnameOverride: peer5.org1
+      grpc.keepalive_time_ms: 600000
   peer0.org2:
     url: grpc://hlf-peer--org2--peer0:7051
     grpcOptions:
