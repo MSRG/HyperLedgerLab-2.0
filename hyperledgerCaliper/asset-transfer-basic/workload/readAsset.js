@@ -20,6 +20,8 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'CreateAsset',
                 invokerIdentity: 'client0.org1.example.com',
+                targetPeers: ['peer0.org1'],
+                targetOrganizations: ['Org1'],
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
                 readOnly: false
             };
