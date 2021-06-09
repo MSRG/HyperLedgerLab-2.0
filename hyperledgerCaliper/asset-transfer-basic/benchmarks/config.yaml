@@ -6,11 +6,11 @@ test:
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      txNumber: 2500  
+      txNumber: 25  
       rateControl:
         type: fixed-rate
         opts:
-          tps: 2500
+          tps: 25
           # startingTps: 3000
           # transactionLoad: 10
       workload:
