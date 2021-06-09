@@ -31,7 +31,7 @@ clients:
       connection:
         timeout:
           peer:
-            endorser: 1000
+            endorser: 300
   client0.org2.example.com:
     client:
       organization: Org2
@@ -46,7 +46,7 @@ clients:
       connection:
         timeout:
           peer:
-            endorser: 1000
+            endorser: 300
 
 organizations:
   Org1:
