@@ -5,7 +5,7 @@ metadata:
     app: caliper-worker
   name: caliper-worker
 spec:
-  parallelism: 10
+  parallelism: 1
   backoffLimit: 2
   template:
     metadata:
