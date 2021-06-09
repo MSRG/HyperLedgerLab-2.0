@@ -93,14 +93,14 @@ spec:
             - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
           volumeMounts:
-            - mountPath: /etc/hyperledger/fabric/org1/peer-msp/
+            - mountPath: /etc/hyperledger/fabric/org1/msp/
               name: peer-msp1
-            - mountPath: /etc/hyperledger/fabric/org2/peer-msp/
+            - mountPath: /etc/hyperledger/fabric/org2/msp/
               name: peer-msp2
 
-            - mountPath: /etc/hyperledger/fabric/org1/msp/
+            - mountPath: /etc/hyperledger/fabric/org1/admin-msp/
               name: peer-admin-msp1
-            - mountPath: /etc/hyperledger/fabric/org2/msp/
+            - mountPath: /etc/hyperledger/fabric/org2/admin-msp/
               name: peer-admin-msp2
 
             - mountPath: /etc/hyperledger/fabric/ordorg1-tlsca
