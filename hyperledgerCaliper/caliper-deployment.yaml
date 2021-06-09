@@ -32,9 +32,6 @@ spec:
             # install yq if it does not exist
             [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz)
             
-            # Modify the git clone URL if needed follwing the structure https://cli:<project_access_token>@<repo_url>
-            # Example of Repo URL: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
-            
             report_repo_yaml="/caliper-report-git/git.yaml"
             project_url=$(./yq_linux_amd64 eval '.project | .url' "$report_repo_yaml")
             project_access_token=$(./yq_linux_amd64 eval '.project | .access_token' "$report_repo_yaml")
@@ -55,7 +52,7 @@ spec:
                 git add $DIR_NAME
                 git commit -m "Report $NOW"
                 git push -u origin master
-                echo "The generated report.html has been successfully pushed to the git repo..."
+                echo "The generated report.html has been successfully pushed to the git repository..."
                 exit 0
               else 
                 echo "ERROR: Please provide correct data in git.yaml, in order to upload the generated report.html to the repository."
