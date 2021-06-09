@@ -2,7 +2,7 @@ test:
   name: basic-contract-benchmark
   description: test benchmark
   workers:
-    number: 2
+    number: 4
   rounds:
     - label: readAsset
       description: Read asset benchmark
