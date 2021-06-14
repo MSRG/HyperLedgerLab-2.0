@@ -13,7 +13,6 @@ class MyWorkload extends WorkloadModuleBase {
         console.log(this.roundArguments);
         console.log('start');
         for (let i = 0; i < this.roundArguments.assets; i++) {
-            console.log('for loop');
             const assetID = `${this.workerIndex}_${i}`;
             console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
             const request = {
