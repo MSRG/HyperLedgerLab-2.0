@@ -2,6 +2,11 @@
 
 set -e
 
+DOCKER_CE_VERSION=5:20.10.7~3-0~ubuntu-focal
+DOCKER_CE_CLI_VERSION=5:20.10.7~3-0~ubuntu-focal
+FABRIC_VERSION=2.2.0
+FABRIC_CA_VERSION=1.5.0
+YQ_VERSION=v4.2.0
 TERRAFORM_VERSION=1.0.0
 KUBECTL_VERSION=v1.21.0
 HELM_VERSION=v3.0.0
@@ -32,6 +37,46 @@ sudo apt update
 sudo apt-get install --yes python3-pip
 sudo pip3 install -r kubespray/requirements.txt
 set +x
+
+# Install docker 
+if compgen -c | grep -q "^docker" >/dev/null; 
+    then
+        echo -e "docker already installed"
+    else
+        # Install packages to allow apt to use a repository over HTTPS
+        sudo apt-get install --yes apt-transport-https ca-certificates curl gnupg lsb-release
+        # Add Docker’s official GPG key
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        # set up the stable repository
+        echo \
+        "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        # Update the apt package index, and install a specific version of Docker Engine and containerd
+        sudo apt-get update
+        sudo apt-get install --yes docker-ce=$DOCKER_CE_VERSION docker-ce-cli=$DOCKER_CE_CLI_VERSION containerd.io
+fi
+
+# Install fabric binaries 
+if compgen -c | grep -q "^peer" >/dev/null; 
+    then
+        echo -e "Fabric binaries already installed"
+    else
+        # Download the Hyperledger Fabric docker images for the version specified
+        curl -sSL https://bit.ly/2ysbOFE | sudo bash -s -- $FABRIC_VERSION $FABRIC_CA_VERSION
+        # Move binary to path
+        sudo mv -v ./fabric-samples/bin/* /usr/local/bin/
+fi
+
+# Install yq
+if ! -f "/usr/local/bin/yq"; 
+    then
+        echo -e "yq already installed"
+    else
+        # Download yq
+        wget https://github.com/mikefarah/yq/releases/download/$YQ_VERSION/yq_linux_amd64.tar.gz -O - | tar xz
+        # Move binary to path
+        sudo mv yq_linux_amd64 /usr/local/bin/yq
+fi
 
 # Install Terraform
 if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null; 
