@@ -68,7 +68,7 @@ if compgen -c | grep -q "^peer" >/dev/null;
 fi
 
 # Install yq
-if ! -f "/usr/local/bin/yq"; 
+if -f "/usr/local/bin/yq"; 
     then
         echo -e "yq already installed"
     else
