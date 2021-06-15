@@ -1,5 +1,5 @@
 # your Kubernetes cluster name here
-cluster_name = "hl"
+cluster_name = "hlf"
 
 # list of availability zones available in your OpenStack cluster
 az_list = ["kvm-hdd"]
@@ -13,26 +13,14 @@ image = "kvm-ubuntu-focal"
 # user on the node (ex. core on Container Linux, ubuntu on Ubuntu, etc.)
 ssh_user = "ubuntu"
 
-# 0|1 bastion nodes
-number_of_bastions = 0
-
-# standalone etcds
-number_of_etcd = 0
-flavor_etcd = "4ae184b5-0a64-4c2b-8132-220910200a55" //m1.large
-# "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
-
 # masters
-number_of_k8s_masters= 1
-
-number_of_k8s_masters_no_floating_ip = 0
+number_of_k8s_masters_no_floating_ip= 1
 
 flavor_k8s_master = "4ae184b5-0a64-4c2b-8132-220910200a55" //m1.large 
 # "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
 
 # nodes
-number_of_k8s_nodes = 5
-
-number_of_k8s_nodes_no_floating_ip = 0
+number_of_k8s_nodes_no_floating_ip = 5
 
 flavor_k8s_node = "4ae184b5-0a64-4c2b-8132-220910200a55" //m1.large 
 # "3a079e8e-db5f-4782-97a1-13997d98d57f" //m1.medium 
