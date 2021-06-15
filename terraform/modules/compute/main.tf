@@ -197,6 +197,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   count             = var.number_of_k8s_masters
   availability_zone = element(var.az_list, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_master_name
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
@@ -244,6 +245,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_etcd" {
   count             = var.number_of_k8s_masters_no_etcd
   availability_zone = element(var.az_list, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_master_name
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
@@ -332,6 +334,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip" {
   count             = var.number_of_k8s_masters_no_floating_ip
   availability_zone = element(var.az_list, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_master_name
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
@@ -374,6 +377,7 @@ resource "openstack_compute_instance_v2" "k8s_master_no_floating_ip_no_etcd" {
   count             = var.number_of_k8s_masters_no_floating_ip_no_etcd
   availability_zone = element(var.az_list, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_master_name
   flavor_id         = var.flavor_k8s_master
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
@@ -416,6 +420,7 @@ resource "openstack_compute_instance_v2" "k8s_node" {
   count             = var.number_of_k8s_nodes
   availability_zone = element(var.az_list_node, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_node_name
   flavor_id         = var.flavor_k8s_node
   key_pair          = openstack_compute_keypair_v2.k8s.name
 
@@ -461,6 +466,7 @@ resource "openstack_compute_instance_v2" "k8s_node_no_floating_ip" {
   count             = var.number_of_k8s_nodes_no_floating_ip
   availability_zone = element(var.az_list_node, count.index)
   image_name        = var.image
+  flavor_name       = var.flavor_k8s_node_name
   flavor_id         = var.flavor_k8s_node
   key_pair          = openstack_compute_keypair_v2.k8s.name
 

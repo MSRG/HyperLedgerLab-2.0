@@ -66,4 +66,6 @@ module "compute" {
   use_server_groups                            = var.use_server_groups
   extra_sec_groups                             = var.extra_sec_groups
   extra_sec_groups_name                        = var.extra_sec_groups_name
+  flavor_k8s_node_name                         = var.flavor_k8s_node_name
+  flavor_k8s_master_name                       = var.flavor_k8s_master_name
 }

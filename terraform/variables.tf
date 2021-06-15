@@ -263,3 +263,13 @@ variable "extra_sec_groups" {
 variable "extra_sec_groups_name" {
   default = "custom"
 }
+
+variable "flavor_k8s_master_name" {
+  description = "Flavor name"
+  default     = ""
+}
+
+variable "flavor_k8s_node_name" {
+  description = "Flavor name"
+  default     = ""
+}
