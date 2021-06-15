@@ -37,7 +37,7 @@ class MyWorkload extends WorkloadModuleBase {
             // contractArguments: ['asset1'],
             timeout: 30,
             contractArguments: [`${this.workerIndex}_${randomId}`],
-            // targetPeers: ['peer0.org1', 'peer0.org2'],
+            targetPeers: ['peer0.org1', 'peer0.org2'],
             readOnly: true
         };
         await this.sutAdapter.sendRequests(myArgs);
@@ -53,6 +53,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'DeleteAsset',
                 invokerIdentity: 'client0.org1.example.com',
+                targetPeers: ['peer0.org1', 'peer0.org2'],
                 contractArguments: [assetID],
                 readOnly: false
             };
