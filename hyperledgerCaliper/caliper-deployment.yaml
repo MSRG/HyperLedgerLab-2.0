@@ -46,9 +46,10 @@ spec:
                 NOW_TIMESTAMP="$(date +'%s')"
                 NOW="$(date)"
                 DIR_NAME="report_$NOW_TIMESTAMP"
-                mkdir hyperledgerlab2-reports/$DIR_NAME
+                mkdir -p  hyperledgerlab2-reports/$DIR_NAME
                 cp report.html hyperledgerlab2-reports/$DIR_NAME/
                 cd hyperledgerlab2-reports/
+                git init
                 git add $DIR_NAME
                 git commit -m "Report $NOW"
                 git push -u origin master
