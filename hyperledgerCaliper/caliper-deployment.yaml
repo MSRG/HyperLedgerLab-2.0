@@ -16,6 +16,8 @@ spec:
         runAsGroup: 3000
         fsGroup: 2000
       restartPolicy: Never
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: caliper
           image: hyperledger/caliper:0.4.2

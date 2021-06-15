@@ -101,7 +101,8 @@ spec:
       {{- end }}{{- /* if-else antiAffinity.strict */ -}}
       {{- end }}{{- /* if peer count > 1 */ -}}
       {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
-
+      imagePullSecrets:
+        - name: regcred
       containers:
 
       # Orderer container

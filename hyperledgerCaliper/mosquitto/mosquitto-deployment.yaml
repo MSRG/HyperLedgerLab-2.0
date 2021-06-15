@@ -11,6 +11,8 @@ spec:
       labels:
         app: mosquitto
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: mosquitto
           image: eclipse-mosquitto:2.0

@@ -54,6 +54,10 @@ if compgen -c | grep -q "^docker" >/dev/null;
         # Update the apt package index, and install a specific version of Docker Engine and containerd
         sudo apt-get update
         sudo apt-get install --yes docker-ce=$DOCKER_CE_VERSION docker-ce-cli=$DOCKER_CE_CLI_VERSION containerd.io
+        
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        newgrp docker 
 fi
 
 # Install fabric binaries 
