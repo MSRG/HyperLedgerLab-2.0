@@ -35,11 +35,11 @@ variable "number_of_etcd" {
 }
 
 variable "number_of_k8s_masters_no_floating_ip" {
-  default = 1
+  default = 0
 }
 
 variable "number_of_k8s_masters_no_floating_ip_no_etcd" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_k8s_nodes" {
@@ -47,7 +47,7 @@ variable "number_of_k8s_nodes" {
 }
 
 variable "number_of_k8s_nodes_no_floating_ip" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_gfs_nodes_no_floating_ip" {
