@@ -15,7 +15,7 @@ variable "az_list_node" {
 }
 
 variable "network_id" {
-  default = "dd0e99f0-4112-458f-a30f-328b517ed627"
+  default = ""
 }
 
 variable "number_of_bastions" {
