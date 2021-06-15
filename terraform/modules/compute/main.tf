@@ -7,8 +7,7 @@ data "openstack_images_image_v2" "gfs_image" {
 }
 
 resource "openstack_compute_keypair_v2" "k8s" {
-  name       = "kubernetes-${var.cluster_name}"
-  public_key = chomp(file(var.public_key_path))
+  name = "kubernetes-${var.cluster_name}"
 }
 
 resource "openstack_networking_secgroup_v2" "k8s_master" {
