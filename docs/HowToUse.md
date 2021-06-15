@@ -14,12 +14,11 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
    - Security group rules needed to ssh into the CLI instance:
 
-     | Direction | IP Protocol | Ethertype | IP Range  | Port Range  | Remote Security Group |
-     | --------- | :---------: | :-------: | :-------: | :---------: | :-------------------: |
-     | Ingress   |     tcp     |   IPv4    | 0.0.0.0/0 |  22 (SSH)   |         None          |
-     | Egress    |     tcp     |   IPv4    | 0.0.0.0/0 |  80 (HTTP)  |         None          |
-     | Egress    |     tcp     |   IPv4    | 0.0.0.0/0 | 443 (HTTPS) |         None          |
-     | Egress    |     tcp     |   IPv4    | 0.0.0.0/0 |  53 (DNS)   |         None          |
+     | Direction | IP Protocol | Ethertype | IP Range  | Port Range | Remote Security Group |
+     | --------- | :---------: | :-------: | :-------: | :--------: | :-------------------: |
+     | Egress    |     any     |   IPv4    | 0.0.0.0/0 |            |         None          |
+     | Egress    |    icmp     |   IPv4    | 0.0.0.0/0 |            |         None          |
+     | Ingress   |     tcp     |   IPv4    | 0.0.0.0/0 |  22 (SSH)  |         None          |
 
    - No aditional security group rules is required. The security group creation for the Kubernetes cluster will be handled later by Terraform.
 

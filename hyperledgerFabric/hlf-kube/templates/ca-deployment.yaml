@@ -18,8 +18,7 @@ spec:
       - name: ca-tls
         secret:
           secretName: hlf-ca--{{ $org.Name | lower }}-tls
-      imagePullSecrets:
-        - name: regcred
+
       containers:
       - name: ca
         image: hyperledger/fabric-ca:{{ $.Values.caVersion }}
