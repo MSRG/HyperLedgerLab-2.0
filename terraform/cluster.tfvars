@@ -24,12 +24,12 @@ flavor_k8s_node_name = "m1.medium"
 
 
 # networking
-# network_id = "dd0e99f0-4112-458f-a30f-328b517ed627" NO NEED FOR IT ?
+#network_id = "dd0e99f0-4112-458f-a30f-328b517ed627" NO NEED FOR IT ?
 network_name = "cluster-net"
 
 subnet_cidr = "172.24.32.0/19"
 
-# k8s_allowed_remote_ips = ["0.0.0.0/0"]
+k8s_allowed_remote_ips = ["0.0.0.0/0"]
 
 
 
