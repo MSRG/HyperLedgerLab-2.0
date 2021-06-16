@@ -53,8 +53,7 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdOrg2MSP.admin')"
 
-  {{ $count := (.Values.fabric_num_orgs | int) }}
-  {{ range until $count }}
+  {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
     {{ $OrgMSP := "Org{{.}}MSP" }}
     - &Org{{.}}
       Name: {{ $OrgMSP }}
