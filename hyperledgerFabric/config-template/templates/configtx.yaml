@@ -60,9 +60,9 @@ Organizations:
       Name: {{ $OrgMSP }}
 
       # ID to load the MSP definition as
-      ID: Org{{$i}}MSP
+      ID: {{ $OrgMSP }}
 
-      MSPDir: crypto-config/peerOrganizations/org{{$i}}/msp
+      MSPDir: crypto-config/peerOrganizations/org{{.}}/msp
 
       # Policies defines the set of policies at this level of the config tree
       # For organization policies, their canonical path is usually
