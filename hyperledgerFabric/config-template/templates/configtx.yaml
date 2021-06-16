@@ -56,7 +56,7 @@ Organizations:
   {{ $count_orgs := (.Values.fabric_num_orgs | int) }}
   {{ range until $count_orgs }}
     {{ $OrgMSP := "Org{{.}}MSP" }}
-    - &Org{{$.}}
+    - &Org{{.}}
       Name: {{ $OrgMSP }}
 
       # ID to load the MSP definition as
@@ -85,7 +85,7 @@ Organizations:
         # AnchorPeers defines the location of peers which can be used
         # for cross org gossip communication.  Note, this value is only
         # encoded in the genesis block in the Application section context
-        - Host: peer0.org{{$.}}
+        - Host: peer0.org{{.}}
           Port: 7051
   {{ end }}
 
