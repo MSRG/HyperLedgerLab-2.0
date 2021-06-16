@@ -62,9 +62,9 @@ if compgen -c | grep -q "^peer" >/dev/null;
         echo -e "Fabric binaries already installed"
     else
         # Download the Hyperledger Fabric docker images for the version specified
-        curl -sSL https://bit.ly/2ysbOFE | sudo bash -s -- $FABRIC_VERSION $FABRIC_CA_VERSION
+        curl -sSL https://bit.ly/2ysbOFE | sudo bash -s -- $FABRIC_VERSION $FABRIC_CA_VERSION -d -s
         # Move binary to path
-        sudo mv -v ./fabric-samples/bin/* /usr/local/bin/
+        sudo mv -v ./bin/* /usr/local/bin/
 fi
 
 # Install yq
