@@ -13,7 +13,7 @@ PeerOrgs:
     Specs:
     {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
       - Hostname: orderer{{.}}
-    {{ end }}
+    {{- end }}
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
@@ -25,4 +25,4 @@ PeerOrgs:
     EnableNodeOUs: true
     Template:
       Count:  {{ $root.Values.fabric_peers_per_org }}
-{{ end }}
+{{- end }}
