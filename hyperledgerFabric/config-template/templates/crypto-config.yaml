@@ -27,7 +27,7 @@ PeerOrgs:
     Domain: org{{.}}
     EnableNodeOUs: true
     Template:
-      Count: {{ .Values.fabric_peers_per_org }}
+      Count:  {{ print .Values.fabric_peers_per_org  | quote }}
 {{ end }}
   - Name: Org1
     Domain: org1
