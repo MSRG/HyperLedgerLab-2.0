@@ -5,23 +5,19 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
+{{- $root := . -}}
+PeerOrgs:
   - Name: OrdOrg1
-    Domain: org1
+    Domain: {{ $root.Values.fabric_orderer_domain }}
     EnableNodeOUs: true
     Specs:
-      - Hostname: orderer0
-      - Hostname: orderer1
-
-  - Name: OrdOrg2
-    Domain: org2
-    EnableNodeOUs: true
-    Specs:
-      - Hostname: orderer0
+    {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
+      - Hostname: orderer{{.}}
+    {{ end }}
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
-{{- $root := . -}}
 PeerOrgs:
 {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
   - Name: Org{{.}}
@@ -30,18 +26,3 @@ PeerOrgs:
     Template:
       Count:  {{ $root.Values.fabric_peers_per_org }}
 {{ end }}
-  - Name: Org1
-    Domain: org1
-    EnableNodeOUs: true
-    Template:
-      Count: 1
-    Users:
-      Count: 1
-
-  - Name: Org2
-    Domain: org2
-    EnableNodeOUs: true
-    Template:
-      Count: 1
-    Users:
-      Count: 1
