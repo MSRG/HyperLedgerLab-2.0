@@ -22,6 +22,13 @@ OrdererOrgs:
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
 PeerOrgs:
+{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
+  - Name: Org{{.}}
+    Domain: org{{.}}
+    EnableNodeOUs: true
+    Template:
+      Count: (int .Values.fabric_peers_per_org)
+{{ end }}
   - Name: Org1
     Domain: org1
     EnableNodeOUs: true
