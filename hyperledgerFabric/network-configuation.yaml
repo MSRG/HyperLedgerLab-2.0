@@ -1,0 +1,32 @@
+## Provide fabric versions as defined here:
+fabric_version: 1.4.0
+fabric_ca_version: "{{ fabric_version }}"
+fabric_couchdb_version: 0.4.14
+
+# Fabric Network Config
+fabric_num_orgs: 2
+fabric_peers_per_org: 2
+fabric_num_orderer: 3
+fabric_orderer_domain: orgorderer1
+# Options for Orderer Consensus type: solo/kafka
+fabric_orderer_type: kafka
+fabric_num_kafka: 3
+fabric_num_zookeeper: 3
+# Batch Timeout: The amount of time to wait before creating a batch
+fabric_batch_timeout: "2s"
+# Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
+fabric_batchsize: ["100", "98 MB", "1024 KB"]
+
+# Create CLI Pod
+fabric_create_cli: false
+
+# Custom fabric container images
+fabric_images:
+  ca: "hyperledger/fabric-ca:{{ fabric_ca_version }}"
+  peer: "hyperledger/fabric-peer:{{ fabric_version }}"
+  tools: "hyperledger/fabric-tools:{{ fabric_version }}"
+  orderer: "hyperledger/fabric-orderer:{{ fabric_version }}"
+  couchdb: "hyperledger/fabric-couchdb:{{ fabric_couchdb_version }}"
+  kafka: "hyperledger/fabric-kafka:{{ fabric_couchdb_version }}"
+  zookeeper: "hyperledger/fabric-zookeeper:{{ fabric_couchdb_version }}"
+  dind: "docker:18.09-dind"

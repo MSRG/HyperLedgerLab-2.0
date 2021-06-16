@@ -19,7 +19,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      | Egress    |     tcp     |   IPv4    | 0.0.0.0/0 |    any     |         None          |
      | Ingress   |     tcp     |   IPv4    | 0.0.0.0/0 |  22 (SSH)  |         None          |
 
-   - To create a security group via the Openstack Dashboard, go the Compute/Access&Security then under "Security Groups" tab create a security group or modify the existing default security group. Next, you need to click on "MANAGE RULES" and add the rules in the table above.
+   - To create a security group via the Openstack Dashboard, go the Compute > Access&Security then under "Security Groups" tab create a security group or modify the existing default security group. Next, you need to click on "MANAGE RULES" and add the rules in the table above.
      - The first rule can be simply added by selecting "All TCP" under "Rule" and "Egress" under "Direction".
      - The second rule can be added by selecting "SSH" under "Rules".
    - No aditional security group rules is required. The security group creation for the Kubernetes cluster will be handled later by Terraform.
@@ -37,14 +37,16 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 4. Add OpenStack authentication details
 
    - Create `clouds.yaml` file under [./terraform](../terraform) folder using [./terraform/sample_clouds.yaml](./terraform/sample_clouds.yaml) as a template and fill it out with details about OpenStack authentication.
-   - Data that need to be changed are **username**, **password**, **project name** and **project id**. These data can be found in the OpenStack Dashboard under compute/Access&Security then "VIEW CRENDENTIALS".
+   - Data that need to be changed are **username**, **password**, **project name** and **project id**. These data can be found in the OpenStack Dashboard under Compute > Access&Security then "VIEW CRENDENTIALS".
 
 5. Provision infrastrucutre and setup a Kubernetes cluster
 
-   - Check or edit the infrastruce configuration in [./terraform/cluster.tfvars](../terraform/cluster.tfvars)
-   - Check or edit many Kubernetes configuations in [./terraform/inventory/group_vars](../terraform/inventory/group_vars)
+   - Check or edit the infrastructure configuration in [./terraform/cluster.tfvars](../terraform/cluster.tfvars)
+   - TODO add table of the variables in cluster.tfvars
+
    - Run Command: `./scripts/k8s_setup.sh `
-   - Workflow:
+   - Estimated execution time:
+   - Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
 
      - Installs the required tools
      - Provisions infractructure on OpenStack cluster using Terraform
