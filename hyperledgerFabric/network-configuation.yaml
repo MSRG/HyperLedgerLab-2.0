@@ -15,7 +15,7 @@ fabric_num_zookeeper: 3
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "2s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
-fabric_batchsize: ["100", "98 MB", "1024 KB"]
+fabric_batchsize: ["test KARIIIIIIIIIIIIM", "98 MB", "1024 KB"]
 
 # Create CLI Pod
 fabric_create_cli: false
