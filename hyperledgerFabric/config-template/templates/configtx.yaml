@@ -54,7 +54,7 @@ Organizations:
         Rule: "OR('OrdOrg2MSP.admin')"
 
 {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
-  {{- $OrgMSP := (printf "Org%sMSP" ({{.}} | toString)) }}
+  {{- $OrgMSP := (printf "Org%sMSP" ($. | toString)) }}
   - &Org{{.}}
     Name: {{ $OrgMSP }}
 
