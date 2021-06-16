@@ -16,15 +16,14 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      | Direction | IP Protocol | Ethertype | IP Range  | Port Range | Remote Security Group |
      | --------- | :---------: | :-------: | :-------: | :--------: | :-------------------: |
-     | Egress    |     any     |   IPv4    | 0.0.0.0/0 |            |         None          |
-     | Egress    |    icmp     |   IPv4    | 0.0.0.0/0 |            |         None          |
+     | Egress    |     tcp     |   IPv4    | 0.0.0.0/0 |    any     |         None          |
      | Ingress   |     tcp     |   IPv4    | 0.0.0.0/0 |  22 (SSH)  |         None          |
 
+   - To create a security group via the Openstack Dashboard, go the Compute/Access&Security then under "Security Groups" tab create a security group or modify the existing default security group. Next, you need to click on "MANAGE RULES" and add the rules in the table above.
+     - The first rule can be simply added by selecting "All TCP" under "Rule" and "Egress" under "Direction".
+     - The second rule can be added by selecting "SSH" under "Rules".
    - No aditional security group rules is required. The security group creation for the Kubernetes cluster will be handled later by Terraform.
 
-   - From the host machine, we want to copy the key pair to CLI, the latter will be used later to provision Kubernetes instances.
-     - `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa`
-     - `scp -i ~/.ssh/id_rsa ~/.ssh/id_rsa.pub ubuntu@<instance_ip>:/home/ubuntu/.ssh/id_rsa.pub`
    - From now on, all the commands are executed from CLI
      - `ssh -i ~/.ssh/id_rsa ubuntu@<instance_ip>`
 
@@ -37,8 +36,8 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
 4. Add OpenStack authentication details
 
-   - Create `clouds.yaml` file under [./terraform](../terraform) folder following [./terraform/sample_clouds.yaml](./terraform/sample_clouds.yaml) and fill it out with details about OpenStack authentication.
-     - PS: if you change the by default cloud name "mycloud", then change it also in [versions.tf](versions.tf)
+   - Create `clouds.yaml` file under [./terraform](../terraform) folder using [./terraform/sample_clouds.yaml](./terraform/sample_clouds.yaml) as a template and fill it out with details about OpenStack authentication.
+   - Data that need to be changed are **username**, **password**, **project name** and **project id**. These data can be found in the OpenStack Dashboard under compute/Access&Security then "VIEW CRENDENTIALS".
 
 5. Provision infrastrucutre and setup a Kubernetes cluster
 
