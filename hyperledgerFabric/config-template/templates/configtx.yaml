@@ -7,7 +7,7 @@
 #   be referenced later in the configuration.
 #
 ################################################################################
-Organizations:
+Organizations:  
   - &OrdOrg1
     Name: OrdOrg1MSP
 
@@ -52,6 +52,40 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('OrdOrg2MSP.admin')"
+
+  {{range $i, $e := until .Values.fabric_num_orgs}}
+  - &Org{{$i}}
+    Name: Org{{$i}}MSP
+
+    # ID to load the MSP definition as
+    ID: Org{{$i}}MSP
+
+    MSPDir: crypto-config/peerOrganizations/org{{$i}}/msp
+
+    # Policies defines the set of policies at this level of the config tree
+    # For organization policies, their canonical path is usually
+    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('Org{{$i}}MSP.admin', 'Org{{$i}}MSP.peer', 'Org{{$i}}MSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('Org{{$i}}MSP.admin', 'Org{{$i}}MSP.client', 'Org{{$i}}MSP.peer')"
+      Admins:
+        Type: Signature
+        Rule: "OR('Org{{$i}}MSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('Org{{$i}}MSP.peer','Org{{$i}}MSP.admin')"
+
+    AnchorPeers:
+      # AnchorPeers defines the location of peers which can be used
+      # for cross org gossip communication.  Note, this value is only
+      # encoded in the genesis block in the Application section context
+      - Host: peer0.org{{$i}}
+        Port: 7051
+  {{end}}
 
   - &Org1
     Name: Org1MSP
