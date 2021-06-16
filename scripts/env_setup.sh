@@ -38,6 +38,9 @@ sudo apt-get install --yes python3-pip
 sudo pip3 install -r kubespray/requirements.txt
 set +x
 
+# Generates keys if do not exist.
+ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<<n
+
 # Install docker 
 if compgen -c | grep -q "^docker" >/dev/null; 
     then
