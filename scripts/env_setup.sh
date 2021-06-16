@@ -39,7 +39,13 @@ sudo pip3 install -r kubespray/requirements.txt
 set +x
 
 # Generates keys if do not exist.
-ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa <<<n
+if test -f "/home/ubuntu/.ssh/id_rsa"; 
+    then
+        echo -e "keys already exist."
+    else
+        ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa 
+fi
+
 
 # Install docker 
 if compgen -c | grep -q "^docker" >/dev/null; 
@@ -71,7 +77,7 @@ if compgen -c | grep -q "^peer" >/dev/null;
 fi
 
 # Install yq
-if -f "/usr/local/bin/yq"; 
+if test -f "/usr/local/bin/yq"; 
     then
         echo -e "yq already installed"
     else
