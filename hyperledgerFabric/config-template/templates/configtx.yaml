@@ -53,39 +53,41 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdOrg2MSP.admin')"
 
-  {{range $i, $e := until .Values.fabric_num_orgs}}
-  - &Org{{$i}}
-    Name: Org{{$i}}MSP
+  {{ $count_orgs := (.Values.fabric_num_orgs | int) }}
+  {{ range until $count_orgs }}
+    {{ $OrgMSP := "Org{{.}}MSP" }}
+    - &Org{{$.}}
+      Name: {{ $OrgMSP }}
 
-    # ID to load the MSP definition as
-    ID: Org{{$i}}MSP
+      # ID to load the MSP definition as
+      ID: Org{{$i}}MSP
 
-    MSPDir: crypto-config/peerOrganizations/org{{$i}}/msp
+      MSPDir: crypto-config/peerOrganizations/org{{$i}}/msp
 
-    # Policies defines the set of policies at this level of the config tree
-    # For organization policies, their canonical path is usually
-    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('Org{{$i}}MSP.admin', 'Org{{$i}}MSP.peer', 'Org{{$i}}MSP.client')"
-      Writers:
-        Type: Signature
-        Rule: "OR('Org{{$i}}MSP.admin', 'Org{{$i}}MSP.client', 'Org{{$i}}MSP.peer')"
-      Admins:
-        Type: Signature
-        Rule: "OR('Org{{$i}}MSP.admin')"
-      Endorsement:
-        Type: Signature
-        Rule: "OR('Org{{$i}}MSP.peer','Org{{$i}}MSP.admin')"
+      # Policies defines the set of policies at this level of the config tree
+      # For organization policies, their canonical path is usually
+      #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+      Policies:
+        Readers:
+          Type: Signature
+          Rule: "OR('{{ $OrgMSP }}.admin', '{{ $OrgMSP }}.peer', '{{ $OrgMSP }}.client')"
+        Writers:
+          Type: Signature
+          Rule: "OR('{{ $OrgMSP }}.admin', '{{ $OrgMSP }}.client', '{{ $OrgMSP }}.peer')"
+        Admins:
+          Type: Signature
+          Rule: "OR('{{ $OrgMSP }}.admin')"
+        Endorsement:
+          Type: Signature
+          Rule: "OR('{{ $OrgMSP }}.peer','{{ $OrgMSP }}.admin')"
 
-    AnchorPeers:
-      # AnchorPeers defines the location of peers which can be used
-      # for cross org gossip communication.  Note, this value is only
-      # encoded in the genesis block in the Application section context
-      - Host: peer0.org{{$i}}
-        Port: 7051
-  {{end}}
+      AnchorPeers:
+        # AnchorPeers defines the location of peers which can be used
+        # for cross org gossip communication.  Note, this value is only
+        # encoded in the genesis block in the Application section context
+        - Host: peer0.org{{$.}}
+          Port: 7051
+  {{ end }}
 
   - &Org1
     Name: Org1MSP
