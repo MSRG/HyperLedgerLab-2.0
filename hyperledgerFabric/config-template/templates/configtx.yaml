@@ -9,13 +9,13 @@
 ################################################################################
 Organizations:  
   - &OrdOrg1
-    Name: OrdOrg1MSP
+    Name: OrdOrgMSP
 
     # ID to load the MSP definition as
-    ID: OrdOrg1MSP
+    ID: OrdOrgMSP
 
     # MSPDir is the filesystem path which contains the MSP configuration
-    MSPDir: crypto-config/ordererOrganizations/org1/msp
+    MSPDir: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/msp
 
     # Policies defines the set of policies at this level of the config tree
     # For organization policies, their canonical path is usually
@@ -23,35 +23,13 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('OrdOrg1MSP.member')"
+        Rule: "OR('OrdOrgMSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('OrdOrg1MSP.member')"
+        Rule: "OR('OrdOrgMSP.member')"
       Admins:
         Type: Signature
-        Rule: "OR('OrdOrg1MSP.admin')"
-
-  - &OrdOrg2
-    Name: OrdOrg2MSP
-
-    # ID to load the MSP definition as
-    ID: OrdOrg2MSP
-
-    MSPDir: crypto-config/ordererOrganizations/org2/msp
-
-    # Policies defines the set of policies at this level of the config tree
-    # For organization policies, their canonical path is usually
-    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.member')"
-      Writers:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.member')"
-      Admins:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.admin')"
+        Rule: "OR('OrdOrgMSP.admin')"
 
 {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
   {{- $OrgMSP := (printf "Org%sMSP" ( . | toString)) }}
@@ -333,23 +311,13 @@ Profiles:
       <<: *OrdererDefaults
       Organizations:
         - *OrdOrg1
-        - *OrdOrg2
-    # Consortiums: 
-    #     TheConsortium:
-    #         Organizations:
-    #         - *Org1
-    #         - *Org2
 
     Consortiums:
       TheConsortium:
         Organizations:
-          - *Org1
-          - *Org2
-      #         - *Org3
-
-      # SecondConsortium:
-      #     Organizations:
-      #         - *Org1
+        {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
+          - *Org{{.}}
+        {{- end }}
 
   mychannel:
     Consortium: TheConsortium
@@ -357,15 +325,6 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-        - *Org1
-        - *Org2
-        # - *Org3
-
-  # private-org1-org3:
-  #     Consortium: TheConsortium
-  #     <<: *ChannelDefaults
-  #     Application:
-  #         <<: *ApplicationDefaults
-  #         Organizations:
-  #             - *Org1
-  #             - *Org3
+        {{- range untilStep 1 (int .Values.fabric_num_orgs) 1 }}
+          - *Org{{.}}
+        {{- end }}
