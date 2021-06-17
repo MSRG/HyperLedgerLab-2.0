@@ -4,9 +4,9 @@ fabric_ca_version: "{{ fabric_version }}"
 fabric_couchdb_version: 0.4.14
 
 # Fabric Network Config
-fabric_num_orgs: 2
+fabric_num_orgs: 5
 fabric_peers_per_org: 2
-fabric_num_orderer: 30
+fabric_num_orderer: 3
 fabric_orderer_domain: orgorderer1
 # Options for Orderer Consensus type: solo/kafka
 fabric_orderer_type: kafka
