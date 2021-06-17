@@ -120,3 +120,10 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
    - To delete Hyperledger caliper:
      - Run command: `./script/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
+
+## **Common Errors**
+
+- The connection to the server 172.24.35.65:6443 was refused - did you specify the right host or port?
+
+fo to terraform
+ansible-playbook -i hosts ../playbook.yaml

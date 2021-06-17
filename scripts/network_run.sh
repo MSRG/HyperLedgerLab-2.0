@@ -14,14 +14,20 @@ FOLDER_NAME="config/templates"
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
 
+# Create config files using helm template
+echo "-- creating config files --"
 helm template config-template/ -f network-configuation.yaml --output-dir .
 
+# create necessary stuff: crypto-config files, channel-artifacts and chaincode compression 
 ./init.sh ./$FOLDER_NAME/ ./chaincode/
 
+# Luanch the Raft based Fabric network in broken state
 helm install hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml --set peer.launchPods=false --set orderer.launchPods=false 
 
+# Collect the host aliases
 ./collect_host_aliases.sh ./$FOLDER_NAME/
 
+# Update the network with host aliases
 helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml 
 
 # Check if pods exist and running
