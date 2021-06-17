@@ -43,7 +43,7 @@ channels:                   # List of channel objects
         contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
         path: "contract/fabcar/go/"      # NOTE: Path to Directory where chaincode file is located
         metadataPath: ""
-        language: golang
+        language: node
         version: v1
   # - name: "mySecondchannel"
   #   # created: false          # Update this value to true if channel is already created
@@ -52,7 +52,7 @@ channels:                   # List of channel objects
   #       contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
   #       path: "contract/fabcar/go/"      # NOTE: Path to Directory where chaincode file is located
   #       metadataPath: ""
-  #       language: node
+  #       language: golang
   #       version: v1
 
 # Config Directories
