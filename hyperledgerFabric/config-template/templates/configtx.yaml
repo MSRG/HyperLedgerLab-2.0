@@ -9,10 +9,10 @@
 ################################################################################
 Organizations:  
   - &OrdOrg1
-    Name: OrdOrgMSP
+    Name: OrdOrg1MSP
 
     # ID to load the MSP definition as
-    ID: OrdOrgMSP
+    ID: OrdOrg1MSP
 
     # MSPDir is the filesystem path which contains the MSP configuration
     MSPDir: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/msp
@@ -23,13 +23,13 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('OrdOrgMSP.member')"
+        Rule: "OR('OrdOrg1MSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('OrdOrgMSP.member')"
+        Rule: "OR('OrdOrg1MSP.member')"
       Admins:
         Type: Signature
-        Rule: "OR('OrdOrgMSP.admin')"
+        Rule: "OR('OrdOrg1MSP.admin')"
 
 {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
   {{- $OrgMSP := (printf "Org%sMSP" ( . | toString)) }}

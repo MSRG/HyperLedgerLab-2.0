@@ -6,7 +6,6 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
 {{- $root := . -}}
-PeerOrgs:
   - Name: OrdOrg1
     Domain: {{ $root.Values.fabric_orderer_domain }}
     EnableNodeOUs: true
