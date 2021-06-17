@@ -8,6 +8,9 @@
 FOLDER_NAME=$1
 if [ ! -d  $1 ] ; then
     FOLDER_NAME="config/templates"
+    # Create config files using helm template
+    echo "-- creating config files --"
+    helm template config-template/ -f network-configuation.yaml --output-dir .
 fi
 
 # Deleting existing network
@@ -17,9 +20,7 @@ helm delete hlf-kube
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
 
-# Create config files using helm template
-echo "-- creating config files --"
-helm template config-template/ -f network-configuation.yaml --output-dir .
+
 
 # create necessary stuff: crypto-config files, channel-artifacts and chaincode compression 
 ./init.sh ./$FOLDER_NAME/ ./chaincode/
