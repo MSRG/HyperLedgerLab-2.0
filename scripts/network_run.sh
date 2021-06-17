@@ -5,11 +5,10 @@
 #     exit 2
 # fi
 
-FOLDER_NAME="config/templates"
-# if [ ! -d  $FOLDER_NAME ] ; then
-#     echo "Invalid network folder name"
-#     exit 0
-# fi
+FOLDER_NAME=$1
+if [ ! -d  $1 ] ; then
+    FOLDER_NAME="config/templates"
+fi
 
 # Deleting existing network
 argo delete --all
