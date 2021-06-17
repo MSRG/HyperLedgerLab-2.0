@@ -17,6 +17,8 @@ fabric_batch_timeout: "2s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
 fabric_batchsize: ["100", "98 MB", "1024 KB"]
 
+fabric_tls_enabled: true 
+
 # Create CLI Pod
 fabric_create_cli: false
 

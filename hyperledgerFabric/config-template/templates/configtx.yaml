@@ -175,7 +175,7 @@ Orderer: &OrdererDefaults
   OrdererType: etcdraft
 
   Addresses:
-    - orderer0.org1:7050
+    - orderer0.{{.Values.fabric_orderer_domain}}:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout:  {{ .Values.fabric_batch_timeout }}
@@ -196,18 +196,13 @@ Orderer: &OrdererDefaults
 
   EtcdRaft:
     Consenters:
-      - Host: orderer0.org1
-        Port: 7059
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-      - Host: orderer1.org1
-        Port: 7059
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-      - Host: orderer0.org2
-        Port: 7059
-        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+    {{- $root := . -}}
+    {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
+      - Host: orderer{{.}}.{{.Values.fabric_orderer_domain}}
+        Port: {{- $env := ternary $root.Values.fabric_tls_enabled 7050 7059 -}}
+        ClientTLSCert: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{.Values.fabric_orderer_domain}}/tls/server.crt
+        ServerTLSCert: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{.Values.fabric_orderer_domain}}/tls/server.crt
+    {{- end }}
 
     # Options to be specified for all the etcd/raft nodes. The values here
     # are the defaults for all new channels and can be modified on a
