@@ -199,7 +199,7 @@ Orderer: &OrdererDefaults
     {{- $root := . -}}
     {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
       - Host: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
-        Port: {{- ternary 7050 7059 $root.Values.fabric_tls_enabled -}}
+        Port: {{- ternary 7050 7059 $root.Values.fabric_tls_enabled }}
         ClientTLSCert: crypto-config/ordererOrganizations/{{$root.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{$root.Values.fabric_orderer_domain}}/tls/server.crt
         ServerTLSCert: crypto-config/ordererOrganizations/{{$root.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{$root.Values.fabric_orderer_domain}}/tls/server.crt
     {{ end }}
