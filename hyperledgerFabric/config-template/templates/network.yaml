@@ -1,4 +1,4 @@
-tlsEnabled: false
+tlsEnabled: {{.Values.fabric_tls_enabled}}
 useActualDomains: true
 orderer:
   cluster:
@@ -12,24 +12,25 @@ network:
 
   # defines which organizations will join to which channels
   channels:
-    - name: mychannel
-      # all peers in these organizations will join the channel
-      # orgs: [Org1, Org2, Org3]
-      orgs: [Org1, Org2]
-    # - name: private-org1-org3
-    #   # all peers in these organizations will join the channel
-    #   orgs: [Org1, Org3]
+  {{- range $channel := .Values.channels }}
+    - name: {{ $channel.name }}
+    # all peers in these organizations will join the channel
+      orgs: [{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
+  {{- end }}
 
   # defines which chaincodes will be installed to which organizations
   chaincodes:
-    # - name: asset-transfer-basic
-    - name: asset-transfer-basic
-      # if defined, this will override the global chaincode.language value
-      language: node
-      # orgs: [Org1, Org3]
-      orgs: [Org1, Org2]
+  {{- range $channel := .Values.channels }}
+    {{- range $chaincode := $channel.chaincodes }}
+    - name: {{ $channel.id }}
+      language: {{ $channel.language }}
+      orgs: [{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
       channels:
-        - name: mychannel
-          orgs: [Org1, Org2]
-          policy: OR ('Org1MSP.member','Org2MSP.member')
-          # policy: OR('Org1MSP.member','Org3MSP.member')
+        - name: {{ $channel.name }}
+          orgs: [{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
+          policy: OR ({{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} 'Org{{.}}MSP.member', {{- end }})
+    {{- end }}
+    - name: {{ $channel.name }}
+    # all peers in these organizations will join the channel
+      orgs: [{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
+  {{- end }}

@@ -16,11 +16,8 @@ fabric_num_zookeeper: 3
 fabric_batch_timeout: "2s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
 fabric_batchsize: ["100", "98 MB", "1024 KB"]
-
+# Enable tls globally in the network
 fabric_tls_enabled: true 
-
-# Create CLI Pod
-fabric_create_cli: false
 
 # Custom fabric container images
 fabric_images:
@@ -32,3 +29,44 @@ fabric_images:
   kafka: "hyperledger/fabric-kafka:{{ fabric_couchdb_version }}"
   zookeeper: "hyperledger/fabric-zookeeper:{{ fabric_couchdb_version }}"
   dind: "docker:18.09-dind"
+
+# Fabric Configuration
+# state_db options couchdb / goleveldb
+# fabric_state_db: goleveldb
+
+# Channel configuration
+channels:                   # List of channel objects
+  - name: "mychannel"
+    # created: false          # Update this value to true if channel is already created
+    chaincodes:
+      - id: fabcar
+        contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
+        path: "contract/fabcar/go/"      # NOTE: Path to Directory where chaincode file is located
+        metadataPath: ""
+        language: golang
+        version: v1
+
+# Config Directories
+fabric_config_dirname: fabric-config
+fabric_config_dir: "{{ inventory_dir }}/{{ fabric_config_dirname }}"
+crypto_config_dirname: crypto-config
+crpto_config_dir: "{{ fabric_config_dir }}/{{ crypto_config_dirname }}"
+channel_artifacts_dirname: channel-artifacts
+channel_artifacts_dir: "{{ fabric_config_dir }}/{{ channel_artifacts_dirname }}"
+contract_dirname: "contract"
+contract_dir: "{{ inventory_dir }}/src/contract"
+templates_dirname: templates
+templates_dir: "{{ fabric_config_dir }}/{{ templates_dirname }}"
+cryptogen_config: "{{ fabric_config_dir }}/crypto-config.yaml"
+
+# Logging Level:
+fabric_cli_loglevel: "DEBUG"
+fabric_peer_loglevel: "DEBUG"
+fabric_orderer_loglevel: "DEBUG"
+
+# Dynamic Variables
+nfs_server_ip: "{{ groups['kube-nfs'][0] }}"
+nfs_server_mount_dir: "/opt/share"
+
+# kubernetes kubectl command
+k8s_kubectl_cmd: "{{ lookup('env', 'INVENTORY_DIR_PATH') }}/cluster/artifacts/kubectl --kubeconfig={{ lookup('env', 'INVENTORY_DIR_PATH') }}/cluster/artifacts/admin.conf"
