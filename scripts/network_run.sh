@@ -5,15 +5,16 @@ if [[ $# -eq 0 ]] ; then
     exit 2
 fi
 
-FOLDER_NAME="$1"
+FOLDER_NAME="config/templates"
+# if [ ! -d  $FOLDER_NAME ] ; then
+#     echo "Invalid network folder name"
+#     exit 0
+# fi
 
 # Go to hyperledgerFabric folder
 cd `dirname $0`/../hyperledgerFabric
 
-if [ ! -d  $FOLDER_NAME ] ; then
-    echo "Invalid network folder name"
-    exit 0
-fi
+helm template config-template/ -f network-configuation.yaml --output-dir .
 
 ./init.sh ./$FOLDER_NAME/ ./chaincode/
 
