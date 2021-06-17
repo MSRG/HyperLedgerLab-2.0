@@ -5,7 +5,7 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-{{- $root := . -}}
+{{- $root := . }}
   - Name: OrdOrg1
     Domain: {{ $root.Values.fabric_orderer_domain }}
     EnableNodeOUs: true
