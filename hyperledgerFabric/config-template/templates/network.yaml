@@ -16,7 +16,7 @@ network:
   {{- range $channel := .Values.channels }}
     - name: {{ $channel.name }}
     # all peers in these organizations will join the channel
-      orgs: [{{- range untilStep 1 (add (int $root.Values.fabric_num_orgs) 1) 1 -}} Org{{.}}, {{- end }}]
+      orgs: [{{- range until (int $root.Values.fabric_num_orgs) -}} Org{{.}}, {{- end }}]
   {{- end }}
 
   # defines which chaincodes will be installed to which organizations
@@ -26,10 +26,10 @@ network:
     {{- range $chaincode := $channel.chaincodes }}
     - name: {{ $channel.id }}
       language: {{ $channel.language }}
-      orgs: [{{- range untilStep 1 (add (int $root.Values.fabric_num_orgs) 1) 1 -}} Org{{.}}, {{- end }}]
+      orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
       channels:
         - name: {{ $channel.name }}
-          orgs: [{{- range untilStep 1 (add (int $root.Values.fabric_num_orgs) 1) 1 -}} Org{{.}}, {{- end }}]
-          policy: OR ({{- range untilStep 1 (add (int $root.Values.fabric_num_orgs) 1) 1 -}} 'Org{{.}}MSP.member', {{- end }})
+          orgs: [{{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
+          policy: OR ({{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} 'Org{{.}}MSP.member', {{- end }})
     {{- end }}
   {{- end }}
