@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 0 ]] ; then
-    echo "usage: network_run.sh <configuration_folder>" 
-    exit 2
-fi
+# if [[ $# -eq 0 ]] ; then
+#     echo "usage: network_run.sh <configuration_folder>" 
+#     exit 2
+# fi
 
 FOLDER_NAME="config/templates"
 # if [ ! -d  $FOLDER_NAME ] ; then
