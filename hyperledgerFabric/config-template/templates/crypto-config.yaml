@@ -11,7 +11,7 @@ PeerOrgs:
     Domain: {{ $root.Values.fabric_orderer_domain }}
     EnableNodeOUs: true
     Specs:
-    {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
+    {{- range untilStep 0 (int .Values.fabric_num_orderer) 1 }}
       - Hostname: orderer{{.}}
     {{- end }}
 
