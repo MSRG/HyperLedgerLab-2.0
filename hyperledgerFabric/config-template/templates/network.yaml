@@ -32,7 +32,4 @@ network:
           orgs: [{{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
           policy: OR ({{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} 'Org{{.}}MSP.member', {{- end }})
     {{- end }}
-    - name: {{ $channel.name }}
-    # all peers in these organizations will join the channel
-      orgs: [{{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
   {{- end }}
