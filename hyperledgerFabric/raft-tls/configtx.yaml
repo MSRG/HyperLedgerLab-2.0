@@ -15,7 +15,7 @@ Organizations:
     ID: OrdOrg1MSP
 
     # MSPDir is the filesystem path which contains the MSP configuration
-    MSPDir: crypto-config/ordererOrganizations/org1/msp
+    MSPDir: crypto-config/ordererOrganizations/selem/msp
 
     # Policies defines the set of policies at this level of the config tree
     # For organization policies, their canonical path is usually
@@ -30,28 +30,6 @@ Organizations:
       Admins:
         Type: Signature
         Rule: "OR('OrdOrg1MSP.admin')"
-
-  - &OrdOrg2
-    Name: OrdOrg2MSP
-
-    # ID to load the MSP definition as
-    ID: OrdOrg2MSP
-
-    MSPDir: crypto-config/ordererOrganizations/org2/msp
-
-    # Policies defines the set of policies at this level of the config tree
-    # For organization policies, their canonical path is usually
-    #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.member')"
-      Writers:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.member')"
-      Admins:
-        Type: Signature
-        Rule: "OR('OrdOrg2MSP.admin')"
 
   - &Org1
     Name: Org1MSP
@@ -264,7 +242,7 @@ Orderer: &OrdererDefaults
   OrdererType: etcdraft
 
   Addresses:
-    - orderer0.org1:7050
+    - orderer0.selem:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 2s
@@ -285,18 +263,14 @@ Orderer: &OrdererDefaults
 
   EtcdRaft:
     Consenters:
-      - Host: orderer0.org1
+      - Host: orderer0.selem
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer0.org1/tls/server.crt
-      - Host: orderer1.org1
+        ClientTLSCert: crypto-config/ordererOrganizations/selem/orderers/orderer0.selem/tls/server.crt
+        ServerTLSCert: crypto-config/ordererOrganizations/selem/orderers/orderer0.selem/tls/server.crt
+      - Host: orderer1.selem
         Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org1/orderers/orderer1.org1/tls/server.crt
-      - Host: orderer0.org2
-        Port: 7050
-        ClientTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/org2/orderers/orderer0.org2/tls/server.crt
+        ClientTLSCert: crypto-config/ordererOrganizations/selem/orderers/orderer1.selem/tls/server.crt
+        ServerTLSCert: crypto-config/ordererOrganizations/selem/orderers/orderer1.selem/tls/server.crt
 
     # Options to be specified for all the etcd/raft nodes. The values here
     # are the defaults for all new channels and can be modified on a
@@ -400,7 +374,6 @@ Profiles:
       <<: *OrdererDefaults
       Organizations:
         - *OrdOrg1
-        - *OrdOrg2
 
     Consortiums:
       TheConsortium:
