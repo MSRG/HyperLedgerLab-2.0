@@ -248,6 +248,8 @@ spec:
       image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
       command: [sh]
       source: |
+          set -x
+          
           # verify if chaincode is already installed to peer
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
           echo $result
@@ -277,7 +279,8 @@ spec:
             peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
             peer lifecycle chaincode install /chaincode/{{ $chaincode.name }}.tar.gz
           {{- end }}
-
+          
+          set +x
       volumeMounts:
         - mountPath: /etc/hyperledger/fabric/tls/
           name: peer-{{ $org.Name | lower }}-{{ $peer | lower }}-tls
