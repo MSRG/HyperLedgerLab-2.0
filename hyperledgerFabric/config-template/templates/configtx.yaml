@@ -200,8 +200,8 @@ Orderer: &OrdererDefaults
     {{- range untilStep 1 (int .Values.fabric_num_orderer) 1 }}
       - Host: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
         Port: {{- $env := ternary 7050 7059 $root.Values.fabric_tls_enabled -}}
-        ClientTLSCert: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{.Values.fabric_orderer_domain}}/tls/server.crt
-        ServerTLSCert: crypto-config/ordererOrganizations/{{.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{.Values.fabric_orderer_domain}}/tls/server.crt
+        ClientTLSCert: crypto-config/ordererOrganizations/{{$root.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{$root.Values.fabric_orderer_domain}}/tls/server.crt
+        ServerTLSCert: crypto-config/ordererOrganizations/{{$root.Values.fabric_orderer_domain}}/orderers/orderer{{.}}.{{$root.Values.fabric_orderer_domain}}/tls/server.crt
     {{- end }}
 
     # Options to be specified for all the etcd/raft nodes. The values here
