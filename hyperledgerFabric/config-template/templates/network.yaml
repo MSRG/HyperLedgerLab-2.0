@@ -12,10 +12,11 @@ network:
 
   # defines which organizations will join to which channels
   channels:
+  {{- $root := . -}}
   {{- range $channel := .Values.channels }}
     - name: {{ $channel.name }}
     # all peers in these organizations will join the channel
-      orgs: [{{- range untilStep 1 (int .Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
+      orgs: [{{- range untilStep 1 (int $root.Values.fabric_num_orgs) 1 -}} Org{{.}}, {{- end }}]
   {{- end }}
 
   # defines which chaincodes will be installed to which organizations
