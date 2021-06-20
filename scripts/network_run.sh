@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-# if [[ $# -eq 0 ]] ; then
-#     echo "usage: network_run.sh <configuration_folder>" 
-#     exit 2
-# fi
-
 FOLDER_NAME="config/templates"
-# if [ ! -d  $FOLDER_NAME ] ; then
-#     echo "Invalid network folder name"
-#     exit 0
-# fi
 
 # Deleting existing network
 argo delete --all
@@ -23,13 +14,13 @@ echo "-- creating config files --"
 helm template config-template/ -f network-configuation.yaml --output-dir .
 
 # create necessary stuff: crypto-config files, channel-artifacts and chaincode compression 
-./init.sh ./$FOLDER_NAME/ ./chaincode/
+../script/init.sh ./$FOLDER_NAME/ ./chaincode/
 
 # Luanch the Raft based Fabric network in broken state
 helm install hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml --set peer.launchPods=false --set orderer.launchPods=false 
 
 # Collect the host aliases
-./collect_host_aliases.sh ./$FOLDER_NAME/
+../script/collect_host_aliases.sh ./$FOLDER_NAME/
 
 # Update the network with host aliases
 helm upgrade hlf-kube ./hlf-kube/ -f $FOLDER_NAME/network.yaml -f $FOLDER_NAME/crypto-config.yaml -f $FOLDER_NAME/hostAliases.yaml 

@@ -27,6 +27,7 @@ network:
     - name: {{ $chaincode.contractID }}
       language: {{ $chaincode.language }}
       path: {{ $chaincode.path }}
+      version: {{ $chaincode.version }}
       orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
       channels:
         - name: {{ $channel.name }}

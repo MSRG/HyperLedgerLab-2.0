@@ -50,7 +50,7 @@ channels:                   # List of channel objects
     chaincodes:
       - id: fabcar
         contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
-        path: "chaincode/fabcar"      # NOTE: Path to Directory where chaincode file is located
+        path: "chaincode/fabcar"      # NOTE: Relative path to Directory where chaincode file is located
         language: golang
         version: v1
 
