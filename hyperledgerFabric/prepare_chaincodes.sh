@@ -20,6 +20,6 @@ chaincodes=$(yq eval ".network.chaincodes[].name" $config_file )
 for chaincode in $chaincodes; do
    echo "creating hlf-kube/chaincode/$chaincode.tar"
    chaincode_path=$(yq eval '.network | .chaincodes[] | select (.name == "'$(echo $chaincode)'") | .path' "$config_file")
-   tar  --overwrite -czf hlf-kube/chaincode/$chaincode.tar $chaincode_path/
+   [ ! -f hlf-kube/chaincode/$chaincode.tar ]  && tar  --overwrite -czf hlf-kube/chaincode/$chaincode.tar $chaincode_path/
 done
 
