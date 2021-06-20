@@ -280,7 +280,7 @@ spec:
             # chaincode is packed with tar, first extract it 
             mkdir -p /chaincode && 
             tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C /chaincode && 
-            peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
+            peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
             peer lifecycle chaincode install /chaincode/{{ $chaincode.name }}.tar.gz
           {{- end }}
           
