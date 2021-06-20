@@ -266,9 +266,9 @@ spec:
           # chaincode is packed with tar, first extract it 
           mkdir -p $GOPATH/src/chaincode && 
           tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C $GOPATH/src/chaincode && 
-          # peer chaincode install --path chaincode/{{ $chaincode.name }} --name {{ $chaincode.name }} \
+          # peer chaincode install --path $GOPATH/src/chaincode/{{ $chaincode.name }} --name {{ $chaincode.name }} \
           #     --version {{ $version }} --lang {{ $language }}
-          peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path /chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
+          peer lifecycle chaincode package /chaincode/{{ $chaincode.name }}.tar.gz --path $GOPATH/src/chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
           peer lifecycle chaincode install /chaincode/{{ $chaincode.name }}.tar.gz
 
           {{- else }}
