@@ -54,4 +54,4 @@ cp -r $project_folder/network.yaml hlf-kube/
 cp -r $project_folder/crypto-config.yaml hlf-kube/
 
 # prepare chaincodes
-./prepare_chaincodes.sh $project_folder $chaincode_folder
+../scripts/prepare_chaincodes.sh $project_folder $chaincode_folder
