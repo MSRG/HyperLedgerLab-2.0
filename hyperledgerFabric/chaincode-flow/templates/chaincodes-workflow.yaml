@@ -266,8 +266,8 @@ spec:
           mkdir -p $GOPATH/src/chaincode && 
           tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C $GOPATH/src/chaincode && 
           echo "=========================================="
-          echo  $(ls /hlf_config/chaincode/)
-          echo $(ls $GOPATH/src/chaincode)
+          echo  $(ls -R /hlf_config/chaincode/)
+          echo $(ls -R $GOPATH/src/chaincode)
           echo "=========================================="
           # peer chaincode install --path $GOPATH/src/chaincode/{{ $chaincode.name }} --name {{ $chaincode.name }} \
           #     --version {{ $version }} --lang {{ $language }}
