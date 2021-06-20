@@ -273,6 +273,7 @@ spec:
           #     --version {{ $version }} --lang {{ $language }}
           peer lifecycle chaincode package $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz --path $GOPATH/src/chaincode/{{ $chaincode.name }} --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
           peer lifecycle chaincode install $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz
+          sleep 600
 
           {{- else }}
             echo '{{ $language }}'
