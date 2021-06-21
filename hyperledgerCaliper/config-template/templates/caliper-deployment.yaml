@@ -47,15 +47,20 @@ spec:
                 NOW="$(date)"
                 DIR_NAME="report_$NOW_TIMESTAMP"
                 mkdir -p  hyperledgerlab2-reports/$DIR_NAME
-                cp report.html hyperledgerlab2-reports/$DIR_NAME/
-                cp caliper.log hyperledgerlab2-reports/$DIR_NAME/
-                cd hyperledgerlab2-reports/
-                git init
-                git add $DIR_NAME 
-                git commit -m "Report $NOW"
-                git push -u origin master
-                echo "The generated report.html has been successfully pushed to the git repository..."
-                exit 0
+                if [ -f report.html ] || [ -f caliper.log ]
+                then
+                  cp report.html hyperledgerlab2-reports/$DIR_NAME/
+                  cp caliper.log hyperledgerlab2-reports/$DIR_NAME/
+                  cd hyperledgerlab2-reports/
+                  git init
+                  git add $DIR_NAME 
+                  git commit -m "Report $NOW"
+                  git push -u origin master
+                  echo "The generated report.html has been successfully pushed to the git repository..."
+                  exit 0
+                else
+                  echo "ERROR: caliper.log or report.html are not generated."
+                  exit 0
               else 
                 echo "ERROR: Please provide correct data in git.yaml, in order to upload the generated report.html to the repository."
                 exit 0
