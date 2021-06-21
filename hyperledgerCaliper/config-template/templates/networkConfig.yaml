@@ -75,7 +75,7 @@ orderers:
 
 peers:
 {{- $root := . -}}
-{{- range $i, $e := untilStep 0 (int .Values.fabric_num_orgs) 1 }}
+{{- range $i, $e := untilStep1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
   {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
   peer{{.}}.org{{$e}}:
     url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$e}}--peer{{.}}:7051
