@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-if [ $# -ne 2 ] ; then
+if [ $# -ne 1 ] ; then
     echo "usage: caliper_run.sh <chaincode_name>" 
     exit 2
 fi
