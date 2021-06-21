@@ -10,14 +10,14 @@ fabric_num_orderer: 2
 fabric_orderer_domain: orgorderer1
 # Options for Orderer Consensus type: solo/kafka
 fabric_orderer_type: kafka
-fabric_num_kafka: 3
-fabric_num_zookeeper: 3
+# fabric_num_kafka: 3
+# fabric_num_zookeeper: 3
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "2s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
 fabric_batchsize: ["100", "98 MB", "1024 KB"]
 # Enable tls globally in the network
-fabric_tls_enabled: true 
+fabric_tls_enabled: false 
 
 # Custom fabric container images
 fabric_images:
