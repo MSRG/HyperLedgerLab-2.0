@@ -113,6 +113,6 @@ channels:
       - id: {{ $chaincode.contractID }}
         version: {{ $chaincode.version }}
         language: {{ $chaincode.language }}
-        path: /caliper-chaincode
+        path: /caliper-chaincode/{{ $chaincode.contractID }}
     {{ end }}
   {{- end }}

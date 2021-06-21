@@ -18,7 +18,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: caliper
-          image: hyperledger/caliper:0.4.2
+          image: {{.Values.caliper_image}}
           command: 
           - /bin/sh
           - "-c"
@@ -94,20 +94,15 @@ spec:
             - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
               value: "mqtt://mosquitto.default.svc.cluster.local:1883"
           volumeMounts:
-            - mountPath: /etc/hyperledger/fabric/org1/msp/
-              name: peer-msp1
-            - mountPath: /etc/hyperledger/fabric/org2/msp/
-              name: peer-msp2
-
-            - mountPath: /etc/hyperledger/fabric/org1/admin-msp/
-              name: peer-admin-msp1
-            - mountPath: /etc/hyperledger/fabric/org2/admin-msp/
-              name: peer-admin-msp2
+            {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+            - mountPath: /etc/hyperledger/fabric/org{{.}}/msp/
+              name: peer-msp{{.}}
+            - mountPath: /etc/hyperledger/fabric/org{{.}}/admin-msp/
+              name: peer-admin-msp{{.}}
+            {{ end }}
 
             - mountPath: /etc/hyperledger/fabric/ordorg1-tlsca
               name: ordorg1-tlsca
-            - mountPath: /etc/hyperledger/fabric/ordorg2-tlsca
-              name: ordorg2-tlsca
 
             - mountPath: /caliper-benchmark
               name: caliper-benchmark
@@ -115,8 +110,12 @@ spec:
               name: caliper-network
             - mountPath: /caliper-workload
               name: caliper-workload
-            - mountPath: /caliper-chaincode
-              name: caliper-chaincode
+            {{- range $channel := .Values.channels }}
+            {{- range $chaincode := $channel.chaincodes }}
+            - mountPath: /caliper-chaincode/{{ $chaincode.contractID }}
+              name: caliper-chaincode/{{ $chaincode.contractID }}
+            {{ end }}
+            {{- end }}
             - mountPath: /hyperledger/caliper/workspace/
               name: caliper-workspace
             - mountPath: /caliper-config
@@ -141,13 +140,18 @@ spec:
         - name: caliper-config
           configMap:
             name: caliper-config
-        - name: caliper-chaincode
+        {{- range $channel := .Values.channels }}
+        {{- range $chaincode := $channel.chaincodes }}
+        - name: caliper-chaincode/{{ $chaincode.contractID }}
           configMap:
-            name: hlf-chaincode--asset-transfer-basic
+            name: hlf-chaincode--{{ $chaincode.contractID }}
+        {{ end }}
+        {{- end }}
 
-        - name: peer-msp1
+        {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+        - name: peer-msp{{.}}
           secret:
-            secretName: hlf-peer--org1--peer0-msp
+            secretName: hlf-peer--org{{.}}--peer0-msp
             items:
               - key: config.yaml
                 path: config.yaml
@@ -156,28 +160,13 @@ spec:
               - key: key.pem
                 path: keystore/key.pem
               - key: cacert.pem
-                path: cacerts/ca.org1-cert.pem
-              - key: tlscacert.pem
-                path: tlscacerts/cert.pem
-
-        - name: peer-msp2
-          secret:
-            secretName: hlf-peer--org2--peer0-msp
-            items:
-              - key: config.yaml
-                path: config.yaml
-              - key: cert.pem
-                path: signcerts/cert.pem
-              - key: key.pem
-                path: keystore/key.pem
-              - key: cacert.pem
-                path: cacerts/ca.org1-cert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
         - name: peer-admin-msp1
           secret:
-            secretName: hlf-peer--org1--admin-msp
+            secretName: hlf-peer--org{{.}}--admin-msp
             items:
               - key: config.yaml
                 path: config.yaml
@@ -186,28 +175,12 @@ spec:
               - key: key.pem
                 path: keystore/key.pem
               - key: cacert.pem
-                path: cacerts/ca.org1-cert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
-
-        - name: peer-admin-msp2
-          secret:
-            secretName: hlf-peer--org2--admin-msp
-            items:
-              - key: config.yaml
-                path: config.yaml
-              - key: cert.pem
-                path: signcerts/cert.pem
-              - key: key.pem
-                path: keystore/key.pem
-              - key: cacert.pem
-                path: cacerts/ca.org1-cert.pem
-              - key: tlscacert.pem
-                path: tlscacerts/cert.pem
+        {{ end }}
 
         - name: ordorg1-tlsca
           secret:
             secretName: hlf-orderer--ordorg1-tlsca
-        - name: ordorg2-tlsca
-          secret:
-            secretName: hlf-orderer--ordorg2-tlsca
+

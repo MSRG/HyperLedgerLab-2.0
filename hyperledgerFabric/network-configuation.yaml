@@ -2,6 +2,7 @@
 fabric_version: 1.4.0
 fabric_ca_version: "{{ fabric_version }}"
 fabric_couchdb_version: 0.4.14
+caliper_version: 0.4.2
 
 # Fabric Network Config
 fabric_num_orgs: 2
@@ -29,6 +30,7 @@ fabric_images:
   kafka: "hyperledger/fabric-kafka:{{ fabric_couchdb_version }}"
   zookeeper: "hyperledger/fabric-zookeeper:{{ fabric_couchdb_version }}"
   dind: "docker:18.09-dind"
+caliper_image: "hyperledger/caliper:{{ caliper_version }}"
 
 # Fabric Configuration
 # state_db options couchdb / goleveldb
