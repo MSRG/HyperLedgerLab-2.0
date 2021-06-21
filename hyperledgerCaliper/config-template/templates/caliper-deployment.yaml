@@ -47,6 +47,7 @@ spec:
                 NOW="$(date)"
                 DIR_NAME="report_$NOW_TIMESTAMP"
                 mkdir -p  hyperledgerlab2-reports/$DIR_NAME
+                echo $(ls -R)
                 cp report.html hyperledgerlab2-reports/$DIR_NAME/
                 cd hyperledgerlab2-reports/
                 git init

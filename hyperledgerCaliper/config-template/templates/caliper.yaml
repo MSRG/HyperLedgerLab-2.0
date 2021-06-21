@@ -12,7 +12,7 @@ caliper:
           level: info  # debug
       file:
         # we disable this
-        enabled: false
+        enabled: true
         options:
           # append mode
           flags: a
