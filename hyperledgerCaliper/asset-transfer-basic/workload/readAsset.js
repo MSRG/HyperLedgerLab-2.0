@@ -38,8 +38,6 @@ class MyWorkload extends WorkloadModuleBase {
             // contractArguments: ['asset1'],
             timeout: 30,
             contractArguments: [`${this.workerIndex}_${randomId}`],
-            // targetPeers: ['peer0.org1', 'peer0.org2'],
-            // targetOrganizations: ['Org1', 'Org2'],
             readOnly: true
         };
         await this.sutAdapter.sendRequests(myArgs);
