@@ -122,7 +122,7 @@ spec:
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: peer-admin-msp1
+        - name: peer-admin-msp{{.}}
           secret:
             secretName: hlf-peer--org{{.}}--admin-msp
             items:
