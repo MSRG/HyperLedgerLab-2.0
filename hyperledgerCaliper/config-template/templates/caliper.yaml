@@ -1,8 +1,6 @@
 caliper:
   fabric:
     gateway:
-      # usegateway: true
-      # discovery: true
       localhost: false
       enabled: true
   logging:
@@ -11,28 +9,9 @@ caliper:
         options:
           level: info  # debug
       file:
-        # we disable this
         enabled: true
         options:
           # append mode
           flags: a
           # make the file readable/writable by anyone
           mode: 0666
-      # rotatingfile:
-      #   target: daily-rotate-file
-      #   # enabled by default
-      #   options:
-      #     # we log every message this way
-      #     level: debug
-      #     # start a new log file every hour
-      #     datePattern: "YYYY-MM-DD-HH"
-      #     # compress old log files after rotating
-      #     zippedArchive: true
-      #     # include the hour-precision date in the file names
-      #     filename: "caliper-%DATE%.log"
-      #     # options for opening the file for writing
-      #     options:
-      #       # append mode
-      #       flags: a
-      #       # make the file readable/writable by anyone
-      #       mode: 0666
