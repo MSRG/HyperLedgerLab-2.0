@@ -49,7 +49,7 @@ certificateAuthorities:
   {{- $root := . -}}
   {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
   ca-Org{{.}}:
-    url: {{ternary https http $root.Values.fabric_tls_enabled}}://hlf-ca--org{{.}}.default.svc.cluster.local:7054
+    url: {{ternary "https" "http" $root.Values.fabric_tls_enabled}}://hlf-ca--org{{.}}.default.svc.cluster.local:7054
     httpOptions:
       verify: false
     caName: ca-Org{{.}}
@@ -64,7 +64,7 @@ orderers:
   {{- $root := . -}}
   {{- range untilStep 0 (int .Values.fabric_num_orderer) 1 }}
   orderer{{.}}:
-    url: {{ternary grpcs grpc $root.Values.fabric_tls_enabled}}://hlf-orderer--ordorg1--orderer{{.}}:7050
+    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-orderer--ordorg1--orderer{{.}}:7050
     grpcOptions:
       ssl-target-name-override: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
       # hostnameOverride: orderer0.org1
@@ -78,7 +78,7 @@ peers:
 {{- range $i, $e := untilStep 0 (int .Values.fabric_num_orgs) 1 }}
   {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
   peer{{.}}.org{{$i}}:
-    url: {{ternary grpcs grpc $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$i}}--peer{{.}}:7051
+    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$i}}--peer{{.}}:7051
     grpcOptions:
       ssl-target-name-override: peer{{.}}.org{{$i}}
       # hostnameOverride: peer0.org1
