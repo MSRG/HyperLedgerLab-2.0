@@ -19,9 +19,8 @@ test:
           assets: 20
           contractId: asset-transfer-basic
 monitors:
-  resource:
-  - module: docker
-    options:
-      interval: 5
-      containers:
-        - all
+    transaction:
+    - module: logging
+      options:
+        loggerModuleName: txinfo
+        messageLevel: info

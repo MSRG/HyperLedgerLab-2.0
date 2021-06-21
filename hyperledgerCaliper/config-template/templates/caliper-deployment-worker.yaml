@@ -34,14 +34,6 @@ spec:
               value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
               value: /caliper-network/networkConfig.yaml
-            - name: CALIPER_FABRIC_GATEWAY_ENABLED
-              value: "true"
-            - name: CALIPER_FABRIC_GATEWAY_LOCALHOST
-              value: "false"
-            - name : CALIPER_FABRIC_GATEWAY_USEGATEWAY 
-              value: "true"
-            - name: CALIPER_FABRIC_GATEWAY_DISCOVERY
-              value: "false"
             - name: CALIPER_FLOW_ONLY_TEST
               value: "true"
             - name: CALIPER_BIND_ARGS
