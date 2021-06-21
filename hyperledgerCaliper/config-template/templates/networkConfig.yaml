@@ -34,15 +34,15 @@ organizations:
   Org{{.}}:
     mspid: Org{{.}}MSP
     peers:
-    {{ range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 -}}
       - peer{{.}}.org{{$e}}
     {{ end }}
     certificateAuthorities:
       - ca-Org{{.}}
     adminPrivateKey:
-      path: /etc/hyperledger/fabric/org{{$i}}/msp/keystore/key.pem
+      path: /etc/hyperledger/fabric/org{{.}}/msp/keystore/key.pem
     signedCert:
-      path: /etc/hyperledger/fabric/org{{$i}}/msp/signcerts/cert.pem
+      path: /etc/hyperledger/fabric/org{{.}}/msp/signcerts/cert.pem
   {{ end }}
 
 certificateAuthorities:
@@ -77,14 +77,14 @@ peers:
 {{- $root := . -}}
 {{- range $i, $e := untilStep 0 (int .Values.fabric_num_orgs) 1 }}
   {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
-  peer{{.}}.org{{$i}}:
-    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$i}}--peer{{.}}:7051
+  peer{{.}}.org{{$e}}:
+    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$e}}--peer{{.}}:7051
     grpcOptions:
-      ssl-target-name-override: peer{{.}}.org{{$i}}
+      ssl-target-name-override: peer{{.}}.org{{$e}}
       # hostnameOverride: peer0.org1
       grpc.keepalive_time_ms: 600000
     tlsCACerts:
-      path: /etc/hyperledger/fabric/org{{$i}}/msp/tlscacerts/cert.pem
+      path: /etc/hyperledger/fabric/org{{$e}}/msp/tlscacerts/cert.pem
   {{ end }}
 {{ end }}
 
@@ -94,13 +94,13 @@ channels:
   {{ $channel.name }}:
     created: true
     orderers:
-      {{- range untilStep 0 (int $root.Values.fabric_num_orderer) 1 }}
+      {{- range untilStep 0 (int $root.Values.fabric_num_orderer) 1 -}}
       - orderer{{.}}
       {{ end }} 
     peers:
     {{- range $i, $e := untilStep 0 (int $root.Values.fabric_num_orgs) 1 }}
     {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
-      peer{{.}}.org{{$i}}:
+      peer{{.}}.org{{$e}}:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
