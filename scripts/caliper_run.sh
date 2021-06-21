@@ -8,6 +8,18 @@ fi
 
 CHAINCODE_NAME="$1"
 
+# delete existing caliper 
+kubectl delete jobs caliper-manager
+kubectl delete jobs caliper-worker
+kubectl delete configmap  benchmarks
+kubectl delete configmap network
+kubectl delete configmap workload
+kubectl delete configmap caliper-config  
+kubectl delete configmap caliper-report-git
+
+kubectl delete deployment mosquitto
+kubectl delete svc mosquitto
+
 # Go to hyperledgerCaliper folder
 cd `dirname $0`/../hyperledgerCaliper
 
