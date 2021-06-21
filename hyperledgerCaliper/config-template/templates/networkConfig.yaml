@@ -1,6 +1,6 @@
 name: Calier test
 version: "1.0"
-mutual-tls: {{ternary false true .Values.fabric_tls_enabled}}
+mutual-tls: {{ternary true false .Values.fabric_tls_enabled}}
 
 caliper:
   blockchain: fabric
