@@ -76,7 +76,7 @@ spec:
             {{- range $channel := .Values.channels }}
             {{- range $chaincode := $channel.chaincodes }}
             - mountPath: /caliper-chaincode/{{ $chaincode.contractID }}
-              name: caliper-chaincode/{{ $chaincode.contractID }}
+              name: caliper-chaincode-{{ $chaincode.contractID }}
             {{ end }}
             {{- end }}
             - mountPath: /hyperledger/caliper/workspace/
@@ -100,7 +100,7 @@ spec:
             name: caliper-config
         {{- range $channel := .Values.channels }}
         {{- range $chaincode := $channel.chaincodes }}
-        - name: caliper-chaincode/{{ $chaincode.contractID }}
+        - name: caliper-chaincode-{{ $chaincode.contractID }}
           configMap:
             name: hlf-chaincode--{{ $chaincode.contractID }}
         {{ end }}
