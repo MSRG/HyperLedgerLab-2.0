@@ -34,7 +34,7 @@ organizations:
   Org{{.}}:
     mspid: Org{{.}}MSP
     peers:
-    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 -}}
+    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
       - peer{{.}}.org{{$e}}
     {{ end }}
     certificateAuthorities:
@@ -48,7 +48,7 @@ organizations:
 certificateAuthorities:
   {{- $root := . -}}
   {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
-  ca-Org{{.}}:
+  ca-Org{{.}}: 
     url: {{ternary "https" "http" $root.Values.fabric_tls_enabled}}://hlf-ca--org{{.}}.default.svc.cluster.local:7054
     httpOptions:
       verify: false
@@ -94,7 +94,7 @@ channels:
   {{ $channel.name }}:
     created: true
     orderers:
-      {{- range untilStep 0 (int $root.Values.fabric_num_orderer) 1 -}}
+      {{- range untilStep 0 (int $root.Values.fabric_num_orderer) 1 }}
       - orderer{{.}}
       {{ end }} 
     peers:
