@@ -30,7 +30,7 @@ fabric_images:
   kafka: "hyperledger/fabric-kafka:{{ fabric_couchdb_version }}"
   zookeeper: "hyperledger/fabric-zookeeper:{{ fabric_couchdb_version }}"
   dind: "docker:18.09-dind"
-caliper_image: "hyperledger/caliper:{{ caliper_version }}"
+caliper_image: hyperledger/caliper:0.4.2
 
 # Fabric Configuration
 # state_db options couchdb / goleveldb
