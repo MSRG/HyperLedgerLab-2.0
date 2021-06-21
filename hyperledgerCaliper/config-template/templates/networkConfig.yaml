@@ -32,10 +32,10 @@ organizations:
   {{- $root := . -}}
   {{- range $i, $e := untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
   Org{{.}}:
-    mspid: Org{{$i}}MSP
+    mspid: Org{{.}}MSP
     peers:
-    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
-      - peer{{.}}.org{{$i}}
+    {{ range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+      - peer{{.}}.org{{$e}}
     {{ end }}
     certificateAuthorities:
       - ca-Org{{.}}
