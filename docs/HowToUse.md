@@ -1,14 +1,14 @@
 ## **Quickstart Guide**
 
 This quickstart will walk you through all the steps to run HyperledgerLab II.
-After completing all the steps in this tutorial, a highly configurable Heyperledger Fabric network will be running on a Kubernetes cluster and a report of a bechmarking tool: Hyperledger Caliper evaluating the Heyperledger Fabric network will be displayed.
+After completing all the steps in this tutorial, a highly configurable Heyperledger Fabric network will be running on a Kubernetes cluster and a report of a bechmarking tool: Hyperledger Caliper evaluating the Heyperledger Fabric network will be generated.
 
 1. Create a a key pair
 
    - Run Command: `ssh-keygen -t rsa -f ~/.ssh/id_rsa`
    - Import the key pair to Openstack
      - Go to https://openstack.msrg.in.tum.de/horizon/project/access_and_security/
-     - Under "Key Pairs" tab click on "Import key pair" and follow the instructions
+     - Under "Key Pairs" tab click on "Import key pair" and follow the instructions.
 
 2. Create an instance "CLI" that will be an access point to the Kubernetes cluster
 
@@ -24,8 +24,18 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      - The second rule can be added by selecting "SSH" under "Rules".
    - No aditional security group rules is required. The security group creation for the Kubernetes cluster will be handled later by Terraform.
 
-   - From now on, all the commands are executed from CLI
-     - `ssh -i ~/.ssh/id_rsa ubuntu@<instance_ip>`
+   - To lunch the CLI instance, go to Compute > Instances then click on "LAUNCH INSTANCE". The following are the instance configuration under which HyperledgerLab II was tested. If a configuration is not mentioned then please keep the by default configuration.
+     - **Instance Name:** "CLI" or any other name.
+     - **Availability Zone:** kvm-hdd
+     - **Source:** kvm-ubuntu-focal
+     - **Flavor:** m1.medium
+     - **Security Groups:** select the security group created.
+     - **Key Pair:** select the key pair created.
+
+- After launching the instance, wait approximately 90 seconds until the instance has the active status and the IP address is reachable.
+
+- From now on, all the commands are executed from CLI
+  - `ssh -i ~/.ssh/id_rsa ubuntu@<instance_ip>`
 
 3. Clone the repository
 

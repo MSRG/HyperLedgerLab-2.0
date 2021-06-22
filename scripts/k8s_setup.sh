@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 source `dirname $0`/env_setup.sh
+start=`date +%s`
 
 set -x
 
@@ -33,3 +34,8 @@ kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/v3.0.0-
 kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=default:default
 
 set +x
+end=`date +%s`
+
+runtime=$((end-start))
+
+echo "Runtime: $runtime"
