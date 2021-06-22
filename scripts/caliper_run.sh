@@ -28,7 +28,7 @@ if [ ! -d  $CHAINCODE_NAME ] ; then
     exit 0
 fi
 
-helm template config-template/ -f ../hyperledgerFabric/network-configuation.yaml --output-dir .
+helm template config-template/ -f ./$CHAINCODE_NAME/benchmarks/config.yaml -f ../hyperledgerFabric/network-configuation.yaml --output-dir .
 
 kubectl apply -f mosquitto/
 
