@@ -1,0 +1,26 @@
+test:
+  name: basic-contract-benchmark
+  description: test benchmark
+  workers:
+    number: 6
+  rounds:
+    - label: readAsset
+      description: Read asset benchmark
+      txNumber: 1000 
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 2000
+          # startingTps: 3000
+          # transactionLoad: 10
+      workload:
+        module: /caliper-workload/readAsset.js
+        arguments:
+          assets: 20
+          contractId: asset-transfer-basic
+monitors:
+    transaction:
+    - module: logging
+      options:
+        loggerModuleName: txinfo
+        messageLevel: info
