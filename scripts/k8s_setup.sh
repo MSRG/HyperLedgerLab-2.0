@@ -38,4 +38,4 @@ end=`date +%s`
 
 runtime=$((end-start))
 
-echo "Runtime: $runtime"
+echo "Runtime: $runtime seconds."

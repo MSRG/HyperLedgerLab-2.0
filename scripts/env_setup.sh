@@ -78,6 +78,9 @@ if compgen -c | grep -q "^peer" >/dev/null;
         curl -sSL https://bit.ly/2ysbOFE | sudo bash -s -- $FABRIC_VERSION $FABRIC_CA_VERSION -d -s
         # Move binary to path
         sudo mv -v ./bin/* /usr/local/bin/
+        # Clean home
+        sudo rm -r ./bin
+        sudo rm -r ./config
 fi
 
 # Install yq

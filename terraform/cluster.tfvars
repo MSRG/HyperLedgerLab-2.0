@@ -22,7 +22,6 @@ flavor_k8s_master_name = "m1.medium"
 number_of_k8s_nodes_no_floating_ip = 2
 flavor_k8s_node_name = "m1.medium"
 
-
 # networking
 network_name = "cluster-net"
 subnet_cidr = "172.24.32.0/19"
