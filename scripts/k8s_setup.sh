@@ -25,7 +25,7 @@ ssh-add ~/.ssh/id_rsa
 ansible-playbook --become -i hosts ../kubespray/cluster.yml
 
 # fill hosts.ini with the actual values and configure kubectl
-ansible-playbook -i hosts ../playbook.yaml
+ansible-playbook -i hosts ../terraform/kubectl-config/playbook.yaml
 
 # Install agro controller with the configured kubectl
 kubectl create namespace argo
