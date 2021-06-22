@@ -1,9 +1,8 @@
 # your Kubernetes cluster name here
 cluster_name = "hl"
 
-# list of availability zones available in your OpenStack cluster
-az_list = ["kvm-hdd"]
-az_list_node = ["kvm-hdd"]
+# availability zone in the OpenStack cluster
+availability_zone = "kvm-hdd"
 
 # SSH key to use for access to nodes
 public_key_path = "~/.ssh/id_rsa.pub"

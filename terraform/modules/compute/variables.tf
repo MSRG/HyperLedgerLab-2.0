@@ -1,11 +1,7 @@
 variable "cluster_name" {}
 
-variable "az_list" {
-  type = list(string)
-}
-
-variable "az_list_node" {
-  type = list(string)
+variable "availability_zone" {
+  default = ""
 }
 
 variable "number_of_k8s_masters" {}

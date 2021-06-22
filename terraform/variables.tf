@@ -2,16 +2,8 @@ variable "cluster_name" {
   default = "example"
 }
 
-variable "az_list" {
-  description = "List of Availability Zones to use for masters in your OpenStack cluster"
-  type        = list(string)
-  default     = ["nova"]
-}
-
-variable "az_list_node" {
-  description = "List of Availability Zones to use for nodes in your OpenStack cluster"
-  type        = list(string)
-  default     = ["nova"]
+variable "availability_zone" {
+  default = ""
 }
 
 variable "network_id" {

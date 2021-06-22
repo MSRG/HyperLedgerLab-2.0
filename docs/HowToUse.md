@@ -54,25 +54,30 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    - Check or edit the infrastructure configuration in [./terraform/cluster.tfvars](../terraform/cluster.tfvars)
    - TODO add table of the variables in cluster.tfvars
 
-   - Run Command: `./scripts/k8s_setup.sh `
-   - Estimated execution time:
-   - Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
+| Variable            | Description                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `cluster_name`      | All OpenStack resources will use the Terraform variable `cluster_name` in their name to make it easier to track. |
+| `availability_zone` | All OpenStack resources will use the Terraform variable `cluster_name` in their name to make it easier to track. |
 
-     - Installs the required tools
-     - Provisions infractructure on OpenStack cluster using Terraform
-     - Installs Kubernetes using Kubesray
-     - Configures Kubectl on the current CLI instance
+- Run Command: `./scripts/k8s_setup.sh `
+- Estimated first time execution time: 20 minutes
+- Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
 
-   - Check for running Kubernetes cluster and good configuation of kubectl by running `kubectl version`.
-     You should see a similar output:
+  - Installs the required tools
+  - Provisions infractructure on OpenStack cluster using Terraform
+  - Installs Kubernetes using Kubesray
+  - Configures Kubectl on the current CLI instance
 
-     ```
-     Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:31:21Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
-     Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
-     ```
+- Check for running Kubernetes cluster and good configuation of kubectl by running `kubectl version`.
+  You should see a similar output:
 
-   - To destroy the infrastructure provisoned, hence the Kubernetes cluster
-     - Run command: `./script/k8s_destroy.sh`
+  ```
+  Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:31:21Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
+  Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
+  ```
+
+- To destroy the infrastructure provisoned, hence the Kubernetes cluster
+  - Run command: `./script/k8s_destroy.sh`
 
 6. Install Hyperledger Fabric on the running Kubernetes cluster
 
