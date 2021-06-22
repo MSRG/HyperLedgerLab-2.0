@@ -26,12 +26,14 @@ chmod 755 ./
 cd `dirname $0`/..
 
 # Update the submodule code
+echo "############## Update the submodule code ##############"
 set -x
 git submodule sync
 git submodule update --init --recursive
 set +x
 
 # Setup python environment
+echo "############## Setup python environment ##############"
 set -x
 sudo apt update
 sudo apt-get install --yes python3-pip
@@ -39,6 +41,7 @@ sudo pip3 install -r kubespray/requirements.txt
 set +x
 
 # Generates keys if do not exist.
+echo "############## Generates keys if do not exist ##############"
 if test -f "/home/ubuntu/.ssh/id_rsa"; 
     then
         echo -e "keys already exist."
@@ -46,8 +49,8 @@ if test -f "/home/ubuntu/.ssh/id_rsa";
         ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa 
 fi
 
-
 # Install docker 
+echo "############## Install docker  ##############"
 if compgen -c | grep -q "^docker" >/dev/null; 
     then
         echo -e "docker already installed"
@@ -66,6 +69,7 @@ if compgen -c | grep -q "^docker" >/dev/null;
 fi
 
 # Install fabric binaries 
+echo "############## Install fabric binaries  ##############"
 if compgen -c | grep -q "^peer" >/dev/null; 
     then
         echo -e "Fabric binaries already installed"
@@ -77,6 +81,7 @@ if compgen -c | grep -q "^peer" >/dev/null;
 fi
 
 # Install yq
+echo "############## Install yq ##############"
 if test -f "/usr/local/bin/yq"; 
     then
         echo -e "yq already installed"
@@ -88,6 +93,7 @@ if test -f "/usr/local/bin/yq";
 fi
 
 # Install Terraform
+echo "############## Install Terraform ##############"
 if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null; 
     then
         echo -e "terraform already installed"
@@ -98,6 +104,7 @@ if dpkg --get-selections | grep -q "^terraform[[:space:]]*install$" >/dev/null;
 fi
 
 # Install Kubectl 
+echo "############## Install Kubectl  ##############"
 if compgen -c | grep -q "^kubectl" >/dev/null; 
     then
         echo -e "kubectl already installed"
@@ -109,6 +116,7 @@ if compgen -c | grep -q "^kubectl" >/dev/null;
 fi
 
 # Install Helm
+echo "############## Install Helm ##############"
 if compgen -c | grep -q "^helm" >/dev/null; 
     then
         echo -e "helm already installed"
@@ -119,6 +127,7 @@ if compgen -c | grep -q "^helm" >/dev/null;
 fi
 
 # Install jq
+echo "############## Install jq ##############"
 if dpkg --get-selections | grep -q "^jq[[:space:]]*install$" >/dev/null; 
     then
         echo -e "jq already installed"
@@ -127,6 +136,7 @@ if dpkg --get-selections | grep -q "^jq[[:space:]]*install$" >/dev/null;
 fi
 
 # Install argo cli
+echo "############## Install argo cli ##############"
 if compgen -c | grep -q "^argo" >/dev/null; 
     then
         echo -e "argo already installed"
