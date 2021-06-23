@@ -147,8 +147,8 @@ spec:
 
       imagePullSecrets:
         - name: regcred
-      containers:
       
+      containers:
       # Peer container
       - name: peer
         image: hyperledger/fabric-peer:{{ $.Values.hyperledgerVersion }}
@@ -254,7 +254,7 @@ spec:
         
       # CouchDB container
       - name: couchdb
-        image: hyperledger/fabric-couchdb:{{ $.Values.couchdb.version }}
+        image: hyperledger/fabric-couchdb:0.4
 
         volumeMounts:
         - mountPath: /opt/couchdb/data/
