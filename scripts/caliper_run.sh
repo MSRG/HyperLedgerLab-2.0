@@ -28,13 +28,13 @@ if [ ! -d  $CHAINCODE_NAME ] ; then
     exit 0
 fi
 
-helm template config-template/ -f ./$CHAINCODE_NAME/benchmarks/config.yaml -f ../hyperledgerFabric/network-configuation.yaml --output-dir .
+helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../hyperledgerFabric/network-configuation.yaml --output-dir .
 
 kubectl apply -f mosquitto/
 
-kubectl create configmap benchmarks --from-file=./$CHAINCODE_NAME/benchmarks/
+kubectl create configmap benchmarks --from-file=./benchmarks/$CHAINCODE_NAME/config.yaml
 
-kubectl create configmap workload --from-file=./$CHAINCODE_NAME/workload/
+kubectl create configmap workload --from-file=./benchmarks/$CHAINCODE_NAME
 
 kubectl create configmap network --from-file=./caliper-config/templates/networkConfig.yaml
 

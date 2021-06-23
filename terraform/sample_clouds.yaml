@@ -7,9 +7,9 @@ clouds:
       password: ""
       project_name: ""
       project_id: ""
+      auth_url: ""
       ################################################################
       # The values below should be stay intact, only change if needed.
-      auth_url: http://172.24.18.142:5000/v3
       user_domain_name: "default"
     region_name: "RegionOne"
     interface: "public"

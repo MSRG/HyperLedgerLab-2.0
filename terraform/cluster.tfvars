@@ -7,11 +7,8 @@ availability_zone = "kvm-hdd"
 # SSH key to use for access to nodes
 public_key_path = "~/.ssh/id_rsa.pub"
 
-# image to use for bastion, masters, standalone etcd instances, and nodes
+# image to use for all instances
 image = "kvm-ubuntu-focal"
-
-# user on the node (ex. core on Container Linux, ubuntu on Ubuntu, etc.)
-ssh_user = "ubuntu"
 
 # masters
 number_of_k8s_masters_no_floating_ip= 1

@@ -47,20 +47,28 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 4. Add OpenStack authentication details
 
    - Create `clouds.yaml` file under [./terraform](../terraform) folder using [./terraform/sample_clouds.yaml](./terraform/sample_clouds.yaml) as a template and fill it out with details about OpenStack authentication.
-   - Data that need to be changed are **username**, **password**, **project name** and **project id**. These data can be found in the OpenStack Dashboard under Compute > Access&Security then "VIEW CRENDENTIALS".
+   - Data that need to be changed are **username**, **password**, **project name**, **project id** and **auth url**. These data can be found in the OpenStack Dashboard under Compute > Access&Security then "VIEW CREDENTIALS".
 
-5. Provision infrastrucutre and setup a Kubernetes cluster
+5. Provision infrastructure and setup a Kubernetes cluster
 
-   - Check or edit the infrastructure configuration in [./terraform/cluster.tfvars](../terraform/cluster.tfvars)
-   - TODO add table of the variables in cluster.tfvars
+   - Check or edit the infrastructure configuration in [./terraform/cluster.tfvars](../terraform/cluster.tfvars). The configuration variables are described in the table below.
 
-| Variable            | Description                                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `cluster_name`      | All OpenStack resources will use the Terraform variable `cluster_name` in their name to make it easier to track. |
-| `availability_zone` | All OpenStack resources will use the Terraform variable `cluster_name` in their name to make it easier to track. |
+   | Variable                               | Description                                                                                                                   |
+   | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+   | `cluster_name`                         | All OpenStack resources will use the Terraform variable `cluster_name` in their name to make it easier to track.              |
+   | `availability_zone`                    | The availability zone that will be used by all the instances.                                                                 |
+   | `public_key_path`                      | Path to the public key that is used to access the instances.                                                                  |
+   | `image`                                | Image to use for all instances.                                                                                               |
+   | `number_of_k8s_masters_no_floating_ip` | Number of master instances.                                                                                                   |
+   | `flavor_k8s_master_name`               | Flavor name for master instances. e.g m1.medium, m1.large etc.                                                                |
+   | `number_of_k8s_nodes_no_floating_ip`   | Number of worker instances.                                                                                                   |
+   | `flavor_k8s_node_name`                 | Flavor name for worker instances. e.g m1.medium, m1.large etc.                                                                |
+   | `network_name`                         | network name to be used for all the instances. It can be found under NETWORK > Networks in the OpenStack dashboard.           |
+   | `subnet_cidr`                          | Network Address of the subnet associated to the network. It can be found under NETWORK > Networks in the OpenStack dashboard. |
+   | `k8s_allowed_remote_ips`               | List of CIDR allowed to initiate a SSH connection.                                                                            |
 
 - Run Command: `./scripts/k8s_setup.sh `
-- Estimated first time execution time: 20 minutes
+- **Estimated execution time:** 20 minutes
 - Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
 
   - Installs the required tools
@@ -77,7 +85,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
   ```
 
 - To destroy the infrastructure provisoned, hence the Kubernetes cluster
-  - Run command: `./script/k8s_destroy.sh`
+  - Run command: `./scripts/k8s_destroy.sh`
 
 6. Install Hyperledger Fabric on the running Kubernetes cluster
 
@@ -92,7 +100,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
    - Install the configuered network on the running Kubenetes cluster
 
-     - Run command: `./script/network_run.sh <configuration_folder>` e.g `./script/network_run.sh raft-tls`
+     - Run command: `./scripts/network_run.sh <configuration_folder>` e.g `./scripts/network_run.sh raft-tls`
 
      - Workflow:
 
@@ -101,7 +109,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
        - Installs all chaincodes on all peers of the respective channel
 
    - To delete Hyperledger Fabric network
-     - Run command: `./script/network_delete.sh` to delete all Kubernetes components used to run the Hyperledger Fabric network.
+     - Run command: `./scripts/network_delete.sh` to delete all Kubernetes components used to run the Hyperledger Fabric network.
 
 7. Run Hyperledger Caliper
 
@@ -121,7 +129,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
    - Run Hyperledger Caliper
 
-     - Run command: `./script/caliper_run.sh <chaincode_folder> <network_configuration_folder>` e.g `./script/caliper_run.sh asset-transfer-basic tls`
+     - Run command: `./scripts/caliper_run.sh <chaincode_folder> <network_configuration_folder>` e.g `./scripts/caliper_run.sh asset-transfer-basic tls`
      - Workflow:
 
        - Runs mosquitto: a lightweight open source message broker that Implements MQTT protocol to carry out messaging between caliper manager and worker(s).
@@ -134,7 +142,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      - Go the reports repository to see the report generated by caliper under the respective timestamped folder.
 
    - To delete Hyperledger caliper:
-     - Run command: `./script/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
+     - Run command: `./scripts/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
 
 ## **Common Errors**
 

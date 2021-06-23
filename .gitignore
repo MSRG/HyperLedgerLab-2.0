@@ -4,3 +4,4 @@ venv
 ansible.log
 k8s_keys/
 ansible.cfg
+git.yaml

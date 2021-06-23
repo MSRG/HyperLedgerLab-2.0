@@ -180,8 +180,6 @@ spec:
 {{- if eq $orgName $org.Name }}
 
   - name: maybe-create-channel--{{ $channel.name }}--{{ $org.Name }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
