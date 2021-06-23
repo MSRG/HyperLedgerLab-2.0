@@ -254,7 +254,7 @@ spec:
         
       # CouchDB container
       - name: couchdb
-        image: hyperledger/fabric-couchdb:0.4
+        image: hyperledger/fabric-couchdb:{{ $.Values.couchdb.version }}
 
         volumeMounts:
         - mountPath: /opt/couchdb/data/
