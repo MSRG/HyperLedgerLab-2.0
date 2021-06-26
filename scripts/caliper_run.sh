@@ -20,15 +20,15 @@ kubectl delete configmap caliper-report-git
 kubectl delete deployment mosquitto
 kubectl delete svc mosquitto
 
-# Go to hyperledgerCaliper folder
-cd `dirname $0`/../hyperledgerCaliper
+# Move to caliper folder
+cd `dirname $0`/../caliper
 
 if [ ! -d  ./benchmarks/$CHAINCODE_NAME ] ; then
     echo "ERROR: Invalid chaincode folder name"
     exit 0
 fi
 
-helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../hyperledgerFabric/network-configuation.yaml --output-dir .
+helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../fabric/network-configuation.yaml --output-dir .
 
 kubectl apply -f mosquitto/
 

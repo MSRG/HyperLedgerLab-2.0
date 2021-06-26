@@ -90,13 +90,13 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 6. Install Hyperledger Fabric on the running Kubernetes cluster
 
    - The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
-   - The by default values of the HLF network configuration are in [./hyperledgerFabric/hlf-kube/values.yaml](../hyperledgerFabric/hlf-kube/values.yaml)
-   - The by default values can be overriden. For example a confirguation with raft as orderer and with tls enabled can be found in [./hyperledgerFabric/raft-tls](../hyperledgerFabric/raft-tls).
+   - The by default values of the HLF network configuration are in [./fabric/hlf-kube/values.yaml](../fabric/hlf-kube/values.yaml)
+   - The by default values can be overriden. For example a confirguation with raft as orderer and with tls enabled can be found in [./fabric/raft-tls](../fabric/raft-tls).
      The folder typically contains the following configuration files:
 
-     - [./hyperledgerFabric/raft-tls/configtx.yaml](../hyperledgerFabric/raft-tls/configtx.yaml) contains the information that is required to build the channel configuration.
-     - [./hyperledgerFabric/raft-tls/crypto-config.yaml](../hyperledgerFabric/raft-tls/crypto-config.yaml) contains the definition of organizations managing orderer nodes and the definition of organizations managing peer nodes.
-     - [./hyperledgerFabric/raft-tls/network.yaml](../hyperledgerFabric/raft-tls/network.yaml) contains the network definition.
+     - [./fabric/raft-tls/configtx.yaml](../fabric/raft-tls/configtx.yaml) contains the information that is required to build the channel configuration.
+     - [./fabric/raft-tls/crypto-config.yaml](../fabric/raft-tls/crypto-config.yaml) contains the definition of organizations managing orderer nodes and the definition of organizations managing peer nodes.
+     - [./fabric/raft-tls/network.yaml](../fabric/raft-tls/network.yaml) contains the network definition.
 
    - Install the configuered network on the running Kubenetes cluster
 
@@ -117,7 +117,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      - workload Module
      - Benchmark configuration
-     - Network Configuration: two network configurations can be found in [./hyperledgerCaliper/networks/](../hyperledgerCaliper/networks/): one network configruation with TLS and without TLS enabled.
+     - Network Configuration: two network configurations can be found in [./caliper/networks/](../caliper/networks/): one network configruation with TLS and without TLS enabled.
 
      Workload module and benchmark configuration are chaincode related configurations. Both files can be found in a folder with the respective chaincode name.
 
@@ -125,7 +125,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      - Create a git repository to save the generated report.html.
      - Create a project access token for the project.
-     - Considering [./hyperledgerCaliper/git_sample.yaml](../hyperledgerCaliper/git_sample.yaml) as a template, create a [./hyperledgerCaliper/git.yaml](../hyperledgerCaliper/git.yaml) file where you put information about the git repository just created.
+     - Considering [./caliper/git_sample.yaml](../caliper/git_sample.yaml) as a template, create a [./caliper/git.yaml](../caliper/git.yaml) file where you put information about the git repository just created.
 
    - Run Hyperledger Caliper
 

@@ -6,17 +6,17 @@ The project consists of 6 main folders:
 
 2.  **[`terraform/`](../terraform)**: This folder contains mainly configuration yaml and tf files used to provision infrastructure on Openstack cluster and later to install a Kubernetes cluster on the just provisioned infrastructure.
 
-3.  **[`hyperledgerFabric/`](../hyperledgerFabric)**: This folder contains all necessary yaml configuration files plus scripts used during the installation of the network.
+3.  **[`fabric/`](../fabric)**: This folder contains all necessary yaml configuration files plus scripts used during the installation of the network.
 
     This folder contains the following subdirectories:
 
-    - [`hlf-kube/`](../hyperledgerFabric/hlf-kube) : the main helm chart to configure and launch a Hyperledger Fabric network on the running Kubernetes cluster.
-    - [`chaincode/`](../hyperledgerFabric/chaincode) : contains different defined chaincodes
-    - [`channel-flow/`](../hyperledgerFabric/channel-flow): helm chart to create channels, join peers to channels and update channels for anchor peers.
-    - [`chaincode-flow/`](../hyperledgerFabric/chaincode-flow): helm chart to install, instantiate, upgrade and invoke chaincodes
-    - Network configuration subfolders like [`raft-tls/`](../hyperledgerFabric/raft-tls): contains configuration for a specific network configuration to override the by default configuration values in the main helm chart: hlf-kube.
+    - [`hlf-kube/`](../fabric/hlf-kube) : the main helm chart to configure and launch a Hyperledger Fabric network on the running Kubernetes cluster.
+    - [`chaincode/`](../fabric/chaincode) : contains different defined chaincodes
+    - [`channel-flow/`](../fabric/channel-flow): helm chart to create channels, join peers to channels and update channels for anchor peers.
+    - [`chaincode-flow/`](../fabric/chaincode-flow): helm chart to install, instantiate, upgrade and invoke chaincodes
+    - Network configuration subfolders like [`raft-tls/`](../fabric/raft-tls): contains configuration for a specific network configuration to override the by default configuration values in the main helm chart: hlf-kube.
 
-4.  **[`hyperledgerCaliper/`](../hyperledgerCaliper)**: This folder contains all necessary configuration files to run the benchmarking tool: Hyperledger Caliper.
+4.  **[`caliper/`](../caliper)**: This folder contains all necessary configuration files to run the benchmarking tool: Hyperledger Caliper.
 
 5.  **[`docs/`](../docs)**: It contains the documentation for this project. These documentation files are linked to README.md in the main project folder.
 

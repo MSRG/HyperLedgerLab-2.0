@@ -6,8 +6,8 @@ FOLDER_NAME="config/templates"
 argo delete --all
 helm delete hlf-kube
 
-# Move to hyperledgerFabric folder
-cd `dirname $0`/../hyperledgerFabric
+# Move to fabric folder
+cd `dirname $0`/../fabric
 
 # Create config files using helm template
 echo "-- creating config files --"
