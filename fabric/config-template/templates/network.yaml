@@ -3,6 +3,7 @@ useActualDomains: true
 orderer:
   cluster:
     enabled: {{ternary false true .Values.fabric_tls_enabled}}
+caImage: {{ $fabric_images.ca }}
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
