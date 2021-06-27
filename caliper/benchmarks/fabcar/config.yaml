@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 20
+    number: 5
   rounds:
     - label: Change car owner.
       txNumber: 1000

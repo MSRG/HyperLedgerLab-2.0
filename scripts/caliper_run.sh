@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 
 if [ $# -ne 1 ] ; then
     echo "usage: caliper_run.sh <chaincode_name>" 
@@ -28,6 +27,8 @@ if [ ! -d  ./benchmarks/$CHAINCODE_NAME ] ; then
     exit 0
 fi
 
+set -x
+
 helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../fabric/network-configuation.yaml --output-dir .
 
 kubectl apply -f mosquitto/
@@ -49,6 +50,6 @@ kubectl apply -f caliper-config/templates/caliper-deployment-worker.yaml
 set +x
 
 echo "Wait until caliper manager pod is running..."
-while [[  $(kubectl get pods -l app=caliper-manager -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]] || [[ -z $(kubectl get  pods -l app=caliper-manager) ]] ; do echo "waiting for the caliper manager pod to run..." && sleep 2; done
+while [[  $(kubectl get pods -l app=caliper-manager -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]] || [[ -z $(kubectl get  pods -l app=caliper-manager) ]] ; do echo "waiting for the caliper manager pod to run..." && sleep 5; done
 kubectl logs -l app=caliper-manager -f
 
