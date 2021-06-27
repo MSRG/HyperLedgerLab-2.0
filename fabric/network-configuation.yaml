@@ -13,8 +13,8 @@ fabric_peers_per_org: 2
 fabric_num_orderer: 2
 fabric_orderer_domain: orgorderer1
 
-# Options for Orderer Consensus type: solo/raft
-fabric_orderer_type: raft
+# Available types are "solo" and "etcdraft"
+fabric_orderer_type: etcdraft
 
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "2s"
