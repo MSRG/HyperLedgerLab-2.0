@@ -22,15 +22,15 @@ persistence:
 
 # peer settings. applies to all peers
 peer:
-  logLevel: grpc=debug:info
+  logLevel: grpc=debug
   # launch peer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true
   chaincode:
     # attach chaincode's stdout to peer?
     attachStdout: true
     logging:
-      level: info
-      shim: info
+      level: debug
+      shim: debug
   persistence:
     enabled: false
     size: 16Gi
