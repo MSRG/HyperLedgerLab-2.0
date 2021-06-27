@@ -153,7 +153,6 @@ spec:
       - name: peer
         image: hyperledger/fabric-peer:{{ $.Values.hyperledgerVersion }}
         command: ["sh", "-c", "peer node start"]
-        working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
 
         volumeMounts:
         - mountPath: /var/hyperledger/production/
