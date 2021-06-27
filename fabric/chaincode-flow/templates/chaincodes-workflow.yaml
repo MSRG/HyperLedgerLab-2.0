@@ -238,10 +238,6 @@ spec:
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
   - name: maybe-install-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $org.Name }}--{{ $peer }}
-    # chaincode: {{ $chaincode.name }}
-    # version: {{ $version }}
-    # org: {{ $org.Name }}
-    # peer: {{ $peer }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}

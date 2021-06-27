@@ -121,7 +121,7 @@ spec:
         
         env:
         - name: FABRIC_LOGGING_SPEC
-          value: {{ $.Values.orderer.logLevel }}
+          value: {{ $.Values.fabric_orderer_loglevel }}
         - name: ORDERER_GENERAL_LISTENADDRESS
           value: 0.0.0.0
         - name: ORDERER_GENERAL_GENESISMETHOD

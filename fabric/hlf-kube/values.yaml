@@ -2,12 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-hyperledgerVersion: 2.2.0
-caVersion: 1.5.0
-
-# By default, tls is disabled. To enabled it please incluce `tlsEnabled: true` in the respective folder configuation e.g raft-tls
-tlsEnabled: false
-
 # use actual domain names like peer0.org1 instead of internal service names
 # this should be set to true for TLS 
 useActualDomains: false

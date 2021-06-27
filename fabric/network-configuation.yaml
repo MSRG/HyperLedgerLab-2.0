@@ -5,6 +5,7 @@ fabric_images:
   tools: hyperledger/fabric-tools:2.2.0
   orderer: hyperledger/fabric-orderer:2.2.0
   couchdb: hyperledger/fabric-couchdb:0.4.15
+  ccenv: hyperledger/fabric-ccenv:2.2.0
 caliper_image: hyperledger/caliper:0.4.2
 
 # Fabric Network Config
@@ -41,27 +42,7 @@ channels:                   # List of channel objects
         language: golang
         version: v1
 
-# Config Directories
-fabric_config_dirname: fabric-config
-fabric_config_dir: "{{ inventory_dir }}/{{ fabric_config_dirname }}"
-crypto_config_dirname: crypto-config
-crpto_config_dir: "{{ fabric_config_dir }}/{{ crypto_config_dirname }}"
-channel_artifacts_dirname: channel-artifacts
-channel_artifacts_dir: "{{ fabric_config_dir }}/{{ channel_artifacts_dirname }}"
-contract_dirname: "contract"
-contract_dir: "{{ inventory_dir }}/src/contract"
-templates_dirname: templates
-templates_dir: "{{ fabric_config_dir }}/{{ templates_dirname }}"
-cryptogen_config: "{{ fabric_config_dir }}/crypto-config.yaml"
-
 # Logging Level:
-fabric_cli_loglevel: "DEBUG"
+fabric_ca_loglevel: "DEBUG"
 fabric_peer_loglevel: "DEBUG"
 fabric_orderer_loglevel: "DEBUG"
-
-# Dynamic Variables
-nfs_server_ip: "{{ groups['kube-nfs'][0] }}"
-nfs_server_mount_dir: "/opt/share"
-
-# kubernetes kubectl command
-k8s_kubectl_cmd: "{{ lookup('env', 'INVENTORY_DIR_PATH') }}/cluster/artifacts/kubectl --kubeconfig={{ lookup('env', 'INVENTORY_DIR_PATH') }}/cluster/artifacts/admin.conf"

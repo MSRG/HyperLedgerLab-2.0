@@ -9,6 +9,11 @@ fabric_images:
   tools:  {{ .Values.fabric_images.tools }}
   orderer:  {{ .Values.fabric_images.orderer }}
   couchdb: {{ .Values.fabric_images.couchdb }}
+  ccenv:  {{ .Values.fabric_images.ccenv }}
+
+fabric_ca_loglevel: {{ .Values.fabric_ca_loglevel }}
+fabric_peer_loglevel: {{ .Values.fabric_peer_loglevel }}
+fabric_orderer_loglevel: {{ .Values.fabric_orderer_loglevel }}
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
