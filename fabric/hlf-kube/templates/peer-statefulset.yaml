@@ -54,9 +54,6 @@ spec:
       - name: couchdb-disk
         emptyDir: {}
       {{- end }}
-      - name: fabric-config
-        secret:
-          secretName: fabric-config.yaml
       - name: dockersocket
         hostPath:
           path: /var/run/docker.sock
@@ -157,8 +154,6 @@ spec:
         volumeMounts:
         - mountPath: /var/hyperledger/production/
           name: peer-disk
-        # - mountPath: /etc/hyperledger/fabric
-        #   name: fabric-config
         - mountPath: /host/var/run/docker.sock
           name: dockersocket
         - mountPath: /etc/hyperledger/fabric/tls/

@@ -38,23 +38,23 @@ caliper_image: hyperledger/caliper:0.4.2
 
 # Channel configuration
 channels:                   # List of channel objects
-  - name: "mychannel"
-    # created: false          # Update this value to true if channel is already created
-    chaincodes:
-      - id: asset-transfer-basic  
-        contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
-        path: "chaincode/asset-transfer-basic"      # NOTE: Path to Directory where chaincode file is located
-        metadataPath: ""
-        language: node
-        version: v1
-  # - name: "mysecondchannel"
+  # - name: "mychannel"
   #   # created: false          # Update this value to true if channel is already created
   #   chaincodes:
-  #     - id: fabcar
-  #       contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
-  #       path: "chaincode/fabcar"      # NOTE: Relative path to Directory where chaincode file is located
-  #       language: golang
+  #     - id: asset-transfer-basic  
+  #       contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
+  #       path: "chaincode/asset-transfer-basic"      # NOTE: Path to Directory where chaincode file is located
+  #       metadataPath: ""
+  #       language: node
   #       version: v1
+  - name: "mysecondchannel"
+    # created: false          # Update this value to true if channel is already created
+    chaincodes:
+      - id: fabcar
+        contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
+        path: "chaincode/fabcar"      # NOTE: Relative path to Directory where chaincode file is located
+        language: golang
+        version: v1
 
 # Config Directories
 fabric_config_dirname: fabric-config
