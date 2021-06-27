@@ -241,8 +241,8 @@ spec:
           value: DEBUG
         - name: GRPC_TRACE
           value:  all
-        # - name: GODEBUG
-        #   value: http2debug=2
+        - name: GODEBUG
+          value: http2debug=2
         
         # Operations service
         {{- if $.Values.peer.operations.enabled }}
