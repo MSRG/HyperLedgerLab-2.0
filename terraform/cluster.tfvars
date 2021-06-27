@@ -1,5 +1,5 @@
 # your Kubernetes cluster name here
-cluster_name = "hl"
+cluster_name = "hll"
 
 # availability zone in the OpenStack cluster
 availability_zone = "kvm-hdd"
