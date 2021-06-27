@@ -145,7 +145,6 @@ spec:
       {{- end }}{{- /* if peer count > 1 */ -}}
       {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
-   
       containers:
       # Peer container
       - name: peer

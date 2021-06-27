@@ -22,7 +22,7 @@ persistence:
 
 # peer settings. applies to all peers
 peer:
-  logLevel: grpc=debug:info
+  logLevel: DEBUG
   # launch peer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true
   chaincode:
