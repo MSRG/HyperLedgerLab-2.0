@@ -1,8 +1,11 @@
-## Provide fabric versions as defined here:
-fabric_version:  &fabric_version 1.4.0
-fabric_ca_version: 1.5.0
-fabric_couchdb_version: 0.4.14
-caliper_version: 0.4.2
+# Custom fabric container images
+fabric_images:
+  ca: hyperledger/fabric-ca:1.5.0
+  peer: hyperledger/fabric-peer:2.2.0
+  tools: hyperledger/fabric-tools:2.2.0
+  orderer: hyperledger/fabric-orderer:2.2.0
+  couchdb: hyperledger/fabric-couchdb:0.4.15
+caliper_image: hyperledger/caliper:0.4.2
 
 # Fabric Network Config
 fabric_num_orgs: 2
@@ -20,26 +23,9 @@ fabric_batchsize: ["100", "98 MB", "1024 KB"]
 # Enable tls globally in the network
 fabric_tls_enabled: true 
 
-# Custom fabric container images
-fabric_images:
-  ca: hyperledger/fabric-ca:*fabric_version
-  peer: "hyperledger/fabric-peer:{{ fabric_version }}"
-  tools: "hyperledger/fabric-tools:{{ fabric_version }}"
-  orderer: "hyperledger/fabric-orderer:{{ fabric_version }}"
-  couchdb: "hyperledger/fabric-couchdb:{{ fabric_couchdb_version }}"
-  kafka: "hyperledger/fabric-kafka:{{ fabric_couchdb_version }}"
-  zookeeper: "hyperledger/fabric-zookeeper:{{ fabric_couchdb_version }}"
-  dind: "docker:18.09-dind"
-caliper_image: hyperledger/caliper:0.4.2
-
-# Fabric Configuration
-# state_db options couchdb / goleveldb
-# fabric_state_db: goleveldb
-
 # Channel configuration
 channels:                   # List of channel objects
   - name: "mychannel"
-    # created: false          # Update this value to true if channel is already created
     chaincodes:
       - id: asset-transfer-basic  
         contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
@@ -48,7 +34,6 @@ channels:                   # List of channel objects
         language: node
         version: v1
   - name: "mysecondchannel"
-    # created: false          # Update this value to true if channel is already created
     chaincodes:
       - id: fabcar
         contractID: fabcar               # NOTE: This should be unique for chaincodes across channels

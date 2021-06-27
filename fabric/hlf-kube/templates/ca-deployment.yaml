@@ -21,7 +21,7 @@ spec:
 
       containers:
       - name: ca
-        image: {{ $.Values.caImage }}
+        image: {{ $.Values.fabric_images.ca }}
         command: ["sh", "-c", "fabric-ca-server start \
             --ca.certfile /etc/hyperledger/fabric-ca-server-config/cert.pem \
             --ca.keyfile /etc/hyperledger/fabric-ca-server-config/private_key \

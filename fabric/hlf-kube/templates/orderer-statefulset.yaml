@@ -106,7 +106,7 @@ spec:
 
       # Orderer container
       - name: orderer
-        image: hyperledger/fabric-orderer:{{ $.Values.hyperledgerVersion }}
+        image: {{ $.Values.fabric_images.orderer }}
         command: ["sh", "-c", "orderer"]
 
         volumeMounts:

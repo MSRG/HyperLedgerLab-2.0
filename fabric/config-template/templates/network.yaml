@@ -3,7 +3,12 @@ useActualDomains: true
 orderer:
   cluster:
     enabled: {{ternary false true .Values.fabric_tls_enabled}}
-caImage: {{ .Values.fabric_images.ca }}
+fabric_images:
+  ca:  {{ .Values.fabric_images.ca }}
+  peer:  {{ .Values.fabric_images.peer }}
+  tools:  {{ .Values.fabric_images.tools }}
+  orderer:  {{ .Values.fabric_images.orderer }}
+  couchdb: {{ .Values.fabric_images.couchdb }}
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums

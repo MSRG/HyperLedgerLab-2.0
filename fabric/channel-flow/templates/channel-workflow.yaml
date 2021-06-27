@@ -184,7 +184,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
           set -x
@@ -268,7 +268,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
           set -x
@@ -345,7 +345,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: hyperledger/fabric-tools:{{ $.Values.hyperledgerVersion }}
+      image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
           set -x
