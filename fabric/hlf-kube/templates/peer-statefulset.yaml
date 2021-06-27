@@ -236,7 +236,7 @@ spec:
           value: {{ $.Values.couchdb.password | quote }}
         
         - name: HFC_LOGGING
-          value: '{"info":"console"}'
+          value: '{"debug":"console","info":"console"}'
         - name: GRPC_VERBOSITY
           value: DEBUG
         - name: GRPC_TRACE
