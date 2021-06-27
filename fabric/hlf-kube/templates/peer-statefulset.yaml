@@ -145,6 +145,9 @@ spec:
       {{- end }}{{- /* if peer count > 1 */ -}}
       {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
+      imagePullSecrets:
+        - name: regcred
+      
       containers:
       # Peer container
       - name: peer
