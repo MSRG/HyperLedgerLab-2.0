@@ -1,5 +1,5 @@
 ## Provide fabric versions as defined here:
-fabric_version: 1.4.0
+fabric_version:  &fabric_version 1.4.0
 fabric_ca_version: 1.5.0
 fabric_couchdb_version: 0.4.14
 caliper_version: 0.4.2
@@ -22,7 +22,7 @@ fabric_tls_enabled: true
 
 # Custom fabric container images
 fabric_images:
-  ca: hyperledger/fabric-ca:{{ .fabric_ca_version }}
+  ca: hyperledger/fabric-ca:*fabric_version
   peer: "hyperledger/fabric-peer:{{ fabric_version }}"
   tools: "hyperledger/fabric-tools:{{ fabric_version }}"
   orderer: "hyperledger/fabric-orderer:{{ fabric_version }}"
