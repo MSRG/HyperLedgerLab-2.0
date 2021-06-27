@@ -263,19 +263,11 @@ spec:
           echo '-- Chaincode {{ $chaincode.name }} version {{ $version }} is not installed to peer {{ $peer }}, will install..' 
 
           {{- if eq $language "golang" }}
-          # chaincode is packed with tar, first extract it 
-          mkdir -p $GOPATH/src/chaincode && 
-          tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C $GOPATH/src/chaincode && 
-          echo "=========================================="
-          echo {{ $chaincode.name }}
-          echo  $(ls -R /hlf_config/chaincode/)
-          echo $(ls -R $GOPATH/src/chaincode)
-          echo "=========================================="
-          # peer chaincode install --path $GOPATH/src/chaincode/{{ $chaincode.name }} --name {{ $chaincode.name }} \
-          #     --version {{ $version }} --lang {{ $language }}
-          peer lifecycle chaincode package $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz --path $GOPATH/src/chaincode/ --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
-          peer lifecycle chaincode install $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz
-
+            # chaincode is packed with tar, first extract it 
+            mkdir -p $GOPATH/src/chaincode && 
+            tar -xf /hlf_config/chaincode/{{ $chaincode.name }}.tar -C $GOPATH/src/chaincode && 
+            peer lifecycle chaincode package $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz --path $GOPATH/src/chaincode/ --lang {{ $language }} --label {{ $chaincode.name }}_{{ $version }} &&
+            peer lifecycle chaincode install $GOPATH/src/chaincode/{{ $chaincode.name }}.tar.gz
           {{- else }}
             echo '{{ $language }}'
             # chaincode is packed with tar, first extract it 
