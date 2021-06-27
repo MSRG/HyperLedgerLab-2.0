@@ -38,7 +38,7 @@ caliper_image: hyperledger/caliper:0.4.2
 
 # Channel configuration
 channels:                   # List of channel objects
-  # - name: "mychannel"
+  # - name: "mysecondchannel"
   #   # created: false          # Update this value to true if channel is already created
   #   chaincodes:
   #     - id: asset-transfer-basic  
@@ -47,7 +47,7 @@ channels:                   # List of channel objects
   #       metadataPath: ""
   #       language: node
   #       version: v1
-  - name: "mysecondchannel"
+  - name: "mychannel"
     # created: false          # Update this value to true if channel is already created
     chaincodes:
       - id: fabcar
