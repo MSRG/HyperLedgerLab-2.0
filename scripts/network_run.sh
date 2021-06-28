@@ -2,10 +2,6 @@
 
 FOLDER_NAME="config/templates"
 
-# Deleting existing network
-argo delete --all
-helm delete hlf-kube
-
 # Move to fabric folder
 cd `dirname $0`/../fabric
 
