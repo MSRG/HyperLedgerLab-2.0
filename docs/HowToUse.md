@@ -28,7 +28,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      - **Instance Name:** "CLI" or any other name.
      - **Availability Zone:** kvm-hdd
      - **Source:** kvm-ubuntu-focal
-     - **Flavor:** m1.medium
+     - **Flavor:** m1.large
      - **Security Groups:** select the security group created.
      - **Key Pair:** select the key pair created.
 
