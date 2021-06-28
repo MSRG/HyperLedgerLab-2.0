@@ -1,0 +1,92 @@
+# Default values for hlf-kube.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# use actual domain names like peer0.org1 instead of internal service names
+# this should be set to true for TLS 
+useActualDomains: false
+
+# adds additional DNS entries to /etc/hosts files
+# this value should be provided if either tlsEnabled or useActualDomains is set to true
+hostAliases: []
+
+# common persistence settings
+persistence:
+  storageClass: default
+
+# peer settings. applies to all peers
+peer:
+  logLevel: DEBUG
+  # launch peer pods? setting to false is useful for collecting host aliases and fast restart afterwards
+  launchPods: true
+  chaincode:
+    # attach chaincode's stdout to peer?
+    attachStdout: true
+    logging:
+      level: info
+      shim: info
+  persistence:
+    enabled: false
+    size: 16Gi
+  # if enabled, podAntiAffinity is used to spread the peer pods in the same organization among nodes
+  # normally no need to disable this
+  antiAffinity:
+    enabled: true
+    # is antiAffinity preferred or required?
+    strict: false
+  operations:
+    enabled: false
+    listenAddress: 0.0.0.0:9443
+    servicePort: 9443
+    tls:
+      enabled: false
+
+# CouchDB settings. applies to all CouchDB's
+couchdb:
+  version: 0.4.15
+  userName:
+  password:
+  persistence:
+    enabled: false
+    size: 16Gi
+
+# Orderer settings. applies to all Orderer pods
+orderer:
+  # normally it shouldn't be greater than 1 
+  replicas: 1
+  logLevel: grpc=debug:info
+  # launch orderer pods? setting to false is useful for collecting host aliases and fast restart afterwards
+  launchPods: true
+  persistence:
+    enabled: false
+    size: 16Gi
+  # when enabled, internal communication among Raft orderers are done at a different port
+  # useful when you dont want to enable TLS globally (i.e for transparent load balancing)
+  # has no effect if orderer type is not etcdraft
+  cluster:
+    enabled: false
+    # raft cluster communication port. should be in synch with consenters in configtx.yaml
+    port: 7059
+  # if enabled, podAntiAffinity is used to spread the orderer pods in the same organization among nodes
+  # normally no need to disable this
+  antiAffinity:
+    enabled: true
+    # is antiAffinity preferred or required?
+    strict: false
+  operations:
+    enabled: false
+    listenAddress: 0.0.0.0:8443
+    servicePort: 8443
+    tls:
+      enabled: false
+
+# CA (Certificate Authority) settings. applies to all CA's
+ca:
+  userName: admin
+  password: adminpw
+  logLevel: grpc=debug:info
+
+# chaincode settings
+chaincode:
+  # fill in this array with chaincode names to limit the chaincode ConfigMap only to these ones
+  include: []

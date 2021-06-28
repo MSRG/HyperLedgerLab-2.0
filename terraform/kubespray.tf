@@ -18,8 +18,7 @@ module "compute" {
 
   network_id                                   = var.network_id
   cluster_name                                 = var.cluster_name
-  az_list                                      = var.az_list
-  az_list_node                                 = var.az_list_node
+  availability_zone                            = var.availability_zone
   number_of_k8s_masters                        = var.number_of_k8s_masters
   number_of_k8s_masters_no_etcd                = var.number_of_k8s_masters_no_etcd
   number_of_etcd                               = var.number_of_etcd
@@ -66,4 +65,6 @@ module "compute" {
   use_server_groups                            = var.use_server_groups
   extra_sec_groups                             = var.extra_sec_groups
   extra_sec_groups_name                        = var.extra_sec_groups_name
+  flavor_k8s_node_name                         = var.flavor_k8s_node_name
+  flavor_k8s_master_name                       = var.flavor_k8s_master_name
 }

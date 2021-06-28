@@ -1,0 +1,48 @@
+{{- range $i, $org := .Values.PeerOrgs }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hlf-ca--{{ $org.Name | lower }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hlf-ca--{{ $org.Name | lower }}
+  template:
+    metadata:
+      labels:
+        app: hlf-ca--{{ $org.Name | lower }}
+    spec:
+      volumes:
+      - name: ca-tls
+        secret:
+          secretName: hlf-ca--{{ $org.Name | lower }}-tls
+
+      containers:
+      - name: ca
+        image: {{ $.Values.fabric_images.ca }}
+        command: ["sh", "-c", "fabric-ca-server start \
+            --ca.certfile /etc/hyperledger/fabric-ca-server-config/cert.pem \
+            --ca.keyfile /etc/hyperledger/fabric-ca-server-config/private_key \
+            -b {{ $.Values.ca.userName }}:{{ $.Values.ca.password }} -d"]
+
+        volumeMounts:
+        - mountPath: /etc/hyperledger/fabric-ca-server-config/
+          name: ca-tls
+
+        env:
+        - name: FABRIC_LOGGING_SPEC
+          value: {{ $.Values.fabric_ca_loglevel }}
+        - name: FABRIC_CA_HOME
+          value: /etc/hyperledger/fabric-ca-server
+        - name: FABRIC_CA_SERVER_CA_NAME
+          value: ca-{{ $org.Name }}
+        - name: FABRIC_CA_SERVER_TLS_ENABLED
+          value: {{ $.Values.tlsEnabled | quote }}
+        - name: FABRIC_CA_SERVER_TLS_CERTFILE
+          value: /etc/hyperledger/fabric-ca-server-config/cert.pem
+        - name: FABRIC_CA_SERVER_TLS_KEYFILE
+          value: /etc/hyperledger/fabric-ca-server-config/private_key
+---
+{{- end }} {{- /* Orgs */ -}}

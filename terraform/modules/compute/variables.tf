@@ -1,11 +1,7 @@
 variable "cluster_name" {}
 
-variable "az_list" {
-  type = list(string)
-}
-
-variable "az_list_node" {
-  type = list(string)
+variable "availability_zone" {
+  default = ""
 }
 
 variable "number_of_k8s_masters" {}
@@ -67,39 +63,39 @@ variable "network_id" {
 }
 
 variable "k8s_master_fips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_master_no_etcd_fips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_node_fips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_nodes_fips" {
-  type = map
+  type = map(any)
 }
 
 variable "bastion_fips" {
-  type = list
+  type = list(any)
 }
 
 variable "bastion_allowed_remote_ips" {
-  type = list
+  type = list(any)
 }
 
 variable "master_allowed_remote_ips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_allowed_remote_ips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_allowed_egress_ips" {
-  type = list
+  type = list(any)
 }
 
 variable "k8s_nodes" {}
@@ -115,11 +111,11 @@ variable "supplementary_node_groups" {
 }
 
 variable "master_allowed_ports" {
-  type = list
+  type = list(any)
 }
 
 variable "worker_allowed_ports" {
-  type = list
+  type = list(any)
 }
 
 variable "use_access_ip" {}
@@ -135,3 +131,7 @@ variable "extra_sec_groups" {
 variable "extra_sec_groups_name" {
   type = string
 }
+
+variable "flavor_k8s_master_name" {}
+
+variable "flavor_k8s_node_name" {}

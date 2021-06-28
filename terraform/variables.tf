@@ -2,20 +2,12 @@ variable "cluster_name" {
   default = "example"
 }
 
-variable "az_list" {
-  description = "List of Availability Zones to use for masters in your OpenStack cluster"
-  type        = list(string)
-  default     = ["nova"]
-}
-
-variable "az_list_node" {
-  description = "List of Availability Zones to use for nodes in your OpenStack cluster"
-  type        = list(string)
-  default     = ["nova"]
+variable "availability_zone" {
+  default = ""
 }
 
 variable "network_id" {
-  default = "dd0e99f0-4112-458f-a30f-328b517ed627"
+  default = ""
 }
 
 variable "number_of_bastions" {
@@ -35,11 +27,11 @@ variable "number_of_etcd" {
 }
 
 variable "number_of_k8s_masters_no_floating_ip" {
-  default = 1
+  default = 0
 }
 
 variable "number_of_k8s_masters_no_floating_ip_no_etcd" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_k8s_nodes" {
@@ -47,7 +39,7 @@ variable "number_of_k8s_nodes" {
 }
 
 variable "number_of_k8s_nodes_no_floating_ip" {
-  default = 2
+  default = 0
 }
 
 variable "number_of_gfs_nodes_no_floating_ip" {
@@ -262,4 +254,14 @@ variable "extra_sec_groups" {
 
 variable "extra_sec_groups_name" {
   default = "custom"
+}
+
+variable "flavor_k8s_master_name" {
+  description = "Flavor name"
+  default     = ""
+}
+
+variable "flavor_k8s_node_name" {
+  description = "Flavor name"
+  default     = ""
 }

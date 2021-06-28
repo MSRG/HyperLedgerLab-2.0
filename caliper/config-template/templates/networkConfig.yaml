@@ -1,0 +1,124 @@
+name: Calier test
+version: "1.0"
+mutual-tls: {{ternary true false .Values.fabric_tls_enabled}}
+
+caliper:
+  blockchain: fabric
+
+info:
+  Version: {{.Values.fabric_version}}
+  Size: {{.Values.fabric_num_orgs}} Orgs with {{.Values.fabric_peers_per_org}} Peer
+  Orderer: {{.Values.fabric_orderer_type}}
+  Distribution: Distributed Host
+  StateDB: CouchDB
+
+clients:
+  {{- $root := . -}}
+  {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+  client0.org{{.}}.example.com:
+    client:
+      organization: Org{{.}}
+      credentialStore:
+        path: /tmp/hfc-kvs/org{{.}}
+        cryptoStore:
+          path: /tmp/hfc-cvs/org{{.}}
+      clientPrivateKey:
+        path: /etc/hyperledger/fabric/org{{.}}/msp/keystore/key.pem
+      clientSignedCert:
+        path: /etc/hyperledger/fabric/org{{.}}/msp/signcerts/cert.pem
+  {{ end }}
+
+organizations:
+  {{- $root := . -}}
+  {{- range $i, $e := untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+  Org{{.}}:
+    mspid: Org{{.}}MSP
+    peers:
+    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+      - peer{{.}}.org{{$e}}
+    {{ end }}
+    certificateAuthorities:
+      - ca-Org{{.}}
+    adminPrivateKey:
+      path: /etc/hyperledger/fabric/org{{.}}/msp/keystore/key.pem
+    signedCert:
+      path: /etc/hyperledger/fabric/org{{.}}/msp/signcerts/cert.pem
+  {{ end }}
+
+certificateAuthorities:
+  {{- $root := . -}}
+  {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+  ca-Org{{.}}: 
+    url: {{ternary "https" "http" $root.Values.fabric_tls_enabled}}://hlf-ca--org{{.}}.default.svc.cluster.local:7054
+    httpOptions:
+      verify: false
+    caName: ca-Org{{.}}
+    {{ if $.Values.fabric_tls_enabled }}
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/org{{.}}/msp/tlscacerts/cert.pem
+    {{ end }}
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+  {{ end }}
+
+orderers:
+  {{- $root := . -}}
+  {{- range untilStep 0 (int .Values.fabric_num_orderer) 1 }}
+  orderer{{.}}:
+    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-orderer--ordorg1--orderer{{.}}:7050
+    grpcOptions:
+      ssl-target-name-override: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
+      # hostnameOverride: orderer0.org1
+      grpc.keepalive_time_ms: 600000
+    {{ if $.Values.fabric_tls_enabled }}
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
+    {{ end }}
+  {{ end }}
+
+peers:
+{{- $root := . -}}
+{{- range $i, $e := untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+  {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+  peer{{.}}.org{{$e}}:
+    url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$e}}--peer{{.}}:7051
+    grpcOptions:
+      ssl-target-name-override: peer{{.}}.org{{$e}}
+      # hostnameOverride: peer0.org1
+      grpc.keepalive_time_ms: 600000
+    {{ if $.Values.fabric_tls_enabled }}
+    tlsCACerts:
+      path: /etc/hyperledger/fabric/org{{$e}}/msp/tlscacerts/cert.pem
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+channels:
+  {{- $root := . -}}
+  {{- range $channel := .Values.channels }}
+  {{ $channel.name }}:
+    created: true
+    orderers:
+      {{- range untilStep 0 (int $root.Values.fabric_num_orderer) 1 }}
+      - orderer{{.}}
+      {{ end }} 
+    peers:
+    {{- range $i, $e := untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 }}
+    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+      peer{{.}}.org{{$e}}:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+    {{ end }}
+    {{ end }}
+
+    contracts:
+    {{- range $chaincode := $channel.chaincodes }}
+      - id: {{ $chaincode.contractID }}
+        version: {{ $chaincode.version }}
+        language: {{ $chaincode.language }}
+        path: /caliper-chaincode/{{ $chaincode.contractID }}
+    {{ end }}
+  {{- end }}

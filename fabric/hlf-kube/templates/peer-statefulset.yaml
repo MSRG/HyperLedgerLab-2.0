@@ -1,0 +1,266 @@
+{{- if .Values.peer.launchPods }}
+{{- range $i, $org := $.Values.PeerOrgs }}
+{{- range $peerIndex := until ($org.Template.Count | int) }}
+{{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
+{{- $peerAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+# peerAddress: {{ $peerAddress }}
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+spec:
+  replicas: 1
+  serviceName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+  selector:
+    matchLabels:
+      app: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+  volumeClaimTemplates:
+  {{- if $.Values.peer.persistence.enabled }}
+  - metadata:
+      name: peer-disk
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ $.Values.persistence.storageClass }}
+      resources:
+        requests:
+          storage: {{ $.Values.peer.persistence.size }}
+  {{- end }}
+  {{- if $.Values.couchdb.persistence.enabled }}
+  - metadata:
+      name: couchdb-disk
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: {{ $.Values.persistence.storageClass }}
+      resources:
+        requests:
+          storage: {{ $.Values.couchdb.persistence.size }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        name: hlf-peer 
+        org: hlf-peer--{{ $org.Name | lower }}
+        app: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
+    spec:
+      volumes:
+      {{- if not $.Values.peer.persistence.enabled }}
+      - name: peer-disk
+        emptyDir: {}
+      {{- end }}
+      {{- if not $.Values.couchdb.persistence.enabled }}
+      - name: couchdb-disk
+        emptyDir: {}
+      {{- end }}
+      - name: dockersocket
+        hostPath:
+          path: /var/run/docker.sock
+          type: Socket
+      - name: peer-tls
+        secret:
+          secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
+      - name: peer-msp
+        secret:
+          secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-msp
+          items:
+          - key: config.yaml
+            path: config.yaml
+          - key: cert.pem
+            path: signcerts/cert.pem
+          - key: key.pem
+            path: keystore/key.pem
+          - key: cacert.pem
+            path: cacerts/ca.{{ $org.Domain}}-cert.pem
+          - key: tlscacert.pem
+            path: tlscacerts/cert.pem
+      - name: peer-admin-msp
+        secret:
+          secretName: hlf-peer--{{ $org.Name | lower }}--admin-msp
+          items:
+          - key: config.yaml
+            path: config.yaml
+          - key: cert.pem
+            path: signcerts/cert.pem
+          - key: key.pem
+            path: keystore/key.pem
+          - key: cacert.pem
+            path: cacerts/ca.{{ $org.Domain}}-cert.pem
+          - key: tlscacert.pem
+            path: tlscacerts/cert.pem
+      # chaincodes
+      {{- range $i, $chaincode := $.Values.network.chaincodes }}    
+      - name: chaincode-{{ $chaincode.name | lower }}
+        configMap:
+          name: hlf-chaincode--{{ $chaincode.name | lower }}
+      {{- end }}
+
+      {{- if $.Values.hostAliases }}
+      hostAliases:
+      {{- range $i, $alias := $.Values.hostAliases }}
+      - ip: {{ $alias.ip }}
+        hostnames: {{ $alias.hostnames }}
+      {{- end }}
+      {{- end }}{{""}}
+
+      {{- if $.Values.peer.antiAffinity.enabled }}
+      {{- if gt ($org.Template.Count | int) 1 }}
+      affinity:
+        podAntiAffinity:
+      {{- if $.Values.peer.antiAffinity.strict }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+                {{- if not (eq $peerIndex $peerIndexInner) }}
+                {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+                - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+                {{- end }} {{- /* if not same peer */ -}}
+                {{- end }} {{- /* Peers */ -}}{{""}}
+      {{- else }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+                  {{- if not (eq $peerIndex $peerIndexInner) }}
+                  {{- $peerInner := (printf "peer%s" ($peerIndexInner | toString)) }}
+                  - hlf-peer--{{ $org.Name | lower }}--{{ $peerInner | lower }}
+                  {{- end }} {{- /* if not same peer */ -}}
+                  {{- end }} {{- /* Peers */ -}}{{""}}
+      {{- end }}{{- /* if-else antiAffinity.strict */ -}}
+      {{- end }}{{- /* if peer count > 1 */ -}}
+      {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
+
+      imagePullSecrets:
+        - name: regcred
+      
+      containers:
+      # Peer container
+      - name: peer
+        image: {{ $.Values.fabric_images.peer }}
+        command: ["sh", "-c", "peer node start"]
+
+        volumeMounts:
+        - mountPath: /var/hyperledger/production/
+          name: peer-disk
+        - mountPath: /host/var/run/docker.sock
+          name: dockersocket
+        - mountPath: /etc/hyperledger/fabric/tls/
+          name: peer-tls
+        - mountPath: /etc/hyperledger/fabric/msp/
+          name: peer-msp
+        - mountPath: /etc/hyperledger/fabric/admin-msp/
+          name: peer-admin-msp
+        # chaincodes
+        {{- range $i, $chaincode := $.Values.network.chaincodes }}    
+        - mountPath: /chaincode/{{ $chaincode.name }}
+          name: chaincode-{{ $chaincode.name | lower }}
+        {{- end }}
+
+        env:
+        - name: CORE_PEER_ID
+          value: {{ $peer }}.{{ $org.Domain }}
+        - name: CORE_PEER_ADDRESS
+          value: {{ $peerAddress }}
+        - name: CORE_PEER_LISTENADDRESS
+          value: 0.0.0.0:7051
+        - name: CORE_PEER_CHAINCODELISTENADDRESS
+          value: 0.0.0.0:7052
+        - name: CORE_PEER_GOSSIP_BOOTSTRAP
+          value: >- 
+          {{- range $peerIndexInner := until ($org.Template.Count | int) }}
+          {{- $peer := (printf "peer%s" ($peerIndexInner | toString)) }}
+          {{- $peerGossipAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+                {{ $peerGossipAddress }}
+          {{- end }} {{- /* Peers */ -}}{{""}}
+
+        - name: CORE_PEER_GOSSIP_EXTERNALENDPOINT
+          value: {{ $peerAddress }}
+        - name: CORE_PEER_LOCALMSPID
+          value: {{ $org.Name }}MSP
+
+        - name: CORE_VM_ENDPOINT
+          value: unix:///host/var/run/docker.sock
+        - name: FABRIC_LOGGING_SPEC
+          value: {{ $.Values.fabric_peer_loglevel }}
+        - name: CORE_PEER_TLS_ENABLED
+          value: {{ $.Values.tlsEnabled | quote }}
+        - name: CORE_PEER_GOSSIP_USELEADERELECTION
+          value: "true"
+        - name: CORE_PEER_GOSSIP_ORGLEADER
+          value: "false"
+        - name: CORE_PEER_PROFILE_ENABLED
+          value: "true"
+        - name: CORE_PEER_ADDRESSAUTODETECT
+          value: "true"
+        - name: CORE_PEER_TLS_CERT_FILE
+          value: /etc/hyperledger/fabric/tls/server.crt
+        - name: CORE_PEER_TLS_KEY_FILE
+          value: /etc/hyperledger/fabric/tls/server.key
+        - name: CORE_PEER_TLS_ROOTCERT_FILE
+          value: /etc/hyperledger/fabric/tls/ca.crt
+        - name: CORE_PEER_MSPCONFIGPATH 
+          value: /etc/hyperledger/fabric/msp/
+        - name: CORE_CHAINCODE_BUILDER
+          value: {{ $.Values.fabric_images.ccenv }} 
+        - name: CORE_CHAINCODE_LOGGING_LEVEL
+          value: {{ $.Values.peer.chaincode.logging.level }}
+        - name: CORE_CHAINCODE_LOGGING_SHIM
+          value: {{ $.Values.peer.chaincode.logging.shim }}
+        - name: CORE_VM_DOCKER_ATTACHSTDOUT
+          value: {{ $.Values.peer.chaincode.attachStdout | quote }} 
+        
+        - name: CORE_LEDGER_STATE_STATEDATABASE
+          value: CouchDB
+        - name: CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS
+          value: localhost:5984
+        - name: CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME
+          value: {{ $.Values.couchdb.userName | quote }}
+        - name: CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
+          value: {{ $.Values.couchdb.password | quote }}
+        
+        - name: HFC_LOGGING
+          value: '{"debug":"console","info":"console"}'
+        - name: GRPC_VERBOSITY
+          value: DEBUG
+        - name: GRPC_TRACE
+          value:  all
+        - name: GODEBUG
+          value: http2debug=2
+        
+        # Operations service
+        {{- if $.Values.peer.operations.enabled }}
+        - name: CORE_OPERATIONS_LISTENADDRESS
+          value: {{ $.Values.peer.operations.listenAddress }}
+        - name: CORE_OPERATIONS_TLS_ENABLED
+          value: {{ $.Values.peer.operations.tls.enabled | quote }}
+        {{- end }}
+        
+      # CouchDB container
+      - name: couchdb
+        image: {{ $.Values.fabric_images.couchdb }}
+
+        volumeMounts:
+        - mountPath: /opt/couchdb/data/
+          name: couchdb-disk
+        
+        env:
+        - name: COUCHDB_USER
+          value: {{ $.Values.couchdb.userName | quote }}
+        - name: COUCHDB_PASSWORD
+          value: {{ $.Values.couchdb.password | quote }}
+---
+{{- end }} {{- /* Peers */ -}}
+{{- end }} {{- /* Orgs */ -}}
+{{- end }} {{- /* if launchPods */ -}}

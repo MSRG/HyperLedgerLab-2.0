@@ -1,0 +1,48 @@
+tlsEnabled: {{.Values.fabric_tls_enabled}}
+useActualDomains: true
+orderer:
+  cluster:
+    enabled: {{ternary false true .Values.fabric_tls_enabled}}
+fabric_images:
+  ca:  {{ .Values.fabric_images.ca }}
+  peer:  {{ .Values.fabric_images.peer }}
+  tools:  {{ .Values.fabric_images.tools }}
+  orderer:  {{ .Values.fabric_images.orderer }}
+  couchdb: {{ .Values.fabric_images.couchdb }}
+  ccenv:  {{ .Values.fabric_images.ccenv }}
+
+fabric_ca_loglevel: {{ .Values.fabric_ca_loglevel }}
+fabric_peer_loglevel: {{ .Values.fabric_peer_loglevel }}
+fabric_orderer_loglevel: {{ .Values.fabric_orderer_loglevel }}
+
+network:
+  # used by init script to create genesis block and by peer-org-flow to parse consortiums
+  genesisProfile: OrdererGenesis
+  # used by init script to create genesis block
+  systemChannelID: testchainid
+
+  # defines which organizations will join to which channels
+  channels:
+  {{- $root := . -}}
+  {{- range $channel := .Values.channels }}
+    - name: {{ $channel.name }}
+    # all peers in these organizations will join the channel
+      orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
+  {{- end }}
+
+  # defines which chaincodes will be installed to which organizations
+  chaincodes:
+  {{- $root := . -}}
+  {{- range $channel := .Values.channels }}
+    {{- range $chaincode := $channel.chaincodes }}
+    - name: {{ $chaincode.contractID }}
+      language: {{ $chaincode.language }}
+      path: {{ $chaincode.path }}
+      version: {{ $chaincode.version }}
+      orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
+      channels:
+        - name: {{ $channel.name }}
+          orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
+          policy: OR ({{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} 'Org{{.}}MSP.member', {{- end }})
+    {{- end }}
+  {{- end }}
