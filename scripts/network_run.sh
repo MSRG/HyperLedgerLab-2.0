@@ -11,7 +11,7 @@ cd `dirname $0`/../fabric
 
 # Create config files using helm template
 echo "-- creating config files --"
-helm template config-template/ -f network-configuation.yaml --output-dir .
+helm template config-template/ -f network-configuration.yaml --output-dir .
 
 # create necessary stuff: crypto-config files, channel-artifacts and chaincode compression 
 ../scripts/init_network.sh ./$FOLDER_NAME/ ./chaincode/

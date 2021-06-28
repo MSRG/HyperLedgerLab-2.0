@@ -67,46 +67,54 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    | `subnet_cidr`                          | Network Address of the subnet associated to the network. It can be found under NETWORK > Networks in the OpenStack dashboard. |
    | `k8s_allowed_remote_ips`               | List of CIDR allowed to initiate a SSH connection.                                                                            |
 
-- Run Command: `./scripts/k8s_setup.sh `
-- **Estimated execution time:** 20 minutes
-- Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
+   - Run Command: `./scripts/k8s_setup.sh `
+   - **Estimated execution time:** 20 minutes
+   - Workflow: ( MAYBE ADD IT TO SEPERATE FILE WITH MORE DETAILS)
 
-  - Installs the required tools
-  - Provisions infractructure on OpenStack cluster using Terraform
-  - Installs Kubernetes using Kubesray
-  - Configures Kubectl on the current CLI instance
+     - Installs the required tools
+     - Provisions infractructure on OpenStack cluster using Terraform
+     - Installs Kubernetes using Kubesray
+     - Configures Kubectl on the current CLI instance
 
-- Check for running Kubernetes cluster and good configuation of kubectl by running `kubectl version`.
-  You should see a similar output:
+   - Check for running Kubernetes cluster and good configuation of kubectl by running `kubectl version`.
+     You should see a similar output:
 
-  ```
-  Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:31:21Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
-  Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
-  ```
+     ```
+     Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:31:21Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
+     Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.4", GitCommit:"e87da0bd6e03ec3fea7933c4b5263d151aafd07c", GitTreeState:"clean", BuildDate:"2021-02-18T16:03:00Z", GoVersion:"go1.15.8", Compiler:"gc", Platform:"linux/amd64"}
+     ```
 
-- To destroy the infrastructure provisoned, hence the Kubernetes cluster
-  - Run command: `./scripts/k8s_destroy.sh`
+   - To destroy the infrastructure provisoned, hence the Kubernetes cluster
+     - Run command: `./scripts/k8s_destroy.sh`
 
 6. Install Hyperledger Fabric on the running Kubernetes cluster
 
    - The main Hyperledger Fabric components are defined in a Helm chart for Kubernetes.
-   - The by default values of the HLF network configuration are in [./fabric/hlf-kube/values.yaml](../fabric/hlf-kube/values.yaml)
-   - The by default values can be overriden. For example a confirguation with raft as orderer and with tls enabled can be found in [./fabric/raft-tls](../fabric/raft-tls).
-     The folder typically contains the following configuration files:
+   - The network configuration can be changed in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml).
+   - What can be changed?
 
-     - [./fabric/raft-tls/configtx.yaml](../fabric/raft-tls/configtx.yaml) contains the information that is required to build the channel configuration.
-     - [./fabric/raft-tls/crypto-config.yaml](../fabric/raft-tls/crypto-config.yaml) contains the definition of organizations managing orderer nodes and the definition of organizations managing peer nodes.
-     - [./fabric/raft-tls/network.yaml](../fabric/raft-tls/network.yaml) contains the network definition.
+     | Configuration                              | description                                                                                                                  |
+     | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+     | Fabric container images                    | You can define original or custom fabric and caliper container images                                                        |
+     | Fabric Network Config                      | You can define number of orgs, peer per orgs and orderers                                                                    |
+     | Fabric Orderer Type                        | Available types are "solo" and "etcdraft"                                                                                    |
+     | Batch Timeout & Batch Size                 | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block          |
+     | Wether TLS is enabled in the whole network |                                                                                                                              |
+     | Channel configuration                      | You defined the channels and chaincode definitions in the respective channel.                                                |
+     | Logging Level                              | Logging severity levels are specified using case-insensitive strings chosen from FATAL, PANIC, ERROR, WARNING, INFO or DEBUG |
 
-   - Install the configuered network on the running Kubenetes cluster
+   - Install the configured network on the running Kubenetes cluster
 
-     - Run command: `./scripts/network_run.sh <configuration_folder>` e.g `./scripts/network_run.sh raft-tls`
+   - Run command: `./scripts/network_run.sh <configuration_folder>` e.g `./scripts/network_run.sh raft-tls`
 
-     - Workflow:
+   - What will happen ?
 
-       - Installs the helm chart coantaining all necessary components of the Hyperledger Fabric network
-       - Creates channel and join all peers to it
-       - Installs all chaincodes on all peers of the respective channel
+     - Installs the helm chart containing all necessary components of the Hyperledger Fabric network.
+       - Estimated execution time: 40 seconds.
+     - Creates channel and join all peers to it
+       - Estimated execution time: 90 seconds per channel
+     - Installs all chaincodes on all peers of the respective channel
+       - Estimated execution time: 120 seconds per chaincode.
 
    - To delete Hyperledger Fabric network
      - Run command: `./scripts/network_delete.sh` to delete all Kubernetes components used to run the Hyperledger Fabric network.

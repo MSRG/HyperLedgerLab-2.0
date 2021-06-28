@@ -14,7 +14,7 @@ fabric_peers_per_org: 2
 fabric_num_orderer: 2
 fabric_orderer_domain: orgorderer1
 
-# Available types are "solo" and "etcdraft"
+# Fabric Orderer Type: Available types are "solo" and "etcdraft"
 fabric_orderer_type: etcdraft
 
 # Batch Timeout: The amount of time to wait before creating a batch
@@ -31,16 +31,15 @@ channels:                   # List of channel objects
       - id: asset-transfer-basic  
         contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
         path: "chaincode/asset-transfer-basic"      # NOTE: Path to Directory where chaincode file is located
-        metadataPath: ""
         language: node
         version: v1
-  # - name: "mysecondchannel"
-  #   chaincodes:
-  #     - id: fabcar
-  #       contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
-  #       path: "chaincode/fabcar"      # NOTE: Relative path to Directory where chaincode file is located
-  #       language: golang
-  #       version: v1
+  - name: "mysecondchannel"
+    chaincodes:
+      - id: fabcar
+        contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
+        path: "chaincode/fabcar"      # NOTE: Relative path to Directory where chaincode file is located
+        language: golang
+        version: v1
 
 # Logging Level:
 fabric_ca_loglevel: "DEBUG"

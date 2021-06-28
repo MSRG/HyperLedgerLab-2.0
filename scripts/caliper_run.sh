@@ -29,7 +29,7 @@ fi
 
 set -x
 
-helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../fabric/network-configuation.yaml --output-dir .
+helm template config-template/ -f ./benchmarks/$CHAINCODE_NAME/config.yaml -f ../fabric/network-configuration.yaml --output-dir .
 
 kubectl apply -f mosquitto/
 
