@@ -13,8 +13,10 @@ metadata:
   generateName: hlf-chaincodes-
 spec:
   entrypoint: chaincodes
+
   imagePullSecrets:
-    - name: regcred
+  - regcred
+
   # additional entries going into /etc/hosts file
   {{- if $.Values.hostAliases }}
   hostAliases:

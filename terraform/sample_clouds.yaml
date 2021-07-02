@@ -14,3 +14,16 @@ clouds:
     region_name: "RegionOne"
     interface: "public"
     identity_api_version: 3
+
+git: 
+  project: 
+    access_token: jZ4Ncw8p_rmUPCQZmYQc
+    url: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
+  user:
+    email: "karim.abbes@tum.de"
+    name: "karim abbes"
+
+docker: 
+  server: 
+  username:
+  password: 
