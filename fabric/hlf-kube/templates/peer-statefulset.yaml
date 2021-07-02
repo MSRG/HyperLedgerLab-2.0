@@ -149,7 +149,7 @@ spec:
       # Peer container
       - name: peer
         image: {{ $.Values.fabric_images.peer }}
-        command: ["sh", "-c", "docker pull hyperledger/fabric-ccenv:2.2.0 && peer node start"]
+        command: ["sh", "-c", "peer node start"]
 
         volumeMounts:
         - mountPath: /var/hyperledger/production/
