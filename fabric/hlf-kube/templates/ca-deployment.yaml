@@ -18,6 +18,9 @@ spec:
       - name: ca-tls
         secret:
           secretName: hlf-ca--{{ $org.Name | lower }}-tls
+          
+      imagePullSecrets:
+        - name: regcred
 
       containers:
       - name: ca

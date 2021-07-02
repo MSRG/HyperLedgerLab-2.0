@@ -14,7 +14,7 @@ metadata:
 spec:
   entrypoint: chaincodes
   imagePullSecrets:
-  - name: regcred
+    - name: regcred
   # additional entries going into /etc/hosts file
   {{- if $.Values.hostAliases }}
   hostAliases:
