@@ -424,6 +424,7 @@ spec:
       image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
+          sleep 1000
           set -x
           # install yq if it does not exist
           [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
