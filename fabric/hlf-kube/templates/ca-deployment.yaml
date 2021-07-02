@@ -19,7 +19,7 @@ spec:
         secret:
           secretName: hlf-ca--{{ $org.Name | lower }}-tls
 
-      {{- if .Values.use_docker_credentials }}
+      {{- if $.Values.use_docker_credentials }}
       imagePullSecrets:
         - name: regcred
       {{- end }}
