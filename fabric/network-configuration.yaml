@@ -26,13 +26,13 @@ fabric_tls_enabled: false
 
 # Channel configuration
 channels:                   # List of channel objects
-  - name: "mychannel"
-    chaincodes:
-      - id: asset-transfer-basic  
-        contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
-        path: "chaincode/asset-transfer-basic"      # NOTE: Path to Directory where chaincode file is located
-        language: node
-        version: v1
+  # - name: "mychannel"
+  #   chaincodes:
+  #     - id: asset-transfer-basic  
+  #       contractID: asset-transfer-basic               # NOTE: This should be unique for chaincodes across channels
+  #       path: "chaincode/asset-transfer-basic"      # NOTE: Path to Directory where chaincode file is located
+  #       language: node
+  #       version: v1
   - name: "mysecondchannel"
     chaincodes:
       - id: fabcar
