@@ -13,8 +13,8 @@ metadata:
 spec:
   entrypoint: channels
   
-  imagePullSecrets:
-  - name: regcred
+  # imagePullSecrets:
+  # - name: regcred
   
   # additional entries going into /etc/hosts file
   {{- if $.Values.hostAliases }}
