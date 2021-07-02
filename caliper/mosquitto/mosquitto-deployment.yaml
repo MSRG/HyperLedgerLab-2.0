@@ -11,10 +11,9 @@ spec:
       labels:
         app: mosquitto
     spec:
-      {{- if .Values.use_docker_credentials }}
+
       imagePullSecrets:
         - name: regcred
-      {{- end }}
 
       containers:
         - name: mosquitto
