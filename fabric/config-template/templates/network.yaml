@@ -14,6 +14,7 @@ fabric_images:
 fabric_ca_loglevel: {{ .Values.fabric_ca_loglevel }}
 fabric_peer_loglevel: {{ .Values.fabric_peer_loglevel }}
 fabric_orderer_loglevel: {{ .Values.fabric_orderer_loglevel }}
+use_docker_credentials: {{ .Values.use_docker_credentials}}
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
