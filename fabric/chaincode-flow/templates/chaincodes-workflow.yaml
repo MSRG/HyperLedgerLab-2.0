@@ -243,7 +243,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.peer }}
+      image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
           set -x
