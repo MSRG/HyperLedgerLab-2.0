@@ -142,13 +142,14 @@ spec:
       {{- end }}{{- /* if peer count > 1 */ -}}
       {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
 
-
+      imagePullSecrets:
+        - name: regcred
       
       containers:
       # Peer container
       - name: peer
         image: {{ $.Values.fabric_images.peer }}
-        command: ["sh", "-c", "peer node start"]
+        command: ["sh", "-c", "peer node start && docker pull hyperledger/fabric-ccenv:2.2.0"]
 
         volumeMounts:
         - mountPath: /var/hyperledger/production/
