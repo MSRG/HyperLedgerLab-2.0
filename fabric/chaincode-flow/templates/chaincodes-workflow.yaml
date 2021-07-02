@@ -291,7 +291,7 @@ spec:
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/chaincode/
           name: chaincode-{{ $chaincode.name | lower }}
-        - mountPath: ~/.docker/
+        - mountPath: /root/.docker/
           name: docker-config
       
       env:
