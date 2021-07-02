@@ -17,8 +17,12 @@ spec:
         runAsGroup: 3000
         fsGroup: 2000
       restartPolicy: Never
+      
+      {{- if $.Values.orderer.operations.enabled }}
       imagePullSecrets:
         - name: regcred
+      {{- end }}
+
       containers:
         - name: caliper-worker
           image: {{.Values.caliper_image}}

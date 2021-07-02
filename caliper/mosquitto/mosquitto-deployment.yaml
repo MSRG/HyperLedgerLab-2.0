@@ -11,8 +11,11 @@ spec:
       labels:
         app: mosquitto
     spec:
+      {{- if $.Values.orderer.operations.enabled }}
       imagePullSecrets:
         - name: regcred
+      {{- end }}
+
       containers:
         - name: mosquitto
           image: eclipse-mosquitto:2.0

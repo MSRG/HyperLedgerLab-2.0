@@ -18,9 +18,11 @@ spec:
       - name: ca-tls
         secret:
           secretName: hlf-ca--{{ $org.Name | lower }}-tls
-          
+
+      {{- if $.Values.orderer.operations.enabled }}
       imagePullSecrets:
         - name: regcred
+      {{- end }}
 
       containers:
       - name: ca
