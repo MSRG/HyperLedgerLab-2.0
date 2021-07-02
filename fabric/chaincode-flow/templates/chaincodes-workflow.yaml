@@ -13,9 +13,6 @@ metadata:
   generateName: hlf-chaincodes-
 spec:
   entrypoint: chaincodes
-
-  imagePullSecrets:
-  - name: regcred
     
   # additional entries going into /etc/hosts file
   {{- if $.Values.hostAliases }}
@@ -77,6 +74,8 @@ spec:
   {{- end }} {{- /* if chaincode included */ -}}
   {{- end }}
 
+  imagePullSecrets:
+  - name: regcred
   templates:
   - name: chaincodes
     steps:
@@ -244,7 +243,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
@@ -332,16 +331,11 @@ spec:
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 
   - name: maybe-approve-chaincode--{{ $chaincode.name }}-{{ $version | replace "." "-" }}--{{ $channel.name }}--{{ $org.Name }}--{{ $peer }}
-    # chaincode: {{ $chaincode.name }}
-    # version: {{ $version }}
-    # channel: {{ $channel.name }}
-    # org: {{ $org.Name }}
-    # peer: {{ $peer }}
     inputs:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
@@ -427,7 +421,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
@@ -514,7 +508,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x       

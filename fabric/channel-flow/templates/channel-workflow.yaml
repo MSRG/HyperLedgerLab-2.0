@@ -186,7 +186,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
@@ -270,7 +270,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
@@ -347,7 +347,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      image: {{ $.Values.fabric_images.tools }}
+      image: {{ $.Values.fabric_images.peer }}
       command: [sh]
       source: |
           set -x
