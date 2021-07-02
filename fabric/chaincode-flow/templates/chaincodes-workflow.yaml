@@ -247,9 +247,6 @@ spec:
       command: [sh]
       source: |
           set -x
-          
-          docker login --username karimabbes --password 3a650bea-3864-4ccd-a353-b9459792195d
-
           # verify if chaincode is already installed to peer
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
           echo $result
