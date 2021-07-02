@@ -41,7 +41,7 @@ channels:                   # List of channel objects
         language: golang
         version: v1
 
-# Logging Level:
-fabric_ca_loglevel: "DEBUG"
-fabric_peer_loglevel: "DEBUG"
-fabric_orderer_loglevel: "DEBUG"
+# Logging Level
+fabric_ca_loglevel: "INFO"
+fabric_peer_loglevel: "INFO"
+fabric_orderer_loglevel: "INFO"
