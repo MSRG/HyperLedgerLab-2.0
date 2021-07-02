@@ -1,6 +1,6 @@
 # Custom fabric container images
 fabric_images:
-  ca: hyperledger/fabric-ca:1.5.0
+  ca: localhost:5000/ca:latest
   peer: hyperledger/fabric-peer:2.2.0
   tools: hyperledger/fabric-tools:2.2.0
   orderer: hyperledger/fabric-orderer:2.2.0

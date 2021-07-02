@@ -59,14 +59,15 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    | `availability_zone`                    | The availability zone that will be used by all the instances.                                                                 |
    | `public_key_path`                      | Path to the public key that is used to access the instances.                                                                  |
    | `image`                                | Image to use for all instances.                                                                                               |
-   | `number_of_k8s_masters_no_floating_ip` | Number of master instances.                                                                                                   |
+   | `number_of_k8s_masters_no_floating_ip` | Number of master instances, default 1.                                                                                        |
    | `flavor_k8s_master_name`               | Flavor name for master instances. e.g m1.medium, m1.large etc.                                                                |
-   | `number_of_k8s_nodes_no_floating_ip`   | Number of worker instances.                                                                                                   |
+   | `number_of_k8s_nodes_no_floating_ip`   | Number of worker instances, 2 or more.                                                                                        |
    | `flavor_k8s_node_name`                 | Flavor name for worker instances. e.g m1.medium, m1.large etc.                                                                |
    | `network_name`                         | Network name to be used for all the instances. It can be found under NETWORK > Networks in the OpenStack dashboard.           |
    | `subnet_cidr`                          | Network Address of the subnet associated to the network. It can be found under NETWORK > Networks in the OpenStack dashboard. |
    | `k8s_allowed_remote_ips`               | List of CIDR allowed to initiate a SSH connection.                                                                            |
 
+   - To assign more resources to the Kubernetes cluster, please increase the number of Kubernetes nodes (number_of_k8s_nodes_no_floating_ip). The number of master instances (number_of_k8s_masters_no_floating_ip) does not have to be increased.
    - Run Command: `./scripts/k8s_setup.sh `
    - **Estimated execution time:** 20 minutes
    - What will happen ?
