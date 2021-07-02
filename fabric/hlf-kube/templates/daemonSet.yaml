@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-name: prepull
-annotations:
-source: "https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd"
+  name: prepull
+  annotations:
+    source: "https://gist.github.com/itaysk/7bc3e56d69c4d72a549286d98fd557dd"
 spec:
-selector:
-matchLabels:
-name: prepull 
-template:
-metadata:
-labels:
-name: prepull 
-spec:
-initContainers:
+  selector:
+    matchLabels:
+      name: prepull 
+  template:
+    metadata:
+      labels:
+        name: prepull 
+    spec:
+      initContainers:
       - name: prepull 
-image: docker
-command: ["docker", "pull", {{ $.Values.fabric_images.ccenv }} ]
-volumeMounts:
+        image: docker
+        command: ["docker", "pull", {{ $.Values.fabric_images.ccenv }} ]
+        volumeMounts:
         - name: docker
-mountPath: /var/run
-volumes:
+          mountPath: /var/run
+      volumes:
       - name: docker
-hostPath:
-path: /var/run
-containers:
+        hostPath:
+          path: /var/run
+      containers:
       - name: pause
-image: gcr.io/google_containers/pause
+        image: gcr.io/google_containers/pause
