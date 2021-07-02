@@ -2,7 +2,7 @@
 # The image fabric_images.ccenv is pulled at runtime inside another container and if we reach the pull rate limit, pulling this specific image will prevent executing `peer lifecycle chaincode install .. ` command. 
 # Using DaemonSet, we can pre-pull once the image in all the nodes. 
 
-{{- if $.Values.orderer.operations.enabled }}
+{{- if .Values.use_docker_credentials }}
 
 apiVersion: apps/v1
 kind: DaemonSet
@@ -36,5 +36,5 @@ spec:
       containers:
       - name: pause
         image: gcr.io/google_containers/pause
-        
+
 {{- end }}

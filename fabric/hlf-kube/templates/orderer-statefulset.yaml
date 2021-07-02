@@ -102,7 +102,7 @@ spec:
       {{- end }}{{- /* if peer count > 1 */ -}}
       {{- end }}{{- /* if antiAffinity.enabled */ -}}{{""}}
       
-      {{- if $.Values.orderer.operations.enabled }}
+      {{- if .Values.use_docker_credentials }}
       imagePullSecrets:
         - name: regcred
       {{- end }}
