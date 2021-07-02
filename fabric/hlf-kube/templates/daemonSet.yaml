@@ -2,7 +2,7 @@
 # The image fabric_images.ccenv is pulled at runtime inside another container and if we reach the pull rate limit, pulling this specific image will prevent executing `peer lifecycle chaincode install .. ` command. 
 # Using DaemonSet, we can pre-pull once the image in all the nodes. 
 
-{{- if $.Values.use_docker_credentials }}
+{{- if .Values.use_docker_credentials }}
 
 apiVersion: apps/v1
 kind: DaemonSet
@@ -25,7 +25,7 @@ spec:
       initContainers:
       - name: prepull 
         image: docker
-        command: ["docker", "pull", {{ $.Values.fabric_images.ccenv }} ]
+        command: ["docker", "pull", {{ .Values.fabric_images.ccenv }} ]
         volumeMounts:
         - name: docker
           mountPath: /var/run
