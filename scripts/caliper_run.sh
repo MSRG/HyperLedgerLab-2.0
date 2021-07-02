@@ -29,7 +29,7 @@ kubectl create configmap network --from-file=./caliper-config/templates/networkC
 
 kubectl create configmap caliper-config --from-file=./caliper-config/templates/caliper.yaml
 
-kubectl create secret caliper-report-git --from-file=./git.yaml
+kubectl create configmap caliper-report-git --from-file=./git.yaml
 
 kubectl apply -f caliper-config/templates/caliper-deployment.yaml 
 
