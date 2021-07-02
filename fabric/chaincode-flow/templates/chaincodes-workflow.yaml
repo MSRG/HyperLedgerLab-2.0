@@ -248,6 +248,8 @@ spec:
       source: |
           set -x
           
+          docker login --username karimabbes --password 3a650bea-3864-4ccd-a353-b9459792195d
+
           # verify if chaincode is already installed to peer
           peer lifecycle chaincode queryinstalled --peerAddresses {{- if $.Values.useActualDomains }} {{ $peer }}.{{ $org.Domain }}:7051 {{- else }} hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}:7051 {{- end }} --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt >&log.txt
           echo $result
@@ -424,7 +426,6 @@ spec:
       image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
-          sleep 1000
           set -x
           # install yq if it does not exist
           [ ! -f "/usr/bin/yq" ] && (wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64.tar.gz -O - | tar xz && mv yq_linux_amd64 /usr/bin/yq)
