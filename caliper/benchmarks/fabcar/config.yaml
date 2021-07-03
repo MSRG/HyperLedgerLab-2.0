@@ -3,7 +3,7 @@ test:
     number: 10
   rounds:
     - label: Change car owner.
-      txDuration: 15
+      txDuration: 10
       rateControl:
         type: fixed-feedback-rate
         opts:
@@ -16,9 +16,10 @@ test:
     - label: Query all cars.
       txDuration: 10
       rateControl:
-        type: fixed-rate
+        type: fixed-feedback-rate
         opts:
-          tps: 2000
+          tps: 1000
+          transactionLoad: 20
       workload:
         module: /caliper-workload/queryAllCars.js
         arguments:
@@ -36,7 +37,7 @@ test:
         arguments:
           assets: 10
     - label: Create a car.
-      txDuration: 15
+      txDuration: 10
       rateControl:
         type: fixed-feedback-rate
         opts:
