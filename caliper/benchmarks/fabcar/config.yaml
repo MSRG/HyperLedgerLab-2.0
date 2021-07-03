@@ -5,9 +5,9 @@ test:
     - label: Change car owner.
       txDuration: 30
       rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
+        type: fixed-load
+        opts:
+          transactionLoad: 5
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
@@ -15,9 +15,9 @@ test:
     - label: Query all cars.
       txDuration: 30
       rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
+        type: fixed-load
+        opts:
+          transactionLoad: 5
       workload:
         module: /caliper-workload/queryAllCars.js
         arguments:
@@ -27,9 +27,9 @@ test:
     - label: Query a car.
       txDuration: 30
       rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
+        type: fixed-load
+        opts:
+          transactionLoad: 5
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
@@ -37,8 +37,8 @@ test:
     - label: Create a car.
       txDuration: 30
       rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
+        type: fixed-load
+        opts:
+          transactionLoad: 5
       workload:
         module: /caliper-workload/createCar.js
