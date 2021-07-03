@@ -17,11 +17,11 @@ clouds:
 
 git: 
   project: 
-    access_token: jZ4Ncw8p_rmUPCQZmYQc
-    url: gitlab.lrz.de/ga32nac/hyperledgerlab2-reports.git
+    access_token: ""
+    url: ""
   user:
-    email: "karim.abbes@tum.de"
-    name: "karim abbes"
+    email: ""
+    name: ""
 
 docker: 
   server: 
