@@ -8,18 +8,18 @@ test:
         type: fixed-feedback-rate
         opts:
           tps: 1000
-          transactionLoad: 20
+          transactionLoad: 10
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 10
     - label: Query all cars.
-      txDuration: 10
+      txDuration: 20
       rateControl:
         type: fixed-feedback-rate
         opts:
           tps: 1000
-          transactionLoad: 20
+          transactionLoad: 10
       workload:
         module: /caliper-workload/queryAllCars.js
         arguments:
@@ -31,7 +31,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 2000
+          tps: 3000
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
@@ -42,6 +42,6 @@ test:
         type: fixed-feedback-rate
         opts:
           tps: 1000
-          transactionLoad: 20
+          transactionLoad: 10
       workload:
         module: /caliper-workload/createCar.js
