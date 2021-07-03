@@ -13,19 +13,19 @@ test:
         module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 10
-    - label: Query all cars.
-      txDuration: 20
-      rateControl:
-        type: fixed-feedback-rate
-        opts:
-          tps: 500
-          transactionLoad: 10
-      workload:
-        module: /caliper-workload/queryAllCars.js
-        arguments:
-          assets: 10
-          startKey: '1'
-          endKey: '50'
+    # - label: Query all cars.
+    #   txDuration: 20
+    #   rateControl:
+    #     type: fixed-feedback-rate
+    #     opts:
+    #       tps: 500
+    #       transactionLoad: 10
+    #   workload:
+    #     module: /caliper-workload/queryAllCars.js
+    #     arguments:
+    #       assets: 10
+    #       startKey: '1'
+    #       endKey: '50'
     - label: Query a car.
       txDuration: 2
       rateControl:
