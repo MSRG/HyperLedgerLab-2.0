@@ -37,12 +37,12 @@ spec:
   - name: hlf-crypto-config
     secret:
       secretName: hlf-crypto-config.yaml
-  - name: docker-config
-    secret:
-      secretName: regcred
-      items:
-        - key: .dockerconfigjson
-          path: config.json
+  # - name: docker-config
+  #   secret:
+  #     secretName: regcred
+  #     items:
+  #       - key: .dockerconfigjson
+  #         path: config.json
 
 {{- range $i, $org := .Values.PeerOrgs }}
 
@@ -293,8 +293,8 @@ spec:
           name: peer-{{ $org.Name | lower }}-admin-msp
         - mountPath: /hlf_config/chaincode/
           name: chaincode-{{ $chaincode.name | lower }}
-        - mountPath: /root/.docker/
-          name: docker-config
+        # - mountPath: /root/.docker/
+        #   name: docker-config
       
       env:
         - name: CORE_PEER_ADDRESS
