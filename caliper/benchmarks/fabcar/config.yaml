@@ -3,7 +3,7 @@ test:
     number: 10
   rounds:
     - label: Change car owner.
-      txNumber: 100
+      txDuration: 15
       rateControl:
         type: fixed-feedback-rate
         opts:
@@ -14,7 +14,7 @@ test:
         arguments:
           assets: 10
     - label: Query all cars.
-      txNumber: 1000
+      txDuration: 10
       rateControl:
         type: fixed-rate
         opts:
@@ -26,7 +26,7 @@ test:
           startKey: '1'
           endKey: '50'
     - label: Query a car.
-      txNumber: 1000
+      txDuration: 2
       rateControl:
         type: fixed-rate
         opts:
@@ -36,7 +36,7 @@ test:
         arguments:
           assets: 10
     - label: Create a car.
-      txDuration: 30
+      txDuration: 15
       rateControl:
         type: fixed-feedback-rate
         opts:
