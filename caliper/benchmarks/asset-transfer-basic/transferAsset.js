@@ -28,7 +28,7 @@ class MyWorkload extends WorkloadModuleBase {
     async submitTransaction() {
         // for (let i = 0; i < this.roundArguments.assets; i++) {
         const request = {
-            contractId: this.roundArguments.contractId,
+            contractId: "asset-transfer-basic",
             contractFunction: 'TransferAsset',
             contractArguments: [`asset1`, "Karim"],
             invokerIdentity: 'client0.org3.example.com',

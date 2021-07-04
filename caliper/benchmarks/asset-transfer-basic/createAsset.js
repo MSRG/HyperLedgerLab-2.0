@@ -33,7 +33,7 @@ class MyWorkload extends WorkloadModuleBase {
         // const randomId = Math.floor(Math.random() * this.roundArguments.assets);
         const assetID = `${this.workerIndex}`;
         let request = {
-            contractId: this.roundArguments.contractId,
+            contractId: "asset-transfer-basic",
             contractFunction: 'CreateAsset',
             contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
             invokerIdentity: 'client0.org2.example.com',

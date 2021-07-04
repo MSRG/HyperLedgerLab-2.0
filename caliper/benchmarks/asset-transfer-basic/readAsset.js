@@ -28,7 +28,7 @@ class MyWorkload extends WorkloadModuleBase {
     async submitTransaction() {
         const randomId = Math.floor(Math.random() * 6) + 1;
         const request = {
-            contractId: this.roundArguments.contractId,
+            contractId: "asset-transfer-basic",
             contractFunction: 'ReadAsset',
             contractArguments: [`asset1`],
             invokerIdentity: 'client0.org1.example.com',
