@@ -18,7 +18,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractFunction: 'CreateAsset',
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
                 readOnly: false,
-                timeout: 30,
+                timeout: 60
             };
 
             await this.sutAdapter.sendRequests(request);
@@ -27,7 +27,7 @@ class MyWorkload extends WorkloadModuleBase {
 
     async submitTransaction() {
         for (let i = 0; i < this.roundArguments.assets; i++) {
-            const myArgs = {
+            const request = {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'TransferAsset',
                 contractArguments: [`${this.workerIndex}_${i}`, "Karim"],
@@ -35,7 +35,7 @@ class MyWorkload extends WorkloadModuleBase {
                 timeout: 30
             };
 
-            await this.sutAdapter.sendRequests(myArgs);
+            await this.sutAdapter.sendRequests(request);
         }
     }
 
@@ -48,7 +48,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractFunction: 'DeleteAsset',
                 contractArguments: [assetID],
                 readOnly: false,
-                timeout: 30
+                timeout: 60
             };
 
             await this.sutAdapter.sendRequests(request);
