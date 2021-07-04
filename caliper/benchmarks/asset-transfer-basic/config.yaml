@@ -6,7 +6,7 @@ test:
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      txDuration: 10
+      txNumber: 2000
       rateControl: 
         type: fixed-rate
         opts:
@@ -14,7 +14,7 @@ test:
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
-          assets: 20
+          assets: 1000
           contractId: asset-transfer-basic
     - label: createAsset
       description: Create asset benchmark
@@ -27,7 +27,7 @@ test:
       workload:
         module: /caliper-workload/createAsset.js
         arguments:
-          assets: 10
+          assets: 100
           contractId: asset-transfer-basic
     - label: transferAsset
       description: Transfer asset benchmark
@@ -40,7 +40,7 @@ test:
       workload:
         module: /caliper-workload/transferAsset.js
         arguments:
-          assets: 10
+          assets: 100
           contractId: asset-transfer-basic
 
 monitors:
