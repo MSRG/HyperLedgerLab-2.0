@@ -14,7 +14,7 @@ test:
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
-          assets: 1000
+          assets: 20
           contractId: asset-transfer-basic
     - label: createAsset
       description: Create asset benchmark
@@ -27,7 +27,7 @@ test:
       workload:
         module: /caliper-workload/createAsset.js
         arguments:
-          assets: 100
+          assets: 20
           contractId: asset-transfer-basic
     - label: transferAsset
       description: Transfer asset benchmark
@@ -40,7 +40,7 @@ test:
       workload:
         module: /caliper-workload/transferAsset.js
         arguments:
-          assets: 100
+          assets: 20
           contractId: asset-transfer-basic
 
 monitors:
