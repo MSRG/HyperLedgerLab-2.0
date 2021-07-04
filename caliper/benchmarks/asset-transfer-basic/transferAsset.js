@@ -31,6 +31,7 @@ class MyWorkload extends WorkloadModuleBase {
             contractId: "asset-transfer-basic",
             contractFunction: 'TransferAsset',
             contractArguments: [`asset1`, "Karim"],
+            targetOrganizations: ["org1", "org2", "org3"],
             invokerIdentity: 'client0.org3.example.com',
             readOnly: false,
             timeout: 30
