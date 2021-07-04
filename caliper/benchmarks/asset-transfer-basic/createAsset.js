@@ -12,17 +12,19 @@ class MyWorkload extends WorkloadModuleBase {
     }
 
     async submitTransaction() {
-        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-        const assetID = `${this.workerIndex}_${randomId}`;
-        let args = {
-            contractId: this.roundArguments.contractId,
-            contractFunction: 'CreateAsset',
-            contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-            readOnly: false,
-            timeout: 30
-        };
+        for (let i = 0; i < this.roundArguments.assets; i++) {
+            // const randomId = Math.floor(Math.random() * this.roundArguments.assets);
+            const assetID = `${this.workerIndex}_${i}`;
+            let args = {
+                contractId: this.roundArguments.contractId,
+                contractFunction: 'CreateAsset',
+                contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+                readOnly: false,
+                timeout: 30
+            };
 
-        await this.sutAdapter.sendRequests(args);
+            await this.sutAdapter.sendRequests(args);
+        }
     }
 
     async cleanupWorkloadModule() {
