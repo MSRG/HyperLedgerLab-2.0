@@ -17,7 +17,8 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'CreateAsset',
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-                readOnly: false
+                readOnly: false,
+                timeout: 30,
             };
 
             await this.sutAdapter.sendRequests(request);
@@ -30,7 +31,8 @@ class MyWorkload extends WorkloadModuleBase {
             contractId: this.roundArguments.contractId,
             contractFunction: 'TransferAsset',
             contractArguments: [`${this.workerIndex}_${randomId}`, "Karim"],
-            readOnly: false
+            readOnly: false,
+            timeout: 30
         };
 
         await this.sutAdapter.sendRequests(myArgs);
@@ -44,7 +46,8 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'DeleteAsset',
                 contractArguments: [assetID],
-                readOnly: false
+                readOnly: false,
+                timeout: 30
             };
 
             await this.sutAdapter.sendRequests(request);
