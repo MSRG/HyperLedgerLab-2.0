@@ -2,15 +2,15 @@ test:
   name: basic-contract-benchmark
   description: test benchmark
   workers:
-    number: 2
+    number: 10
   rounds:
     - label: readAsset
       description: Read asset benchmark
       txDuration: 2
-        rateControl:
-          type: fixed-rate
-          opts:
-            tps: 3000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 3000
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
