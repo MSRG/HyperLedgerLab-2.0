@@ -5,7 +5,6 @@ const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
 class MyWorkload extends WorkloadModuleBase {
     constructor() {
         super();
-        this.txIndex = 0;
     }
 
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
@@ -13,8 +12,8 @@ class MyWorkload extends WorkloadModuleBase {
     }
 
     async submitTransaction() {
-        this.txIndex++;
-        const assetID = `${this.workerIndex}_${txIndex}`;
+        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
+        const assetID = `${this.workerIndex}_${randomId}`;
         let args = {
             contractId: this.roundArguments.contractId,
             contractFunction: 'CreateAsset',

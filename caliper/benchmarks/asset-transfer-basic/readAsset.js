@@ -9,16 +9,6 @@ class MyWorkload extends WorkloadModuleBase {
 
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
-    }
-
-    async submitTransaction() {
-        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-        const myArgs = {
-            contractId: this.roundArguments.contractId,
-            contractFunction: 'ReadAsset',
-            contractArguments: [`${this.workerIndex}_${randomId}`],
-            readOnly: true
-        };
 
         for (let i = 0; i < this.roundArguments.assets; i++) {
             const assetID = `${this.workerIndex}_${i}`;
@@ -32,6 +22,16 @@ class MyWorkload extends WorkloadModuleBase {
 
             await this.sutAdapter.sendRequests(request);
         }
+    }
+
+    async submitTransaction() {
+        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
+        const myArgs = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: 'ReadAsset',
+            contractArguments: [`${this.workerIndex}_${randomId}`],
+            readOnly: true
+        };
 
         await this.sutAdapter.sendRequests(myArgs);
     }
