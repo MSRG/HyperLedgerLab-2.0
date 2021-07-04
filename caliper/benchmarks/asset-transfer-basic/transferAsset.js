@@ -31,6 +31,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'TransferAsset',
                 contractArguments: [`${this.workerIndex}_${i}`, "Karim"],
+                invokerIdentity: 'client0.org3.example.com',
                 readOnly: false,
                 timeout: 30
             };

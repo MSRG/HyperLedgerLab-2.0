@@ -33,6 +33,7 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'CreateAsset',
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+                invokerIdentity: 'client0.org2.example.com',
                 readOnly: false,
                 timeout: 60
             };

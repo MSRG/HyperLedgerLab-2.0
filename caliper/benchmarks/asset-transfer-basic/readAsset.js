@@ -31,6 +31,7 @@ class MyWorkload extends WorkloadModuleBase {
             contractId: this.roundArguments.contractId,
             contractFunction: 'ReadAsset',
             contractArguments: [`asset1`],
+            invokerIdentity: 'client0.org1.example.com',
             readOnly: true,
             timeout: 30
         };
