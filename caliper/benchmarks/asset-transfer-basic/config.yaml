@@ -4,34 +4,34 @@ test:
   workers:
     number: 10
   rounds:
-    - label: readAsset
-      description: Read asset benchmark
-      txDuration: 10
-      rateControl: 
-        type: fixed-rate
-        opts:
-          tps: 3000
-      workload:
-        module: /caliper-workload/readAsset.js
-        arguments:
-          assets: 20
-          contractId: asset-transfer-basic
-    - label: createAsset
-      description: Create asset benchmark
-      txNumber: 1000
-      rateControl:
-        type: fixed-feedback-rate
-        opts:
-          tps: 500
-          transactionLoad: 10
-      workload:
-        module: /caliper-workload/createAsset.js
-        arguments:
-          assets: 10
-          contractId: asset-transfer-basic
+    # - label: readAsset
+    #   description: Read asset benchmark
+    #   txDuration: 10
+    #   rateControl: 
+    #     type: fixed-rate
+    #     opts:
+    #       tps: 3000
+    #   workload:
+    #     module: /caliper-workload/readAsset.js
+    #     arguments:
+    #       assets: 20
+    #       contractId: asset-transfer-basic
+    # - label: createAsset
+    #   description: Create asset benchmark
+    #   txNumber: 1000
+    #   rateControl:
+    #     type: fixed-feedback-rate
+    #     opts:
+    #       tps: 500
+    #       transactionLoad: 10
+    #   workload:
+    #     module: /caliper-workload/createAsset.js
+    #     arguments:
+    #       assets: 10
+    #       contractId: asset-transfer-basic
     - label: transferAsset
       description: Transfer asset benchmark
-      txDuration: 10
+      txNumber: 1000
       rateControl:
         type: fixed-feedback-rate
         opts:
