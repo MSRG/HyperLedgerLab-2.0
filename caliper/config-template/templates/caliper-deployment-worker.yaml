@@ -3,9 +3,10 @@ kind: Job
 metadata:
   labels:
     app: caliper-worker
-  name: caliper-worker
+  name: caliper-worker-
 spec:
   parallelism: {{.Values.test.workers.number}}
+  completions: {{.Values.test.workers.number}}
   backoffLimit: 2
   template:
     metadata:
