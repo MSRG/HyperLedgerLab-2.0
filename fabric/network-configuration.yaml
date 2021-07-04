@@ -33,13 +33,13 @@ channels:                   # List of channel objects
         path: "chaincode/asset-transfer-basic/go"      # NOTE: Path to Directory where chaincode file is located
         language: golang
         version: v1
-  - name: "mysecondchannel"
-    chaincodes:
-      - id: fabcar
-        contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
-        path: "chaincode/fabcar/go"      # NOTE: Relative path to Directory where chaincode file is located
-        language: golang
-        version: v1
+  # - name: "mysecondchannel"
+  #   chaincodes:
+  #     - id: fabcar
+  #       contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
+  #       path: "chaincode/fabcar/go"      # NOTE: Relative path to Directory where chaincode file is located
+  #       language: golang
+  #       version: v1
 
 # Logging Level
 fabric_ca_loglevel: "INFO"
