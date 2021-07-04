@@ -17,7 +17,8 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'CreateAsset',
                 contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-                readOnly: false
+                readOnly: false,
+                timeout: 60
             };
 
             await this.sutAdapter.sendRequests(request);
@@ -26,14 +27,15 @@ class MyWorkload extends WorkloadModuleBase {
 
     async submitTransaction() {
         const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-        const myArgs = {
+        const request = {
             contractId: this.roundArguments.contractId,
             contractFunction: 'ReadAsset',
             contractArguments: [`${this.workerIndex}_${randomId}`],
-            readOnly: true
+            readOnly: true,
+            timeout: 30
         };
 
-        await this.sutAdapter.sendRequests(myArgs);
+        await this.sutAdapter.sendRequests(request);
     }
 
     async cleanupWorkloadModule() {
@@ -44,7 +46,8 @@ class MyWorkload extends WorkloadModuleBase {
                 contractId: this.roundArguments.contractId,
                 contractFunction: 'DeleteAsset',
                 contractArguments: [assetID],
-                readOnly: false
+                readOnly: false,
+                timeout: 60
             };
 
             await this.sutAdapter.sendRequests(request);
