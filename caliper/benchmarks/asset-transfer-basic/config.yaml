@@ -6,13 +6,11 @@ test:
   rounds:
     - label: readAsset
       description: Read asset benchmark
-      txNumber: 1000 
-      rateControl:
-        type: fixed-rate
-        opts:
-          tps: 2000
-          # startingTps: 3000
-          # transactionLoad: 10
+      txDuration: 2
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 3000
       workload:
         module: /caliper-workload/readAsset.js
         arguments:
