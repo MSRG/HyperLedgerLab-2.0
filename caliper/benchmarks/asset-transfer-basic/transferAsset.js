@@ -39,21 +39,21 @@ class MyWorkload extends WorkloadModuleBase {
         }
     }
 
-    async cleanupWorkloadModule() {
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const assetID = `${this.workerIndex}_${i}`;
-            console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'DeleteAsset',
-                contractArguments: [assetID],
-                readOnly: false,
-                timeout: 60
-            };
+    // async cleanupWorkloadModule() {
+    //     for (let i = 0; i < this.roundArguments.assets; i++) {
+    //         const assetID = `${this.workerIndex}_${i}`;
+    //         console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
+    //         const request = {
+    //             contractId: this.roundArguments.contractId,
+    //             contractFunction: 'DeleteAsset',
+    //             contractArguments: [assetID],
+    //             readOnly: false,
+    //             timeout: 60
+    //         };
 
-            await this.sutAdapter.sendRequests(request);
-        }
-    }
+    //         await this.sutAdapter.sendRequests(request);
+    //     }
+    // }
 }
 
 function createWorkloadModule() {
