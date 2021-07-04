@@ -37,11 +37,10 @@ test:
         arguments:
           assets: 100
     - label: Create a car.
-      txDuration: 10
+      txDuration: 30
       rateControl:
-        type: fixed-feedback-rate
-        opts:
-          tps: 1000
-          transactionLoad: 10
+          type: fixed-load
+          opts:
+            transactionLoad: 5
       workload:
         module: /caliper-workload/createCar.js
