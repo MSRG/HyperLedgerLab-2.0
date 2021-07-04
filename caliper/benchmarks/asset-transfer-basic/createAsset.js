@@ -17,7 +17,6 @@ class MyWorkload extends WorkloadModuleBase {
         let args = {
             contractId: this.roundArguments.contractId,
             contractFunction: 'CreateAsset',
-            contractFunction: 'createCar',
             contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
             readOnly: false,
             timeout: 30
