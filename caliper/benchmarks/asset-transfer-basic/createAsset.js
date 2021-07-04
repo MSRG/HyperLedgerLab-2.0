@@ -5,6 +5,7 @@ const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
 class MyWorkload extends WorkloadModuleBase {
     constructor() {
         super();
+        this.txIndex = 0;
     }
 
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
@@ -12,28 +13,18 @@ class MyWorkload extends WorkloadModuleBase {
     }
 
     async submitTransaction() {
-        const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-        const myArgs = {
+        this.txIndex++;
+        const assetID = `${this.workerIndex}_${txIndex}`;
+        let args = {
             contractId: this.roundArguments.contractId,
-            contractFunction: 'ReadAsset',
-            contractArguments: [`${this.workerIndex}_${randomId}`],
-            readOnly: true
+            contractFunction: 'CreateAsset',
+            contractFunction: 'createCar',
+            contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+            readOnly: false,
+            timeout: 30
         };
 
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const assetID = `${this.workerIndex}_${i}`;
-            console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'CreateAsset',
-                contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-                readOnly: false
-            };
-
-            await this.sutAdapter.sendRequests(request);
-        }
-
-        await this.sutAdapter.sendRequests(myArgs);
+        await this.sutAdapter.sendRequests(args);
     }
 
     async cleanupWorkloadModule() {
