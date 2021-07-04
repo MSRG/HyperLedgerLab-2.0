@@ -22,7 +22,7 @@ test:
       rateControl:
         type: fixed-feedback-rate
         opts:
-          tps: 1000
+          tps: 500
           transactionLoad: 10
       workload:
         module: /caliper-workload/createAsset.js
