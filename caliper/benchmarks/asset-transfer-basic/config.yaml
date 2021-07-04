@@ -26,9 +26,7 @@ test:
           transactionLoad: 10
       workload:
         module: /caliper-workload/createAsset.js
-        arguments:
-          assets: 20
-          contractId: asset-transfer-basic
+
     - label: transferAsset
       description: Transfer asset benchmark
       txNumber: 1000

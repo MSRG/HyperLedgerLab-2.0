@@ -10,34 +10,34 @@ class MyWorkload extends WorkloadModuleBase {
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
 
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const assetID = `${this.workerIndex}_${i}`;
-            console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'CreateAsset',
-                contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-                readOnly: false,
-                timeout: 60
-            };
+        // for (let i = 0; i < this.roundArguments.assets; i++) {
+        //     const assetID = `${this.workerIndex}_${i}`;
+        //     console.log(`Worker ${this.workerIndex}: Creating asset ${assetID}`);
+        //     const request = {
+        //         contractId: this.roundArguments.contractId,
+        //         contractFunction: 'CreateAsset',
+        //         contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+        //         readOnly: false,
+        //         timeout: 60
+        //     };
 
-            await this.sutAdapter.sendRequests(request);
-        }
+        //     await this.sutAdapter.sendRequests(request);
+        // }
     }
 
     async submitTransaction() {
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            const request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'TransferAsset',
-                contractArguments: [`${this.workerIndex}_${i}`, "Karim"],
-                invokerIdentity: 'client0.org3.example.com',
-                readOnly: false,
-                timeout: 30
-            };
+        // for (let i = 0; i < this.roundArguments.assets; i++) {
+        const request = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: 'TransferAsset',
+            contractArguments: [`asset1`, "Karim"],
+            invokerIdentity: 'client0.org3.example.com',
+            readOnly: false,
+            timeout: 30
+        };
 
-            await this.sutAdapter.sendRequests(request);
-        }
+        await this.sutAdapter.sendRequests(request);
+        // }
     }
 
     // async cleanupWorkloadModule() {

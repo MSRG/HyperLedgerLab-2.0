@@ -1,10 +1,13 @@
 'use strict';
 
 const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
+let txIndex = 0;
 
 class MyWorkload extends WorkloadModuleBase {
+
     constructor() {
         super();
+        // this.txIndex = 0;
     }
 
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
@@ -26,20 +29,20 @@ class MyWorkload extends WorkloadModuleBase {
     }
 
     async submitTransaction() {
-        for (let i = 0; i < this.roundArguments.assets; i++) {
-            // const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-            const assetID = `${this.workerIndex}_${i}`;
-            let request = {
-                contractId: this.roundArguments.contractId,
-                contractFunction: 'CreateAsset',
-                contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-                invokerIdentity: 'client0.org2.example.com',
-                readOnly: false,
-                timeout: 60
-            };
+        // for (let i = 0; i < this.roundArguments.assets; i++) {
+        // const randomId = Math.floor(Math.random() * this.roundArguments.assets);
+        const assetID = `${this.workerIndex}`;
+        let request = {
+            contractId: this.roundArguments.contractId,
+            contractFunction: 'CreateAsset',
+            contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
+            invokerIdentity: 'client0.org2.example.com',
+            readOnly: false,
+            timeout: 60
+        };
 
-            await this.sutAdapter.sendRequests(request);
-        }
+        await this.sutAdapter.sendRequests(request);
+        // }
     }
 
     // async cleanupWorkloadModule() {
