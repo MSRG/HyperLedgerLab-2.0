@@ -18,7 +18,7 @@ test:
           contractId: asset-transfer-basic
     - label: createAsset
       description: Create asset benchmark
-      txDuration: 10
+      txNumber: 1000
       rateControl:
         type: fixed-feedback-rate
         opts:
