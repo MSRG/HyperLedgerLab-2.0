@@ -70,6 +70,39 @@ class ChangeCarOwnerWorkload extends WorkloadModuleBase {
 
         await this.sutAdapter.sendRequests(args);
     }
+
+    async cleanupWorkloadModule() {
+        this.txIndex++;
+        let carNumber = 'Client' + this.workerIndex + '_CAR' + this.txIndex.toString();
+
+        let args = {
+            contractId: 'fabcar',
+            contractVersion: 'v1',
+            contractFunction: 'changeCarOwner',
+            contractArguments: [carNumber],
+            timeout: 60
+        };
+
+        if (this.txIndex === this.roundArguments.assets) {
+            this.txIndex = 0;
+        }
+
+        for (let i = 0; i < this.roundArguments.assets; i++) {
+            const assetID = `${this.workerIndex}_${i}`;
+            console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
+            const request = {
+                contractId: this.roundArguments.contractId,
+                contractFunction: 'DeleteAsset',
+                invokerIdentity: 'client0.org1.example.com',
+                targetPeers: ['peer0.org1', 'peer0.org2'],
+                targetOrganizations: ['Org1', 'Org2'],
+                contractArguments: [assetID],
+                readOnly: false
+            };
+
+            await this.sutAdapter.sendRequests(args);
+        }
+    }
 }
 
 /**
