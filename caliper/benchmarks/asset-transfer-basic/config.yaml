@@ -37,9 +37,9 @@ test:
           transactionLoad: 10
       workload:
         module: /caliper-workload/transferAsset.js
-        arguments:
-          assets: 20
-          contractId: asset-transfer-basic
+        # arguments:
+        #   assets: 20
+        #   contractId: asset-transfer-basic
 
 monitors:
     transaction:
