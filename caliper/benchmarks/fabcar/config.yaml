@@ -3,43 +3,43 @@ test:
     number: 5
   rounds:
     - label: Change car owner.
-      txNumber: 1000
+      txNumber: 200
       rateControl:
-          type: fixed-feedback-rate
+          type: fixed-load
           opts:
-            tps: 200
-            transactionLoad: 10
+            transactionLoad: 50
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 20
-    - label: Query all cars.
-      txNumber: 3000
-      rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
-      workload:
-        module: /caliper-workload/queryAllCars.js
-        arguments:
-          assets: 20
-          startKey: '1'
-          endKey: '50'
+    # - label: Query all cars.
+    #   txNumber: 1000
+    #   rateControl:
+    #       type: fixed-load
+    #       opts:
+    #         transactionLoad: 5
+    #   workload:
+    #     module: /caliper-workload/queryAllCars.js
+    #     arguments:
+    #       assets: 20
+    #       startKey: '1'
+    #       endKey: '50'
     - label: Query a car.
-      txNumber: 3000
+      txNumber: 5000
       rateControl:
-          type: fixed-load
-          opts:
-            transactionLoad: 5
+        type: fixed-feedback-rate
+        opts:
+          tps: 3000
+          transactionLoad: 10
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
           assets: 20
     - label: Create a car.
-      txNumber: 3000
+      txNumber: 200
       rateControl:
           type: fixed-load
           opts:
-            transactionLoad: 5
+            transactionLoad: 50
       workload:
         module: /caliper-workload/createCar.js
