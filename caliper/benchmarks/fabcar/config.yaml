@@ -36,7 +36,7 @@ test:
     #       startKey: '1'
     #       endKey: '50'
     - label: Query a car.
-      txNumber: 5000
+      txNumber: 2000
       rateControl:
           type: linear-rate
           opts:
