@@ -23,18 +23,7 @@ test:
         module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 500
-    # - label: Query all cars.
-    #   txNumber: 1000
-    #   rateControl:
-    #       type: fixed-load
-    #       opts:
-    #         transactionLoad: 5
-    #   workload:
-    #     module: /caliper-workload/queryAllCars.js
-    #     arguments:
-    #       assets: 20
-    #       startKey: '1'
-    #       endKey: '50'
+          
     - label: Query a car.
       txNumber: 1000
       rateControl:
