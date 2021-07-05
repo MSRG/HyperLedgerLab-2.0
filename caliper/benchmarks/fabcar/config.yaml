@@ -11,7 +11,7 @@ test:
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
-          assets: 1000
+          assets: 20
     - label: Query all cars.
       txDuration: 30
       rateControl:
@@ -21,7 +21,7 @@ test:
       workload:
         module: /caliper-workload/queryAllCars.js
         arguments:
-          assets: 1000
+          assets: 20
           startKey: '1'
           endKey: '50'
     - label: Query a car.
