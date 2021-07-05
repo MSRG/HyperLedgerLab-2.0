@@ -153,6 +153,7 @@ spec:
         {{ end }}
         {{- end }}
 
+        {{- $root := . -}}
         {{- range $i, $e := untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
         {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
         - name: peer-msp{{$e}}
