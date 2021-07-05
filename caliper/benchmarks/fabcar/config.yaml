@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 5
+    number: 10
   rounds:
     - label: Create a car.
       txNumber: 1000
@@ -23,7 +23,7 @@ test:
         module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 500
-          
+
     - label: Query a car.
       txNumber: 1000
       rateControl:
