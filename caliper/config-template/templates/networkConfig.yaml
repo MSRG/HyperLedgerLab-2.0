@@ -105,9 +105,9 @@ channels:
       {{ end }} 
     peers:
     {{- range $i, $e := untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 }}
-    {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
-      peer{{.}}.org{{$e}}:
-        endorsingPeer: true
+    {{- range $ii, $ee := untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
+      peer{{$ee}}.org{{$e}}:
+        endorsingPeer: {{ $ee := 0 | ternary true false }}
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
