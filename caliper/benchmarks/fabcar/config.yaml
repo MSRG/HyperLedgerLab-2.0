@@ -3,7 +3,7 @@ test:
     number: 5
   rounds:
     - label: Change car owner.
-      txDuration: 30
+      txNumber: 3000
       rateControl:
           type: fixed-load
           opts:
@@ -13,7 +13,7 @@ test:
         arguments:
           assets: 20
     - label: Query all cars.
-      txDuration: 30
+      txNumber: 3000
       rateControl:
           type: fixed-load
           opts:
@@ -25,7 +25,7 @@ test:
           startKey: '1'
           endKey: '50'
     - label: Query a car.
-      txDuration: 30
+      txNumber: 3000
       rateControl:
           type: fixed-load
           opts:
@@ -33,9 +33,9 @@ test:
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
-          assets: 1000
+          assets: 20
     - label: Create a car.
-      txDuration: 30
+      txNumber: 3000
       rateControl:
           type: fixed-load
           opts:
