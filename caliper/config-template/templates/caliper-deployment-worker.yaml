@@ -105,11 +105,10 @@ spec:
         {{ end }}
         {{- end }}
 
-        {{- range $i, $e := untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
-        {{- range untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
-        - name: peer-msp{{$e}}
+        {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+        - name: peer-msp{{.}}
           secret:
-            secretName: hlf-peer--org{{$e}}--peer{{.}}-msp
+            secretName: hlf-peer--org{{.}}--peer0-msp
             items:
               - key: config.yaml
                 path: config.yaml
@@ -118,13 +117,13 @@ spec:
               - key: key.pem
                 path: keystore/key.pem
               - key: cacert.pem
-                path: cacerts/ca.org{{$e}}-cert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
 
-        - name: peer-admin-msp{{$e}}
+        - name: peer-admin-msp{{.}}
           secret:
-            secretName: hlf-peer--org{{$e}}--admin-msp
+            secretName: hlf-peer--org{{.}}--admin-msp
             items:
               - key: config.yaml
                 path: config.yaml
@@ -133,10 +132,9 @@ spec:
               - key: key.pem
                 path: keystore/key.pem
               - key: cacert.pem
-                path: cacerts/ca.org{{$e}}-cert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
               - key: tlscacert.pem
                 path: tlscacerts/cert.pem
-        {{ end }}
         {{ end }}
 
         - name: ordorg1-tlsca
