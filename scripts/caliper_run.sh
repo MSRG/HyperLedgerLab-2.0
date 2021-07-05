@@ -37,7 +37,8 @@ kubectl apply -f caliper-config/templates/caliper-deployment-worker.yaml
 
 set +x
 
-echo "Wait until caliper manager pod is running..."
+echo "Start waiting until caliper manager pod is running..."
+sleep 5
 while [[  $(kubectl get pods -l app=caliper-manager -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == *"False"* ]] || [[ -z $(kubectl get  pods -l app=caliper-manager) ]] ; do echo "waiting for the caliper manager pod to run..." && sleep 5; done
 kubectl logs -l app=caliper-manager -f
 

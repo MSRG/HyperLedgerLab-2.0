@@ -9,7 +9,7 @@ test:
           opts:
             transactionLoad: 5
       workload:
-        module: benchmarks/samples/fabric/fabcar/changeCarOwner.js
+        module: /caliper-workload/changeCarOwner.js
         arguments:
           assets: 1000
     - label: Query all cars.
@@ -19,7 +19,7 @@ test:
           opts:
             transactionLoad: 5
       workload:
-        module: benchmarks/samples/fabric/fabcar/queryAllCars.js
+        module: /caliper-workload/queryAllCars.js
         arguments:
           assets: 1000
           startKey: '1'
@@ -31,7 +31,7 @@ test:
           opts:
             transactionLoad: 5
       workload:
-        module: benchmarks/samples/fabric/fabcar/queryCar.js
+        module: /caliper-workload/queryCar.js
         arguments:
           assets: 1000
     - label: Create a car.
@@ -41,4 +41,4 @@ test:
           opts:
             transactionLoad: 5
       workload:
-        module: benchmarks/samples/fabric/fabcar/createCar.js
+        module: /caliper-workload/createCar.js
