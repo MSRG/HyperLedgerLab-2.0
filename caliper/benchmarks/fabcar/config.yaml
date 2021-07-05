@@ -5,10 +5,12 @@ test:
     - label: Change car owner.
       txNumber: 200
       rateControl:
-          type: fixed-load
+          type: maximum-rate
           opts:
-            startingTps: 1000
-            transactionLoad: 5
+            tps: 1000
+            step: 10
+            sampleInterval: 20
+            includeFailed: false
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
@@ -28,10 +30,12 @@ test:
     - label: Query a car.
       txNumber: 5000
       rateControl:
-          type: fixed-load
+          type: maximum-rate
           opts:
-            startingTps: 3000
-            transactionLoad: 5
+            tps: 3000
+            step: 10
+            sampleInterval: 20
+            includeFailed: false
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
@@ -39,9 +43,11 @@ test:
     - label: Create a car.
       txNumber: 200
       rateControl:
-          type: fixed-load
+          type: maximum-rate
           opts:
-            startingTps: 1000
-            transactionLoad: 50
+            tps: 1000
+            step: 10
+            sampleInterval: 20
+            includeFailed: false
       workload:
         module: /caliper-workload/createCar.js
