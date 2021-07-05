@@ -9,7 +9,7 @@ fabric_images:
 caliper_image: hyperledger/caliper:0.4.2
 
 # Fabric Network Config
-fabric_num_orgs: 4
+fabric_num_orgs: 2
 fabric_peers_per_org: 2
 fabric_num_orderer: 2
 fabric_orderer_domain: orgorderer1
