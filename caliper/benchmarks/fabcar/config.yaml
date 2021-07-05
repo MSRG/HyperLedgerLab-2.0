@@ -36,13 +36,13 @@ test:
     #       startKey: '1'
     #       endKey: '50'
     - label: Query a car.
-      txNumber: 2000
+      txNumber: 1000
       rateControl:
-        type: fixed-feedback-rate
-        opts:
-          tps: 3000
-          transactionLoad: 10
+          type: linear-rate
+          opts:
+            startingTps: 1000
+            finishingTps: 4000
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
-          assets: 1000
+          assets: 500
