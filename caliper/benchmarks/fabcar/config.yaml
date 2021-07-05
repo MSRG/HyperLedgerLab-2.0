@@ -38,10 +38,10 @@ test:
     - label: Query a car.
       txNumber: 2000
       rateControl:
-          type: linear-rate
-          opts:
-            startingTps: 1000
-            finishingTps: 4000
+        type: fixed-feedback-rate
+        opts:
+          tps: 3000
+          transactionLoad: 10
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
