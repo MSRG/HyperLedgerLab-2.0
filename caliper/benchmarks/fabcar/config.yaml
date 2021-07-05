@@ -3,30 +3,26 @@ test:
     number: 5
   rounds:
     - label: Create a car.
-      txNumber: 200
+      txNumber: 1000
       rateControl:
-          type: maximum-rate
+          type: linear-rate
           opts:
-            tps: 1000
-            step: 10
-            sampleInterval: 20
-            includeFailed: false
+            startingTps: 100
+            finishingTps: 500
       workload:
         module: /caliper-workload/createCar.js
 
     - label: Change car owner.
-      txNumber: 200
+      txNumber: 1000
       rateControl:
-          type: maximum-rate
+          type: linear-rate
           opts:
-            tps: 1000
-            step: 10
-            sampleInterval: 20
-            includeFailed: false
+            startingTps: 100
+            finishingTps: 500
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
-          assets: 1000
+          assets: 500
     # - label: Query all cars.
     #   txNumber: 1000
     #   rateControl:
@@ -42,13 +38,11 @@ test:
     - label: Query a car.
       txNumber: 5000
       rateControl:
-          type: maximum-rate
+          type: linear-rate
           opts:
-            tps: 3000
-            step: 200
-            sampleInterval: 20
-            includeFailed: false
+            startingTps: 1000
+            finishingTps: 4000
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
-          assets: 1000
+          assets: 500
