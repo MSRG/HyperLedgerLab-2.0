@@ -7,7 +7,8 @@ test:
       rateControl:
           type: fixed-load
           opts:
-            transactionLoad: 50
+            startingTps: 1000
+            transactionLoad: 5
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
@@ -27,10 +28,10 @@ test:
     - label: Query a car.
       txNumber: 5000
       rateControl:
-        type: fixed-feedback-rate
-        opts:
-          tps: 3000
-          transactionLoad: 10
+          type: fixed-load
+          opts:
+            startingTps: 3000
+            transactionLoad: 5
       workload:
         module: /caliper-workload/queryCar.js
         arguments:
@@ -40,6 +41,7 @@ test:
       rateControl:
           type: fixed-load
           opts:
+            startingTps: 1000
             transactionLoad: 50
       workload:
         module: /caliper-workload/createCar.js
