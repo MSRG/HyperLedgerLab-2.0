@@ -3,11 +3,12 @@ test:
     number: 5
   rounds:
     - label: Change car owner.
-      txNumber: 3000
+      txNumber: 1000
       rateControl:
-          type: fixed-load
+          type: fixed-feedback-rate
           opts:
-            transactionLoad: 5
+            tps: 200
+            transactionLoad: 10
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
