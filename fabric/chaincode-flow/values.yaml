@@ -39,7 +39,7 @@ flow:
     # should we run invoke step?
     enabled: true
     parallel: true
-    function: '{\"function\":\"InitLedger\",\"Args\":[]}'
+    function: '{\"function\":\"init\",\"Args\":[]}'
 
 chaincode:
   version: "1.0"
