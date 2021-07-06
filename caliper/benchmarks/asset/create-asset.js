@@ -41,17 +41,17 @@ class CreateAssetWorkload extends WorkloadModuleBase {
 
         const args = this.roundArguments;
         this.chaincodeID = args.chaincodeID ? args.chaincodeID : 'fixed-asset';
-        this.byteSize = args.byteSize;
+        // this.byteSize = args.byteSize;
 
         this.asset = {
             docType: this.chaincodeID,
             content: '',
             creator: 'client' + this.workerIndex,
-            byteSize: this.byteSize
+            // byteSize: this.byteSize
         };
 
-        const paddingSize = this.byteSize - bytes(JSON.stringify(this.asset));
-        this.asset.content = 'B'.repeat(paddingSize);
+        // const paddingSize = this.byteSize - bytes(JSON.stringify(this.asset));
+        // this.asset.content = 'B'.repeat(paddingSize);
     }
 
     /**
@@ -68,7 +68,7 @@ class CreateAssetWorkload extends WorkloadModuleBase {
             contractArguments: [uuid, JSON.stringify(this.asset)],
             readOnly: false
         };
-    
+
         await this.sutAdapter.sendRequests(args);
     }
 }
