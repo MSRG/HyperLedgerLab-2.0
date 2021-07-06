@@ -17,12 +17,11 @@ test:
       chaincodeID: fixed-asset
       txDuration: 300
       rateControl:
-        type: fixed-load
+        type: fixed-rate
         opts:
-          transactionLoad: 10
-          startingTps: 1
+          tps: 1000
       workload:
-        module: benchmarks/api/fabric/lib/create-asset.js
+        module: /caliper-workload/create-asset.js
         arguments:
           chaincodeID: fixed-asset
           byteSize: 100
