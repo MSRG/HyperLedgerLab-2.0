@@ -46,9 +46,9 @@ spec:
             
             if [ -f /caliper-report-git/git.yaml ] 
               then
-                git clone https://cli:$project_access_token@$project_url
                 git config --global user.email "$git_user_email" 
                 git config --global user.name "$git_user_name" 
+                git clone https://cli:$project_access_token@$project_url
                 NOW_TIMESTAMP="$(date +'%s')"
                 NOW="$(date)"
                 DIR_NAME="report_$NOW_TIMESTAMP"
