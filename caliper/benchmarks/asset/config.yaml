@@ -19,10 +19,10 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 500 
+          tps: 500
       workload:
         module: /caliper-workload/create-asset.js
         arguments:
           chaincodeID: fixed-asset
-          byteSize: 2
+          byteSize: 100
   
