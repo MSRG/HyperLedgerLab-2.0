@@ -152,3 +152,8 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 - **Issue:** Using kubectl you get "The connection to the server 172.24.35.65:6443 was refused - did you specify the right host or port?" <br />
   **Workaround:** from [./terraform](../terraform), run the command `ansible-playbook -i hosts ../playbook.yaml` <br />
   **Explanation:** This error indicates that kubectl is not configured to point to the installed Kubernetes cluster. The ansible playbook mentioned in the workaround will solve the problem.
+
+- **Issue:** Error: Error waiting for instance (23bde629-afb5-4c09-a6bc-8ad99aee2d6e) to become ready: unexpected state 'ERROR', wanted target 'ACTIVE'. last error: %!s(<nil>)
+  <br />
+  **Workaround:** Go to OpenStack dashboard to check the error message. Normally, this problem is not related to HyperledgerLab2. <br />
+  **Explanation:** One possible cause of this issue is that no enough resources on the OpenStack project are found to create one or more instances.
