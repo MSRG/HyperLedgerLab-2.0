@@ -3,7 +3,7 @@ test:
     number: 10
   rounds:
     - label: Create a car.
-      txNumber: 1000
+      txNumber: 2000
       rateControl:
           type: linear-rate
           opts:
@@ -13,7 +13,7 @@ test:
         module: /caliper-workload/createCar.js
 
     - label: Change car owner.
-      txNumber: 1000
+      txNumber: 2000
       rateControl:
           type: linear-rate
           opts:
@@ -25,7 +25,7 @@ test:
           assets: 500
 
     - label: Query a car.
-      txNumber: 1000
+      txNumber: 2000
       rateControl:
           type: linear-rate
           opts:

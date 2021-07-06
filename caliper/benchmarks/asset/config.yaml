@@ -1,0 +1,29 @@
+test:
+  name: create-asset-size-ramp
+  description: >-
+    This is a duration based benchmark targeting a Hyperledger Fabric network
+    using the `fixed-asset` NodeJS chaincode
+    contract that is interacted with via a Fabric-SDK-Node Gateway. Each test
+    round invokes the `createAsset` method, with successive rounds increasing
+    the byteSize of the asset added into the world state database.
+  workers:
+    number: 5
+  rounds:
+    - label: create-asset-100
+      description: >-
+        Test a submitTransaction() Gateway method against the NodeJS
+        `fixed-asset` Smart Contract method named `createAsset`, which inserts
+        an asset of size 100 bytes into the World State database.
+      chaincodeID: fixed-asset
+      txDuration: 300
+      rateControl:
+        type: fixed-load
+        opts:
+          transactionLoad: 10
+          startingTps: 1
+      workload:
+        module: benchmarks/api/fabric/lib/create-asset.js
+        arguments:
+          chaincodeID: fixed-asset
+          byteSize: 100
+  
