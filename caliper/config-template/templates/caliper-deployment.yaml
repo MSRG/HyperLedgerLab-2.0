@@ -59,7 +59,7 @@ spec:
                   cp caliper.log hyperledgerlab2-reports/$DIR_NAME/
                   cd hyperledgerlab2-reports/
                   git init
-                  # git remote add origin git@$project_url
+                  git remote add origin git@$project_url
                   git add $DIR_NAME 
                   git commit -m "Report $NOW"
                   git push -u origin master
