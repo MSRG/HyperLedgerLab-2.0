@@ -40,6 +40,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
     async submitTransaction() {
         this.txIndex++;
         let carNumber = 'Client' + this.workerIndex + '_CAR' + this.txIndex.toString();
+        console.log(carNumber);
         let carColor = colors[Math.floor(Math.random() * colors.length)];
         let carMake = makes[Math.floor(Math.random() * makes.length)];
         let carModel = models[Math.floor(Math.random() * models.length)];
@@ -50,6 +51,9 @@ class CreateCarWorkload extends WorkloadModuleBase {
             contractVersion: 'v1',
             contractFunction: 'createCar',
             contractArguments: [carNumber, carMake, carModel, carColor, carOwner],
+            invokerIdentity: "client0.org1.example.com",
+            targetPeers: ["peer0.org1", "peer1,org1"],
+            readOnly: false,
             timeout: 30
         };
 

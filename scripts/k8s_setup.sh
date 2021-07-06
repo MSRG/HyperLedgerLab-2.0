@@ -27,7 +27,7 @@ ansible-playbook -i hosts ./kubectl-config/playbook.yaml
 
 # Install agro controller with the configured kubectl
 kubectl create namespace argo
-kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/v3.0.0-rc5/manifests/install.yaml
+kubectl apply -n argo -f ../fabric/argo/install.yaml
 kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=default:default
 
 set +x

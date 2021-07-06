@@ -11,7 +11,7 @@ TERRAFORM_VERSION=1.0.0
 KUBECTL_VERSION=v1.21.0
 HELM_VERSION=v3.0.0
 JQ_VERSION=1.6-1ubuntu0.20.04.1
-ARGO_VERSION=v3.0.0-rc5
+ARGO_VERSION=v3.1.1
 
 # override StrictHostKeyChecking in ssh config
 touch ~/.ssh/config
@@ -145,7 +145,7 @@ if compgen -c | grep -q "^argo" >/dev/null;
         echo -e "argo already installed"
     else
         # Download the binary
-        curl -sLO https://github.com/argoproj/argo/releases/download/$ARGO_VERSION/argo-linux-amd64.gz
+        curl -sLO https://github.com/argoproj/argo-workflows/releases/download/$ARGO_VERSION/argo-linux-amd64.gz
         # Unzip
         gunzip argo-linux-amd64.gz
         # Make binary executable
