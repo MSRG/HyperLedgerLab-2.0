@@ -18,7 +18,7 @@ fabric_orderer_domain: orgorderer1
 fabric_orderer_type: etcdraft
 
 # Batch Timeout: The amount of time to wait before creating a batch
-fabric_batch_timeout: "2s"
+fabric_batch_timeout: "10s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
 fabric_batchsize: ["100", "98 MB", "1024 KB"]
 # Enable tls globally in the network
