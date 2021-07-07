@@ -53,7 +53,7 @@ couchdb:
 # Orderer settings. applies to all Orderer pods
 orderer:
   # normally it shouldn't be greater than 1 
-  replicas: 1
+  replicas: 3
   logLevel: grpc=debug:info
   # launch orderer pods? setting to false is useful for collecting host aliases and fast restart afterwards
   launchPods: true

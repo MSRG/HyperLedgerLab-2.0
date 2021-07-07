@@ -3,7 +3,6 @@
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 {{- $peerAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
-# peerAddress: {{ $peerAddress }}
 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -33,7 +32,7 @@ spec:
     spec:
       accessModes:
         - ReadWriteOnce
-      storageClassName: {{ $.Values.persistence.storageClass }}
+      storageClassName: {{ $.Values.∂.storageClass }}
       resources:
         requests:
           storage: {{ $.Values.couchdb.persistence.size }}
