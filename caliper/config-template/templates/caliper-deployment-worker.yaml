@@ -36,7 +36,7 @@ spec:
           workingDir: /hyperledger/caliper/workspace
           env:
             - name: CALIPER_BIND_SUT
-              value: fabric:2.0
+              value: fabric:1.4
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
