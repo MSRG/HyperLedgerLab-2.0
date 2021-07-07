@@ -70,7 +70,7 @@ orderers:
     grpcOptions:
       ssl-target-name-override: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
       # hostnameOverride: orderer0.org1
-      grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 100000
     {{ if $.Values.fabric_tls_enabled }}
     tlsCACerts:
       path: /etc/hyperledger/fabric/ordorg1-tlsca/tlscacert.pem
@@ -86,7 +86,7 @@ peers:
     grpcOptions:
       ssl-target-name-override: peer{{.}}.org{{$e}}
       # hostnameOverride: peer0.org1
-      grpc.keepalive_time_ms: 600000
+      grpc.keepalive_time_ms: 100000
     {{ if $.Values.fabric_tls_enabled }}
     tlsCACerts:
       path: /etc/hyperledger/fabric/org{{$e}}/msp/tlscacerts/cert.pem

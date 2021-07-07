@@ -57,7 +57,7 @@ spec:
                 then
                   cd hyperledgerlab2-reports/
                   git remote add origin https://cli:$project_access_token@$project_url
-                  git init
+                  # git init
                   mkdir $DIR_NAME
                   cp ../report.html $DIR_NAME/
                   cp ../caliper.log $DIR_NAME/
