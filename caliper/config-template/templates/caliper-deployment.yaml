@@ -48,18 +48,19 @@ spec:
               then
                 git config --global user.email "$git_user_email" 
                 git config --global user.name "$git_user_name" 
-                git clone https://cli:$project_access_token@$project_url
+                # git clone https://cli:$project_access_token@$project_url
                 NOW_TIMESTAMP="$(date +'%s')"
                 NOW="$(date)"
                 DIR_NAME="report_$NOW_TIMESTAMP"
-                mkdir -p  hyperledgerlab2-reports/$DIR_NAME
+                mkdir -p  hyperledgerlab2-reports/
                 if [ -f report.html ] || [ -f caliper.log ]
                 then
-                  cp report.html hyperledgerlab2-reports/$DIR_NAME/
-                  cp caliper.log hyperledgerlab2-reports/$DIR_NAME/
                   cd hyperledgerlab2-reports/
-                  git init
                   git remote add origin https://cli:$project_access_token@$project_url
+                  git init
+                  mkdir $DIR_NAME
+                  cp ../report.html hyperledgerlab2-reports/$DIR_NAME/
+                  cp ../caliper.log hyperledgerlab2-reports/$DIR_NAME/
                   git add $DIR_NAME 
                   git commit -m "Report $NOW"
                   git push -u origin master
@@ -78,7 +79,7 @@ spec:
           workingDir: /hyperledger/caliper/workspace
           env:
             - name: CALIPER_BIND_SUT
-              value: fabric:2.1
+              value: fabric:2.0
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
