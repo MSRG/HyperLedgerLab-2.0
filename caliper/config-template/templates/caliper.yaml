@@ -2,8 +2,6 @@ caliper:
   fabric:
     gateway:
       usegateway: true
-      localhost: false
-      enabled: false
   logging:
     targets:
       console:
