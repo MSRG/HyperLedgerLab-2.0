@@ -3,13 +3,14 @@
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
 {{- $peerAddress := $.Values.useActualDomains | ternary (printf "%s.%s:7051" $peer $org.Domain) (printf "hlf-peer--%s--%s:7051" ($org.Name | lower) ($peer | lower)) }}
+# peerAddress: {{ $peerAddress }}
 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
 spec:
-  replicas: 3
+  replicas: 1
   serviceName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}
   selector:
     matchLabels:
@@ -32,7 +33,7 @@ spec:
     spec:
       accessModes:
         - ReadWriteOnce
-      storageClassName: {{ $.Values.∂.storageClass }}
+      storageClassName: {{ $.Values.persistence.storageClass }}
       resources:
         requests:
           storage: {{ $.Values.couchdb.persistence.size }}
