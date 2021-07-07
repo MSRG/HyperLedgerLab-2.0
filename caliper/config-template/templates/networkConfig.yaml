@@ -110,7 +110,7 @@ channels:
         endorsingPeer: {{ eq $ee 0 | ternary true false }}
         chaincodeQuery: true
         ledgerQuery: true
-        eventSource: true
+        eventSource: false
     {{ end }}
     {{ end }}
 
