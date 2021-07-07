@@ -89,7 +89,7 @@ spec:
             - name: CALIPER_WORKSPACE
               value: /hyperledger/caliper/workspace
             - name: CALIPER_BIND_ARGS
-              value: "-g"
+              value: "-g fs-extra"
             - name: CALIPER_PROJECTCONFIG 
               value: /caliper-config/caliper.yaml
             - name: CXXFLAGS
