@@ -107,10 +107,6 @@ channels:
     {{- range $i, $e := untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 }}
     {{- range $ii, $ee := untilStep 0 (int $root.Values.fabric_peers_per_org) 1 }}
       peer{{$ee}}.org{{$e}}:
-        endorsingPeer: false
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: {{ eq $ee 0 | ternary true false }}
     {{ end }}
     {{ end }}
 
