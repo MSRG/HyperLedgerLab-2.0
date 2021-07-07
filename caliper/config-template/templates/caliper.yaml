@@ -1,7 +1,7 @@
 caliper:
   fabric:
     gateway:
-      usegateway: true
+      usegateway: false
   logging:
     targets:
       console:
