@@ -19,7 +19,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 500
+          tps: 1000
       workload:
         module: /caliper-workload/create-asset.js
         arguments:
