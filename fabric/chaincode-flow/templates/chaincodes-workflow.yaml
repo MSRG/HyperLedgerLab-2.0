@@ -531,7 +531,7 @@ spec:
           /hlf-scripts/collect_peer_addresses.sh /hlf_config/network/network.yaml /hlf_config/crypto-config/crypto-config.yaml {{ $chaincode.name }} {{ $peer }} >&peer_addresses.txt
           cat peer_addresses.txt
           echo {{ $chaincode.initFunction }}
-          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} $(cat peer_addresses.txt) {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
+          peer chaincode invoke -o {{ $vars.ordererUrl }}  -C {{ $channel.name }} -n {{ $chaincode.name }} $(cat peer_addresses.txt) --isInit -c {{ $chaincode.initFunction }} {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }}  >&log.txt
           cat log.txt
 
           set +x
