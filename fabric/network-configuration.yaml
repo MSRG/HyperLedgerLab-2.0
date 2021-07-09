@@ -33,7 +33,7 @@ channels:                   # List of channel objects
         path: "chaincode/fixed-asset/node"      # NOTE: Path to Directory where chaincode file is located
         language: node
         version: v1
-        initFunction: '{\"function\":\"init\",\"Args\":[]}'
+        initFunction: "{\"function\":\"init\",\"Args\":[]}"
         sequence: 1
   # - name: "mychannel"
   #   chaincodes:
