@@ -56,8 +56,8 @@ spec:
                 if [ -f report.html ] || [ -f caliper.log ]
                 then
                   cd hyperledgerlab2-reports/
-                  git remote add origin https://cli:$project_access_token@$project_url
                   git init
+                  git remote add origin https://cli:$project_access_token@$project_url
                   mkdir $DIR_NAME
                   cp ../report.html $DIR_NAME/
                   cp ../caliper.log $DIR_NAME/
