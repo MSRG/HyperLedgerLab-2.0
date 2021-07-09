@@ -61,6 +61,9 @@ spec:
       - name: peer-tls
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-tls
+      - name: fabric-config
+        secret:
+          secretName: fabric-config.yaml
       - name: peer-msp
         secret:
           secretName: hlf-peer--{{ $org.Name | lower }}--{{ $peer | lower }}-msp
@@ -164,6 +167,8 @@ spec:
           name: peer-msp
         - mountPath: /etc/hyperledger/fabric/admin-msp/
           name: peer-admin-msp
+        - mountPath: /etc/hyperledger/fabric
+          name: fabric-config
         # chaincodes
         {{- range $i, $chaincode := $.Values.network.chaincodes }}    
         - mountPath: /chaincode/{{ $chaincode.name }}
