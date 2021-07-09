@@ -66,10 +66,15 @@ class CreateAssetWorkload extends WorkloadModuleBase {
             contractId: this.chaincodeID,
             contractFunction: 'createAsset',
             contractArguments: [uuid, JSON.stringify(this.asset)],
-            readOnly: false
+            readOnly: false,
+            timeout: 60
         };
 
         await this.sutAdapter.sendRequests(args);
+    }
+
+    async cleanupWorkloadModule() {
+
     }
 }
 
