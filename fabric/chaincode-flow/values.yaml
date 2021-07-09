@@ -28,3 +28,8 @@ flow:
     # should we run invoke step?
     enabled: true
     parallel: true
+
+chaincode:
+  version: "1.0"
+  sequence: 1
+  language: node
