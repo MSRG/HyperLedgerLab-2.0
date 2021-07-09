@@ -56,8 +56,8 @@ class Asset extends Contract {
             console.log('Entering createAsset');
         }
 
-        const assetAsBytes = await ctx.stub.putState(uuid, Buffer.from(content));
-        console.log(assetAsBytes);
+        await ctx.stub.putState(uuid, Buffer.from(content));
+        console.log(ctx);
         console.log('kdkddk');
         if (isVerbose) {
             console.log('Exiting createAsset');
