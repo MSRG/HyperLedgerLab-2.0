@@ -9,7 +9,7 @@
 const { Contract } = require('fabric-contract-api');
 
 const logLevel = process.env.CORE_CHAINCODE_LOGGING_LEVEL;
-const isVerbose = (logLevel && (logLevel.toUpperCase() === 'INFO' || logLevel.toUpperCase() === 'DEBUG' ));
+const isVerbose = (logLevel && (logLevel.toUpperCase() === 'INFO' || logLevel.toUpperCase() === 'DEBUG'));
 
 const collection = "CollectionOne";
 
@@ -21,7 +21,7 @@ class Asset extends Contract {
     /**
      * Placeholder for function that isn't needed functionally
      */
-    async init(){
+    async init() {
 
     }
 
@@ -34,7 +34,7 @@ class Asset extends Contract {
             console.log('Entering emptyContract');
             console.log('Returning null response');
         }
-        
+
         return {};
     }
 
@@ -54,8 +54,10 @@ class Asset extends Contract {
     async createAsset(ctx, uuid, content) {
         if (isVerbose) {
             console.log('Entering createAsset');
-        }        
-        await ctx.stub.putState(uuid, Buffer.from(content));
+        }
+
+        const assetAsBytes = await ctx.stub.putState(uuid, Buffer.from(content));
+        console.log('kdkddk');
         if (isVerbose) {
             console.log('Exiting createAsset');
         }
@@ -159,9 +161,9 @@ class Asset extends Contract {
         const transientContent = ctx.stub.getTransient().get('content');
         const transientData = JSON.parse(transientContent);
 
-        for (let i=0; i<batch_size; i++) {
+        for (let i = 0; i < batch_size; i++) {
             let privateAsset = {};
-            
+
             for (let j in transientData) {
                 privateAsset.content = transientData[j];
                 await ctx.stub.putPrivateData(collection, transientData[j].uuid, JSON.stringify(privateAsset));
@@ -184,13 +186,13 @@ class Asset extends Contract {
         if (isVerbose) {
             console.log('Entering getAsset');
         }
-        const assetAsBytes =  await ctx.stub.getState(uuid);
+        const assetAsBytes = await ctx.stub.getState(uuid);
         if (!assetAsBytes || assetAsBytes.length === 0) {
             throw new Error(`Asset with uuid ${uuid} was not successfully retrieved`);
         } else {
             if (isVerbose) {
                 console.log(`Returning result for getAsset with uuid: ${uuid}`);
-            }            
+            }
             return assetAsBytes;
         }
     }
@@ -206,7 +208,7 @@ class Asset extends Contract {
         if (isVerbose) {
             console.log('Entering getPrivateAsset');
         }
-        const privateAssetAsBytes =  await ctx.stub.getPrivateData(collection, uuid);
+        const privateAssetAsBytes = await ctx.stub.getPrivateData(collection, uuid);
         if (!privateAssetAsBytes || privateAssetAsBytes.length === 0) {
             throw new Error(`Private asset with uuid ${uuid} was not successfully retrieved`);
         } else {
@@ -287,7 +289,7 @@ class Asset extends Contract {
      * @param {String} bookmark - the bookmark from which to start the return
      * @returns {JSON} the results of the paginated query and responseMetadata in a JSON object
      */
-    async paginatedRichQuery(ctx, queryString, pagesize,  bookmark = '') {
+    async paginatedRichQuery(ctx, queryString, pagesize, bookmark = '') {
         if (isVerbose) {
             console.log(`Entering paginated rich query with pagesize [${pagesize}] and query string: ${queryString}`);
         }
@@ -302,7 +304,7 @@ class Asset extends Contract {
                 Bookmark: metadata.bookmark,
             };
         } else {
-            
+
             const { iterator, metadata } = await ctx.stub.getQueryResultWithPagination(queryString, pageSize);
             response.results = await this._getAllResults(iterator);
             response.responseMetadata = {
@@ -333,14 +335,14 @@ class Asset extends Contract {
         const pageSize = parseInt(pagesize, 10);
 
         if (bookmark.length > 0) {
-            const { iterator, metadata } = await ctx.stub.getStateByRangeWithPagination(startKey,endKey, pageSize, bookmark);
+            const { iterator, metadata } = await ctx.stub.getStateByRangeWithPagination(startKey, endKey, pageSize, bookmark);
             response.results = await this._getAllResults(iterator);
             response.responseMetadata = {
                 RecordsCount: metadata.fetched_records_count,
                 Bookmark: metadata.bookmark,
             };
         } else {
-            const { iterator, metadata } = await ctx.stub.getStateByRangeWithPagination(startKey,endKey, pageSize);
+            const { iterator, metadata } = await ctx.stub.getStateByRangeWithPagination(startKey, endKey, pageSize);
             response.results = await this._getAllResults(iterator);
             response.responseMetadata = {
                 RecordsCount: metadata.fetched_records_count,
@@ -363,7 +365,7 @@ class Asset extends Contract {
     async _getAllResults(iterator) {
         let allResults = [];
         let res = await iterator.next();
-        let iterate = res.value ? true: false;
+        let iterate = res.value ? true : false;
         while (iterate) {
             if (res.value && res.value.value.toString()) {
                 let jsonRes;
@@ -375,7 +377,7 @@ class Asset extends Contract {
                 }
                 allResults.push(jsonRes);
             }
-            if(res.done){
+            if (res.done) {
                 iterate = false;
             } else {
                 res = await iterator.next();
