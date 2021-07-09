@@ -1,65 +1,35 @@
 'use strict';
 
 const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
-let txIndex = 0;
 
 class MyWorkload extends WorkloadModuleBase {
 
     constructor() {
         super();
-        // this.txIndex = 0;
+        this.txIndex = 0;
+        this.chaincodeID = '';
+        this.asset = {};
+        this.byteSize = 0;
     }
 
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
-
-        // for (let i = 0; i < this.roundArguments.assets; i++) {
-        //     const assetID = `${this.workerIndex}_${i}`;
-        //     console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
-        //     const request = {
-        //         contractId: this.roundArguments.contractId,
-        //         contractFunction: 'DeleteAsset',
-        //         contractArguments: [assetID],
-        //         readOnly: false,
-        //         timeout: 60
-        //     };
-
-        //     await this.sutAdapter.sendRequests(request);
-        // }
     }
 
     async submitTransaction() {
-        // for (let i = 0; i < this.roundArguments.assets; i++) {
-        // const randomId = Math.floor(Math.random() * this.roundArguments.assets);
-        const assetID = `${this.workerIndex}`;
-        let request = {
+        const uuid = 'client' + this.workerIndex + '_' + this.byteSize + '_' + this.txIndex;
+        this.asset.uuid = uuid;
+        this.txIndex++;
+        const args = {
             contractId: "asset-transfer-basic",
             contractFunction: 'CreateAsset',
-            contractArguments: [assetID, 'blue', '20', 'penguin', '500'],
-            invokerIdentity: 'client0.org2.example.com',
+            contractArguments: [uuid, 'blue', '20', 'penguin', '500'],
             readOnly: false,
             timeout: 60
         };
 
-        await this.sutAdapter.sendRequests(request);
-        // }
+        await this.sutAdapter.sendRequests(args);
     }
-
-    // async cleanupWorkloadModule() {
-    //     for (let i = 0; i < this.roundArguments.assets; i++) {
-    //         const assetID = `${this.workerIndex}_${i}`;
-    //         console.log(`Worker ${this.workerIndex}: Deleting asset ${assetID}`);
-    //         const request = {
-    //             contractId: this.roundArguments.contractId,
-    //             contractFunction: 'DeleteAsset',
-    //             contractArguments: [assetID],
-    //             readOnly: false,
-    //             timeout: 60
-    //         };
-
-    //         await this.sutAdapter.sendRequests(request);
-    //     }
-    // }
 }
 
 function createWorkloadModule() {
