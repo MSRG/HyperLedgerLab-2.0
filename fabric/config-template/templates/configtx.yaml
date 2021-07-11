@@ -175,11 +175,7 @@ Orderer: &OrdererDefaults
   OrdererType: {{ .Values.fabric_orderer_type }}
 
   Addresses:
-    {{- $root := . -}}
-    {{- range untilStep 0 (int .Values.fabric_num_orderer) 1 }}
-    - orderer{{.}}.{{$root.Values.fabric_orderer_domain}}:7050
-    {{- end }}
-
+    - orderer0.{{.Values.fabric_orderer_domain}}:7050
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout:  {{ .Values.fabric_batch_timeout }}
@@ -213,7 +209,7 @@ Orderer: &OrdererDefaults
     # per-channel basis via configuration updates.
     Options:
       # TickInterval is the time interval between two Node.Tick invocations.
-      TickInterval: 500ms
+      TickInterval: 10s
 
       # ElectionTick is the number of Node.Tick invocations that must pass
       # between elections. That is, if a follower does not receive any
