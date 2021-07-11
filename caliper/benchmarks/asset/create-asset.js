@@ -67,7 +67,7 @@ class CreateAssetWorkload extends WorkloadModuleBase {
             contractFunction: 'createAsset',
             contractArguments: [uuid, JSON.stringify(this.asset)],
             readOnly: false,
-            timeout: 200
+            // timeout: 200
         };
 
         await this.sutAdapter.sendRequests(args);
