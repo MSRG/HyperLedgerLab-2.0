@@ -24,5 +24,4 @@ test:
         module: /caliper-workload/create-asset.js
         arguments:
           chaincodeID: fixed-asset
-          byteSize: 50
   
