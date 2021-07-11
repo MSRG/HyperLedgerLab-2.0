@@ -15,7 +15,7 @@ test:
         `fixed-asset` Smart Contract method named `createAsset`, which inserts
         an asset of size 100 bytes into the World State database.
       chaincodeID: fixed-asset
-      txDuration: 200
+      txDuration: 100
       rateControl:
         type: fixed-rate
         opts:
