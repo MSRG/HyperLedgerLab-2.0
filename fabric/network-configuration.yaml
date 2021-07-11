@@ -20,7 +20,7 @@ fabric_orderer_type: etcdraft
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "4s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
-fabric_batchsize: ["3300", "98 MB", "10 MB"]
+fabric_batchsize: ["3600", "98 MB", "10 MB"]
 # Enable tls globally in the network
 fabric_tls_enabled: false 
 

@@ -14,16 +14,3 @@ clouds:
     region_name: "RegionOne"
     interface: "public"
     identity_api_version: 3
-
-git: 
-  project: 
-    access_token: ""
-    url: ""
-  user:
-    email: ""
-    name: ""
-
-docker: 
-  server: 
-  username:
-  password: 
