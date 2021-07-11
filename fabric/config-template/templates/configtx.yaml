@@ -175,7 +175,11 @@ Orderer: &OrdererDefaults
   OrdererType: {{ .Values.fabric_orderer_type }}
 
   Addresses:
-    - orderer0.{{.Values.fabric_orderer_domain}}:7050
+    {{- $root := . -}}
+    {{- range untilStep 0 (int .Values.fabric_num_orderer) 1 }}
+    - orderer{{.}}.{{$root.Values.fabric_orderer_domain}}:7050
+    {{- end }}
+
 
   # Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout:  {{ .Values.fabric_batch_timeout }}
