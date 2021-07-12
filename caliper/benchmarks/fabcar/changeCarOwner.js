@@ -61,7 +61,7 @@ class ChangeCarOwnerWorkload extends WorkloadModuleBase {
             contractVersion: 'v1',
             contractFunction: 'changeCarOwner',
             contractArguments: [carNumber, newCarOwner],
-            timeout: 60
+            // timeout: 60
         };
 
         if (this.txIndex === this.roundArguments.assets) {
