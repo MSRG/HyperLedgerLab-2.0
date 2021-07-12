@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 8
+    number: 9
   rounds:
     # - label: Query a car.
     #   txNumber: 2000
