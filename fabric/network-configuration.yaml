@@ -30,8 +30,8 @@ channels:                   # List of channel objects
     chaincodes:
       - id: fixed-asset
         contractID: fixed-asset    # NOTE: This should be unique for chaincodes across channels
-        path: "chaincode/fixed-asset/node"      # NOTE: Path to Directory where chaincode file is located
-        language: node
+        path: "chaincode/fixed-asset/go"      # NOTE: Path to Directory where chaincode file is located
+        language: golang
         version: v1
         initFunctionName: init
         sequence: 1
