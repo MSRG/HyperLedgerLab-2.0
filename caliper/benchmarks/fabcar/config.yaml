@@ -1,25 +1,25 @@
 test:
   workers:
-    number: 8
+    number: 2
   rounds:
-    - label: Query a car.
-      txNumber: 2000
-      rateControl:
-          type: linear-rate
-          opts:
-            startingTps: 1000
-            finishingTps: 4000
-      workload:
-        module: /caliper-workload/queryCar.js
-        arguments:
-          assets: 500
+    # - label: Query a car.
+    #   txNumber: 2000
+    #   rateControl:
+    #       type: linear-rate
+    #       opts:
+    #         startingTps: 1000
+    #         finishingTps: 4000
+    #   workload:
+    #     module: /caliper-workload/queryCar.js
+    #     arguments:
+    #       assets: 500
 
     - label: Create a car.
       txDuration: 100
       rateControl:
         type: fixed-rate
         opts:
-          tps: 1500
+          tps: 1000
       workload:
         module: /caliper-workload/createCar.js
 
