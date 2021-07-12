@@ -56,7 +56,8 @@ Organizations:
         Rule: "OR('{{ $OrgMSP }}.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('{{ $OrgMSP }}.peer','{{ $OrgMSP }}.admin')"
+        Rule: "OR('{{ $OrgMSP }}.member')"
+        # Rule: "OR('{{ $OrgMSP }}.peer','{{ $OrgMSP }}.admin')"
 
     AnchorPeers:
       # AnchorPeers defines the location of peers which can be used
@@ -228,7 +229,7 @@ Orderer: &OrdererDefaults
       MaxInflightBlocks: 5
 
       # SnapshotIntervalSize defines number of bytes per which a snapshot is taken
-      SnapshotIntervalSize: 20 MB
+      SnapshotIntervalSize: 16 MB
 
   # Organizations is the list of orgs which are defined as participants on
   # the orderer side of the network
