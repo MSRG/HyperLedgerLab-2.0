@@ -48,13 +48,11 @@ class CreateCarWorkload extends WorkloadModuleBase {
 
         let args = {
             contractId: 'fabcar',
-            contractVersion: 'v1',
             contractFunction: 'createCar',
             contractArguments: [carNumber, carMake, carModel, carColor, carOwner],
-            invokerIdentity: "client0.org1.example.com",
-            targetPeers: ["peer0.org1", "peer1,org1"],
+            // invokerIdentity: "client0.org1.example.com",
+            // targetPeers: ["peer0.org1", "peer1,org1"],
             readOnly: false,
-            timeout: 30
         };
 
         await this.sutAdapter.sendRequests(args);
