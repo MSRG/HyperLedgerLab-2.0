@@ -47,4 +47,4 @@ test:
     #       assets: 500
 observer:
   type: local
-  interval: 5
+  interval: 10
