@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 9
+    number: 10
   rounds:
     # - label: Query a car.
     #   txNumber: 2000
@@ -19,7 +19,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 1500
+          tps: 2000
       workload:
         module: /caliper-workload/createCar.js
 
@@ -28,7 +28,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 1500
+          tps: 2000
       workload:
         module: /caliper-workload/changeCarOwner.js
         arguments:
