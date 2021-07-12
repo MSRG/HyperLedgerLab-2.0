@@ -45,6 +45,6 @@ test:
     #     module: /caliper-workload/queryCar.js
     #     arguments:
     #       assets: 500
-  observer:
-    type: local
-    interval: 10
+observer:
+  type: local
+  interval: 10
