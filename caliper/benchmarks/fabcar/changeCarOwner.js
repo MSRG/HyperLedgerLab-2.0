@@ -64,9 +64,9 @@ class ChangeCarOwnerWorkload extends WorkloadModuleBase {
             // timeout: 60
         };
 
-        if (this.txIndex === this.roundArguments.assets) {
-            this.txIndex = 0;
-        }
+        // if (this.txIndex === this.roundArguments.assets) {
+        //     this.txIndex = 0;
+        // }
 
         await this.sutAdapter.sendRequests(args);
     }
