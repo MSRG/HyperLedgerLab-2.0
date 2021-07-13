@@ -9,7 +9,7 @@ fabric_images:
 caliper_image: hyperledger/caliper:0.4.2
 
 # Fabric Network Config
-fabric_num_orgs: 4
+fabric_num_orgs: 6
 fabric_peers_per_org: 3
 fabric_num_orderer: 3
 fabric_orderer_domain: orgorderer1
@@ -18,9 +18,9 @@ fabric_orderer_domain: orgorderer1
 fabric_orderer_type: etcdraft
 
 # Batch Timeout: The amount of time to wait before creating a batch
-fabric_batch_timeout: "3s"
+fabric_batch_timeout: "2s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
-fabric_batchsize: ["3000", "98 MB", "10 MB"]
+fabric_batchsize: ["3000", "98 MB", "1 MB"]
 # Enable tls globally in the network
 fabric_tls_enabled: false 
 
