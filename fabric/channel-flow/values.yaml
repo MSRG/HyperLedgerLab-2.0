@@ -5,17 +5,6 @@
 # number of times to retry a failed leaf task
 retryCount: 4
 
-hyperledgerVersion: 2.2.0
-
-tlsEnabled: false
-
-# this should be set to true for TLS
-useActualDomains: false
-
-# adds additional DNS entries to /etc/hosts files
-# this value should be provided if either tlsEnabled or useActualDomains is set to true
-hostAliases: []
-
 logLevel: grpc=debug:info
 
 flow:
