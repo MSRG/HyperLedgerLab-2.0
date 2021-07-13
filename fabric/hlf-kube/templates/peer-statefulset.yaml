@@ -167,8 +167,8 @@ spec:
           name: peer-msp
         - mountPath: /etc/hyperledger/fabric/admin-msp/
           name: peer-admin-msp
-        - mountPath: /etc/hyperledger/fabric
-          name: fabric-config
+        # - mountPath: /etc/hyperledger/fabric
+        #   name: fabric-config
         # chaincodes
         {{- range $i, $chaincode := $.Values.network.chaincodes }}    
         - mountPath: /chaincode/{{ $chaincode.name }}
