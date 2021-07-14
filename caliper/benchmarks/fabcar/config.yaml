@@ -15,7 +15,7 @@ test:
     #       assets: 500
 
     - label: Create a car.
-      txDuration: 100
+      txNumber: 40000
       rateControl:
         type: fixed-rate
         opts:

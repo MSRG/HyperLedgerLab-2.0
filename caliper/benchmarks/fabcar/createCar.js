@@ -16,7 +16,7 @@
 
 const { WorkloadModuleBase } = require('@hyperledger/caliper-core');
 
-const colors = ['blue', 'red', 'green', 'yellow', 'black', 'purple', 'white', 'violet', 'indigo', 'brown'];
+const colors = ['b', 'r', 'g', 'y', 'b', 'p', 'w', 'v', 'i', 'b'];
 const makes = ['Toyota', 'Ford', 'Hyundai', 'Volkswagen', 'Tesla', 'Peugeot', 'Chery', 'Fiat', 'Tata', 'Holden'];
 const models = ['Prius', 'Mustang', 'Tucson', 'Passat', 'S', '205', 'S22L', 'Punto', 'Nano', 'Barina'];
 const owners = ['Tomoko', 'Brad', 'Jin Soo', 'Max', 'Adrianna', 'Michel', 'Aarav', 'Pari', 'Valeria', 'Shotaro'];
@@ -53,6 +53,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
             // invokerIdentity: "client0.org1.example.com",
             // targetPeers: ["peer0.org1", "peer1,org1"],
             readOnly: false,
+            timeout: 60,
         };
 
         await this.sutAdapter.sendRequests(args);
