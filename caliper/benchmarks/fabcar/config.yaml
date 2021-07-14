@@ -20,7 +20,7 @@ test:
         type: fixed-feedback-rate
         opts:
           tps: 1000
-          transactionLoad: 10000
+          transactionLoad: 2000
       workload:
         module: /caliper-workload/createCar.js
 

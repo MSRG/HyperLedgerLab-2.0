@@ -53,7 +53,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
             // invokerIdentity: "client0.org1.example.com",
             // targetPeers: ["peer0.org1", "peer1,org1"],
             readOnly: false,
-            timeout: 60,
+            timeout: 120,
         };
 
         await this.sutAdapter.sendRequests(args);
