@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 5
+    number: 6
   rounds:
     # - label: Query a car.
     #   txNumber: 2000
@@ -15,7 +15,7 @@ test:
     #       assets: 500
 
     - label: Create a car.
-      txDuration: 100
+      txDuration: 120
       rateControl:
         type: fixed-rate
         opts:

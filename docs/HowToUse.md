@@ -157,3 +157,5 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
   <br />
   **Workaround:** Go to OpenStack dashboard to check the error message. Normally, this problem is not related to HyperledgerLab2. <br />
   **Explanation:** One possible cause of this issue is that no enough resources on the OpenStack project are found to create one or more instances.
+
+(WRITE SOME SENTENCES ABOUT HOW TO ACCESS CALIPER LOGS BECAUSE OF ISSUE WITH GIT)
