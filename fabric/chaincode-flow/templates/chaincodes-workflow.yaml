@@ -246,10 +246,8 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      {{- if .Values.use_docker_credentials }}
       imagePullSecrets:
       - name: regcred
-      {{- end }}
       imagePullPolicy: IfNotPresent
       image: {{ $.Values.fabric_images.tools }}
       command: [sh]
