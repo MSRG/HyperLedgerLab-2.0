@@ -246,9 +246,7 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      imagePullSecrets:
-      - name: regcred
-      imagePullPolicy: IfNotPresent
+      imagePullPolicy: never
       image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
