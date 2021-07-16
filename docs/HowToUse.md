@@ -94,15 +94,16 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    - The network configuration can be changed in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml).
    - What can be changed?
 
-     | Configuration              | description                                                                                                                  |
-     | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-     | Fabric container images    | You can define original or custom fabric and caliper container images                                                        |
-     | Fabric Network Config      | You can define number of orgs, peer per orgs and orderers                                                                    |
-     | Fabric Orderer Type        | Available types are "solo" and "etcdraft"                                                                                    |
-     | Batch Timeout & Batch Size | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block          |
-     | Fabric tls enabled         | Wether TLS is enabled in the whole network                                                                                   |
-     | Channel configuration      | You define the channels and chaincode definitions in the respective channel                                                  |
-     | Logging Level              | Logging severity levels are specified using case-insensitive strings chosen from FATAL, PANIC, ERROR, WARNING, INFO or DEBUG |
+     | Configuration              | description                                                                                                                                                                                    |
+     | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+     | Fabric container images    | You can define original or custom fabric and caliper container images                                                                                                                          |
+     | Fabric Network Config      | You can define number of orgs, peer per orgs and orderers                                                                                                                                      |
+     | Fabric Orderer Type        | Available types are "solo" and "etcdraft"                                                                                                                                                      |
+     | Batch Timeout & Batch Size | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block                                                                            |
+     | Fabric tls enabled         | Wether TLS is enabled in the whole network                                                                                                                                                     |
+     | Channel configuration      | You define the channels and chaincode definitions in the respective channel                                                                                                                    |
+     | Logging Level              | Logging severity levels are specified using case-insensitive strings chosen from FATAL, PANIC, ERROR, WARNING, INFO or DEBUG                                                                   |
+     | use_docker_credentials     | If true then Kubernetes will pull the images from a private docker account. Please refer to the first point of **Common Errors** section to create the docker credential secret in Kubernetes. |
 
    - Run command: `./scripts/network_run.sh`
    - What will happen ?
@@ -148,6 +149,18 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      - Run command: `./scripts/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
 
 ## **Common Errors**
+
+1. **Issue:** ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading: https://www.docker.com/increase-rate-limit
+
+**Explanation:** Docker introduced a pull rate limit. For anonymous usage, the rate limit is fixed to 100 container image requests per six hours, and for free Docker accounts 200 container image requests per six hours. For paid docker account there is however no limit.
+
+**Workaround** To mitigate the issue, you can login into you free or paid docker account. To do so you need to create a Kubernetes secret based on existing Docker credentials. A Kubernetes cluster uses the Secret of kubernetes.io/dockerconfigjson type to authenticate with a container registry to pull a private image. Please enter this command
+
+```
+kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v2/ \ --docker-username=<username> --docker-password=<docker-password> \ --docker-email=<docker-email>
+```
+
+Then in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml), you should set `use_docker_credentials` to `true`.
 
 - **Issue:** Using kubectl you get "The connection to the server 172.24.35.65:6443 was refused - did you specify the right host or port?" <br />
   **Workaround:** from [./terraform](../terraform), run the command `ansible-playbook -i hosts ../playbook.yaml` <br />
