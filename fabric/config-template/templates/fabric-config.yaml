@@ -518,7 +518,7 @@ chaincode:
     # Enables/disables force pulling of the base docker images (listed below)
     # during user chaincode instantiation.
     # Useful when using moving image tags (such as :latest)
-    pull: true
+    pull: false
 
     golang:
         # golang will never need more than baseos
