@@ -42,4 +42,4 @@ fabric_peer_loglevel: "INFO"
 fabric_orderer_loglevel: "INFO"
 
 # use docker credentials
-use_docker_credentials: false
+use_docker_credentials: true
