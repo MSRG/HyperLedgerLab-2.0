@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 6
+    number: 16
   rounds:
     # - label: Query a car.
     #   txNumber: 2000
@@ -17,10 +17,10 @@ test:
     - label: Create a car.
       txDuration: 60
       rateControl:
-        type: fixed-rate
+        type: fixed-feedback-rate
         opts:
           tps: 1000
-          # transactionLoad: 5000
+          transactionLoad: 2000
       workload:
         module: /caliper-workload/createCar.js
 
