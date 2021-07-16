@@ -26,13 +26,13 @@ spec:
       - name: prepull 
         image: docker
         command: ["docker", "pull", {{ .Values.fabric_images.ccenv }} ]
-        volumeMounts:
-        - name: docker
-          mountPath: /var/run
-      volumes:
-      - name: docker
-        hostPath:
-          path: /var/run
+      #   volumeMounts:
+      #   - name: docker
+      #     mountPath: /var/run
+      # volumes:
+      # - name: docker
+      #   hostPath:
+      #     path: /var/run
       # containers:
       # - name: pause
       #   image: gcr.io/google_containers/pause
