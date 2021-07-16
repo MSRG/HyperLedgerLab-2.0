@@ -150,25 +150,23 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
 ## **Common Errors**
 
-1. **Issue:** ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading: https://www.docker.com/increase-rate-limit
+1. **Issue:** ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading: https://www.docker.com/increase-rate-limit <br />
+   **Explanation:** Docker introduced a pull rate limit. For anonymous usage, the rate limit is fixed to 100 container image requests per six hours, and for free Docker accounts 200 container image requests per six hours. For paid docker account there is however no limit. <br />
+   **Workaround** To mitigate the issue, you can login into you free or paid docker account. To do so you need to create a Kubernetes secret based on existing Docker credentials. A Kubernetes cluster uses the Secret of kubernetes.io/dockerconfigjson type to authenticate with a container registry to pull a private image. Please enter this command
 
-**Explanation:** Docker introduced a pull rate limit. For anonymous usage, the rate limit is fixed to 100 container image requests per six hours, and for free Docker accounts 200 container image requests per six hours. For paid docker account there is however no limit.
+   ```
+   kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v2/ \ --docker-username=<username> --docker-password=<docker-password> \ --docker-email=<docker-email>
+   ```
 
-**Workaround** To mitigate the issue, you can login into you free or paid docker account. To do so you need to create a Kubernetes secret based on existing Docker credentials. A Kubernetes cluster uses the Secret of kubernetes.io/dockerconfigjson type to authenticate with a container registry to pull a private image. Please enter this command
+   Then in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml), you should set `use_docker_credentials` to `true`.
 
-```
-kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v2/ \ --docker-username=<username> --docker-password=<docker-password> \ --docker-email=<docker-email>
-```
+2. **Issue:** Using kubectl you get "The connection to the server 172.24.35.65:6443 was refused - did you specify the right host or port?" <br />
+   **Explanation:** This error indicates that kubectl is not configured to point to the installed Kubernetes cluster. The ansible playbook mentioned in the workaround will solve the problem. <br />
+   **Workaround:** from [./terraform](../terraform), run the command `ansible-playbook -i hosts ../playbook.yaml`
 
-Then in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml), you should set `use_docker_credentials` to `true`.
-
-- **Issue:** Using kubectl you get "The connection to the server 172.24.35.65:6443 was refused - did you specify the right host or port?" <br />
-  **Workaround:** from [./terraform](../terraform), run the command `ansible-playbook -i hosts ../playbook.yaml` <br />
-  **Explanation:** This error indicates that kubectl is not configured to point to the installed Kubernetes cluster. The ansible playbook mentioned in the workaround will solve the problem.
-
-- **Issue:** Error: Error waiting for instance (23bde629-afb5-4c09-a6bc-8ad99aee2d6e) to become ready: unexpected state 'ERROR', wanted target 'ACTIVE'. last error: %!s(<nil>)
-  <br />
-  **Workaround:** Go to OpenStack dashboard to check the error message. Normally, this problem is not related to HyperledgerLab2. <br />
-  **Explanation:** One possible cause of this issue is that no enough resources on the OpenStack project are found to create one or more instances.
+3. **Issue:** Error: Error waiting for instance (23bde629-afb5-4c09-a6bc-8ad99aee2d6e) to become ready: unexpected state 'ERROR', wanted target 'ACTIVE'. last error: %!s(<nil>)
+   <br />
+   **Explanation:** One possible cause of this issue is that no enough resources on the OpenStack project are found to create one or more instances.<br />
+   **Workaround:** Go to OpenStack dashboard to check the error message. Normally, this problem is not related to HyperledgerLab2.
 
 (WRITE SOME SENTENCES ABOUT HOW TO ACCESS CALIPER LOGS BECAUSE OF ISSUE WITH GIT)
