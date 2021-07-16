@@ -24,8 +24,8 @@ spec:
 
       containers:
       - name: prepull 
-        image: docker
-        command: ["docker", "pull", {{ .Values.fabric_images.ccenv }} ]
+        image: {{ .Values.fabric_images.ccenv }}
+        # command: ["docker", "pull", {{ .Values.fabric_images.ccenv }} ]
       #   volumeMounts:
       #   - name: docker
       #     mountPath: /var/run
