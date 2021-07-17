@@ -246,7 +246,6 @@ spec:
     retryStrategy:
       limit: {{ $.Values.retryCount }}
     script:
-      imagePullPolicy: Never
       image: {{ $.Values.fabric_images.tools }}
       command: [sh]
       source: |
