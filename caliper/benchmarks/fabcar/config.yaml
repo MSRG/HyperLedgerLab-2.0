@@ -19,7 +19,7 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 500
+          tps: 1100
           # transactionLoad: 2000
       workload:
         module: /caliper-workload/createCar.js
