@@ -85,7 +85,6 @@ peers:
     url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-peer--org{{$e}}--peer{{.}}:7051
     grpcOptions:
       ssl-target-name-override: peer{{.}}.org{{$e}}
-      # hostnameOverride: peer0.org1
       grpc.keepalive_time_ms: 60000
     {{ if $.Values.fabric_tls_enabled }}
     tlsCACerts:

@@ -24,41 +24,6 @@ test:
       workload:
         module: /caliper-workload/createCar.js
 
-    - label: Create a car.
-      txDuration: 80
-      rateControl:
-        type: fixed-rate
-        opts:
-          tps: 800
-      workload:
-        module: /caliper-workload/createCar.js
-
-    - label: Create a car.
-      txDuration: 80
-      rateControl:
-        type: fixed-rate
-        opts:
-          tps: 1100
-      workload:
-        module: /caliper-workload/createCar.js
-
-    - label: Create a car.
-      txDuration: 80
-      rateControl:
-        type: fixed-rate
-        opts:
-          tps: 1400
-      workload:
-        module: /caliper-workload/createCar.js
-
-    - label: Create a car.
-      txDuration: 80
-      rateControl:
-        type: fixed-rate
-        opts:
-          tps: 1700
-      workload:
-        module: /caliper-workload/createCar.js
     # - label: Change car owner.
     #   txDuration: 100
     #   rateControl:
