@@ -230,7 +230,7 @@ spec:
         
         - name: CORE_LEDGER_STATE_STATEDATABASE
           value: {{ $.Values.stateDatabase }} 
-        {{- if eq .Values.stateDatabase "CouchDB" }}
+        {{- if eq $.Values.stateDatabase "CouchDB" }}
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS
           value: localhost:5984
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME
@@ -255,7 +255,7 @@ spec:
         {{- end }}
         
       # CouchDB container
-      {{- if eq .Values.stateDatabase "CouchDB" }}
+      {{- if eq $.Values.stateDatabase "CouchDB" }}
       - name: couchdb
         image: {{ $.Values.fabric_images.couchdb }}
 
