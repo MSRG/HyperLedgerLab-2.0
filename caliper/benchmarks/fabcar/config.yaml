@@ -3,7 +3,7 @@ test:
     number: 16
   rounds:
     - label: Create a car .
-      txNumber: 10000
+      txNumber: 20000
       rateControl:
         type: fixed-rate
         opts:
