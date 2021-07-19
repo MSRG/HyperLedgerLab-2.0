@@ -16,6 +16,8 @@ fabric_peer_loglevel: {{ .Values.fabric_peer_loglevel }}
 fabric_orderer_loglevel: {{ .Values.fabric_orderer_loglevel }}
 use_docker_credentials: {{ .Values.use_docker_credentials}}
 
+stateDatabase: {{ .Values.stateDatabase}}
+
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
   genesisProfile: OrdererGenesis

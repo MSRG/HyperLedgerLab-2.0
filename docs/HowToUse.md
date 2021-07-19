@@ -99,6 +99,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
      | Fabric container images    | You can define original or custom fabric and caliper container images                                                                                                                          |
      | Fabric Network Config      | You can define number of orgs, peer per orgs and orderers                                                                                                                                      |
      | Fabric Orderer Type        | Available types are "solo" and "etcdraft"                                                                                                                                                      |
+     | State Database             | Otions are "goleveldb", "CouchDB". goleveldb - default state database stored in goleveldb. CouchDB - store state database in CouchDB                                                           |
      | Batch Timeout & Batch Size | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block                                                                            |
      | Fabric tls enabled         | Wether TLS is enabled in the whole network                                                                                                                                                     |
      | Channel configuration      | You define the channels and chaincode definitions in the respective channel                                                                                                                    |
@@ -144,11 +145,15 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
      - **Estimated execution time:** It depends of the actual workload: how many workers, rounds, transactions etc. Nevertheless, the approximate time until the start of the test rounds is 180 seconds.
      - Caliper logs and the report generated are pushed to the git repository under the respective timestamped folder.
+     - To log in to the Caliper Manager to view the Caliper report or to one Caliper Worker to investigate a failed transaction:
+       1. `kubectl get po`
+       2. Copy the pod name of the Caliper Manager or one of the Caliper Workers
+       3. `Kubectl logs -f <caliper_pod_name>`
 
    - To delete Hyperledger caliper:
      - Run command: `./scripts/caliper_delete.sh` to delete all Kubernetes components used to run caliper.
 
-## **Common Errors**
+## **Troubleshooting**
 
 1. **Issue:** ErrImagePull: rpc error: code = Unknown desc = Error response from daemon: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading: https://www.docker.com/increase-rate-limit <br />
    **Explanation:** Docker introduced a pull rate limit. For anonymous usage, the rate limit is fixed to 100 container image requests per six hours, and for free Docker accounts 200 container image requests per six hours. For paid docker account there is however no limit. <br />
@@ -169,4 +174,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    **Explanation:** One possible cause of this issue is that no enough resources on the OpenStack project are found to create one or more instances.<br />
    **Workaround:** Go to OpenStack dashboard to check the error message. Normally, this problem is not related to HyperledgerLab2.
 
-(WRITE SOME SENTENCES ABOUT HOW TO ACCESS CALIPER LOGS BECAUSE OF ISSUE WITH GIT)
+4. **Issue:** Error: Unable to create openstack_compute_keypair_v2 kubernetes-hll: Expected HTTP response code [200 201] when accessing [POST http://172.24.18.142:8774/v2.1/13291ac9bdb64f44ab84a01d319dd9fb/os-keypairs], but got 409 instead
+   │ {"conflictingRequest": {"message": "Key pair 'kubernetes-hll' already exists.", "code": 409}} <br />
+   **Explanation:** You are trying the create a new Kubernetes cluster in the same Openstack project using the same cluster name.<br />
+   **Workaround:** In [./terraform/cluster.tfvars](../terraform/cluster.tfvars), enter a different cluster name than the cluster running in your Openstack project.

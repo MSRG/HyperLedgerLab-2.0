@@ -17,6 +17,9 @@ fabric_orderer_domain: orgorderer1
 # Fabric Orderer Type: Available types are "solo" and "etcdraft"
 fabric_orderer_type: etcdraft
 
+# stateDatabase - options are "goleveldb", "CouchDB"
+stateDatabase: goleveldb
+
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "5s"
 # Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
