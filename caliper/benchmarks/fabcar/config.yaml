@@ -2,17 +2,25 @@ test:
   workers:
     number: 16
   rounds:
-    # - label: Query a car.
-    #   txNumber: 2000
-    #   rateControl:
-    #       type: linear-rate
-    #       opts:
-    #         startingTps: 1000
-    #         finishingTps: 4000
-    #   workload:
-    #     module: /caliper-workload/queryCar.js
-    #     arguments:
-    #       assets: 500
+    - label: Create a car .
+      txDuration: 80
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 500
+          # transactionLoad: 2000
+      workload:
+        module: /caliper-workload/createCar.js
+
+    - label: Create a car .
+      txDuration: 80
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 800
+          # transactionLoad: 2000
+      workload:
+        module: /caliper-workload/createCar.js
 
     - label: Create a car .
       txDuration: 80
@@ -24,25 +32,12 @@ test:
       workload:
         module: /caliper-workload/createCar.js
 
-    # - label: Change car owner.
-    #   txDuration: 100
-    #   rateControl:
-    #     type: fixed-rate
-    #     opts:
-    #       tps: 1500
-    #   workload:
-    #     module: /caliper-workload/changeCarOwner.js
-    #     arguments:
-    #       assets: 500
-
-    # - label: Query a car.
-    #   txNumber: 2000
-    #   rateControl:
-    #       type: linear-rate
-    #       opts:
-    #         startingTps: 1000
-    #         finishingTps: 4000
-    #   workload:
-    #     module: /caliper-workload/queryCar.js
-    #     arguments:
-    #       assets: 500
+    - label: Create a car .
+      txDuration: 80
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 1300
+          # transactionLoad: 2000
+      workload:
+        module: /caliper-workload/createCar.js
