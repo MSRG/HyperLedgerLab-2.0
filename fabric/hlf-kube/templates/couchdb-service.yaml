@@ -1,4 +1,4 @@
-{{- if eq .Values.stateDatabase CouchDB }}
+{{- if eq .Values.stateDatabase "CouchDB" }}
 {{- range $i, $org := .Values.PeerOrgs }}
 {{- range $peerIndex := until ($org.Template.Count | int) }}
 {{- $peer := (printf "peer%s" ($peerIndex | toString)) }}
