@@ -10,7 +10,7 @@ info:
   Size: {{.Values.fabric_num_orgs}} Orgs with {{.Values.fabric_peers_per_org}} Peer
   Orderer: {{.Values.fabric_orderer_type}}
   Distribution: Distributed Host
-  StateDB: CouchDB
+  StateDB: {{.Values.stateDatabase}} 
 
 clients:
   {{- $root := . -}}
@@ -69,7 +69,6 @@ orderers:
     url: {{ternary "grpcs" "grpc" $root.Values.fabric_tls_enabled}}://hlf-orderer--ordorg1--orderer{{.}}:7050
     grpcOptions:
       ssl-target-name-override: orderer{{.}}.{{$root.Values.fabric_orderer_domain}}
-      # hostnameOverride: orderer0.org1
       grpc.keepalive_time_ms: 60000
     {{ if $.Values.fabric_tls_enabled }}
     tlsCACerts:

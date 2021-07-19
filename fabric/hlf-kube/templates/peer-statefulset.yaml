@@ -230,13 +230,15 @@ spec:
         
         - name: CORE_LEDGER_STATE_STATEDATABASE
           value: {{ $.Values.stateDatabase }} 
+        {{- if eq .Values.stateDatabase "CouchDB" }}
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS
           value: localhost:5984
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME
           value: {{ $.Values.couchdb.userName | quote }}
         - name: CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
           value: {{ $.Values.couchdb.password | quote }}
-        
+        {{- end }} 
+
         - name: HFC_LOGGING
           value: '{"info":"console"}'
         - name: GRPC_VERBOSITY
@@ -253,6 +255,7 @@ spec:
         {{- end }}
         
       # CouchDB container
+      {{- if eq .Values.stateDatabase "CouchDB" }}
       - name: couchdb
         image: {{ $.Values.fabric_images.couchdb }}
 
@@ -265,6 +268,8 @@ spec:
           value: {{ $.Values.couchdb.userName | quote }}
         - name: COUCHDB_PASSWORD
           value: {{ $.Values.couchdb.password | quote }}
+      {{- end }} 
+
 ---
 {{- end }} {{- /* Peers */ -}}
 {{- end }} {{- /* Orgs */ -}}
