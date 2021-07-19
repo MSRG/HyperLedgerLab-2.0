@@ -7,7 +7,17 @@ test:
       rateControl:
         type: fixed-rate
         opts:
-          tps: 1400
+          tps: 500
+          # transactionLoad: 2000
+      workload:
+        module: /caliper-workload/createCar.js
+
+    - label: Create a car .
+      txDuration: 80
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 800
           # transactionLoad: 2000
       workload:
         module: /caliper-workload/createCar.js
