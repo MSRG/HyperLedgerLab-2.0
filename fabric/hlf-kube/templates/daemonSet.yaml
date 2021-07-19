@@ -25,6 +25,9 @@ spec:
       containers:
       - name: prepull 
         image: {{ .Values.fabric_images.ccenv }}
+      - name: pause
+        image: gcr.io/google_containers/pause
+
         # command: ["docker", "pull", {{ .Values.fabric_images.ccenv }} ]
       #   volumeMounts:
       #   - name: docker
