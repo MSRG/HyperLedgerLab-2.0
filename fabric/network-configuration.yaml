@@ -18,7 +18,7 @@ fabric_orderer_domain: orgorderer1
 fabric_orderer_type: etcdraft
 
 # stateDatabase - options are "goleveldb", "CouchDB"
-stateDatabase: goleveldb
+stateDatabase: CouchDB
 
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "3s"
