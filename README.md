@@ -16,6 +16,7 @@ For a quick setup of this software, please see: [HowToUse](docs/HowToUse.md).
 ## Supported Versions
 
 - Kubernetes v1.21.1
+- Docker 20.10.7
 - Hyperledger Fabric: v2.x
 - Hyerledger Caliper: v0.4.2
 - Operating system: Software has been developed on Ubuntu 20.04 LTS

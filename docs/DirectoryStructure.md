@@ -27,4 +27,4 @@ The project consists of 6 main folders:
 
 5.  **[`docs/`](../docs)**: It contains the documentation for this project. These documentation files are linked to README.md in the main project folder.
 
-6.  **[`Kubespray/`](../kubespray)**: An external module [kubespray](https://github.com/kubernetes-sigs/kubespray) added as a git submodule. Kubespray is used primarily to install a Kubernetes cluster on Openstack infrastructure.
+6.  **[`Kubespray/`](../kubespray)**: An external module [kubespray](https://github.com/kubernetes-sigs/kubespray) added as a git submodule. Kubespray is used primarily to install a Kubernetes cluster on the Openstack infrastructure.
