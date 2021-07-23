@@ -134,7 +134,7 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
 
    - Run Hyperledger Caliper
 
-     - Run command: `./scripts/caliper_run.sh <chaincode_folder> ` e.g `./scripts/caliper_run.sh asset-transfer-basic`
+     - Run command: `./scripts/caliper_run.sh <chaincode_folder> ` e.g `./scripts/caliper_run.sh fabcar`
      - Workflow:
 
        - Runs mosquitto: a lightweight open source message broker that Implements MQTT protocol to carry out messaging between caliper manager and worker(s).

@@ -14,9 +14,16 @@ The project consists of 6 main folders:
     - [`chaincode/`](../fabric/chaincode) : contains different defined chaincodes
     - [`channel-flow/`](../fabric/channel-flow): helm chart to create channels, join peers to channels and update channels for anchor peers.
     - [`chaincode-flow/`](../fabric/chaincode-flow): helm chart to install, instantiate, upgrade and invoke chaincodes
-    - Network configuration subfolders like [`raft-tls/`](../fabric/raft-tls): contains configuration for a specific network configuration to override the by default configuration values in the main helm chart: hlf-kube.
+    - [`config-template/`](../fabric/config-template): helm chart used to generate config files taking as input the configuration in [`network-configuration.yaml`](../fabric/network-configuration.yaml)
+    - [`argo/`](../fabric/argo) contains a Kubernetes workload resource to install argo controller on Kubernetes.
 
 4.  **[`caliper/`](../caliper)**: This folder contains all necessary configuration files to run the benchmarking tool: Hyperledger Caliper.
+
+    This folder contains the following subdirectories:
+
+    - [`benchmarks/`](../caliper/benchmarks): Contains folders for different chaincodes. Each chaincode folder contains the rounds definition in config.yaml file and the different workloads.
+    - [`config-template/`](../caliper/config-template): helm chart used to generate config files for caliper as well as the deployment definitions for the Caliper Manager and Caliper Worker(s) taking as input the configuration in [`network-configuration.yaml`](../fabric/network-configuration.yaml).
+    - [`mosquitto/`](../caliper/mosquitto): contains the Kubernetes workload resources to set up mosquitto as the MQTT broker service.
 
 5.  **[`docs/`](../docs)**: It contains the documentation for this project. These documentation files are linked to README.md in the main project folder.
 
