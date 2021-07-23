@@ -153,8 +153,8 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
     Endorsement:
-      Type: Signature
-      Rule: "OutOf(2, 'Org1.member', 'Org2.member', 'Org3.member')"
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
 
   # Capabilities describes the application level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
