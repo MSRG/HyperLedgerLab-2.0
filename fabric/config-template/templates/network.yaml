@@ -44,6 +44,7 @@ network:
       version: {{ $chaincode.version }}
       sequence: {{ $chaincode.sequence }}
       initFunction: '{\"function\":\"{{ $chaincode.initFunctionName }}\",\"Args\":[]}'
+      endorsementPolicy: {{ $chaincode.endorsementPolicy }}
       orgs: [{{- range untilStep 1 (int (add 1 $root.Values.fabric_num_orgs)) 1 -}} Org{{.}}, {{- end }}]
       channels:
         - name: {{ $channel.name }}
