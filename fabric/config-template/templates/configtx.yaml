@@ -150,8 +150,8 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
     LifecycleEndorsement:
-      Type: Signature
-      Rule: "AND('Org1.peer', 'Org2.peer')"
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
     Endorsement:
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
