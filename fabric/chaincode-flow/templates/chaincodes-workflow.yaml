@@ -360,7 +360,7 @@ spec:
           echo $PACKAGE_ID
 
           echo ' hedha howa "{{ $chaincode.endorsementPolicy }}"'
-          peer lifecycle chaincode approveformyorg -o {{ $vars.ordererUrl }} --sequence {{ $sequence }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
+          peer lifecycle chaincode approveformyorg --signature-policy "{{ $chaincode.endorsementPolicy }}" -o {{ $vars.ordererUrl }} --sequence {{ $sequence }} --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --package-id ${PACKAGE_ID} --init-required --tlsRootCertFiles /etc/hyperledger/fabric/tls/ca.crt {{- if $.Values.tlsEnabled }} --tls --cafile /hlf_config/orderer-tlsca/tlscacert.pem {{- end }} 
 
           peer lifecycle chaincode checkcommitreadiness --channelID {{ $channel.name }} --name {{ $chaincode.name }} --version {{ $version }} --sequence {{ $sequence }} --init-required --output json >&log.txt
           cat log.txt
