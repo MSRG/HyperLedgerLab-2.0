@@ -37,7 +37,7 @@ channels:                   # List of channel objects
         language: golang
         version: v1
         initFunctionName: initLedger
-        endorsementPolicy: "AND('Org1.member', 'Org2.member', 'Org3.member')"
+        endorsementPolicy: AND('Org1.member', 'Org2.member', 'Org3.member')
         sequence: 1
 
 # Logging Level
