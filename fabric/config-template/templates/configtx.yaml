@@ -288,8 +288,10 @@ Channel: &ChannelDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
     Endorsement:
-      Type:  {{ $chaincode.Endorsement.Type }}
-      Rule: {{ $chaincode.Endorsement.Rule }}
+      # Type:  {{ $chaincode.Endorsement.Type }}
+      # Rule: {{ $chaincode.Endorsement.Rule }}
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
 
   # Capabilities describes the channel level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full

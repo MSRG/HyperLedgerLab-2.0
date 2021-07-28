@@ -37,11 +37,10 @@ channels:                   # List of channel objects
         language: golang
         version: v1
         initFunctionName: initLedger
+        sequence: 1
         Endorsement:
           Type: Signature
           Rule: OR('Org1.member', 'Org2.member')
-        endorsementPolicy: AND('Org1.member', 'Org2.member')
-        sequence: 1
 
 # Logging Level
 fabric_ca_loglevel: "INFO"
