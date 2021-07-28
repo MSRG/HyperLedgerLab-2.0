@@ -38,9 +38,10 @@ channels:                   # List of channel objects
         version: v1
         initFunctionName: initLedger
         sequence: 1
-        Endorsement:
-          Type: Signature
-          Rule: OR('Org1.member', 'Org2.member')
+
+Endorsement:
+  Type: Signature
+  Rule: OR('Org1.member', 'Org2.member')
 
 # Logging Level
 fabric_ca_loglevel: "INFO"
