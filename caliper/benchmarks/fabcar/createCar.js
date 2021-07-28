@@ -50,7 +50,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
             contractId: 'fabcar',
             contractFunction: 'createCar',
             contractArguments: [carNumber, carMake, carModel, carColor, carOwner],
-            targetOrganizations: ["Org1", "Org2"],
+            targetOrganizations: ["Org1MSP", "Org2MSP"],
             readOnly: false,
             timeout: 120,
         };
