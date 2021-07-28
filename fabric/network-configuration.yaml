@@ -37,6 +37,9 @@ channels:                   # List of channel objects
         language: golang
         version: v1
         initFunctionName: initLedger
+        Endorsement:
+          Type: Signature
+          Rule: OR('Org1.member', 'Org2.member')
         endorsementPolicy: AND('Org1.member', 'Org2.member')
         sequence: 1
 
