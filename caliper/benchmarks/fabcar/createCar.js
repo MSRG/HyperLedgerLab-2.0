@@ -50,7 +50,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
             contractId: 'fabcar',
             contractFunction: 'createCar',
             contractArguments: [carNumber, carMake, carModel, carColor, carOwner],
-            // targetPeers: ["peer0.org1", "peer0.org2"],
+            targetPeers: ["peer0.org1", "peer0.org2", "peer1.org1", "peer1.org2"],
             readOnly: false,
             timeout: 120,
         };
