@@ -153,10 +153,8 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
     Endorsement:
-      # Type: Signature
-      # Rule: AND('Org1.member', 'Org2.member')
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
+      Type:  {{ $chaincode.Endorsement.Type }}
+      Rule: {{ $chaincode.Endorsement.Rule }}
 
   # Capabilities describes the application level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
@@ -287,11 +285,6 @@ Channel: &ChannelDefaults
     Admins:
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
-    Endorsement:
-      # Type:  {{ $chaincode.Endorsement.Type }}
-      # Rule: {{ $chaincode.Endorsement.Rule }}
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
 
   # Capabilities describes the channel level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
