@@ -153,7 +153,7 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
     Endorsement:
-      Type: signature
+      Type: Signature
       Rule: AND('Org1.member', 'Org2.member')
 
   # Capabilities describes the application level capabilities, see the
