@@ -153,8 +153,10 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Endorsement"
     Endorsement:
-      Type:  {{ .Values.Endorsement.Type }}
-      Rule: {{ .Values.Endorsement.Rule }}
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+      # Type:  {{ .Values.Endorsement.Type }}
+      # Rule: {{ .Values.Endorsement.Rule }}
 
   # Capabilities describes the application level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
