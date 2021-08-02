@@ -42,7 +42,9 @@ channels:                   # List of channel objects
 Endorsement:
   Type: Signature
   Rule: OR('Org1.member', 'Org2.member')
-
+  # Type: ImplicitMeta
+  # Rule: "MAJORITY Endorsement"
+      
 # Logging Level
 fabric_ca_loglevel: "INFO"
 fabric_peer_loglevel: "INFO"
