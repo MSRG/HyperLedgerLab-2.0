@@ -149,13 +149,13 @@ Application: &ApplicationDefaults
       Type: ImplicitMeta
       Rule: "MAJORITY Admins"
     LifecycleEndorsement:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
+      # Type: ImplicitMeta
+      # Rule: "MAJORITY Endorsement"
+      Type:  {{ .Values.Endorsement.Type }}
+      Rule: {{ .Values.Endorsement.Rule }}
     Endorsement:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
-      # Type:  {{ .Values.Endorsement.Type }}
-      # Rule: {{ .Values.Endorsement.Rule }}
+      Type:  {{ .Values.Endorsement.Type }}
+      Rule: {{ .Values.Endorsement.Rule }}
 
   # Capabilities describes the application level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
