@@ -39,9 +39,9 @@ channels:                   # List of channel objects
         initFunctionName: initLedger
         sequence: 1
 
-Endorsement:
-  Type: "Signature"
-  Rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
+endorsement:
+  type: "Signature"
+  rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
   # Type: ImplicitMeta
   # Rule: "MAJORITY Endorsement"
       
