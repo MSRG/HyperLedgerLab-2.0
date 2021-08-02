@@ -28,8 +28,10 @@ fabric_batchsize: ["3000", "98 MB", "20 MB"]
 fabric_tls_enabled: false 
 
 endorsement:
-  type: "Signature"
+  typ: "Signature"
   rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
+  # Type: ImplicitMeta
+  # Rule: "MAJORITY Endorsement"
 
 # Channel configuration
 channels:                   # List of channel objects

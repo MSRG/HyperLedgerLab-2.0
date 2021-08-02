@@ -19,7 +19,7 @@ use_docker_credentials: {{ .Values.use_docker_credentials}}
 stateDatabase: {{ .Values.stateDatabase}}
 
 endorsement:
-  type: '{{ .Values.endorsement.type }}'
+  type: '{{ .Values.endorsement.typ }}'
   rule: '{{ .Values.endorsement.rule }}'
 
 network:
