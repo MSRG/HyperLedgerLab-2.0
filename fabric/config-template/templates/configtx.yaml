@@ -57,7 +57,6 @@ Organizations:
       Endorsement:
         Type: Signature
         Rule: "OR('{{ $OrgMSP }}.member')"
-        # Rule: "OR('{{ $OrgMSP }}.peer','{{ $OrgMSP }}.admin')"
 
     AnchorPeers:
       # AnchorPeers defines the location of peers which can be used
