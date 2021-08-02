@@ -27,12 +27,11 @@ fabric_batchsize: ["3000", "98 MB", "20 MB"]
 # Enable tls globally in the network
 fabric_tls_enabled: false 
 
-endorsement:
-  typ: "Signature"
-  rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
-  # Type: ImplicitMeta
-  # Rule: "MAJORITY Endorsement"
-
+endorsement_type: "Signature"
+endorsement_rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
+# Type: ImplicitMeta
+# Rule: "MAJORITY Endorsement"
+  
 # Channel configuration
 channels:                   # List of channel objects
   - name: "mychannel"
