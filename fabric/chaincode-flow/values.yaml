@@ -33,3 +33,4 @@ chaincode:
   version: "1.0"
   sequence: 1
   language: node
+
