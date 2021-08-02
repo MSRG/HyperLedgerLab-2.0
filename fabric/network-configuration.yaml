@@ -41,7 +41,7 @@ channels:                   # List of channel objects
 
 Endorsement:
   Type: Signature
-  Rule: "OutOf(1, 'Org1.member', 'Org2.member', 'Org3.member‘)"
+  Rule: "NOutOf(1, 'Org1.member', 'Org2.member', 'Org3.member')"
   # Type: ImplicitMeta
   # Rule: "MAJORITY Endorsement"
       
