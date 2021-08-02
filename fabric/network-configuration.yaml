@@ -41,7 +41,7 @@ channels:                   # List of channel objects
 
 Endorsement:
   Type: Signature
-  Rule: OR('Org1.member', 'Org2.member')
+  Rule: AND('Org1.member', 'Org2.member')
   # Type: ImplicitMeta
   # Rule: "MAJORITY Endorsement"
       
