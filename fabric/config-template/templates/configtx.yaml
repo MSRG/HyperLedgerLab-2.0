@@ -150,10 +150,10 @@ Application: &ApplicationDefaults
       Rule: "MAJORITY Admins"
     LifecycleEndorsement:
       Type: {{ .Values.endorsement.type }}
-      Rule: {{ .Values.endorsement.rule }}
+      Rule: "{{ .Values.endorsement.rule }}"
     Endorsement:
       Type: {{ .Values.endorsement.type }}
-      Rule: {{ .Values.endorsement.rule }}
+      Rule: "{{ .Values.endorsement.rule }}"
 
   # Capabilities describes the application level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
