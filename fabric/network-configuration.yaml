@@ -40,10 +40,10 @@ channels:                   # List of channel objects
         sequence: 1
 
 Endorsement:
-  # Type: "Signature"
-  # Rule: "OutOf(1, "Org1.member", "Org2.member", "Org3.member")"
-  Type: ImplicitMeta
-  Rule: "MAJORITY Endorsement"
+  Type: Signature
+  Rule: "OutOf(2, "Org1.member", "Org2.member", "Org3.member")"
+  # Type: ImplicitMeta
+  # Rule: "MAJORITY Endorsement"
       
 # Logging Level
 fabric_ca_loglevel: "INFO"
