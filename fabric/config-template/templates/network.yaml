@@ -19,8 +19,8 @@ use_docker_credentials: {{ .Values.use_docker_credentials}}
 stateDatabase: {{ .Values.stateDatabase}}
 
 endorsement:
-  type: '{{ .Values.endorsement_type }}'
-  rule: '{{ .Values.endorsement_rule }}'
+  type: '{{ .Values.endorsement.type }}'
+  rule: '{{ .Values.endorsement.rule }}'
 
 network:
   # used by init script to create genesis block and by peer-org-flow to parse consortiums
