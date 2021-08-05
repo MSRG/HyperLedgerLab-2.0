@@ -84,8 +84,6 @@ spec:
               value: fabric:1.4
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/config.yaml
-            # - name: CALIPER_PROGRESS_REPORTING_INTERVAL
-            #   value: "10000"
             - name: CALIPER_NETWORKCONFIG
               value: /caliper-network/networkConfig.yaml
             - name: CALIPER_FLOW_ONLY_TEST
