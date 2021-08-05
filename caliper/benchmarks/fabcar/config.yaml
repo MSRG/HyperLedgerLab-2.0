@@ -1,6 +1,6 @@
 test:
   workers:
-    number: 16
+    number: 5
   rounds:
     - label: Create a car .
       txDuration: 100
