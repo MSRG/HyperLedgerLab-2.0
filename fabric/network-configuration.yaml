@@ -27,10 +27,10 @@ fabric_batchsize: ["3000", "98 MB", "20 MB"]
 # Enable tls globally in the network
 fabric_tls_enabled: false 
 
-# Endorsement policy 
+# Endorsement policy
 endorsement:
-  type: "Signature"
-  rule: "OutOf(1, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"
+  type: "Signature"         # "Signature" or "ImplicitMeta"
+  rule: "OutOf(1, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"        # e.g "OR('Org1MSP.member', 'Org2MSP.member')"
 
 # Channel configuration
 channels:                   # List of channel objects

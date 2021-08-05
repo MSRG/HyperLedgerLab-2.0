@@ -94,17 +94,18 @@ After completing all the steps in this tutorial, a highly configurable Heyperled
    - The network configuration can be changed in [./fabric/network-configuration.yaml](../fabric/network-configuration.yaml).
    - What can be changed?
 
-     | Configuration              | description                                                                                                                                                                                    |
-     | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-     | Fabric container images    | You can define original or custom fabric and caliper container images                                                                                                                          |
-     | Fabric Network Config      | You can define number of orgs, peer per orgs and orderers                                                                                                                                      |
-     | Fabric Orderer Type        | Available types are "solo" and "etcdraft"                                                                                                                                                      |
-     | State Database             | Otions are "goleveldb", "CouchDB". goleveldb - default state database stored in goleveldb. CouchDB - store state database in CouchDB                                                           |
-     | Batch Timeout & Batch Size | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block                                                                            |
-     | Fabric tls enabled         | Wether TLS is enabled in the whole network                                                                                                                                                     |
-     | Channel configuration      | You define the channels and chaincode definitions in the respective channel                                                                                                                    |
-     | Logging Level              | Logging severity levels are specified using case-insensitive strings chosen from FATAL, PANIC, ERROR, WARNING, INFO or DEBUG                                                                   |
-     | use_docker_credentials     | If true then Kubernetes will pull the images from a private docker account. Please refer to the first point of **Common Errors** section to create the docker credential secret in Kubernetes. |
+     | Configuration                | description                                                                                                                                                                                    |
+     | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+     | `Fabric container images`    | You can define original or custom fabric and caliper container images                                                                                                                          |
+     | `Fabric Network Config`      | You can define number of orgs, peer per orgs and orderers                                                                                                                                      |
+     | `Fabric Orderer Type`        | Available types are "solo" and "etcdraft"                                                                                                                                                      |
+     | `State Database`             | Otions are "goleveldb", "CouchDB". goleveldb - default state database stored in goleveldb. CouchDB - store state database in CouchDB                                                           |
+     | `Batch Timeout & Batch Size` | Batch Timeout: amount of time to wait before creating a batch & Batch Size: number of messages batched into a block                                                                            |
+     | `Fabric tls enabled`         | Wether TLS is enabled in the whole network                                                                                                                                                     |
+     | `Endorsement policy`         | Customize the endorsement policy. Example: "OR('Org1MSP.member', AND('Org2MSP.member', 'Org3MSP.member'))" or "OutOf(2, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"                 |
+     | `Channel configuration`      | You define the channels and chaincode definitions in the respective channel                                                                                                                    |
+     | `Logging Level`              | Logging severity levels are specified using case-insensitive strings chosen from FATAL, PANIC, ERROR, WARNING, INFO or DEBUG                                                                   |
+     | `use_docker_credentials`     | If true then Kubernetes will pull the images from a private docker account. Please refer to the first point of **Common Errors** section to create the docker credential secret in Kubernetes. |
 
    - Run command: `./scripts/network_run.sh`
    - What will happen ?
