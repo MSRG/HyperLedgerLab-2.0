@@ -18,7 +18,7 @@ fabric_orderer_domain: orgorderer1
 fabric_orderer_type: etcdraft
 
 # stateDatabase - options are "goleveldb", "CouchDB"
-stateDatabase: CouchDB
+stateDatabase: goleveldb
 
 # Batch Timeout: The amount of time to wait before creating a batch
 fabric_batch_timeout: "2s"
@@ -30,7 +30,7 @@ fabric_tls_enabled: false
 # Endorsement policy 
 endorsement:
   type: "Signature"
-  rule: "OutOf(2, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"
+  rule: "OutOf(1, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"
 
 # Channel configuration
 channels:                   # List of channel objects
