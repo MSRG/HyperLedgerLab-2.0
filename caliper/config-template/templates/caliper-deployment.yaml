@@ -81,7 +81,7 @@ spec:
           workingDir: /hyperledger/caliper/workspace
           env:
             - name: CALIPER_BIND_SUT
-              value: fabric:1.4
+              value: fabric:2.1
             - name: CALIPER_BENCHCONFIG
               value: /caliper-benchmark/config.yaml
             - name: CALIPER_NETWORKCONFIG
@@ -90,8 +90,8 @@ spec:
               value: "true"
             - name: CALIPER_WORKSPACE
               value: /hyperledger/caliper/workspace
-            - name: CALIPER_BIND_ARGS
-              value: "-g fs-extra"
+            # - name: CALIPER_BIND_ARGS
+            #   value: "-g fs-extra"
             - name: CALIPER_PROJECTCONFIG 
               value: /caliper-config/caliper.yaml
             - name: CXXFLAGS
