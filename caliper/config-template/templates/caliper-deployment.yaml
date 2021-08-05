@@ -91,7 +91,7 @@ spec:
             - name: CALIPER_WORKSPACE
               value: /hyperledger/caliper/workspace
             - name: CALIPER_BIND_ARGS
-              value: "-g fs-extra"
+              value: "-g fs-extra @grpc/grpc-js"
             - name: CALIPER_PROJECTCONFIG 
               value: /caliper-config/caliper.yaml
             - name: CXXFLAGS
