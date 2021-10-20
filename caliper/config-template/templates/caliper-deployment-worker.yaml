@@ -1,0 +1,142 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app: caliper-worker
+  name: caliper-worker
+spec:
+  parallelism: {{.Values.test.workers.number}}
+  completions: {{.Values.test.workers.number}}
+  backoffLimit: 2
+  template:
+    metadata:
+      labels:
+        app: caliper-worker
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      restartPolicy: Never
+      
+      {{- if .Values.use_docker_credentials }}
+      imagePullSecrets:
+        - name: regcred
+      {{- end }}
+
+      containers:
+        - name: caliper-worker
+          image: {{.Values.caliper_image}}
+          command:
+            - caliper
+          args:
+            - launch
+            - worker
+          tty: true
+          workingDir: /hyperledger/caliper/workspace
+          env:
+            - name: CALIPER_BIND_SUT
+              value: fabric:1.4
+            - name: CALIPER_BENCHCONFIG
+              value: /caliper-benchmark/config.yaml
+            - name: CALIPER_NETWORKCONFIG
+              value: /caliper-network/networkConfig.yaml
+            - name: CALIPER_FLOW_ONLY_TEST
+              value: "true"
+            - name: CALIPER_BIND_ARGS
+              value: "-g fs-extra"
+            - name: CALIPER_PROJECTCONFIG 
+              value: /caliper-config/caliper.yaml
+            - name: CXXFLAGS
+              value: "-Wno-cast-function-type"
+            - name: CALIPER_WORKER_REMOTE
+              value: "true"
+            - name: CALIPER_WORKER_COMMUNICATION_METHOD
+              value: "mqtt"
+            - name: CALIPER_WORKER_COMMUNICATION_ADDRESS
+              value: "mqtt://mosquitto.default.svc.cluster.local:1883"
+          volumeMounts:
+            {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+            - mountPath: /etc/hyperledger/fabric/org{{.}}/msp/
+              name: peer-msp{{.}}
+            - mountPath: /etc/hyperledger/fabric/org{{.}}/admin-msp/
+              name: peer-admin-msp{{.}}
+            {{ end }}
+
+            - mountPath: /etc/hyperledger/fabric/ordorg1-tlsca
+              name: ordorg1-tlsca
+
+            - mountPath: /caliper-benchmark
+              name: caliper-benchmark
+            - mountPath: /caliper-network
+              name: caliper-network
+            - mountPath: /caliper-workload
+              name: caliper-workload
+            {{- range $channel := .Values.channels }}
+            {{- range $chaincode := $channel.chaincodes }}
+            - mountPath: /caliper-chaincode/{{ $chaincode.contractID }}
+              name: caliper-chaincode-{{ $chaincode.contractID }}
+            {{ end }}
+            {{- end }}
+            - mountPath: /hyperledger/caliper/workspace/
+              name: caliper-workspace
+            - mountPath: /caliper-config
+              name: caliper-config
+      volumes:
+        - name: caliper-workspace
+          emptyDir: {}
+        - name: caliper-benchmark
+          configMap:
+            name: benchmarks
+        - name: caliper-network
+          configMap:
+            name: network
+        - name: caliper-workload
+          configMap:
+            name: workload
+        - name: caliper-config
+          configMap:
+            name: caliper-config
+        {{- range $channel := .Values.channels }}
+        {{- range $chaincode := $channel.chaincodes }}
+        - name: caliper-chaincode-{{ $chaincode.contractID }}
+          configMap:
+            name: hlf-chaincode--{{ $chaincode.contractID }}
+        {{ end }}
+        {{- end }}
+
+        {{- range untilStep 1 (int (add 1 .Values.fabric_num_orgs)) 1 }}
+        - name: peer-msp{{.}}
+          secret:
+            secretName: hlf-peer--org{{.}}--peer0-msp
+            items:
+              - key: config.yaml
+                path: config.yaml
+              - key: cert.pem
+                path: signcerts/cert.pem
+              - key: key.pem
+                path: keystore/key.pem
+              - key: cacert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
+              - key: tlscacert.pem
+                path: tlscacerts/cert.pem
+
+        - name: peer-admin-msp{{.}}
+          secret:
+            secretName: hlf-peer--org{{.}}--admin-msp
+            items:
+              - key: config.yaml
+                path: config.yaml
+              - key: cert.pem
+                path: signcerts/cert.pem
+              - key: key.pem
+                path: keystore/key.pem
+              - key: cacert.pem
+                path: cacerts/ca.org{{.}}-cert.pem
+              - key: tlscacert.pem
+                path: tlscacerts/cert.pem
+        {{ end }}
+
+        - name: ordorg1-tlsca
+          secret:
+            secretName: hlf-orderer--ordorg1-tlsca

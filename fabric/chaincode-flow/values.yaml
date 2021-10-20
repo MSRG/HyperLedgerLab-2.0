@@ -1,0 +1,36 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# number of times to retry a failed leaf task
+retryCount: 20
+
+logLevel: grpc=debug:info
+
+flow:
+  chaincode:
+    # should we run top level chaincode flows in parallel?
+    parallel: false
+    # fill in this array with chaincode names to limit the chaincode flows only to these ones
+    include: []
+  install:
+    # should we run install step?
+    enabled: true
+    parallel: true
+  approve:
+    # should we run approve step?
+    enabled: true
+    parallel: true
+  commit:
+    # should we run approve step?
+    enabled: true
+    parallel: true
+  invoke:
+    # should we run invoke step?
+    enabled: true
+    parallel: true
+
+chaincode:
+  version: "1.0"
+  sequence: 1
+  language: node
+

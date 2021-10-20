@@ -1,0 +1,6 @@
+project: 
+  access_token: sample
+  url: gitlab.lrz.de/owner/sample.git
+git_user:
+  email: "owner@tum.de"
+  name: "owner"

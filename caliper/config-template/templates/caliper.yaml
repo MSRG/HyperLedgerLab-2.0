@@ -1,0 +1,16 @@
+caliper:
+  fabric:
+    gateway:
+      usegateway: false
+  logging:
+    targets:
+      console:
+        options:
+          level: info  # debug
+      file:
+        enabled: true
+        options:
+          # append mode
+          flags: a
+          # make the file readable/writable by anyone
+          mode: 0666

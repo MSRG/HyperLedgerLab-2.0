@@ -1,0 +1,20 @@
+###############################################
+######### OPENSTACK INFRA HOSTS ################
+###############################################
+
+[controle_node]
+localhost ansible_connection=local
+
+###############################################
+######### PLACEHOLDER K8S HOSTS ################
+###############################################
+
+[kube-master]
+{% for ip in groups['kube-master'] %}
+{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} 
+{% endfor %}
+
+[kube-node]
+{% for ip in groups['kube-node'] %}
+{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} 
+{% endfor %}

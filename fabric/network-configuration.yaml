@@ -1,0 +1,53 @@
+# Custom fabric container images
+fabric_images:
+  ca: hyperledger/fabric-ca:1.5.0
+  peer: hyperledger/fabric-peer:2.2.0
+  tools: hyperledger/fabric-tools:2.2.0
+  orderer: hyperledger/fabric-orderer:2.2.0
+  couchdb: hyperledger/fabric-couchdb:0.4.15
+  ccenv: hyperledger/fabric-ccenv:2.2.0
+caliper_image: hyperledger/caliper:0.4.2
+
+# Fabric Network Config
+fabric_num_orgs: 2
+fabric_peers_per_org: 3
+fabric_num_orderer: 3
+fabric_orderer_domain: orgorderer1
+
+# Fabric Orderer Type: Available types are "solo" and "etcdraft"
+fabric_orderer_type: etcdraft
+
+# stateDatabase - options are "goleveldb", "CouchDB"
+stateDatabase: goleveldb
+
+# Batch Timeout: The amount of time to wait before creating a batch
+fabric_batch_timeout: "2s"
+# Batch Size: Controls the number of messages batched into a block ["Max Message Count", "Absolute Max Bytes", "Preferred Max Bytes"]
+fabric_batchsize: ["3000", "98 MB", "20 MB"]
+# Enable tls globally in the network
+fabric_tls_enabled: false 
+
+# Endorsement policy
+endorsement:
+  type: "Signature"         # "Signature" or "ImplicitMeta"
+  rule: "OutOf(1, 'Org1MSP.member', 'Org2MSP.member', 'Org3MSP.member')"        # e.g "OR('Org1MSP.member', 'Org2MSP.member')"
+
+# Channel configuration
+channels:                   # List of channel objects
+  - name: "mychannel"
+    chaincodes:
+      - id: fabcar
+        contractID: fabcar               # NOTE: This should be unique for chaincodes across channels
+        path: "chaincode/fabcar/go"      # NOTE: Relative path to Directory where chaincode file is located
+        language: golang
+        version: v1
+        initFunctionName: initLedger
+        sequence: 1
+      
+# Logging Level
+fabric_ca_loglevel: "INFO"
+fabric_peer_loglevel: "INFO"
+fabric_orderer_loglevel: "INFO"
+
+# use docker credentials
+use_docker_credentials: false
